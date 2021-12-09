@@ -1,0 +1,48 @@
+
+# Configuration script for SimpleStream Builder
+
+# Define a specific path where build simple streams files.
+# By defualt use path / for expose images.
+# prefix: '/'
+prefix: ''
+
+# Path of the images.json
+images_path: streams/v1
+
+# Normally this field must be with this values for LXC.
+datatype: image-downloads
+
+# Define version of the products.
+format: "products:1.0"
+
+# Define list of products
+products:
+
+  # Macaroni Funtoo minimal
+  - name: macaroni-funtoo-minimal:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo Minimal"
+    directory: macaroni-funtoo-minimal
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://1556118782.rsc.cdn77.org/mottainai/lxd-macaroni-funtoo-minimal"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-minimal"
+
+  # Ubuntu Steam
+  - name: ubuntu-steam:current:amd64:default
+    arch: amd64
+    release: current
+    os: Ubuntu
+    release_title: "Steam"
+    directory: ubuntu-steam
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://1556118782.rsc.cdn77.org/mottainai/lxd-ubuntu-steam"
+    days: 1
+    aliases:
+      - "ubuntu/steam"
+
