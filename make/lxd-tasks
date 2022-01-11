@@ -10,7 +10,6 @@ IMAGES=$(yq r ${simplestreams_dir}/tree-images.yaml 'products' -l)
 for ((i=0;i<$IMAGES;i++))
 do
   product=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].name")
-
   image_dir=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].directory")
   planned=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].directory")
   rt=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].release_title")

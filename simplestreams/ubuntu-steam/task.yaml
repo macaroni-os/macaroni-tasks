@@ -7,13 +7,16 @@ script:
   # temporary: Sleep for LXD
   - sleep 4
   - apt-get update
-  - apt-get upgradea -y
-  - apt-get install -y wget docker.io bridge-utils make curl squashfs-tools rsync gpg debootstrap
+  - mkdir $TMPDIR
+  - apt-get upgrade -y
+  - >-
+    apt-get install -y wget make curl squashfs-tools rsync gpg
+    bridge-utils debootstrap docker.io
   - eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
   - >-
     luet repo update &&
     luet install -y app-emulation/distrobuilder
-    app-emulation/simpletrems-builder
+    app-emulation/simplestreams-builder
     utils/jq utils/yq &&
     luet cleanup
 
@@ -37,16 +40,16 @@ name: "Build LXD  image ubuntu-steam:current:amd64:default"
 environment:
   - "LXD_PRODUCT=ubuntu-steam:current:amd64:default"
   - "LXD_IMAGEDIR=ubuntu-steam"
-  - "SSBUILDER_PREFIX=../"
+  - "SSBUILDER_PREFIX=../lxd-ubuntu-steam"
   - "TMPDIR=/distrobuilder"
   - "CACHEDIR=/cache"
+  - "DEBIAN_FRONTEND=noninteractive"
 namespace: lxd-ubuntu-steam
 tag_namespace: lxd-ubuntu-steam
 artefact_path: images
 timeout: 0
 source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
 directory: simplestreams/
-retry: "1"
-disable_push_on_failure: true
+#retry: "1"
 
 # vim: filetype=yaml
