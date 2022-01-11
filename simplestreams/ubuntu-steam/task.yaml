@@ -50,6 +50,6 @@ artefact_path: images
 timeout: 0
 source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
 directory: simplestreams/
-#retry: "1"
+retry: "1"
 
 # vim: filetype=yaml
