@@ -302,6 +302,9 @@ environment:
     # Force empty XTERM variable to skip apparmon setup
     - key: "XTERM"
       value: ""
+    # Override variable defined in Mottainai task
+    - key: "TMPDIR"
+      value: "/tmp"
 targets:
   lxc:
     create-message: |-
