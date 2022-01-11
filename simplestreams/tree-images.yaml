@@ -33,6 +33,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo minimal Devel is with subsets portage, devel enabled.
+  - name: macaroni-funtoo-minimal-devel:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "Funtoo Minimal Devel"
+    directory: mos-funtoo-minimal-dev
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-mos-funtoo-minimal-dev"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-minimal-devel"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Ubuntu Steam
   - name: ubuntu-steam:current:amd64:default
     arch: amd64
