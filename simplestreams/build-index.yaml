@@ -1,0 +1,55 @@
+# Authors: Daniele Rondina, geaaru@funtoo.org
+#
+# Description: Template of the Mottainai Task for build LXD images.
+
+script:
+  - source /etc/profile
+  # temporary: Sleep for LXD
+  - sleep 4
+  - apt-get update
+  - apt-get upgrade -y
+  - >-
+    apt-get install -y wget make curl squashfs-tools rsync gpg
+  - eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
+  - >-
+    luet repo update &&
+    luet install -y app-emulation/distrobuilder
+    app-emulation/simplestreams-builder
+    dev-util/mottainai-cli
+    utils/jq utils/yq &&
+    luet cleanup
+
+  - source /storage/setup-mcli.sh
+  - export SSBUILDER_APIKEY=${MOTTAINAI_TOKEN}
+  # Build index.json
+  # To fix on simplestreams-builder
+  - eval 'rm -rf images/streams || true'
+  - simplestreams-builder build-index -c tree-images.yaml -t ./images
+  # Build images.josn
+  - simplestreams-builder build-images-file -c tree-images.yaml -t ./images
+  # Force creation of files with rw-rw-rw to permit that volumes in bind are readable
+  # by agent.
+  - chmod a+rwx -R images/
+  - find .
+  - eval 'rm images/build_*.log || true'
+
+image: ubuntu/21.04
+disable_push_on_failure: "true"
+type: lxd
+planned: "@weekly"
+name: "Build LXD Simplestreams index files"
+environment:
+  - "DEBIAN_FRONTEND=noninteractive"
+  - "SSBUILDER_INSECURE_SKIPVERIFY=1"
+
+namespace: lxd-images
+tag_namespace: lxd-images
+artefact_path: images
+storage: mcli
+storage_path: /storage
+timeout: 0
+source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+directory: simplestreams/
+#retry: "1"
+
+# vim: filetype=yaml
