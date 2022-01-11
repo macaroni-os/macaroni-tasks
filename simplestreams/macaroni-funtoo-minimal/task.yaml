@@ -36,6 +36,8 @@ image: ubuntu/21.04
 disable_push_on_failure: "true"
 type: lxd
 
+planned: @weekly
+
 name: "Build LXD  image macaroni-funtoo-minimal:current:amd64:default"
 environment:
   - "LXD_PRODUCT=macaroni-funtoo-minimal:current:amd64:default"

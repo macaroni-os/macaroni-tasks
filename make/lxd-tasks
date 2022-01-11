@@ -11,7 +11,7 @@ for ((i=0;i<$IMAGES;i++))
 do
   product=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].name")
   image_dir=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].directory")
-  planned=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].directory")
+  planned=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].planned")
   rt=$(yq r ${simplestreams_dir}/tree-images.yaml "products[$i].release_title")
 
   opts=""
@@ -22,8 +22,8 @@ do
   fi
 
 
-  if [ -n "{planned}" ] ; then
-    opts="-s Planned=${planned}"
+  if [ -n "${planned}" ] ; then
+    opts="-s planned=${planned}"
   fi
 
   echo "Creating task for image $rt..."
