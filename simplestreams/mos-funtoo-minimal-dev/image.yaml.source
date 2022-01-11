@@ -113,6 +113,7 @@ actions:
       # TODO: fix this in distrobuilder
       luet repo update
 
+      luet i utils/yq
       # Enable subsets portage and devel
       yq w /etc/luet/luet.yaml 'subsets.enabled[0]' 'portage' -i
       yq w /etc/luet/luet.yaml 'subsets.enabled[1]' 'devel' -i
