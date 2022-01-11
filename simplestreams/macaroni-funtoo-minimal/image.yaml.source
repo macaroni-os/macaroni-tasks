@@ -107,6 +107,9 @@ actions:
         cd /usr/bin && ln -s gawk awk
       fi
 
+      # TODO: fix this in distrobuilder
+      luet repo update
+
       # Temporary fix to luet issue
       luet reinstall sys-apps/gentoo-functions -y
 
