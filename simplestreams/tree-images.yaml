@@ -43,7 +43,7 @@ products:
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaroni.funtoo.org/lxd-mos-funtoo-minimal-dev"
-    days: 2
+    days: 1
     aliases:
       - "macaroni/funtoo-minimal-devel"
     # extra attributes not used by simplestreams-builder for Mottainai
