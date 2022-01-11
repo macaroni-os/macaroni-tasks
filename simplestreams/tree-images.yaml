@@ -26,7 +26,7 @@ products:
     directory: macaroni-funtoo-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/public/lxd-macaroni-funtoo-minimal"
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-minimal"
@@ -42,7 +42,7 @@ products:
     directory: ubuntu-steam
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/mottainai/lxd-ubuntu-steam"
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-ubuntu-steam"
     days: 1
     aliases:
       - "ubuntu/steam"
