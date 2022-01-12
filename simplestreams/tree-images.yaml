@@ -49,6 +49,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Builder: Image with compilation stuff and other dev tools.
+  - name: macaroni-funtoo-builder:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "Funtoo Builder"
+    directory: macaroni-funtoo-builder
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-builder"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-builder"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Ubuntu Steam
   - name: ubuntu-steam:current:amd64:default
     arch: amd64
