@@ -81,7 +81,6 @@ packages:
         - sys-libs/readline
         - sys-devel-9.2.0/gcc
         - system/funtoo-triggers
-        - pkglist/funtoo-base
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -93,6 +92,8 @@ packages:
         - macaroni/whip-catalog
         - whip-profiles/macaroni
         - app-admin/whip
+        - pkglist/funtoo-base
+        - pkglist/funtoo-emulation
 
         - virtual/base
         - sys-libs/binutils-libs
