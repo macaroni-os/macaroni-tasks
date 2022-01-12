@@ -79,3 +79,18 @@ products:
     aliases:
       - "ubuntu/steam"
 
+  # Funtoo Stage3: Image with compilation stuff and other dev tools.
+  - name: funtoo-stage3:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Funtoo"
+    release_title: "Funtoo Stage3"
+    directory: funtoo-stage3
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-stage3"
+    days: 2
+    aliases:
+      - "funtoo/stage3"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
