@@ -99,15 +99,15 @@
                   </td>
               </template>
 
-              <template v-slot:cell(name)="data">
+              <template v-slot:cell(iso)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/' + data.item.prefix + '/'+ data.item.Name">{{ data.item.Name }}</a>
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
                 </div>
               </template>
 
-              <template v-slot:cell(sha256)="data">
+              <template v-slot:cell(isosha)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/' + data.item.prefix + '/' + data.item.Sha256">{{ data.item.Sha256 }}</a>
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
                 </div>
               </template>
             </b-table>
@@ -182,8 +182,9 @@ $(document).ready(function(){
       filters: [],
       activeFilter: {},
       columns: [
-        { key: 'Name', label: he.decode('ISO Image'), sortable: false },
-        { key: 'Sha256', label: 'ISO Sha256', sortable: false },
+        { key: 'iso', label: he.decode('ISO Image'), sortable: true },
+        { key: 'size', label: 'Size', sortable: true },
+        { key: 'isosha', label: 'ISO Sha256', sortable: false },
       ],
 
       items: [],
@@ -216,9 +217,10 @@ $(document).ready(function(){
       var url_isos = getPrefixPath() + '/isos.json?ver=' + Date.now();
 
       fetch(url_isos).then(async(resp) => {
-         isos = await resp.json();
-         self.items = isos;
-            }).catch(error => console.error("Unable to load file", error));
+         data = await resp.json();
+         self.items = data.isos;
+      }).catch(error => console.error("Unable to load file", error));
+
     },
     methods: {
 
