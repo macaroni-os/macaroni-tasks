@@ -1,0 +1,37 @@
+#!/bin/bash
+# Description: Script to generate the tasks to build Macaroni ISOs.
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+isospec_dir=$(dirname ${BASH_SOURCE[0]})/../iso
+cdn_dir=$(dirname ${BASH_SOURCE[0]}})/../cdn
+
+ISOS=$(yq r ${isospec_dir}/iso-images.values 'values.isos' -l)
+
+if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+  echo "Missing MOTTAINAI_CLI_PROFILE env variable"
+  exit 1
+fi
+
+for ((i=0;i<$ISOS;i++))
+do
+  name=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].name")
+
+  opts=""
+  echo "Creating task for sync ISO $name..."
+  mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+    -s namespace="iso-${name}" \
+    -o ${cdn_dir}/rsync-iso-${name}.yaml
+
+  if [ -n "${FIRE_TASK}" ] ; then
+    mottainai-cli task create --yaml ${cdn_dir}/rsync-iso-${name}.yaml
+  fi
+
+done
+
+# Create rsync for ISO web portal
+echo "Creating task for sync namespace macaroni-iso..."
+mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+  -s namespace="macaroni-iso" \
+  -o ${cdn_dir}/rsync-macaroni-iso.yaml
+
+# vim: filetype=sh
