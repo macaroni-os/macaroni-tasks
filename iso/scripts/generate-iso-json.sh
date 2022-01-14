@@ -22,7 +22,11 @@ do
   echo "Processing data of ISO ${name}..."
 
   # Download iso-meta.yaml from Mottainai
-  mottainai-cli namespace download "iso-${name}" iso -f '.yaml$' 2>&1 > /dev/null
+  if [ -n "${DEBUG}" ] ; then
+    mottainai-cli namespace download "iso-${name}" iso -f '.yaml$'
+  else
+    mottainai-cli namespace download "iso-${name}" iso -f '.yaml$' 2>&1 > /dev/null
+  fi
 
   if [ -e iso/iso-meta.yaml ] ; then
 
