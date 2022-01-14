@@ -11,5 +11,5 @@ Available commands:
 
 lxd-tasks        Update Mottainai tasks and pipeline for all images
 iso-tasks        Update Mottainai tasks and pipeline for all ISOs
-
+isos2cdn         Create task for sync ISOs namespace to CDN
 ```
