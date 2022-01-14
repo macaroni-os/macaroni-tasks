@@ -7,7 +7,9 @@ script:
 - >-
   wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
   sh /tmp/get_luet_root.sh
-- luet install dev-util/mottainai-cli
+- >-
+  luet install dev-util/mottainai-cli
+  utils/jq utils/yq
 - git clone ${REPO} repo
 - cd repo/iso
 - export HOME=/root && mkdir -p /root/.config/
