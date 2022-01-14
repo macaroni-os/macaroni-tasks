@@ -1,0 +1,19 @@
+values:
+  isos:
+    # Macaroni Funtoo Stable ISO
+    - name: "macaroni-funtoo"
+      specfile: "funtoo.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
+
+    # Macaroni Funtoo Server ISO
+    - name: "macaroni-server"
+      specfile: "funtoo-server.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
+
+    # Macaroni Funtoo Stable Devel ISO
+    - name: "macaroni-funtoo-devel"
+      specfile: "funtoo-gnome-devel.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
