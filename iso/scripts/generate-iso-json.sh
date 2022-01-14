@@ -13,6 +13,8 @@ isotmp_yaml="${isotmp_yaml:-/tmp/isos.yaml}"
 
 touch ${isotmp_yaml}
 
+export MOTTAINAI_CLI_PROFILE
+
 iso=0
 # Creating a YAML file with all ISOs availables
 for ((i=0;i<$ISOS;i++))
