@@ -1,0 +1,41 @@
+#!/bin/bash
+# Description: Script to generate the tasks to build Macaroni ISOs.
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+isospec_dir=$(dirname ${BASH_SOURCE[0]})/../iso
+
+ISOS=$(yq r ${isospec_dir}/iso-images.values 'values.isos' -l)
+
+# 
+for ((i=0;i<$ISOS;i++))
+do
+
+  name=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].name")
+  specfile=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].specfile")
+  repo=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].repo")
+  repo_branch=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].repo_branch")
+  planned=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].planned")
+
+  opts=""
+
+
+  if [ ! -d ${isospec_dir}/${name} ] ; then
+    mkdir -p ${isospec_dir}/${name}
+  fi
+
+
+  if [ -n "${planned}" ] ; then
+    opts="-s planned=${planned}"
+  fi
+
+  echo "Creating task for ISO $name..."
+  mottainai-cli task compile ${isospec_dir}/iso_luet.tmpl ${opts} \
+    -s name=${name} \
+    -s specfile=${specfile} \
+    -s repo=${repo} \
+    -s repo_branch=${repo_branch} \
+    -o ${isospec_dir}/${name}/task.yaml
+
+done
+
+# vim: filetype=sh
