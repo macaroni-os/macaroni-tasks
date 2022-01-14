@@ -34,4 +34,8 @@ mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
   -s namespace="macaroni-iso" \
   -o ${cdn_dir}/rsync-macaroni-iso.yaml
 
+if [ -n "${FIRE_TASK}" ] ; then
+  mottainai-cli task create --yaml ${cdn_dir}/rsync-macaroni-iso.yaml
+fi
+
 # vim: filetype=sh
