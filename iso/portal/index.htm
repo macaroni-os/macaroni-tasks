@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="./css/bootstrap-vue.css"/>
+
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+
+
+    <script src="./js/polyfill.min.js"></script>
+    <script src="./js/bootstrap-vue.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="./js/bootstrap-vue-icons.min.js"></script>
+
+    <script src="./js/he.js"></script>
+  </head>
+  <body>
+
+      <div id="activities"></div>
+
+    <script type="text/x-template" id="grid-template">
+
+        <b-container fluid>
+
+          <b-row align-h="center">
+               <b-navbar toggleable="lg"   variant="faded" type="light" style="width: 100%">
+                  <b-navbar-brand href="#">
+                    <img src="./images/logo.png" style="width: 180px;" class="d-inline-block align-top" alt="MacaroniOS"/>
+                  </b-navbar-brand>
+                  <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+                  <b-collapse id="nav-collapse" is-nav>
+                    <b-navbar-nav>
+                      <b-nav-item href="https://www.macaroni.funtoo.org/">Macaroni Site</b-nav-item>
+                      <b-nav-item href="https://www.funtoo.org/Welcome">Funtoo Wiki</b-nav-item>
+                    </b-navbar-nav>
+
+                  </b-collapse>
+
+                  <b-navbar-brand right>
+                    <img src="./images/funtoo.png" class="d-inline-block align-top" style="width: 100px;" alt="Funtoo"/>
+                  </b-navbar-brand>
+                </b-navbar>
+
+          </b-row>
+
+        <b-row align-h="center">
+
+          <div style="width: 1360px;">
+            <h2>Funtoo Macaroni ISOs</h2>
+          </div>
+          <div width="100px;" v-if="loading">
+            <b-spinner type="grow" label="Loading..."></b-spinner>
+          </div>
+
+          <div style="width: 1360px;">
+
+            <h4>Types</h4>
+            <b-table id="table-transition-example"
+                     :items="filteredItemsDesc"
+                     :fields="columnsDescr"
+                     striped
+                     hover
+                     small
+                     responsive="sm"
+                     primary-key="name"
+                     :tbody-transition-props="transProps"
+            >
+
+            </b-table>
+
+          </div>
+
+          <div style="width: 1360px;">
+
+            <h4>Downloads</h4>
+            <b-table id="table-transition-example"
+                     :items="filteredItems"
+                     :fields="columns"
+                     :filter="activeFilter"
+                     striped
+                     hover
+                     small
+                     responsive="sm"
+                     primary-key="name"
+                     :tbody-transition-props="transProps"
+            >
+
+              <template slot="top-row" slot-scope="{ fields }">
+                  <td v-for="field in fields" :key="field.key">
+                    <input v-if="field.key != 'actions'" v-model="filters[field.key]"
+                           style="box-sizing: inherit; width: 100%"/>
+                  </td>
+              </template>
+
+              <template v-slot:cell(name)="data">
+                <div class="text-left" >
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/' + data.item.prefix + '/'+ data.item.Name">{{ data.item.Name }}</a>
+                </div>
+              </template>
+
+              <template v-slot:cell(sha256)="data">
+                <div class="text-left" >
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/' + data.item.prefix + '/' + data.item.Sha256">{{ data.item.Sha256 }}</a>
+                </div>
+              </template>
+            </b-table>
+
+          </div>
+
+        </b-row>
+
+      </b-container>
+
+    </script>
+    <script>
+$(document).ready(function(){
+  Vue.use(BootstrapVue)
+  Vue.component('b-spinner', BootstrapVue.BSpinner)
+
+  var getPrefixPath = function() {
+    var path = window.location.pathname;
+    var origin = window.location.origin;
+    spaths = path.split("/");
+    var url = "";
+    if (spaths.length > 0) {
+      for (var i = 0; i < (spaths.length - 1); i++) {
+        if (spaths[i] !== "") url += "/" + spaths[i];
+      }
+      url = origin + url;
+    } else {
+      url = origin + path;
+    }
+    return url;
+  }
+  const COMMON_ALIGNMENT = ['start', 'end', 'center']
+  var tasks = new Vue({
+    el: "#activities",
+    template: "#grid-template",
+    props: {
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      alignH: {
+        type: String,
+        default: null,
+        validator: str => arrayIncludes(COMMON_ALIGNMENT.concat(['between', 'around']), str)
+      },
+    },
+    methods: {
+      decode(value) {
+        return value == undefined ? '' : he.decode(value);
+      }
+    },
+    computed: {
+      filteredItems() {
+        return this.filteredData(
+          'items', 'columns',
+          'filters',
+          );
+        },
+
+      filteredItemsDesc() {
+        return this.filteredData(
+          'itemsDescr', 'columnsDescr',
+          'filtersDescr',
+          );
+        },
+    },
+    data: {
+      transProps: {
+        // Transition name
+        name: 'flip-list'
+      },
+      filters: [],
+      activeFilter: {},
+      columns: [
+        { key: 'Name', label: he.decode('ISO Image'), sortable: false },
+        { key: 'Sha256', label: 'ISO Sha256', sortable: false },
+      ],
+
+      items: [],
+
+      filtersDescr: [],
+      activeFilterDesc: {},
+      columnsDescr: [
+        { key: 'Name', sortable: true },
+        { key: 'Description', sortable: true },
+      ],
+
+      itemsDescr: [
+        {
+          'Name': "Macaroni Funtoo Gnome",
+          'Description': 'Gnome thin ISO to use as recovery ISO, to install Funtoo or to install Macaroni Funtoo Stable with Calamares.',
+        },
+        {
+          'Name': "Macaroni Funtoo Gnome Devel",
+          'Description': 'Macaroni Funtoo Gnome with subsets `portage` and `devel` enabled.',
+        },
+
+        {
+          'Name': "Macaroni Funtoo Server",
+          'Description': 'Macaroni Server release. Start automatically Calamares to permit the Macaroni installation.',
+        }
+      ],
+    },
+    created: function() {
+      var self = this;
+      var url_isos = getPrefixPath() + '/isos.json?ver=' + Date.now();
+
+      fetch(url_isos).then(async(resp) => {
+         isos = await resp.json();
+         self.items = isos;
+            }).catch(error => console.error("Unable to load file", error));
+    },
+    methods: {
+
+            filteredData(items, columns, filters) {
+              const filtered = this[items].filter(item => {
+                return Object.keys(this[filters]).every(key => {
+                  function getNestedValue(obj, key) {
+
+                   // const nested = key.split(".").reduce(function(result, key) {
+                   //   return result[key] || {}
+                   // }, obj);
+                   // return Object.keys(nested).length ? nested : '';
+
+                    return key.split(".").reduce(function(result, key) {
+                      return result[key] || '';
+                    }, obj);
+                  }
+                  return String(getNestedValue(item, key)).match(this[filters][key]);
+                })
+              })
+
+              return filtered.length > 0
+                ? filtered
+                : [
+                  Object.keys(this[columns]).reduce(function(obj, value) {
+                    obj[value] = '';
+                    return obj;
+                  }, {})
+                ];
+            }
+    }
+  });
+});
+
+    </script>
+  </body>
+</html>
