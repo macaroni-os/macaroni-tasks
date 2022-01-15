@@ -43,6 +43,7 @@ tasks:
     - "BUILD_ISO=1"
     - "HTTP_TIMEOUT=0"
     tag_namespace: "iso-{{ $name }}"
+    retry: "1"
     script:
     - sleep 5
     - apt-get update
