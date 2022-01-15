@@ -18,6 +18,7 @@ script:
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
 - >-
+  export MOTTAINAI_CLI_PROFILE=funtoo &&
   make isos_pipeline
 artefact_path: /www
 image: alpine/edge

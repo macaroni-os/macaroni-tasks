@@ -23,7 +23,7 @@ if [ "${FIRE_TASKS}" == "1" ] ; then
   mottainai-cli pipeline create --yaml /tmp/iso-pipeline.yaml
 fi
 
-rm /tmp/iso-pipeline.tmpl 2>&1 > /dev/null || true
+rm /tmp/iso-pipeline.yaml 2>&1 > /dev/null || true
 
 
 # vim: filetype=sh
