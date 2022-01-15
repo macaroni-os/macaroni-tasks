@@ -1,0 +1,34 @@
+# Author: Daniele Rondina <geaaru@funtoo.org>
+# Description: Task to start the Macaroni ISOs pipeline.
+#
+# NOTE: This is needed because at the moment the pipeline could not be planned
+#       in pipeline.
+
+name: "ISOs Stable: Start Pipeline"
+script:
+- apk add make bash curl git
+- >-
+  wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+  sh /tmp/get_luet_root.sh
+- >-
+  luet install dev-util/mottainai-cli
+  utils/jq utils/yq
+- git clone ${REPO} repo
+- cd repo/
+- export HOME=/root && mkdir -p /root/.config/
+- /bin/bash /storage/setup-mcli.sh
+- >-
+  make isos_pipeline
+artefact_path: /www
+image: alpine/edge
+type: lxd
+environment:
+- "REPO=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_YES=true
+entrypoint:
+- /bin/sh
+- "-c"
+storage: "mcli"
+storage_path: /storage
+planned: "@weekly"
