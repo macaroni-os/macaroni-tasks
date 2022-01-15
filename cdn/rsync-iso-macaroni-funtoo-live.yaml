@@ -1,0 +1,36 @@
+# Author: Daniele Rondina <geaaru@gmail.com>
+# Description: This task permits to run the rsync command
+#              on a specified container through the LXD api.
+#              I avoid to pull the full namespace from
+#              the Mottainai Task to reduce I/O operations.
+#              A namespace could be fat.
+
+# rsync -va /YOUR/DIRECTORY/ <user>@<resource>.cdn77.com:/www/
+
+name: "Rsync Mottainai namespace to CDN77 storage (iso-macaroni-funtoo-live)"
+type: "lxd"
+
+storage: "cdn77,lxdconf"
+storage_path: /storage
+entrypoint:
+- /bin/sh
+- "-c"
+script:
+- source /storage/cdn77.env
+- echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+- echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/main" >> /etc/apk/repositories
+- echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/community" >> /etc/apk/repositories
+- apk add lxd
+- echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
+# Note: the cdn /www is mandatory as prefix.
+- >-
+  LXD_CONF=/storage/
+  lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
+
+image: "alpine/edge"
+environment:
+- MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
+- "NS2SYNC=iso-macaroni-funtoo-live"
+- "STORAGE_PREFIX=mottainai"
+- "RSYNC_OPTS=-va --delete-after"
+planned: "@weekly"
