@@ -4,13 +4,14 @@
 
 pipeline_name: "Macaroni ISO stable - {{ .date }}"
 
+# group:
+chain:
 {{ $isos := .isos }}
-group:
 {{ range $index, $iso := $isos }}{{ $name := index $iso "name" }}
 - iso-{{ $name }}
 {{ end }}
 
-chord:
+# chord:
 - generate-iso-json
 {{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
 - cdnsync-{{ $name }}
