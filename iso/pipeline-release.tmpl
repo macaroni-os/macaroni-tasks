@@ -13,7 +13,7 @@ chain:
 {{ end }}
 
 # chord:
-- generate-iso-json-{{ $release }}
+- generate-iso-json
 {{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
 - cdnsync-iso-{{ $name }}-{{ $release }}
 {{ end }}
