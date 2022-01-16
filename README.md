@@ -24,7 +24,14 @@ isos_release     Create ISOs pipeline for a release.
 2) Run ISOs pipeline
 
 ```shell
-$> RELEASE=0.1.0 make isos_release
+$> FIRE_TASKS=1 RELEASE=0.1.0 make isos_release
 ```
 
+### Force resync of the ISOs stable namespace to CDN storage
 
+If it's needed force the resync to CDN storage
+without the complete pipeline is possible using the command:
+
+```shell
+$> FIRE_TASK=1 make isos2cdn
+```
