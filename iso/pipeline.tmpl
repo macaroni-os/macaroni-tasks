@@ -14,7 +14,7 @@ chain:
 # chord:
 - generate-iso-json
 {{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
-- cdnsync-{{ $name }}
+- cdnsync-iso-{{ $name }}
 {{ end }}
 - cdnsync-macaroni-iso
 
@@ -82,8 +82,8 @@ tasks:
     # Write loopback status
     - losetup -l
 
-  cdnsync-{{ $name }}:
-    name: "Rsync Mottainai namespace to CDN77 storage ({{ $name }})"
+  cdnsync-iso-{{ $name }}:
+    name: "Rsync Mottainai namespace to CDN77 storage (iso-{{ $name }})"
     type: "lxd"
 
     storage: "cdn77,lxdconf"
@@ -106,7 +106,7 @@ tasks:
     image: "alpine/edge"
     environment:
     - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
-    - "NS2SYNC={{ $name }}"
+    - "NS2SYNC=iso-{{ $name }}"
     - "STORAGE_PREFIX=mottainai"
     - "RSYNC_OPTS=-va --delete-after"
 {{ end }}
