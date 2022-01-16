@@ -1,0 +1,36 @@
+#!/bin/bash
+# Description: Script to generate the tasks to build Macaroni ISOs.
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+isospec_dir=$(dirname ${BASH_SOURCE[0]})/../iso
+FIRE_TASKS=${FIRE_TASKS:-0}
+
+if [ -n "${DEBUG}" ] ; then
+  set -x
+fi
+
+if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+  echo "Missing MOTTAINAI_CLI_PROFILE env variable"
+  exit 1
+fi
+
+if [ -z "${RELEASE}" ] ; then
+  echo "Missing RELEASE env variable"
+  exit 1
+fi
+
+mottainai-cli task compile ${isospec_dir}/pipeline-release.tmpl \
+  -l ${isospec_dir}/iso-images.values \
+  -s "release=${RELEASE}" \
+  -s "date=$(date +%Y/%m/%d-%H%M%S)" \
+  -o /tmp/iso-pipeline-release.yaml
+
+if [ "${FIRE_TASKS}" == "1" ] ; then
+  mottainai-cli pipeline create --yaml /tmp/iso-pipeline-release.yaml
+fi
+
+if [ -z "${DEBUG}" ] ; then
+  rm /tmp/iso-pipeline-release.yaml 2>&1 > /dev/null || true
+fi
+
+# vim: filetype=sh

@@ -1,0 +1,176 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Pipeline to build ISO, generate Portal data,
+#              sync ISO to CDN.
+
+{{ $release := .release }}
+pipeline_name: "Macaroni ISO Release {{ $release }} - {{ .date }}"
+
+# group:
+chain:
+{{ $isos := .isos }}
+{{ range $index, $iso := $isos }}{{ $name := index $iso "name" }}
+- iso-{{ $name }}-{{ $release }}
+{{ end }}
+
+# chord:
+- generate-iso-json-{{ $release }}
+{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
+- cdnsync-iso-{{ $name }}-{{ $release }}
+{{ end }}
+- cdnsync-macaroni-iso
+
+tasks:
+{{ range $idx, $iso := $isos }}
+  {{ $name := index $iso "name" }}{{ $repo := index $iso "repo" }}{{ $specfile := index $iso "specfile" }}{{ $repo_branch := index $iso "repo_branch" }}
+  iso-{{ $name }}-{{ $release }}:
+    name: "ISO: Build {{ $name }}-{{ $release }}"
+    image: ubuntu/21.04
+    disable_push_on_failure: "true"
+    type: lxd
+    artefact_path: /iso
+    environment:
+    - "repo={{ $repo }}"
+    - "repo_branch={{ $repo_branch }}"
+    - "spec_file={{ $specfile }}"
+    - "WORKSPACE=iso/"
+    - "LUET_CONFIG_PROTECT_SKIP=true"
+    - "LUET_GENISO_OUTPUT=/dev/stdout"
+    - "LUET_GENERAL__CONCURRENCY=8"
+    - "LUET_BOX_INSTALLER=0"
+    - "LUET_FORCE=true"
+    - "LUET_OPTS=--sync-repos --solver-type solverv2"
+    - "LUET_NOLOCK=true"
+    - "LUET_YES=TRUE"
+    - "BUILD_ISO=1"
+    - "HTTP_TIMEOUT=0"
+    - "RELEASE={{ $release }}"
+    tag_namespace: "iso-{{ $name }}-{{ $release }}"
+    retry: "1"
+    script:
+    - sleep 5
+    - apt-get update
+    - apt-get upgrade -y
+    - >-
+      apt-get install -y xorriso squashfs-tools dosfstools file curl git make wget
+
+    - eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
+    - >-
+      luet repo update &&
+      luet install -y utils/yq utils/jq system/luet-devkit &&
+      luet cleanup
+    # Using always last geniso commit
+    - >-
+      git clone https://github.com/geaaru/extensions.git /extensions &&
+      cd /extensions/extensions/geniso && make install
+
+    # Temporary: this must be handled in a different way.
+    - >-
+      eval 'mkdir /var/lib/macaroni -p || true' &&
+      wget https://raw.githubusercontent.com/funtoo/macaroni-funtoo/master/packages/macaroni/live-setup/build-iso-hook.sh
+      -O /var/lib/macaroni/build-iso-hook.sh
+
+    # Clone the repository with luet-geniso specs
+    - >-
+      echo "Cloning ${repo} for branch ${repo_branch}..." &&
+      git clone ${repo} -b ${repo_branch} /repo &&
+      cd /repo/${WORKSPACE} &&
+      image_prefix=$(echo $(yq r ${spec_file} 'image_prefix') | sed -e 's|-0.$|-${RELEASE}|g') &&
+      yq w -i ${spec_file} 'image_prefix' "${image_prefix}" &&
+      yq w -i ${spec_file} 'image_date' 'false' &&
+      export TMPDIR=./tmp &&
+      mkdir $TMPDIR -p &&
+      bash -x luet-geniso-isospec ${spec_file} &&
+      ls -ltr
+
+    - mv *.iso *.sha256 iso-meta.* /iso/
+
+    # Write loopback status
+    - losetup -l
+
+  cdnsync-iso-{{ $name }}-{{ $release }}:
+    name: "Rsync Mottainai namespace to CDN77 storage (iso-{{ $name }}-{{ $release }})"
+    type: "lxd"
+
+    storage: "cdn77,lxdconf"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - source /storage/cdn77.env
+    - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/main" >> /etc/apk/repositories
+    - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/community" >> /etc/apk/repositories
+    - apk add lxd
+    - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
+    # Note: the cdn /www is mandatory as prefix.
+    - >-
+      LXD_CONF=/storage/
+      lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
+
+    image: "alpine/edge"
+    environment:
+    - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
+    - "NS2SYNC=iso-{{ $name }}-{{ $release }}"
+    - "STORAGE_PREFIX=mottainai"
+    - "RSYNC_OPTS=-va --delete-after"
+{{ end }}
+
+  generate-iso-json:
+    name: "ISO: Build JSON"
+    script:
+    - apk add make bash curl git
+    - >-
+      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+      sh /tmp/get_luet_root.sh
+    - >-
+      luet install dev-util/mottainai-cli
+      utils/jq utils/yq
+    - git clone ${REPO} repo
+    - cd repo/iso
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      /bin/bash scripts/generate-iso-json.sh &&
+      cp -rvf portal/* /www &&
+      cp /tmp/isos.json /www/
+    artefact_path: /www
+    image: alpine/edge
+    type: lxd
+    environment:
+    - "REPO=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    storage: "mcli"
+    storage_path: /storage
+    tag_namespace: "macaroni-iso"
+
+  cdnsync-macaroni-iso:
+    name: "Rsync Mottainai namespace to CDN77 storage (macaroni-iso)"
+    type: "lxd"
+    storage: "cdn77,lxdconf"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - source /storage/cdn77.env
+    - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/main" >> /etc/apk/repositories
+    - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/community" >> /etc/apk/repositories
+    - apk add lxd
+    - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
+    # Note: the cdn /www is mandatory as prefix.
+    - >-
+      LXD_CONF=/storage/
+      lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
+
+    image: "alpine/edge"
+    environment:
+    - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
+    - "NS2SYNC=macaroni-iso"
+    - "STORAGE_PREFIX=mottainai"
+    - "RSYNC_OPTS=-va --delete-after"
