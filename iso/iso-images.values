@@ -23,6 +23,12 @@ values:
       repo: "https://github.com/funtoo/macaroni-funtoo.git"
       repo_branch: "master"
 
+    # Macaroni Funtoo Server Devel ISO
+    - name: "macaroni-server-devel"
+      specfile: "funtoo-server-devel.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
+
     # Macaroni Funtoo Gnome Live
     - name: "macaroni-funtoo-live"
       specfile: "funtoo-live.yaml"
