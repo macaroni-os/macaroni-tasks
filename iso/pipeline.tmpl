@@ -104,6 +104,7 @@ tasks:
       lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
 
     image: "alpine/edge"
+    retry: "1"
     environment:
     - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
     - "NS2SYNC=iso-{{ $name }}"
@@ -139,6 +140,7 @@ tasks:
     entrypoint:
     - /bin/sh
     - "-c"
+    retry: "1"
     storage: "mcli"
     storage_path: /storage
     tag_namespace: "macaroni-iso"
@@ -164,6 +166,7 @@ tasks:
       lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
 
     image: "alpine/edge"
+    retry: "1"
     environment:
     - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
     - "NS2SYNC=macaroni-iso"
