@@ -1,0 +1,402 @@
+image:
+  distribution: macaroni
+  decription: Funtoo Macaroni OS Dumplings
+  expiry: 30d
+  architecture: amd64
+
+source:
+  downloader: docker-http
+  # For docker is mandatory for now use 
+  url: macaronios/funtoo-minimal
+
+environment:
+  clear_defaults: true
+  variables:
+    - key: "PATH"
+      value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
+    - key: "SHELL"
+      value: "/bin/bash"
+    - key: "LUET_NOLOCK"
+      value: "true"
+    - key: "LUET_YES"
+      value: "true"
+    - key: "USER"
+      value: "root"
+    - key: "LC_ALL"
+      value: "en_US.UTF-8"
+
+targets:
+  lxc:
+    create-message: |
+      You just created a Macaroni container (arch={{ image.architecture }})
+
+    config:
+      - type: all
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+
+      - type: user
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+
+      - type: all
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/common.conf
+
+      - type: user
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/userns.conf
+
+      - type: all
+        content: |-
+          lxc.arch = {{ image.architecture_kernel }}
+
+files:
+ - path: /etc/hostname
+   generator: hostname
+
+ - path: /etc/hosts
+   generator: hosts
+
+
+
+packages:
+  manager: luet
+  update: true
+  cleanup: true
+
+  sets:
+    - packages:
+        - system/entities
+        - sys-apps/shadow
+        - sys-apps/sysvinit
+        - sys-apps/sed
+        - sys-apps/openrc
+        - sys-apps/coreutils
+        - sys-apps/gentoo-functions
+        - app-shells/bash
+        - sys-apps/iproute2
+        - sys-libs/readline
+        - sys-devel-9.2.0/gcc
+        - system/funtoo-triggers
+        - pkglist/funtoo-base
+        - sys-apps/corenetwork
+        - dev-libs-3/libpcre
+        - app-admin/eselect
+        - net-misc/dhcpcd
+        - net-libs/libmnl
+        - sys-process/procps
+        - sys-auth/elogind
+        - whip-profiles/macaroni
+        - app-admin/whip
+        - macaroni/whip-catalog
+        - utils/yq
+
+        # Needed for env-update
+        - sys-apps/portage
+
+      action: install
+
+actions:
+  - trigger: post-unpack
+    action: |-
+      #!/bin/bash
+      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
+      if [ ! -e /bin/sh ] ; then
+        cd /bin && ln -s bash sh
+      fi
+
+      if [ ! -e /usr/bin/awk ] ; then
+        cd /usr/bin && ln -s gawk awk
+      fi
+
+      # Fix docker-companion issue on handle removed data layer.
+      # https://github.com/mudler/docker-companion/issues/6
+      luet cleanup --purge-repos
+
+      # TODO: fix this in distrobuilder
+      luet repo update
+
+      # Temporary fix to luet issue
+      luet reinstall sys-apps/gentoo-functions -y
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Setup openrc runlevels. TODO: move this to package script.
+      whip hook openrc.openrc_setup
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Create lock directory used by Luet
+      mkdir -p /var/lock
+      rm -rf /var/cache/luet/repos/
+
+      #! /bin/sh
+      set -eux
+      rm -rf /var/git/meta-repo
+      rm -rf /var/cache/portage
+      cd /etc/init.d
+      ln -s netif.tmpl net.eth0
+      rc-update add net.eth0 default
+      echo template=dhcpcd > /etc/conf.d/net.eth0
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
+      touch /etc/shadow
+      touch /etc/group
+      touch /etc/gshadow
+      touch /etc/passwd
+      entities merge -s /usr/share/macaroni/layers/funtoo-base/entities/ -a
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Initialize localization
+      locale-gen || true
+      eselect locale list
+      eselect locale set en_US.utf8
+
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+
+      mkdir -p /etc/luet/subsets.def.d/
+
+      echo "
+      subsets_def:
+        doc:
+          description: "Documentation and man"
+          name: "doc"
+          rules:
+            - ^/usr/share/doc
+            - ^/usr/share/man
+            - ^/usr/share/gtk-doc
+          categories:
+            - app-admin
+            - app-arch
+            - app-benchmarks
+            - app-crypt
+            - app-doc
+            - app-editors
+            - app-emulation
+            - app-eselect
+            - app-misc
+            - app-mobilephone
+            - app-portage
+            - app-shells
+            - app-text
+            - dev-lang
+            - dev-libs
+            - dev-libs-2
+            - dev-libs-3
+            - dev-lang-2
+            - dev-lang-3.7
+            - dev-python
+            - dev-ruby
+            - dev-util
+            - dev-vcs
+            - dev-db-3
+            - mail-mta
+            - media-libs
+            - media-plugins
+            - media-sound
+            - net-dialup
+            - net-dns
+            - net-firewall
+            - net-libs
+            - net-mail
+            - net-misc
+            - net-wireless
+            - sys-apps
+            - sys-auth
+            - sys-block
+            - sys-boot
+            - sys-cluster
+            - sys-devel
+            - sys-firmware
+            - sys-fs
+            - sys-libs
+            - sys-libs-2.2
+            - sys-libs-18.1
+            - sys-power
+            - sys-process
+      " > /etc/luet/subsets.def.d/00-doc.yaml
+
+      echo "
+      subsets_def:
+        python:
+          description: "Python stuff"
+          name: "python"
+          rules:
+            - ^/usr/lib64/python2.7
+            - ^/usr/lib/python2.7
+            - ^/usr/lib64/python3.7
+            - ^/usr/lib/python3.7
+            - ^/usr/share/man
+            - ^/usr/share/gtk-doc
+          categories:
+            - app-admin
+            - app-arch
+            - app-benchmarks
+            - app-crypt
+            - app-doc
+            - app-editors
+            - app-emulation
+            - app-eselect
+            - app-misc
+            - app-mobilephone
+            - app-portage
+            - app-shells
+            - app-text
+            - dev-lang
+            - dev-libs
+            - dev-libs-2
+            - dev-libs-3
+            - dev-lang-2
+            - dev-lang-3.7
+            - dev-python
+            - dev-ruby
+            - dev-util
+            - dev-vcs
+            - dev-db-3
+            - mail-mta
+            - media-libs
+            - media-plugins
+            - media-sound
+            - net-dialup
+            - net-dns
+            - net-firewall
+            - net-libs
+            - net-mail
+            - net-misc
+            - net-wireless
+            - sys-apps
+            - sys-auth
+            - sys-block
+            - sys-boot
+            - sys-cluster
+            - sys-devel
+            - sys-firmware
+            - sys-fs
+            - sys-libs
+            - sys-libs-2.2
+            - sys-libs-18.1
+            - sys-power
+            - sys-process
+      " > /etc/luet/subsets.def.d/00-doc.yaml
+      echo "
+      subsets_def:
+        gcc-devel:
+          description: "Split gcc compiler stuff"
+          name: "gcc-devel"
+          rules:
+          - ^/usr/x86_64-pc-linux-gnu/gcc-bin/9.2.0/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/plugin/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/finclude/omp*
+          - ^/usr/share/gcc-data/x86_64-pc-linux-gnu/9.2.0/
+          - ^/usr/libexec/gcc/x86_64-pc-linux-gnu/9.2.0
+          - ^/usr/bin/
+          packages:
+          - sys-devel-9.2.0/gcc
+      " > /etc/luet/subsets.def.d/00-gcc.yaml
+
+      echo "
+      subsets_def:
+        gir:
+          description: "Gir files"
+          name: "gir"
+          rules:
+            - ^/usr/share/gir-1.0
+          categories:
+            - app-admin
+            - app-arch
+            - app-benchmarks
+            - app-crypt
+            - app-doc
+            - app-editors
+            - app-emulation
+            - app-eselect
+            - app-misc
+            - app-mobilephone
+            - app-portage
+            - app-shells
+            - app-text
+            - dev-lang
+            - dev-libs
+            - dev-libs-2
+            - dev-libs-3
+            - dev-lang-2
+            - dev-lang-3.7
+            - dev-python
+            - dev-ruby
+            - dev-util
+            - dev-vcs
+            - dev-db-3
+            - mail-mta
+            - media-libs
+            - media-plugins
+            - media-sound
+            - net-dialup
+            - net-dns
+            - net-firewall
+            - net-libs
+            - net-mail
+            - net-misc
+            - net-wireless
+            - sys-apps
+            - sys-auth
+            - sys-block
+            - sys-boot
+            - sys-cluster
+            - sys-devel
+            - sys-firmware
+            - sys-fs
+            - sys-libs
+            - sys-libs-2.2
+            - sys-libs-18.1
+            - sys-power
+            - sys-process
+      " > /etc/luet/subsets.def.d/00-gir.yaml
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      pkgs2remove=(
+        dev-libs/gobject-introspection
+        dev-libs/gobject-introspection-common
+        dev-util/gdbus-codegen
+        system/funtoo-triggers
+        system/entities
+        whip-profiles/macaroni
+        macaroni/whip-catalog
+        app-admin/whip
+        utils/yq
+        pkglist/funtoo-base
+        dev-lang-2/python-exec
+        dev-lang-3.7/python
+        dev-python/pyelftools
+        dev-python/setuptools
+        dev-python/setuptools-compat
+        sys-apps/portage
+      )
+
+      echo "Reinstall all packages and apply new subsets!"
+      yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
+      luet repo update
+      ls -l /etc/luet/
+      luet reinstall -d $(luet s --installed .) -y
+      luet rm ${pkgs2remove[@]} -y
+      luet cleanup --purge-repos
+
+mappings:
+  architecture_map: funtoo
