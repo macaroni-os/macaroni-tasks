@@ -111,3 +111,19 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Systemd minimal
+  - name: macaroni-funtoo-systemd-minimal:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo Systemd Minimal"
+    directory: macaroni-funtoo-systemd-minimal
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-systemd-minimal"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-systemd-minimal"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+

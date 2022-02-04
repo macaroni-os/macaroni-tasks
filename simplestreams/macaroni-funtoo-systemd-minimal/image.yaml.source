@@ -1,0 +1,214 @@
+image:
+  distribution: macaroni
+  decription: Funtoo Macaroni OS Minimal
+  expiry: 30d
+  architecture: amd64
+
+source:
+  downloader: docker-http
+  # For docker is mandatory for now use 
+  url: macaronios/funtoo-systemd-minimal
+
+environment:
+  clear_defaults: true
+  variables:
+    - key: "PATH"
+      value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
+    - key: "SHELL"
+      value: "/bin/bash"
+    - key: "LUET_NOLOCK"
+      value: "true"
+    - key: "LUET_YES"
+      value: "true"
+    - key: "USER"
+      value: "root"
+    - key: "LC_ALL"
+      value: "en_US.UTF-8"
+
+targets:
+  lxc:
+    create-message: |
+      You just created a Macaroni container (arch={{ image.architecture }})
+
+    config:
+      - type: all
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+
+      - type: user
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+
+      - type: all
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/common.conf
+
+      - type: user
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/userns.conf
+
+      - type: all
+        content: |-
+          lxc.arch = {{ image.architecture_kernel }}
+
+files:
+ - path: /etc/hostname
+   generator: hostname
+
+ - path: /etc/hosts
+   generator: hosts
+
+packages:
+  manager: luet
+  update: true
+  cleanup: true
+
+  sets:
+    - packages:
+        - system/entities
+        - utils/jq
+        - utils/yq
+        - pkglist/funtoo-base
+        - dev-libs-3/libpcre
+        - app-admin/eselect
+        - net-libs/libmnl
+        - sys-process/procps
+
+      action: install
+
+actions:
+  - trigger: post-unpack
+    action: |-
+      #!/bin/bash
+      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
+      if [ ! -e /bin/sh ] ; then
+        cd /bin && ln -s bash sh
+      fi
+
+      if [ ! -e /usr/bin/awk ] ; then
+        cd /usr/bin && ln -s gawk awk
+      fi
+
+      # TODO: fix this in distrobuilder
+      luet repo update
+
+  - trigger: post-unpack
+    action: |-
+      #!/bin/bash
+      # Fix docker-companion issue on handle removed data layer.
+      # https://github.com/mudler/docker-companion/issues/6
+      rm -rf /var/cache/luet/packages/*
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Create lock directory used by Luet
+      mkdir -p /var/lock
+      rm -rf /var/cache/luet/repos/
+
+      #! /bin/sh
+      set -eux
+      rm -rf /var/git/meta-repo
+      rm -rf /var/cache/portage
+      cd /etc/init.d
+      ln -s netif.tmpl net.eth0
+      rc-update add net.eth0 default
+      echo template=dhcpcd > /etc/conf.d/net.eth0
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
+      touch /etc/shadow
+      touch /etc/group
+      touch /etc/gshadow
+      touch /etc/passwd
+      entities merge -s /usr/share/macaroni/layers/funtoo-base/entities/ -a
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Initialize localization
+      locale-gen || true
+      eselect locale list
+      eselect locale set en_US.utf8
+
+  # Disable systemd-remount-fs.service because
+  # on unprivileged container systemd can't
+  # remount filesystem.
+  - trigger: post-packages
+    action: |-
+      #!/bin/sh
+      cd /etc/systemd/system
+      ln -s /dev/null systemd-remount-fs.service
+
+  # Disable mount of hugepages
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cd /etc/systemd/system
+      ln -s /dev/null dev-hugepages.mount
+
+  # Disable sabayon-anti-fork-bomb limits
+  # (already apply to host)
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      sed -i -e 's/^*/#*/g' /etc/security/limits.d/00-sabayon-anti-fork-bomb.conf
+      sed -i -e 's/^root/#root/g' /etc/security/limits.d/00-sabayon-anti-fork-bomb.conf
+
+  # Configure DHCP for interface eth0 by default.
+  # Avoid to use DHCP for any interface to avoid reset of docker
+  # interfaces or others custom interface.
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cat > /etc/systemd/network/default_dhcp.network << "EOF"
+      [Network]
+      DHCP=ipv4
+
+      [Match]
+      Name=eth0
+
+      [DHCP]
+      UseDomains=true
+      EOF
+
+  # Enable systemd-networkd service by default.
+  # Configure SystemD Resolve service for initialize
+  # resolv.conf with value from LXD dnsmasq service.
+  # NOTE: currently distrobuilder mount /etc/resolv.conf
+  # and this doesn't permit to initialize correctly
+  # resolv.conf as a link to systemd-resolved file.
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      systemctl enable systemd-networkd
+      systemctl enable systemd-resolved
+
+  # Disable systemd-journald-audit service
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cd /etc/systemd/system
+      ln -s /dev/null systemd-journald-audit.socket
+
+  # Workaround needed until I fix resolv.conf with distrobuider hook/generator
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      mkdir -p /etc/systemd/system/systemd-resolved.service.d || true
+      cat > /etc/systemd/system/systemd-resolved.service.d/00gentoo.conf << "EOF"
+      [Service]
+      DynamicUser=false
+      ExecStartPre=+/bin/chown systemd-resolve:systemd-resolve /run/systemd/resolve
+      ExecStartPre=+-/bin/rm -f /etc/resolv.conf
+      ExecStartPre=+/bin/ln -v -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+      EOF
+
+mappings:
+  architecture_map: funtoo
