@@ -30,8 +30,7 @@ entrypoint:
 storage: "mcli"
 storage_path: /storage
 environment:
-# TOOD: migrate under funtoo
-- "REPO=https://github.com/geaaru/luet-funtoo.git"
+- "REPO=https://github.com/funtoo/macaroni-funtoo.git"
 - "SUDO="
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
