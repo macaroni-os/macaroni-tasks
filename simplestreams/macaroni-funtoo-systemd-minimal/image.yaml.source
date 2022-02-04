@@ -69,7 +69,6 @@ packages:
 
   sets:
     - packages:
-        - system/entities
         - utils/jq
         - utils/yq
         - pkglist/funtoo-base
@@ -123,7 +122,10 @@ actions:
       locale-gen || true
       eselect locale list
       eselect locale set en_US.utf8
-      localectl set-locale LANG=en_US.UTF-8
+
+      echo "
+      LANG=en_US.UTF-8
+      " > /etc/locale.conf
 
   # Disable systemd-remount-fs.service because
   # on unprivileged container systemd can't
