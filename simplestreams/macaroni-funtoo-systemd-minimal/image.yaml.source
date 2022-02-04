@@ -77,6 +77,7 @@ packages:
         - app-admin/eselect
         - net-libs/libmnl
         - sys-process/procps
+        - sys-apps/dbus
         # Temporary fix related to RDEPEND issue in gnutls.
         - app-crypt/p11-kit
 
@@ -122,6 +123,7 @@ actions:
       locale-gen || true
       eselect locale list
       eselect locale set en_US.utf8
+      localectl set-locale LANG=en_US.UTF-8
 
   # Disable systemd-remount-fs.service because
   # on unprivileged container systemd can't
