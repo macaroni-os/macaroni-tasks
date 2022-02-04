@@ -77,6 +77,8 @@ packages:
         - app-admin/eselect
         - net-libs/libmnl
         - sys-process/procps
+        # Temporary fix related to RDEPEND issue in gnutls.
+        - app-crypt/p11-kit
 
       action: install
 
@@ -136,14 +138,6 @@ actions:
       #!/bin/bash
       cd /etc/systemd/system
       ln -s /dev/null dev-hugepages.mount
-
-  # Disable sabayon-anti-fork-bomb limits
-  # (already apply to host)
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
-      sed -i -e 's/^*/#*/g' /etc/security/limits.d/00-sabayon-anti-fork-bomb.conf
-      sed -i -e 's/^root/#root/g' /etc/security/limits.d/00-sabayon-anti-fork-bomb.conf
 
   # Configure DHCP for interface eth0 by default.
   # Avoid to use DHCP for any interface to avoid reset of docker
