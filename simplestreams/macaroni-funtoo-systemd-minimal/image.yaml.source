@@ -77,8 +77,10 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-apps/dbus
+        - sys-libs/timezone-data
         # Temporary fix related to RDEPEND issue in gnutls.
         - app-crypt/p11-kit
+
 
       action: install
 
@@ -126,6 +128,8 @@ actions:
       echo "
       LANG=en_US.UTF-8
       " > /etc/locale.conf
+
+      cd /etc/ && ln -s /usr/share/zoneinfo/UTC localtime
 
   # Disable systemd-remount-fs.service because
   # on unprivileged container systemd can't
