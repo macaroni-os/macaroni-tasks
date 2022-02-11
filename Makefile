@@ -10,7 +10,8 @@ all:
 	@echo ""
 	@echo "lxd-tasks        Update Mottainai tasks and pipeline for all images"
 	@echo "iso-tasks        Update Mottainai tasks and pipeline for all ISOs"
-	@echo "isos2cdn         Create task for sync ISOs namespace to CDN"
+	@echo "isos2cdn         Create task for sync ISOs namespacse to CDN"
+	@echo "ns2cdn           Create task for sync Repositories namespaces to CDN"
 	@echo "isos_pipeline    Create ISOs Stable pipeline."
 	@echo "isos_release     Create ISOs pipeline for a release."
 
@@ -33,3 +34,7 @@ isos_pipeline:
 .PHONY: isos_release
 isos_release:
 	@make/isos_release
+
+.PHONY: ns2cdn
+ns2cdn:
+	@make/ns2cdn

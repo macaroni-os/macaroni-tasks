@@ -7,22 +7,9 @@
 
 # rsync -va /YOUR/DIRECTORY/ <user>@<resource>.cdn77.com:/www/
 
-name: "Rsync Mottainai namespaces to CDN77 storage (macaroni-funtoo)"
+name: "Rsync Mottainai namespace to CDN77 storage (macaroni-funtoo)"
 type: "lxd"
 
-# ===============================================================================
-# The storage cdn77 contains the secret file with the following env variables:
-# ===============================================================================
-# CDN77_USER: contains the rsync user for the connection
-# CDN77_PASS: contains the rsync password for the connection
-# CDN77_STORAGE: contains the name of the CDN77 storage.
-# LXD_REMOTE: contains the LXD remote of the mottainai server
-# LXD_NODE: contains the name of the name where is running Mottainai Server
-#
-# ===============================================================================
-# The storage lxdconf contains the LXD_CONF directory with the certs and data
-# of the LXD remotes under the path `lxc`.
-# ===============================================================================
 storage: "cdn77,lxdconf"
 storage_path: /storage
 entrypoint:

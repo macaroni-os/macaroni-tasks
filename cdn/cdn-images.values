@@ -1,0 +1,22 @@
+values:
+
+  namespaces:
+
+    # Macaroni Funtoo Stable
+    - name: "macaroni-funtoo-stable"
+
+    # Macaroni Commons Stable
+    - name: "macaroni-commons-stable"
+
+    # Macaroni Funtoo
+    - name: "macaroni-funtoo"
+
+    # Macaroni Commons
+    - name: "macaroni-commons"
+
+    # Macaroni Distfiles
+    - name: "macaroni-distfiles"
+
+    # Macaroni ISO site
+    - name: "macaroni-iso"
+
