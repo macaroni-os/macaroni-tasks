@@ -3,10 +3,10 @@ values:
   namespaces:
 
     # Macaroni Funtoo Stable
-    - name: "macaroni-funtoo-stable"
+    - name: "macaroni-funtoo-dev"
 
     # Macaroni Commons Stable
-    - name: "macaroni-commons-stable"
+    - name: "macaroni-commons-dev"
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
@@ -15,7 +15,7 @@ values:
     - name: "macaroni-commons"
 
     # Macaroni Distfiles
-    - name: "macaroni-distfiles"
+    # - name: "macaroni-distfiles"
 
     # Macaroni ISO site
     - name: "macaroni-iso"
