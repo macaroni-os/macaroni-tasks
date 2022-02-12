@@ -187,6 +187,8 @@ actions:
       env-update
       ldconfig
 
+      luet cleanup --purge-repos
+
 mappings:
   architecture_map: funtoo
 
