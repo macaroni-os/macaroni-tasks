@@ -127,3 +127,19 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Metatools
+  - name: macaroni-funtoo-metatools:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo Metatools"
+    directory: macaroni-funtoo-metatools
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-metatools"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-metatools"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+

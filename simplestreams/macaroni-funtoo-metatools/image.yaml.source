@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  decription: Funtoo Macaroni OS Builder
+  decription: Funtoo Macaroni OS Metatools
   expiry: 30d
   architecture: amd64
 
@@ -93,18 +93,14 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
         - pkglist/funtoo-base
-        - pkglist/funtoo-emulation
+        - pkglist/funtoo-server
 
         - virtual/base
         - sys-libs/binutils-libs
         - sys-devel/binutils-config
         - sys-devel-2.36/binutils
         - sys-devel/gcc-config
-
-        - app-emulation/distrobuilder
-        - app-emulation/simplestreams-builder
-        - app-emulation/lxd
-        - app-emulation/docker
+        - dev-vcs/git
         - dev-util/mottainai-cli
         - dev-util/replicant
         - app-admin/ego
@@ -112,10 +108,11 @@ packages:
         - app-portage/elt-patches
         - app-portage/gentoolkit
         - app-portage/portage-utils
-
+        - sys-apps/metatools
       action: install
 
 actions:
+
   - trigger: post-unpack
     action: |-
       #!/bin/bash
@@ -142,45 +139,14 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Setup openrc runlevels. TODO: move this to package script.
-      #
-      EROOT=/
-
-      source /lib/rc/sh/functions.sh
-
-      for r in sysinit boot shutdown default nonetwork; do
-        if [ ! -e ${EROOT}/etc/runlevels/$r ]; then
-          install -d ${EROOT}/etc/runlevels/$r
-          # install missing scripts
-        fi
-        for sc in $(cd ${EROOT}/usr/share/openrc/runlevels/$r; ls); do
-          if [ ! -L ${EROOT}/etc/runlevels/$r/$sc ]; then
-            einfo "Missing $r/$sc script, installing..."
-            cp -a ${EROOT}/usr/share/openrc/runlevels/$r/$sc ${EROOT}/etc/runlevels/$r/$sc
-          fi
-        done
-        # warn about extra scripts
-        for sc in $(cd ${EROOT}/etc/runlevels/$r; ls); do
-          if [ "$sc" == "netif.lo" ]; then
-            einfo "Removing old initscript netif.lo."
-            rm ${EROOT}/etc/runlevels/$r/$sc
-          fi
-          if [ ! -L ${EROOT}/usr/share/openrc/runlevels/$r/$sc ]; then
-            ewarn "Extra script $r/$sc found, possibly from other ebuild."
-          fi
-        done
-      done
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
       rm -rf /var/cache/luet/repos/
 
+      whip hook openrc.openrc_setup
+
       #! /bin/sh
       set -eux
-      rm -rf /var/git/meta-repo
       rm -rf /var/cache/portage
       cd /etc/init.d
       ln -s netif.tmpl net.eth0
@@ -195,9 +161,7 @@ actions:
       touch /etc/group
       touch /etc/gshadow
       touch /etc/passwd
-      # needed for docker
-      touch /etc/fstab
-      entities merge -s /usr/share/macaroni/layers/funtoo-emulation/entities/ -a
+      entities merge -s /usr/share/macaroni/layers/funtoo-server/entities/ -a
 
   - trigger: post-packages
     action: |-
