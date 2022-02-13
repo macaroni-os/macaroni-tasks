@@ -109,6 +109,8 @@ packages:
         - app-portage/gentoolkit
         - app-portage/portage-utils
         - sys-apps/metatools
+        - dev-db/mongodb
+
       action: install
 
 actions:
@@ -183,6 +185,7 @@ actions:
       eselect gcc set 1
       eselect binutils set 1
       mkdir -p /var/lib/portage
+      mkdir /root
 
       env-update
       ldconfig
