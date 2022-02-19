@@ -56,11 +56,22 @@ targets:
           lxc.arch = {{ image.architecture_kernel }}
 
 files:
- - path: /etc/hostname
+ - name: hostname
+   path: /etc/hostname
    generator: hostname
 
- - path: /etc/hosts
+ - name: hosts
+   path: /etc/hosts
    generator: hosts
+
+ - name: conf-hostname
+   path: /etc/conf.d/hostname
+   generator: template
+   content: |-
+     hostname:"{{ container.name }}"
+
+ - path: /etc/machine-id
+   generator: dump
 
 packages:
   manager: luet
