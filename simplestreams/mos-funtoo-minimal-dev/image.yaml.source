@@ -56,12 +56,21 @@ targets:
           lxc.arch = {{ image.architecture_kernel }}
 
 files:
- - path: /etc/hostname
+ - name: hostname
+   path: /etc/hostname
    generator: hostname
 
- - path: /etc/hosts
+ - name: hosts
+   path: /etc/hosts
    generator: hosts
 
+ - name: conf-hostname
+   path: /etc/conf.d/hostname
+   generator: template
+   content: |-
+     hostname="{{ container.name }}"
+     #aliases="mybox server1"
+     #nisdomainname="localdomain.com"
 packages:
   manager: luet
   update: true
@@ -120,6 +129,13 @@ actions:
 
       luet reinstall --force $(luet s --installed  -o json | jq '.packages[] | .category + "/" + .name' -r)
       luet cleanup
+
+      # NOTE: if these files is not present the generators skip the template
+      # generation
+      echo "
+      ff02::2    ip6-allrouters
+      " > /etc/hosts
+      echo "macaroni" > /etc/hostname
 
   - trigger: post-packages
     action: |-
@@ -187,6 +203,18 @@ actions:
       eselect locale list
       eselect locale set en_US.utf8
 
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure proctect config
+      mkdir -p /etc/luet/config.protect.d/ || true
+      echo "
+      name: \"etc_conf\"
+      dirs:
+        - \"/etc/\"
+      " > /etc/luet/config.protect.d/01_etc.yml
 
 mappings:
   architecture_map: funtoo
+
+# vim: filetype=yaml

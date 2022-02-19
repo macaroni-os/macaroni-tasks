@@ -67,7 +67,7 @@ files:
    path: /etc/conf.d/hostname
    generator: template
    content: |-
-     hostname:"{{ container.name }}"
+     hostname="{{ container.name }}"
 
  - path: /etc/machine-id
    generator: dump
@@ -219,9 +219,9 @@ actions:
       # Configure proctect config
       mkdir -p /etc/luet/config.protect.d/ || true
       echo "
-      name: "etc_conf"
+      name: \"etc_conf\"
       dirs:
-        - "/etc/"
+        - \"/etc/\"
       " > /etc/luet/config.protect.d/01_etc.yml
 
       # Disable this services enable by default
@@ -233,3 +233,4 @@ actions:
 
 mappings:
   architecture_map: funtoo
+# vim: filetype=yaml
