@@ -110,6 +110,13 @@ actions:
       # TODO: fix this in distrobuilder
       luet repo update
 
+      # NOTE: if these files is not present the generators skip the template
+      # generation
+      echo "
+      ff02::2    ip6-allrouters
+      " > /etc/hosts
+      echo "macaroni" > /etc/hostname
+
   - trigger: post-unpack
     action: |-
       #!/bin/bash
