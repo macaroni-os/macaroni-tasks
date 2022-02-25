@@ -187,6 +187,8 @@ actions:
       mkdir -p /var/lib/portage
       mkdir /root
 
+      # To verify in the desktop image (/etc/ld.so.conf.d/05gcc-x86_64-pc-linux-gnu.conf is empty)
+      luet reinstall -y virtual/base
       env-update
       ldconfig
 
