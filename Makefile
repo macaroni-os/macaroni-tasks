@@ -14,6 +14,7 @@ all:
 	@echo "ns2cdn           Create task for sync Repositories namespaces to CDN"
 	@echo "isos_pipeline    Create ISOs Stable pipeline."
 	@echo "isos_release     Create ISOs pipeline for a release."
+	@echo "luet-tasks       Create/Update Luet repos tasks/pipeline."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -38,3 +39,7 @@ isos_release:
 .PHONY: ns2cdn
 ns2cdn:
 	@make/ns2cdn
+
+.PHONY: luet-tasks
+luet-tasks:
+	@make/luet-tasks

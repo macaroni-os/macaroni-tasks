@@ -1,0 +1,63 @@
+values:
+
+  repositories:
+
+    # Macaroni Funtoo
+    - name: "macaroni-funtoo-dev"
+      branch: master
+      http_repo: https://github.com/funtoo/macaroni-funtoo.git
+      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+      kits2upgrade:
+        - browser-kit
+
+    # Macaroni Funtoo Stable
+    - name: "macaroni-funtoo"
+      branch: master
+      http_repo: https://github.com/funtoo/macaroni-funtoo.git
+      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+      kits2upgrade:
+        - browser-kit
+
+    # Macaroni Commons Stable
+    - name: "macaroni-commons-dev"
+      branch: master
+      http_repo: https://github.com/funtoo/macaroni-commons.git
+      ssh_repo: git@github.com:funtoo/macaroni-commons.git
+
+    # Macaroni Commons
+    - name: "macaroni-commons"
+      branch: master
+      http_repo: https://github.com/funtoo/macaroni-commons.git
+      ssh_repo: git@github.com:funtoo/macaroni-commons.git
+
+    # Macaroni Distfiles
+    - name: "macaroni-distfiles"
+      branch: master
+      http_repo: https://github.com/funtoo/macaroni-distfiles.git
+      ssh_repo: git@github.com:funtoo/macaroni-distfiles.git
+
+    # Macaroni Funtoo System Stable
+    - name: "macaroni-funtoo-systemd"
+      branch: systemd
+      http_repo: https://github.com/funtoo/macaroni-funtoo.git
+      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+      kits2upgrade:
+        - core-server-kit
+        - dev-kit
+        - lang-kit
+
+    # Macaroni Funtoo System Stable Dev
+    - name: "macaroni-funtoo-systemd-dev"
+      branch: systemd
+      http_repo: https://github.com/funtoo/macaroni-funtoo.git
+      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+
+# vim: filetype=yaml

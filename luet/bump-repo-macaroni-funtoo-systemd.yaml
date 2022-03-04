@@ -7,7 +7,7 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "Luet Macaroni Funtoo Repo <macaroni-funtoo-systemd> - Bump revision"
+name: "luet - < macaroni-funtoo-systemd > - Bump revision"
 script:
 - apk add make bash curl git
 - >-
@@ -42,9 +42,7 @@ image: alpine/edge
 artefact_path: artefacts
 type: lxd
 directory: /
-namespace_filters:
-- ".*metadata.yaml$"
-- "repository.yaml$"
-- "repository.meta.yaml.tar.zst$"
 publish_mode: append
 tag_namespace: "macaroni-funtoo-systemd"
+
+# vim: filetype=yaml

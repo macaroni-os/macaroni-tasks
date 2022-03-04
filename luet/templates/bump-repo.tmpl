@@ -7,7 +7,7 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < macaroni-funtoo > - Bump revision"
+name: "luet - < {{ .namespace }} > - Bump revision"
 script:
 - apk add make bash curl git
 - >-
@@ -30,19 +30,19 @@ entrypoint:
 storage: "mcli"
 storage_path: /storage
 environment:
-- "REPO_BRANCH=master"
-- "REPO=https://github.com/funtoo/macaroni-funtoo.git"
+- "REPO_BRANCH={{ .repobranch }}"
+- "REPO={{ .repohttp }}"
 - "SUDO="
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
 - COMPRESSION=zstd
-- NAMESPACE=macaroni-funtoo
+- NAMESPACE={{ .namespace }}
 - "BUILD_ARGS=--config conf/luet.yaml"
 image: alpine/edge
 artefact_path: artefacts
 type: lxd
 directory: /
 publish_mode: append
-tag_namespace: "macaroni-funtoo"
+tag_namespace: "{{ .namespace }}"
 
 # vim: filetype=yaml

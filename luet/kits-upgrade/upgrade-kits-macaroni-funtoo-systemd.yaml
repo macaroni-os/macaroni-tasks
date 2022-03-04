@@ -3,7 +3,7 @@
 #              of the selected kits used by the seed/funtoo-kits
 #              and toolchain/meta-repo packages.
 
-name: "Luet Upgrade Kits <macaroni-funtoo> - Bump revision"
+name: "Luet Upgrade Kits <macaroni-funtoo-systemd> - Bump revision"
 script:
 
 - >-
@@ -99,11 +99,11 @@ script:
 
 environment:
 - "METATOOLS_WORKSPACE=/reposcan"
-- "REPO_BRANCH=master"
+- "REPO_BRANCH=systemd"
 - "REPO=git@github.com:funtoo/macaroni-funtoo.git"
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"
-- "KITS_2UPGRADE=browser-kit"
+- "KITS_2UPGRADE=browser-kit,core-kit"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
@@ -112,4 +112,6 @@ storage: geaaru-github
 storage_path: /storage
 artefact_path: /artefacts
 type: lxd
-tag_namespace: "macaroni-funtoo-reposcan"
+tag_namespace: "macaroni-funtoo-systemd-reposcan"
+
+# vim: filetype=yaml
