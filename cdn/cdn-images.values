@@ -1,22 +1,42 @@
 values:
 
+  purgefiles:
+    paths:
+    - compilertree.tar.gz
+    - repository.yaml
+    - repository.meta.yaml.tar.zst
+    - tree.tar.zst
+
   namespaces:
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo-dev"
+      cdnid: 1258250330
 
     # Macaroni Commons Stable
     - name: "macaroni-commons-dev"
+      cdnid: 1258250330
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
+      cdnid: "1556118782"
 
     # Macaroni Commons
     - name: "macaroni-commons"
+      cdnid: "1556118782"
 
     # Macaroni Distfiles
     # - name: "macaroni-distfiles"
 
     # Macaroni ISO site
     - name: "macaroni-iso"
+      cdnid: "1556118782"
+
+    # Macaroni Funtoo System Stable
+    - name: "macaroni-funtoo-systemd"
+      cdnid: 1258250330
+
+    # Macaroni Funtoo System Stable Dev
+    - name: "macaroni-funtoo-systemd-dev"
+      cdnid: 1258250330
 
