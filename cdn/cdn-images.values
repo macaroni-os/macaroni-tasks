@@ -11,24 +11,28 @@ values:
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo-dev"
+      cdnstorage: false
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Commons Stable
     - name: "macaroni-commons-dev"
+      cdnstorage: false
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
+      cdnstorage: true
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
 
     # Macaroni Commons
     - name: "macaroni-commons"
+      cdnstorage: true
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -38,18 +42,21 @@ values:
 
     # Macaroni ISO site
     - name: "macaroni-iso"
+      cdnstorage: true
       purgefiles:
         - isos.json
       cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
+      cdnstorage: false
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
+      cdnstorage: false
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330

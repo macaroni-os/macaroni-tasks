@@ -14,16 +14,24 @@ fi
 for ((i=0;i<$NS;i++))
 do
   name=$(yq r ${cdn_dir}/cdn-images.values "values.namespaces[$i].name")
+  cdnstorage=$(yq r ${cdn_dir}/cdn-images.values "values.namespaces[$i].cdnstorage")
 
   opts=""
-  echo "Creating task for sync namespace $name..."
-  mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
-    -s namespace="${name}" \
-    -o ${cdn_dir}/rsync-${name}.yaml
+  if [ "${cdnstorage}" = "true" ] ; then
+    echo "Creating task for sync namespace $name..."
+    mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+      -s namespace="${name}" \
+      -o ${cdn_dir}/rsync-${name}.yaml
 
-  if [ -n "${FIRE_TASK}" ] ; then
-    mottainai-cli task create --yaml ${cdn_dir}/rsync-${name}.yaml
+    if [ -n "${FIRE_TASK}" ] ; then
+      mottainai-cli task create --yaml ${cdn_dir}/rsync-${name}.yaml
+    fi
   fi
+
+  echo "Creating task for purge namespace $name..."
+  mottainai-cli task compile ${cdn_dir}/purge-namespace.tmpl ${opts} \
+    -s namespace="${name}" \
+    -o ${cdn_dir}/purge/purge-${name}.yaml
 
 done
 

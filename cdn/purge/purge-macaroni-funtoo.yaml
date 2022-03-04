@@ -1,0 +1,24 @@
+# Author: Daniele Rondina <geaaru@gmail.com>
+# Description: This task permits to purge repo core files.
+
+name: "Purge files from CDN77 resource (macaroni-funtoo)"
+type: "lxd"
+
+storage: "cdn77"
+storage_path: /storage
+entrypoint:
+- /bin/sh
+- "-c"
+script:
+- source /storage/cdn77.env
+- apk add bash curl git
+- >-
+  git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+  /macaroni-tasks &&
+  cd /macaroni-tasks &&
+  /bin/bash cdn/api/purge-repo-files.sh
+image: "alpine/edge"
+environment:
+- "NAMESPACE=macaroni-funtoo"
+
+# vim: filetype=yaml
