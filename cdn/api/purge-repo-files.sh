@@ -62,7 +62,7 @@ main () {
     echo "Error on purge files from CDN ($status_code)."
     return 1
   else
-    echo "CDN files of the repo ${NAMESPACE} completed."
+    echo "CDN files of the repo ${NAMESPACE} purged."
   fi
 
   rm ${tmp_json} ${tmp_yaml}
