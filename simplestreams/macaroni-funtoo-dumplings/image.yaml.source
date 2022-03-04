@@ -94,7 +94,7 @@ packages:
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
-        - net-misc/dhcpcd
+        - net-misc/dhcp
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
@@ -155,7 +155,7 @@ actions:
       cd /etc/init.d
       ln -s netif.tmpl net.eth0
       rc-update add net.eth0 default
-      echo template=dhcpcd > /etc/conf.d/net.eth0
+      echo template=dhclient > /etc/conf.d/net.eth0
 
   - trigger: post-packages
     action: |-
