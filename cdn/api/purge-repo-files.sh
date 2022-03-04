@@ -29,6 +29,12 @@ main () {
   rm -f ${tmp_yaml} || true
   touch ${tmp_yaml}
   files=$(echo ${namespace_data} | jq '.purgefiles.paths | length')
+
+  if [ "${files}" == "0" ] ; then
+    echo "No files to purge. Exiting."
+    return 0
+  fi
+
   for ((i=0; i<${files}; i++)) ; do
     file=$(echo "${namespace_data}" | jq ".purgefiles.paths[${i}]" -r)
     yq w -i ${tmp_yaml} "paths[${i}]" "${CDN_PREFIX}${NAMESPACE}/${file}"
