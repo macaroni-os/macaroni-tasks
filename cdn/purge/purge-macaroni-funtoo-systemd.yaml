@@ -10,13 +10,17 @@ entrypoint:
 - /bin/sh
 - "-c"
 script:
-- source /storage/cdn77.env
 - apk add bash curl git
+- curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+- >-
+  luet i -y utils/jq utils/yq &&
+  luet cleanup --purge-repos
 - >-
   git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
   /macaroni-tasks &&
   cd /macaroni-tasks &&
-  /bin/bash cdn/api/purge-repo-files.sh
+  chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+  /bin/bash -c 'source /storage/cdn77.env && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
 image: "alpine/edge"
 environment:
 - "NAMESPACE=macaroni-funtoo-systemd"
