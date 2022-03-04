@@ -1,6 +1,6 @@
 values:
 
-  purgefiles:
+  purgefiles: &purgerepo
     paths:
     - compilertree.tar.gz
     - repository.yaml
@@ -11,18 +11,26 @@ values:
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo-dev"
+      purgefiles:
+        <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Commons Stable
     - name: "macaroni-commons-dev"
+      purgefiles:
+        <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
+      purgefiles:
+        <<: *purgerepo
       cdnid: "1556118782"
 
     # Macaroni Commons
     - name: "macaroni-commons"
+      purgefiles:
+        <<: *purgerepo
       cdnid: "1556118782"
 
     # Macaroni Distfiles
@@ -30,13 +38,19 @@ values:
 
     # Macaroni ISO site
     - name: "macaroni-iso"
+      purgefiles:
+        - isos.json
       cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
+      purgefiles:
+        <<: *purgerepo
       cdnid: 1258250330
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
+      purgefiles:
+        <<: *purgerepo
       cdnid: 1258250330
 

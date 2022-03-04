@@ -24,19 +24,20 @@ main () {
     return 1
   fi
 
+  namespace_data=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAMESPACE}\") " )
   # Create the json payload
   rm -f ${tmp_yaml} || true
   touch ${tmp_yaml}
-  files=$(yq r ${CDN_IMAGESFILE} 'values.purgefiles.paths' -l)
+  files=$(echo ${namespace_data} | jq '.purgefiles.paths | length')
   for ((i=0; i<${files}; i++)) ; do
-    file=$(yq r ${CDN_IMAGESFILE} "values.purgefiles.paths[${i}]")
+    file=$(echo "${namespace_data}" | jq ".purgefiles.paths[${i}]" -r)
     yq w -i ${tmp_yaml} "paths[${i}]" "${CDN_PREFIX}${NAMESPACE}/${file}"
   done
 
   yq r ${tmp_yaml} -j > ${tmp_json}
 
   # Retrieve cdn resource id
-  cdnid=$(yq r cdn-images.values  -j | jq ".values.namespaces[] | select(.name == \"${NAMESPACE}\") | .cdnid " -r)
+  cdnid=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAMESPACE}\") | .cdnid " -r)
 
   status_code=$(
     curl \
@@ -51,7 +52,7 @@ main () {
       ${CDN_APIURL}/cdn/${cdnid}/job/purge
   )
 
-  if [[ "$status_code" -ne 200 ]] && [[ $status_code -ne 201 ]]; then
+  if [[ "$status_code" -ne 200 ]] && [[ $status_code -ne 201 ]] && [[ $status_code -ne 202 ]]; then
     echo "Error on purge files from CDN ($status_code)."
     return 1
   fi
