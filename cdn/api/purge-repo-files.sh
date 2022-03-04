@@ -61,6 +61,8 @@ main () {
   if [[ "$status_code" -ne 200 ]] && [[ $status_code -ne 201 ]] && [[ $status_code -ne 202 ]]; then
     echo "Error on purge files from CDN ($status_code)."
     return 1
+  else
+    echo "CDN files of the repo ${NAMESPACE} completed."
   fi
 
   rm ${tmp_json} ${tmp_yaml}
