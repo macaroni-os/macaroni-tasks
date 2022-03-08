@@ -96,6 +96,7 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
+        - sys-devel/make
 
         - macaroni/whip-catalog
         - whip-profiles/macaroni
