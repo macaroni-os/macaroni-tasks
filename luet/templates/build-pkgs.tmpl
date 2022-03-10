@@ -1,0 +1,51 @@
+name: "Luet Upgrade Kits Seeds <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+storage: docker-certs
+storage_path: /storage
+script:
+- source /storage/prepare-luet.sh
+- >-
+  luet repo update &&
+  luet upgrade &&
+  luet cleanup --purge-repos
+- >-
+  docker login -u ${registry_user} -p ${registry_pass}
+  docker-registry1.mottainai.local:5000
+
+{{- if eq .enable_docker_host "true" }}
+- echo "Using DOCKER_HOST ${DOCKER_HOST}..."
+{{- else }}
+- /etc/init.d/docker start
+{{- end }}
+- git clone ${REPO} -b ${REPO_BRANCH} /build
+- cd /build && make rebuild
+- >-
+  rm -rf build/build &&
+  cp -v build/* /artefacts/
+environment:
+{{- if eq .enable_buildkit "true" }}
+- "BUILDKIT_PROGRESS=plain"
+- "DOCKER_BUILDKIT=1"
+{{- end }}
+- "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+- "REPO={{ .repo }}"
+- "REPO_BRANCH={{ .branch }}"
+{{- if eq .push_images "true" }}
+- "BUILD_ARGS=--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
+{{- else }}
+- "BUILD_ARGS=--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull"
+{{- end }}
+- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_YES=true
+{{- if eq .enable_docker_host "true" }}
+- DOCKER_HOST=docker-overlay2.mottainai.local:2376
+{{- end }}
+- "PACKAGES={{ .pkgs }}"
+image: macaroni/funtoo-builder
+artefact_path: /artefacts
+type: lxd
+#retry: "2"
+publish_mode: append
+tag_namespace: "{{ .namespace }}"
+
+# vim: set filetype=yaml
+
