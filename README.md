@@ -35,3 +35,17 @@ without the complete pipeline is possible using the command:
 ```shell
 $> FIRE_TASK=1 make isos2cdn
 ```
+
+## Macaroni packages
+
+### Run task to build luet packages
+
+```shell
+$> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo" FIRE_TASK=1 make build-pkgs
+```
+
+For packages that is better to push to the docker registry execute:
+
+```shell
+$> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo" FIRE_TASK=1 PUSH_IMAGES=true make build-pkgs
+```
