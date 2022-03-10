@@ -15,6 +15,7 @@ all:
 	@echo "isos_pipeline    Create ISOs Stable pipeline."
 	@echo "isos_release     Create ISOs pipeline for a release."
 	@echo "luet-tasks       Create/Update Luet repos tasks/pipeline."
+	@echo "build-pkgs       Create task for build specific packages."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -43,3 +44,7 @@ ns2cdn:
 .PHONY: luet-tasks
 luet-tasks:
 	@make/luet-tasks
+
+.PHONY: build-pkgs
+build-pkgs:
+	@make/build-pkgs
