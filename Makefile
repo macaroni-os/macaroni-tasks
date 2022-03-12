@@ -8,15 +8,19 @@ all:
 	@echo "==========================================="
 	@echo "Available commands:"
 	@echo ""
-	@echo "lxd-tasks        Update Mottainai tasks and pipeline for all images"
-	@echo "iso-tasks        Update Mottainai tasks and pipeline for all ISOs"
-	@echo "isos2cdn         Create task for sync ISOs namespacse to CDN"
-	@echo "ns2cdn           Create task for sync Repositories namespaces to CDN"
-	@echo "isos_pipeline    Create ISOs Stable pipeline."
-	@echo "isos_release     Create ISOs pipeline for a release."
-	@echo "luet-tasks       Create/Update Luet repos tasks/pipeline."
-	@echo "build-pkgs       Create task for build specific packages."
-	@echo "build-pipeline   Create the pipeline for build missing packages of a repository."
+	@echo "lxd-tasks             Update Mottainai tasks and pipeline for all images"
+	@echo "iso-tasks             Update Mottainai tasks and pipeline for all ISOs"
+	@echo "isos2cdn              Create task for sync ISOs namespacse to CDN"
+	@echo "ns2cdn                Create task for sync Repositories namespaces to CDN"
+	@echo "isos_pipeline         Create ISOs Stable pipeline."
+	@echo "isos_release          Create ISOs pipeline for a release."
+	@echo "luet-tasks            Create/Update Luet repos tasks/pipeline."
+	@echo "build-pkgs            Create task for build specific packages."
+	@echo "build-pipeline        Create the pipeline for build missing packages of a repository."
+	@echo "                      Require a local copy of the target repo."
+	@echo "                      Use start-build-pipeline instead."
+	@echo "start-build-pipeline  Create task for create build pipeline of the "
+	@echo "                      missing packages."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -53,3 +57,7 @@ build-pkgs:
 .PHONY: build-pipeline
 build-pipeline:
 	@make/build-pipeline
+
+.PHONY: start-build-pipeline
+start-build-pipeline:
+	@make/start-build-pipeline

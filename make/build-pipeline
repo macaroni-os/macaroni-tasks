@@ -13,11 +13,16 @@ main () {
     exit 1
   fi
 
+  if [ -z "${LUET_REPOSITORY}" ] ; then
+    echo "Missing LUET_REPOSITORY variable with repository path."
+    exit 1
+  fi
+
   bash ${luet_dir}/scripts/create-packages.sh
   return $?
 }
 
 main $@
-exit ?
+exit $?
 
 # vim: filetype=sh

@@ -1,0 +1,55 @@
+#!/bin/bash
+# Description: Script to start build of the selected packages
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+luet_values=${luet_dir}/luet-repo.values
+
+FIRE_TASK=${FIRE_TASK:-0}
+
+main () {
+
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+    exit 1
+  fi
+
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE env variable."
+    echo "Normally this variable is equal to repository name."
+    exit 1
+  fi
+
+  isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
+  if [ "${isvalid}" == "0" ] ; then
+    echo "Selected repository not defined on luet-repo.values file."
+    exit 1
+  fi
+
+  repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
+  repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+ 
+  mottainai-cli task compile ${luet_dir}/templates/start-build-pipeline.tmpl \
+    -s namespace="${NAMESPACE}" \
+    -s repo="${repo}" \
+    -s branch="${repo_branch}" \
+    -o /tmp/start-build-pipeline.yaml || return 1
+
+  if [ "${FIRE_TASK}" = "1" ] ; then
+    mottainai-cli task create --yaml /tmp/start-build-pipeline.yaml || return 1
+  fi
+
+  if [ -z "${SKIP_CLEAN}" ] ; then
+    rm /tmp/start-build-pipeline.yaml
+  fi
+
+  return 0
+}
+
+
+main $@
+exit $?
+
+# vim: filetype=sh
