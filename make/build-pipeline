@@ -1,0 +1,23 @@
+#!/bin/bash
+# Description: Script to start a build pipeline of the missings
+#              packages of the selected repository.
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+
+main () {
+
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE variable."
+    exit 1
+  fi
+
+  bash ${luet_dir}/scripts/create-packages.sh
+  return $?
+}
+
+main $@
+exit ?
+
+# vim: filetype=sh

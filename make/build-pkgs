@@ -33,7 +33,7 @@ main () {
 
   isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
   if [ "${isvalid}" == "0" ] ; then
-    echo "Select repository not defined on luet-repo.values file."
+    echo "Selected repository not defined on luet-repo.values file."
     exit 1
   fi
 

@@ -1,0 +1,118 @@
+# Description: Pipeline for build Macaroni Packages
+
+pipeline_name: "Build Luet Packages <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+
+{{- $reponame := .namespace }}
+{{- $enable_docker_host := .enable_docker_host }}
+{{- $enable_buildkit := .enable_buildkit }}
+{{- $push_images := .push_images }}
+{{- $branch := .branch }}
+{{- $repo := .repo }}
+{{- if .group }}
+group:
+{{- else }}
+chain:
+{{- end }}
+{{- range $index, $val := .packages }}
+  - package-{{ $index }}{{ end }}
+{{- if .group }}
+chord:
+{{- end }}
+  - create-repo
+
+tasks:
+{{ range $idx , $data := .packages }}
+  package-{{ $idx }}:
+    name: "Build luet Macaroni {{ $reponame }} - Package {{ index $data "category" }}/{{ index $data "name" }}"
+    storage: docker-certs
+    storage_path: /storage
+    script:
+    - source /storage/prepare-luet.sh
+    - >-
+      luet repo update &&
+      luet upgrade &&
+      luet cleanup --purge-repos
+    - >-
+      docker login -u ${registry_user} -p ${registry_pass}
+      docker-registry1.mottainai.local:5000
+    # TODO: check why is not handled correctly this variable by Mottainai.
+    {{- if eq $push_images "true" }}
+    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
+    {{- else }}
+    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull"
+    {{- end }}
+    {{- if eq $enable_docker_host "true" }}
+    - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
+    - >-
+      echo "Build Options: ${BUILD_ARGS}"
+    {{- else }}
+    - /etc/init.d/docker start
+    {{- end }}
+    - git clone ${REPO} -b ${REPO_BRANCH} /build
+    - cd /build && make rebuild
+    - >-
+      rm -rf build/build &&
+      cp -v build/* /artefacts/
+    environment:
+    {{- if eq $enable_buildkit "true" }}
+    - "BUILDKIT_PROGRESS=plain"
+    - "DOCKER_BUILDKIT=1"
+    {{- end }}
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ $reponame }}-tree"
+    - "REPO={{ $repo }}"
+    - "REPO_BRANCH={{ $branch }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    {{- if eq $enable_docker_host "true" }}
+    - DOCKER_HOST=docker-overlay2.mottainai.local:2376
+    {{- end }}
+    - "PACKAGES={{ index $data "category" }}/{{ index $data "name" }}"
+    image: macaroni/funtoo-builder
+    artefact_path: /artefacts
+    type: lxd
+    #retry: "2"
+    publish_mode: append
+    tag_namespace: "{{ $reponame }}"
+{{end}}
+
+  create-repo:
+
+    name: "luet - < {{ $reponame }} > - Bump revision"
+    script:
+    - apk add make bash curl git
+    - >-
+      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+      sh /tmp/get_luet_root.sh
+    - luet install dev-util/mottainai-cli
+    - git clone ${REPO} -b ${REPO_BRANCH} repo
+    - cd repo
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      MOTTAINAI_CLI_PROFILE=funtoo
+      mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
+    - ls -l build/
+    - make create-repo
+    - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    storage: "mcli"
+    storage_path: /storage
+    environment:
+    - "REPO_BRANCH={{ $branch }}"
+    - "REPO={{ $repo }}"
+    - "SUDO="
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    - COMPRESSION=zstd
+    - NAMESPACE={{ $reponame }}
+    - "BUILD_ARGS=--config conf/luet.yaml"
+    image: alpine/edge
+    artefact_path: artefacts
+    type: lxd
+    directory: /
+    publish_mode: append
+    tag_namespace: "{{ $reponame }}"
+
+# vim: filetype=yaml
