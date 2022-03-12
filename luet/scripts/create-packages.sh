@@ -93,14 +93,16 @@ main () {
       -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
       -s enable_buildkit="${ENABLE_BUILDKIT}" \
       -s push_images="${PUSH_IMAGES}" \
-      -o /tmp/macaroni/luet-pkgs-pipeline.yaml
+      -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
+      echo "Error on compile pipeline."
+      return 1
+    }
 
     echo "Building packages:"
     cat /tmp/macaroni/luet-pkgs-pipeline.yaml | \
       grep PACKAGES  --color=none | \
       awk '{ print $2 }' | \
       sed -e 's/"PACKAGES=//' -e 's/"//'
-
 
 
     if [ -z "${SKIP_FIRE}" ] ; then
@@ -115,6 +117,7 @@ main () {
     echo "No new packages found. Nothing to do."
   fi
 
+  return 0
 }
 
 main $@
