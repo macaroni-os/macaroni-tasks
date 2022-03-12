@@ -30,7 +30,7 @@
 #                 For repositories stored in the CDN storage it
 #                 runs also the rsync for the repository.
 #
-#              d) sleep 20min to ensure the propagation of the purge
+#              d) sleep 15min to ensure the propagation of the purge
 #                 files
 #
 #              e) run a task that use the generated kits json
@@ -229,6 +229,8 @@ tasks:
     publish_mode: append
     tag_namespace: "{{ .namespace }}"
 
+# Step c -------------------- Bump a new revision of the selected repository
+
   bump-repo-revision:
     name: "luet - < {{ .namespace }} > - Bump revision"
     script:
@@ -268,6 +270,8 @@ tasks:
     publish_mode: append
     tag_namespace: "{{ .namespace }}"
 
+# Step c -------------------- Purge CDN repo files
+
   purge-cdn-files:
     name: "Purge files from CDN77 resource ({{ .namespace }})"
     type: "lxd"
@@ -288,12 +292,12 @@ tasks:
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
       /bin/bash -c 'source /storage/cdn77.env && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+    - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "alpine/edge"
     environment:
     - "NAMESPACE={{ .namespace }}"
 
   luet-portage-convert:
-    
 
 
 # vim: set filetype=yaml

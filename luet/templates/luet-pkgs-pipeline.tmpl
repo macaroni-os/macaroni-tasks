@@ -23,7 +23,7 @@ chord:
 tasks:
 {{ range $idx , $data := .packages }}
   package-{{ $idx }}:
-    name: "Build luet Macaroni {{ $reponame }} - Package {{ index $data "category" }}/{{ index $data "name" }}"
+    name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}"
     storage: docker-certs
     storage_path: /storage
     script:

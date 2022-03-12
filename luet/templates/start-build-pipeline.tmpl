@@ -1,0 +1,26 @@
+name: "Start Build pipeline <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+script:
+- >-
+  luet repo update &&
+  luet upgrade &&
+  luet i -y system/luet-devkit &&
+  luet cleanup --purge-repos
+- >-
+  git clone ${REPO} -b ${REPO_BRANCH} /repo &&
+  git clone ${REPO_MTASKS} /macaroni-tasks
+- >-
+  cd /macaroni-tasks &&
+  export LUET_REPOSITORY=/repo &&
+  make build-pipeline
+environment:
+- "NAMESPACE={{ .namespace }}"
+- "REPO={{ .repo }}"
+- "REPO_BRANCH={{ .branch }}"
+- "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+image: macaroni/funtoo-builder
+artefact_path: /artefacts
+type: lxd
+#retry: "2"
+
+# vim: set filetype=yaml
+
