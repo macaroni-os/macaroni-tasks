@@ -135,6 +135,8 @@ tasks:
       utils/jq utils/yq
     - git clone ${REPO} repo
     - cd repo/iso
+    - echo "Sleeping 600 sec..."
+    - sleep 600
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
     - >-
