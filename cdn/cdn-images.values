@@ -49,7 +49,7 @@ values:
     - name: "macaroni-funtoo"
       namespace: "macaroni-funtoo"
       cdnstorage: true
-      cdnprefix: "/www/mottainai/"
+      cdnprefix: "/mottainai/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -58,7 +58,7 @@ values:
     - name: "macaroni-commons"
       namespace: "macaroni-commons"
       cdnstorage: true
-      cdnprefix: "/www/mottainai/"
+      cdnprefix: "/mottainai/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -69,7 +69,7 @@ values:
     # Macaroni ISO site
     - name: "macaroni-iso"
       cdnstorage: true
-      cdnprefix: "/www/mottainai/"
+      cdnprefix: "/mottainai/"
       purgefiles:
         - isos.json
       cdnid: "1556118782"

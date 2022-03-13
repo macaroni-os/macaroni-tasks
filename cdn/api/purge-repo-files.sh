@@ -44,6 +44,8 @@ main () {
 
   yq r ${tmp_yaml} -j > ${tmp_json}
 
+  #cat ${tmp_json}
+
   # Retrieve cdn resource id
   cdnid=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAME}\") | .cdnid " -r)
 
