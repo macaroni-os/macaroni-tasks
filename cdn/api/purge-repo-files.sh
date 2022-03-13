@@ -10,7 +10,7 @@ tmp_json=/tmp/cdn-purge.json
 CDN_PREFIX="${CDN_PREFIX:-/www/mottainai/}"
 CDN_IMAGESFILE="${CDN_IMAGESFILE:-${cdn_dir}/cdn-images.values}"
 CDN_APIURL="https://api.cdn77.com/v3"
-NAMESPACE="${NAMESPACE:-macaroni-funtoo}"
+NAMESPACE="${NAMESPACE:-}"
 
 main () {
 
