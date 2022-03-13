@@ -33,7 +33,7 @@ for ((i=0;i<${REPOS};i++)) ; do
 
   if [ "${upgrade_kit}" = "true" ] ; then
     echo "Creating upgrade kits task for repo ${name}..."
-    kits2upgrade=$(yq r ${luet_values} 'values.repositories[0]'.kits2upgrade -j  | jq '. | join(",")' -r)
+    kits2upgrade=$(yq r ${luet_values} "values.repositories[$i].kits2upgrade" -j  | jq '. | join(",")' -r)
 
     mottainai-cli task compile ${luet_dir}/templates/upgrade-kits.tmpl \
       -s namespace="${name}" \
