@@ -83,6 +83,8 @@ main () {
       opts="-s group=true"
     fi
 
+    mkdir /tmp/macaroni -p || true
+
     # Create pipeline
     mottainai-cli task compile \
       ${TEMPLATES_DIR}/luet-pkgs-pipeline.tmpl -l ${tmp_packages_files} \
