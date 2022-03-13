@@ -13,6 +13,7 @@ values:
     - name: "macaroni-funtoo-dev"
       namespace: "macaroni-funtoo-dev"
       cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
@@ -21,6 +22,7 @@ values:
     - name: "macaroni-funtoo-testing"
       namespace: "macaroni-funtoo"
       cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
@@ -29,6 +31,7 @@ values:
     - name: "macaroni-commons-dev"
       namespace: "macaroni-commons-dev"
       cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
@@ -37,6 +40,7 @@ values:
     - name: "macaroni-commons-testing"
       namespace: "macaroni-commons-testing"
       cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
@@ -45,6 +49,7 @@ values:
     - name: "macaroni-funtoo"
       namespace: "macaroni-funtoo"
       cdnstorage: true
+      cdnprefix: "/www/mottainai/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -53,6 +58,7 @@ values:
     - name: "macaroni-commons"
       namespace: "macaroni-commons"
       cdnstorage: true
+      cdnprefix: "/www/mottainai/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -63,6 +69,7 @@ values:
     # Macaroni ISO site
     - name: "macaroni-iso"
       cdnstorage: true
+      cdnprefix: "/www/mottainai/"
       purgefiles:
         - isos.json
       cdnid: "1556118782"
@@ -70,6 +77,7 @@ values:
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
+      cdnprefix: "/"
       cdnstorage: false
       purgefiles:
         <<: *purgerepo
@@ -79,6 +87,7 @@ values:
     - name: "macaroni-funtoo-systemd-dev"
       namespace: "macaroni-funtoo-systemd-dev"
       cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330

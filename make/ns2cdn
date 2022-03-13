@@ -31,7 +31,7 @@ do
 
   echo "Creating task for purge namespace $name..."
   mottainai-cli task compile ${cdn_dir}/purge-namespace.tmpl ${opts} \
-    -s namespace="${name}" \
+    -s name="${name}" \
     -o ${cdn_dir}/purge/purge-${name}.yaml
 
 done

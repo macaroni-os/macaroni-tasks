@@ -7,7 +7,6 @@ cdn_dir=$(dirname ${BASH_SOURCE[0]})/..
 tmp_yaml=/tmp/cdn-purge.yaml
 tmp_json=/tmp/cdn-purge.json
 
-CDN_PREFIX="${CDN_PREFIX:-/www/mottainai/}"
 CDN_IMAGESFILE="${CDN_IMAGESFILE:-${cdn_dir}/cdn-images.values}"
 CDN_APIURL="https://api.cdn77.com/v3"
 NAME="${NAME:-}"
@@ -36,6 +35,7 @@ main () {
   fi
 
   NAMESPACE="$(echo ${namespace_data} | jq '.namespace' -r)"
+  CDN_PREFIX="$(echo ${namespace_data} | jq '.cdnprefix' -r)"
 
   for ((i=0; i<${files}; i++)) ; do
     file=$(echo "${namespace_data}" | jq ".purgefiles.paths[${i}]" -r)
