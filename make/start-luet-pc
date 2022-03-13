@@ -27,11 +27,6 @@ main () {
     return 1
   fi
 
-  if [ -z "${KITS_2UPGRADE}" ] ; then
-    echo "Missing KITS_2UPGRADE env variable."
-    return 1
-  fi
-
   if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
     echo "Missing MOTTAINAI_CLI_PROFILE env variable."
     return 1
@@ -46,6 +41,22 @@ main () {
   local repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   local repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   local repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+  local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
+  local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\",\")" -r)
+
+  if [ "${upgrade_kit}" != "true" ] ; then
+    echo "The selected repository is without upgrade_kit enable."
+    return 1
+  fi
+
+  if [ "${kits2upgrade}" == "" ] ; then
+    echo "The selected repository doesn't define kits2upgrade list on file ${luet_values}."
+    return 1
+  fi
+
+  echo "
+Kits 2 upgrade: ${kits2upgrade}
+"
 
   rm -f /tmp/start-luet-pc.yaml || true
 
@@ -53,7 +64,7 @@ main () {
     -s namespace="${NAMESPACE}" \
     -s repossh="${repo_ssh}" \
     -s repobranch="${repo_branch}" \
-    -s kits2upgrade="${KITS_2UPGRADE}" \
+    -s kits2upgrade="${kits2upgrade}" \
     -o /tmp/start-luet-pc.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then
