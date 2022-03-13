@@ -1,7 +1,7 @@
 # Author: Daniele Rondina <geaaru@gmail.com>
 # Description: This task permits to purge repo core files.
 
-name: "Purge files from CDN77 resource ({{ .namespace }})"
+name: "Purge files from CDN77 resource ({{ .name }})"
 type: "lxd"
 
 storage: "cdn77"
@@ -20,9 +20,9 @@ script:
   /macaroni-tasks &&
   cd /macaroni-tasks &&
   chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
-  /bin/bash -c 'source /storage/cdn77.env && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+  /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
 image: "alpine/edge"
 environment:
-- "NAMESPACE={{ .namespace }}"
+- "NAME={{ .name }}"
 
 # vim: filetype=yaml

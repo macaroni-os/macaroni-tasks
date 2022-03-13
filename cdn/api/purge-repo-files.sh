@@ -10,12 +10,12 @@ tmp_json=/tmp/cdn-purge.json
 CDN_PREFIX="${CDN_PREFIX:-/www/mottainai/}"
 CDN_IMAGESFILE="${CDN_IMAGESFILE:-${cdn_dir}/cdn-images.values}"
 CDN_APIURL="https://api.cdn77.com/v3"
-NAMESPACE="${NAMESPACE:-}"
+NAME="${NAME:-}"
 
 main () {
 
-  if [ -z "${NAMESPACE}" ] ; then
-    echo "Missing NAMESPACE!"
+  if [ -z "${NAME}" ] ; then
+    echo "Missing NAME!"
     return 1
   fi
 
@@ -24,7 +24,7 @@ main () {
     return 1
   fi
 
-  namespace_data=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAMESPACE}\") " )
+  namespace_data=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAME}\") " )
   # Create the json payload
   rm -f ${tmp_yaml} || true
   touch ${tmp_yaml}
@@ -35,6 +35,8 @@ main () {
     return 0
   fi
 
+  NAMESPACE="$(echo ${namespace_data} | jq '.namespace' -r)"
+
   for ((i=0; i<${files}; i++)) ; do
     file=$(echo "${namespace_data}" | jq ".purgefiles.paths[${i}]" -r)
     yq w -i ${tmp_yaml} "paths[${i}]" "${CDN_PREFIX}${NAMESPACE}/${file}"
@@ -43,7 +45,7 @@ main () {
   yq r ${tmp_yaml} -j > ${tmp_json}
 
   # Retrieve cdn resource id
-  cdnid=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAMESPACE}\") | .cdnid " -r)
+  cdnid=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAME}\") | .cdnid " -r)
 
   status_code=$(
     curl \
@@ -62,7 +64,7 @@ main () {
     echo "Error on purge files from CDN ($status_code)."
     return 1
   else
-    echo "CDN files of the repo ${NAMESPACE} purged."
+    echo "CDN files of the repo ${NAME} ($NAMESPACE) purged."
   fi
 
   rm ${tmp_json} ${tmp_yaml}
