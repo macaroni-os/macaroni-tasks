@@ -18,7 +18,8 @@ script:
 {{- end }}
 {{- if eq .enable_docker_host "true" }}
 - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
-- echo "Build Options: ${BUILD_ARGS}"
+- >-
+  echo "Build Options: ${BUILD_ARGS}"
 {{- else }}
 - /etc/init.d/docker start
 {{- end }}
