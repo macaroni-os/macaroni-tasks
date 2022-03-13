@@ -37,7 +37,7 @@ script:
   cd /macaroni-tasks &&
   chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
   /bin/bash -c
-  "source /storage/cdn77.env && export NAMESPACE=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
+  "source /storage/cdn77.env && export NAME=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
 image: "alpine/edge"
 environment:
 - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
