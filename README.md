@@ -38,7 +38,7 @@ $> FIRE_TASK=1 make isos2cdn
 
 ## Macaroni packages
 
-### Run task to build luet packages
+### Run task to build luet packages defined
 
 ```shell
 $> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo" FIRE_TASK=1 make build-pkgs
@@ -49,3 +49,10 @@ For packages that is better to push to the docker registry execute:
 ```shell
 $> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo" FIRE_TASK=1 PUSH_IMAGES=true make build-pkgs
 ```
+
+### Run task that check missing packages and create build pipeline
+
+```shell
+$> FIRE_TASK=1 NAMESPACE=macaroni-commons make start-build-pipeline
+```
+
