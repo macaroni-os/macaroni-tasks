@@ -26,13 +26,13 @@ script:
   env-update &&
   ldconfig
 
-# Setup git ssh key
-- sh /storage/setup-ssh.sh
-- sh /storage/setup-git.sh
-
 # Setup Mottainai stuff
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
+
+# Setup git ssh key
+- sh /storage/setup-ssh.sh
+- sh /storage/setup-git.sh
 
 - >-
   git clone ${REPO} -b ${REPO_BRANCH} /luet-repo &&
