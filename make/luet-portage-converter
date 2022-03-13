@@ -1,0 +1,136 @@
+#!/bin/bash
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Script to execute luet-portage-converter
+#              locally. Normally for debug/throubleshooting.
+#              Use start-luet-pc instead for normal use.
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+luet_values=${luet_dir}/luet-repo.values
+
+LUET_PC_OPTS="${LUET_PC_OPTS:---ignore-missing-deps --disable-conflicts --to ${LUET_REPOSITORY}}"
+LUET_PC_STAGE4="${LUET_PC_STAGE4:-1}"
+LUET_PC_OVERRIDE="${LUET_PC_OVERRIDE:-0}"
+LUET_PC_PACKAGE="${LUET_PC_PACKAGE:-}"
+# Set to 1 only for update local copy of the kit cache.
+# On mottainai task this is pushed automatically as artefact.
+PULL_KIT_CACHE="${PULL_KIT_CACHE:-0}"
+TREE="${TREE:-packages}"
+LUET_PC_SPECSDIR="${LUET_PC_SPECSDIR:-${LUET_REPOSITORY}/portage-converter}"
+
+luet_pc_mapfile="${LUET_PC_SPECSDIR}/kits-specs-map.yaml"
+
+pull_kit_cache () {
+  mkdir -p ${LUET_REPOSITORY}/kit_cache || true
+
+  mottainai-cli namespace download \
+    -f '!.log$' \
+    ${NAMESPACE}-reposcan ${LUET_REPOSITORY}/kit_cache/ || return 1
+
+  return 0
+}
+
+run_lpc () {
+  local opts="$1"
+  local rulesfile="$2"
+
+  # Run luet-portage-converter on target repository.
+  luet-portage-converter generate -t ${TREE} \
+    ${opts} \
+    --rules ${LUET_PC_SPECSDIR}/${rulesfile} || {
+    echo "Error on running luet-portage-converter for rules file ${rulesfile}."
+    return 1
+  }
+
+  return 0
+}
+
+main () {
+  local lpc_opts=""
+
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE env variable."
+    echo "Normally this variable is equal to repository name."
+    return 1
+  fi
+
+  if [ -z "${LUET_REPOSITORY}" ] ; then
+    echo "Missing LUET_REPOSITORY env variable."
+    return 1
+  fi
+
+  if [ -z "${KITS_2UPGRADE}" ] ; then
+    echo "Missing KITS_2UPGRADE env variable."
+    return 1
+  fi
+
+  if [ "${PULL_KIT_CACHE}" = "1" ] ; then
+    if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+      echo "Missing MOTTAINAI_CLI_PROFILE env variable."
+      return 1
+    fi
+
+    pull_kit_cache || {
+      echo "Error on pull kit cache files."
+      return 1
+    }
+  fi
+
+  local isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
+  if [ "${isvalid}" == "0" ] ; then
+    echo "Selected repository not defined on luet-repo.values file."
+    return 1
+  fi
+
+  local repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
+  local repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+
+  lpc_opts="${LUET_PC_OPTS}"
+  if [ "${LUET_PC_STAGE4}" = "1" ] ; then
+    lpc_opts="${lpc_opts} --enable-stage4"
+  fi
+  if [ "${LUET_PC_OVERRIDE}" = "1" ] ; then
+    lpc_opts="${lpc_opts} --override"
+  fi
+  if [ -n "${LUET_PC_PACKAGE}" ] ; then
+    lpc_opts="${lpc_opts} --package ${LUET_PC_PACKAGE}"
+  fi
+
+  # Create list of specs files.
+  local kits_specs=""
+  for k in ${KITS_2UPGRADE}; do
+    if [ "$(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k} -l)" != "1" ] ; then
+      echo "Kit ${k} not available on ${luet_pc_mapfile}."
+      return 1
+    fi
+
+    kits_specs="${kits_specs} $(yq r ${luet_pc_mapfile} extra-pkgs.kits.browser-kit.specs -j | jq .[] -r)"
+
+  done
+
+  # Drop duplicates
+  kits_specs="$(echo ${kits_specs} | tr ' ' '\n' | sort -nu)"
+
+  echo "
+Luet Portage Converter options: ${lpc_opts}
+Luet Portage Converter rules files : ${kits_specs}
+"
+
+  pushd ${LUET_REPOSITORY} 2>&1 >/dev/null
+
+  for k in ${kits_specs} ; do
+    run_lpc "${lpc_opts}" "${k}" || {
+      popd ${LUET_REPOSITORY} 2>&1 >/dev/null
+      return 1
+    }
+  done
+
+  popd  2>&1 >/dev/null
+  return 0
+}
+
+main $@
+exit $?
+
+# vim: filetype=sh

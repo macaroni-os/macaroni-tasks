@@ -1,0 +1,69 @@
+#!/bin/bash
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Create task to execute luet-portage-converter for
+#              a specific repository.
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+luet_values=${luet_dir}/luet-repo.values
+
+LUET_PC_OPTS="${LUET_PC_OPTS:---ignore-missing-deps --disable-conflicts --to ${LUET_REPOSITORY}}"
+LUET_PC_STAGE4="${LUET_PC_STAGE4:-1}"
+LUET_PC_OVERRIDE="${LUET_PC_OVERRIDE:-0}"
+LUET_PC_PACKAGE="${LUET_PC_PACKAGE:-}"
+
+LUET_PC_SPECSDIR="${LUET_PC_SPECSDIR:-${LUET_REPOSITORY}/portage-converter}"
+
+main () {
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE env variable."
+    echo "Normally this variable is equal to repository name."
+    return 1
+  fi
+
+  if [ -z "${LUET_REPOSITORY}" ] ; then
+    echo "Missing LUET_REPOSITORY env variable."
+    return 1
+  fi
+
+  if [ -z "${KITS_2UPGRADE}" ] ; then
+    echo "Missing KITS_2UPGRADE env variable."
+    return 1
+  fi
+
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "Missing MOTTAINAI_CLI_PROFILE env variable."
+    return 1
+  fi
+
+  local isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
+  if [ "${isvalid}" == "0" ] ; then
+    echo "Selected repository not defined on luet-repo.values file."
+    return 1
+  fi
+
+  local repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
+  local repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+  local repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+
+  rm -f /tmp/start-luet-pc.yaml || true
+
+  mottainai-cli task compile ${luet_dir}/templates/start-luet-pc.tmpl \
+    -s namespace="${NAMESPACE}" \
+    -s repossh="${repo_ssh}" \
+    -s repobranch="${repo_branch}" \
+    -s kits2upgrade="${KITS_2UPGRADE}" \
+    -o /tmp/start-luet-pc.yaml || return 1
+
+  if [ "${FIRE_TASK}" = "1" ] ; then
+    mottainai-cli task create --yaml /tmp/start-luet-pc.yaml || return 1
+  fi
+
+  return 0
+}
+
+main $@
+exit $?
+
+# vim: filetype=sh

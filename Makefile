@@ -21,6 +21,9 @@ all:
 	@echo "                      Use start-build-pipeline instead."
 	@echo "start-build-pipeline  Create task for create build pipeline of the "
 	@echo "                      missing packages."
+	@echo "luet-pc               Run luet-portage-converter locally."
+	@echo "start-luet-pc         Create task to execute luet-portage-converter for a"
+	@echo "                      specified repository."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -61,3 +64,11 @@ build-pipeline:
 .PHONY: start-build-pipeline
 start-build-pipeline:
 	@make/start-build-pipeline
+
+.PHONY: luet-pc
+luet-pc:
+	@make/luet-portage-converter
+
+.PHONY: start-luet-pc
+start-luet-pc:
+	@make/start-luet-pc
