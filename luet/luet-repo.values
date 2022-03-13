@@ -59,5 +59,9 @@ values:
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      kits2upgrade:
+        - core-server-kit
+        - dev-kit
+        - lang-kit
 
 # vim: filetype=yaml
