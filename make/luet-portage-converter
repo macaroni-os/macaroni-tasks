@@ -121,12 +121,12 @@ Luet Portage Converter rules files : ${kits_specs}
 
   for k in ${kits_specs} ; do
     run_lpc "${lpc_opts}" "${k}" || {
-      popd ${LUET_REPOSITORY} 2>&1 >/dev/null
+      popd 2>&1 >/dev/null
       return 1
     }
   done
 
-  popd  2>&1 >/dev/null
+  popd 2>&1 >/dev/null
   return 0
 }
 
