@@ -78,10 +78,10 @@ values:
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
       cdnprefix: "/"
-      cdnstorage: false
+      cdnstorage: true
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
@@ -92,3 +92,4 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
+# vim: filetype=yaml
