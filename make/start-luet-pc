@@ -8,22 +8,10 @@ if [ -n "$DEBUG" ] ; then set -x ; fi
 luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
 luet_values=${luet_dir}/luet-repo.values
 
-LUET_PC_OPTS="${LUET_PC_OPTS:---ignore-missing-deps --disable-conflicts --to ${LUET_REPOSITORY}}"
-LUET_PC_STAGE4="${LUET_PC_STAGE4:-1}"
-LUET_PC_OVERRIDE="${LUET_PC_OVERRIDE:-0}"
-LUET_PC_PACKAGE="${LUET_PC_PACKAGE:-}"
-
-LUET_PC_SPECSDIR="${LUET_PC_SPECSDIR:-${LUET_REPOSITORY}/portage-converter}"
-
 main () {
   if [ -z "${NAMESPACE}" ] ; then
     echo "Missing NAMESPACE env variable."
     echo "Normally this variable is equal to repository name."
-    return 1
-  fi
-
-  if [ -z "${LUET_REPOSITORY}" ] ; then
-    echo "Missing LUET_REPOSITORY env variable."
     return 1
   fi
 
