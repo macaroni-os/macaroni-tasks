@@ -101,11 +101,11 @@ main () {
   local kits_specs=""
   for k in ${KITS_2UPGRADE}; do
     if [ "$(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k} -l)" != "1" ] ; then
-      echo "Kit ${k} not available on ${luet_pc_mapfile}."
-      return 1
+      echo "Kit ${k} not available on ${luet_pc_mapfile}. Ignoring it for upgrade."
+      continue
     fi
 
-    kits_specs="${kits_specs} $(yq r ${luet_pc_mapfile} extra-pkgs.kits.browser-kit.specs -j | jq .[] -r)"
+    kits_specs="${kits_specs} $(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k}.specs -j | jq .[] -r)"
 
   done
 
