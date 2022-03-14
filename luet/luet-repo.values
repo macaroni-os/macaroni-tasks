@@ -51,6 +51,7 @@ values:
         - core-server-kit
         - dev-kit
         - lang-kit
+        - security-kit
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
@@ -63,5 +64,6 @@ values:
         - core-server-kit
         - dev-kit
         - lang-kit
+        - security-kit
 
 # vim: filetype=yaml
