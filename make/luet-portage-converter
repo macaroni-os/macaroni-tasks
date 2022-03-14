@@ -99,18 +99,21 @@ main () {
 
   # Create list of specs files.
   local kits_specs=""
+  local ks=""
   for k in ${KITS_2UPGRADE}; do
     if [ "$(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k} -l)" != "1" ] ; then
       echo "Kit ${k} not available on ${luet_pc_mapfile}. Ignoring it for upgrade."
       continue
     fi
 
-    kits_specs="${kits_specs} $(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k}.specs -j | jq .[] -r)"
+    ks=($(yq r ${luet_pc_mapfile} extra-pkgs.kits.${k}.specs -j | jq .[] -r))
+    kits_specs="${kits_specs} ${ks[@]}"
 
   done
 
   # Drop duplicates
-  kits_specs="$(echo ${kits_specs} | tr ' ' '\n' | sort -nu)"
+  kits_specs=($(echo ${kits_specs} | tr ' ' '\n' | sort -u))
+  kits_specs="${kits_specs[@]}"
 
   echo "
 Luet Portage Converter options: ${lpc_opts}
