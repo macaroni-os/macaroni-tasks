@@ -291,7 +291,7 @@ tasks:
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
-      /bin/bash -c 'source /storage/cdn77.env && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAMESPACE} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
     - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "alpine/edge"
     environment:
@@ -424,6 +424,7 @@ tasks:
     - >-
       cd /macaroni-tasks &&
       ls -l /repo &&
+      export FIRE_TASK=1 &&
       export LUET_REPOSITORY=/repo &&
       make build-pipeline
     environment:
@@ -431,6 +432,9 @@ tasks:
     - "REPO={{ .repo }}"
     - "REPO_BRANCH={{ .branch }}"
     - "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+    {{- if eq .group "true" }}
+    - "GROUP_PIPELINE=1"
+    {{- end }}
     image: macaroni/funtoo-builder
     artefact_path: /artefacts
     type: lxd
