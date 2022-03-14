@@ -4,16 +4,29 @@
 
 ```shell
 $ make
-===========================================
-Funtoo Macaroni Tasks/Pipelines Shortcuts
-===========================================
 Available commands:
 
-lxd-tasks        Update Mottainai tasks and pipeline for all images
-iso-tasks        Update Mottainai tasks and pipeline for all ISOs
-isos2cdn         Create task for sync ISOs namespace to CDN
-isos_pipeline    Create ISOs Stable pipeline.
-isos_release     Create ISOs pipeline for a release.
+lxd-tasks             Update Mottainai tasks and pipeline for all images
+iso-tasks             Update Mottainai tasks and pipeline for all ISOs
+isos2cdn              Create task for sync ISOs namespacse to CDN
+ns2cdn                Create task for sync Repositories namespaces to CDN
+isos_pipeline         Create ISOs Stable pipeline.
+isos_release          Create ISOs pipeline for a release.
+luet-tasks            Create/Update Luet repos tasks/pipeline.
+build-pkgs            Create task for build specific packages.
+build-pipeline        Create the pipeline for build missing packages of a repository.
+                      Require a local copy of the target repo.
+                      Use start-build-pipeline instead.
+start-build-pipeline  Create task for create build pipeline of the 
+                      missing packages.
+luet-pc               Run luet-portage-converter locally.
+start-luet-pc         Create task to execute luet-portage-converter for a
+                      specified repository.
+tag4testing           Tag for testing the selected repo (uses target repo).
+                      This target is for testing atomic operation.
+                      Uses tag4test-pipeline instead for workflow.
+tag4test-pipeline     Tag for testing the selected repo and bump revision.
+
 ```
 
 ### Bump Macaroni Release ISOs
