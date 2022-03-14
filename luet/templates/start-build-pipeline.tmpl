@@ -23,6 +23,9 @@ environment:
 - "REPO={{ .repo }}"
 - "REPO_BRANCH={{ .branch }}"
 - "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+{{ if eq .group "true" }}
+- "GROUP_PIPELINE=1
+{{ end }}
 image: macaroni/funtoo-builder
 artefact_path: /artefacts
 type: lxd
