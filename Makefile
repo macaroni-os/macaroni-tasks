@@ -24,6 +24,10 @@ all:
 	@echo "luet-pc               Run luet-portage-converter locally."
 	@echo "start-luet-pc         Create task to execute luet-portage-converter for a"
 	@echo "                      specified repository."
+	@echo "tag4testing           Tag for testing the selected repo (uses target repo)."
+	@echo "                      This target is for testing atomic operation."
+	@echo "                      Uses tag4test-pipeline instead for workflow."
+	@echo "tag4test-pipeline     Tag for testing the selected repo and bump revision."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -72,3 +76,11 @@ luet-pc:
 .PHONY: start-luet-pc
 start-luet-pc:
 	@make/start-luet-pc
+
+.PHONY: tag4testing
+tag4testing:
+	@make/tag4testing
+
+.PHONY: tag4test-pipeline
+tag4test-pipeline:
+	@make/tag4test-pipeline

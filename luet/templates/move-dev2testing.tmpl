@@ -1,0 +1,93 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Chain pipeline to tag dev repository to testing.
+#
+pipeline_name: "luet - Tag {{ .repo }} for testing - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+chain:
+- tag-ns
+- bump-repo-revision
+# TODO: add clean of the repo
+- purge-cdn-files
+
+tasks:
+  tag-ns:
+    name: "Tag <{{ .namespace }}> for testing - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: "mcli"
+    storage_path: /storage
+    script:
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      export MOTTAINAI_CLI_PROFILE=funtoo
+    - mottainai-cli namespace delete "${NAMESPACE}"
+    - mottainai-cli namespace clone "${NAMESPACE}" -f "${NAMESPACE}"-dev
+    environment:
+    - "NAMESPACE={{ .namespace }}"
+    image: macaroni/funtoo-builder
+    artefact_path: /artefacts
+    type: lxd
+
+  bump-repo-revision:
+    name: "luet - < {{ .namespace }} > - Bump revision"
+    script:
+    - apk add make bash curl git
+    - >-
+      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+      sh /tmp/get_luet_root.sh
+    - luet install dev-util/mottainai-cli
+    - git clone ${REPO} -b ${REPO_BRANCH} repo
+    - cd repo
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      MOTTAINAI_CLI_PROFILE=funtoo
+      mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
+    - ls -l build/
+    - make create-repo
+    - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    storage: "mcli"
+    storage_path: /storage
+    environment:
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repohttp }}"
+    - "SUDO="
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    - COMPRESSION=zstd
+    - NAMESPACE={{ .namespace }}
+    - "BUILD_ARGS=--config conf/luet.yaml"
+    image: alpine/edge
+    artefact_path: artefacts
+    type: lxd
+    directory: /
+    publish_mode: append
+    tag_namespace: "{{ .namespace }}"
+
+  purge-cdn-files:
+    name: "Purge files from CDN77 resource ({{ .namespace }})"
+    type: "lxd"
+    storage: "cdn77"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - apk add bash curl git
+    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+    - >-
+      luet i -y utils/jq utils/yq &&
+      luet cleanup --purge-repos
+    - >-
+      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+    image: "alpine/edge"
+    environment:
+    - "NAMESPACE={{ .namespace }}"
+    - "NAME={{ .namespace }}-testing"
+
+# vim: filetype=yaml

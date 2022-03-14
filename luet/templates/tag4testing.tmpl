@@ -1,0 +1,21 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Tag a developing repository for testing:
+#              - remove testing repository
+#              - clone namespace from developing ns
+name: "Tag <{{ .namespace }}> for testing - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+storage: "mcli"
+storage_path: /storage
+script:
+- export HOME=/root && mkdir -p /root/.config/
+- /bin/bash /storage/setup-mcli.sh
+- >-
+  export MOTTAINAI_CLI_PROFILE=funtoo
+- mottainai-cli namespace delete "${NAMESPACE}"
+- mottainai-cli namespace clone "${NAMESPACE}" -f "${NAMESPACE}"-dev
+environment:
+- "NAMESPACE={{ .namespace }}"
+image: macaroni/funtoo-builder
+artefact_path: /artefacts
+type: lxd
+
+# vim: filetype=yaml
