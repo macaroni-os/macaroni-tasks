@@ -73,6 +73,7 @@ script:
 
 - >-
   cd /luet-repo &&
+  git status . &&
   export changes=$(git status -s | grep "M " | wc -l ) &&
   if [ "${changes}" != "0" ] ; then
   fkv=$(yq r /luet-repo/packages/seeds/funtoo-kits/definition.yaml 'version') &&
