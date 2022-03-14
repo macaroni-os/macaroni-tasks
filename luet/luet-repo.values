@@ -62,8 +62,21 @@ values:
       upgrade_kit: true
       kits2upgrade:
         - core-server-kit
+        - core-gl-kit
+        - core-hw-kit
+        - core-kit
         - dev-kit
         - lang-kit
+        - lisp-scheme-kit
+        - media-kit
+        - text-kit
+        - gnome-kit
+        - net-kit
+        - python-modules-kit
+        - perl-kit
+        - science-kit
+        - editors-kit
+        - nokit
         - security-kit
 
 # vim: filetype=yaml
