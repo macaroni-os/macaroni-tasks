@@ -50,7 +50,7 @@
 #                 bumped. So, if there are new packages it
 #                 creates a new pipeline that build all new packages.
 
-pipeline_name: "luet - upgrade extra pkgs <{{ .repo }}> - {{ .date }} - phase1"
+pipeline_name: "luet - upgrade extra pkgs <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 chain:
 - upgrade-kits
 - update-kits-pkgs
@@ -62,7 +62,7 @@ chain:
 
 tasks:
   upgrade-kits:
-    name: "Luet Upgrade Kits <{{ .namespace }}> ({{ .date }}) - Bump revision"
+    name: "Luet Upgrade Kits <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }} - Bump revision"
     script:
 
     - >-
@@ -193,11 +193,7 @@ tasks:
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000
 
-    {{- if eq .push_images "true" }}
-    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
-    {{- else }}
     - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull"
-    {{- end }}
     {{- if eq .enable_docker_host "true" }}
     - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
     {{- else }}
@@ -214,8 +210,8 @@ tasks:
     - "DOCKER_BUILDKIT=1"
     {{- end }}
     - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
-    - "REPO={{ .repo }}"
-    - "REPO_BRANCH={{ .branch }}"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
     - LUET_SYSTEM__TMPDIR_BASE=/luettmp
     - LUET_YES=true
     {{- if eq .enable_docker_host "true" }}
@@ -368,11 +364,7 @@ tasks:
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000
 
-    {{- if eq .push_images "true" }}
     - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
-    {{- else }}
-    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull"
-    {{- end }}
     {{- if eq .enable_docker_host "true" }}
     - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
     {{- else }}
@@ -389,8 +381,8 @@ tasks:
     - "DOCKER_BUILDKIT=1"
     {{- end }}
     - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
-    - "REPO={{ .repo }}"
-    - "REPO_BRANCH={{ .branch }}"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
     - LUET_SYSTEM__TMPDIR_BASE=/luettmp
     - LUET_YES=true
     {{- if eq .enable_docker_host "true" }}
@@ -429,8 +421,8 @@ tasks:
       make build-pipeline
     environment:
     - "NAMESPACE={{ .namespace }}"
-    - "REPO={{ .repo }}"
-    - "REPO_BRANCH={{ .branch }}"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
     - "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
     {{- if eq .group "true" }}
     - "GROUP_PIPELINE=1"

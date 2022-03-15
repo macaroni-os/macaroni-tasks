@@ -84,3 +84,7 @@ tag4testing:
 .PHONY: tag4test-pipeline
 tag4test-pipeline:
 	@make/tag4test-pipeline
+
+.PHONY: start-upgrade-pipeline
+start-upgrade-pipeline:
+	@make/start-upgrade-pipeline

@@ -1,0 +1,86 @@
+#!/bin/bash
+# Description: Script to start build of the selected packages
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+luet_values=${luet_dir}/luet-repo.values
+
+FIRE_TASK=${FIRE_TASK:-0}
+ENABLE_DOCKER_HOST=${ENABLE_DOCKER_HOST:-true}
+ENABLE_BUILDKIT=${ENABLE_BUILDKIT:-false}
+PUSH_IMAGES=${PUSH_IMAGES:-false}
+
+main () {
+
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+    exit 1
+  fi
+
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE env variable."
+    echo "Normally this variable is equal to repository name."
+    exit 1
+  fi
+
+  isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
+  if [ "${isvalid}" == "0" ] ; then
+    echo "Selected repository not defined on luet-repo.values file."
+    exit 1
+  fi
+
+  repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
+  repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+  repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+  local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
+  local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
+
+
+  if [ "${upgrade_kit}" != "true" ] ; then
+    echo "The selected repository is without upgrade_kit enable."
+    return 1
+  fi
+
+  if [ "${kits2upgrade}" == "" ] ; then
+    echo "The selected repository doesn't define kits2upgrade list on file ${luet_values}."
+    return 1
+  fi
+
+  echo "
+Kits 2 upgrade: ${kits2upgrade}
+"
+
+  local opts=""
+  if [ -n "${GROUP_PIPELINE}" ] ; then
+    opts="-s group=true"
+  fi
+
+  mottainai-cli task compile ${luet_dir}/templates/upd-extra-pkgs-pipeline.tmpl \
+    -s namespace="${NAMESPACE}" ${opts} \
+    -s repohttp="${repo}" \
+    -s repobranch="${repo_branch}" \
+    -s repossh="${repo_ssh}" \
+    -s kits2upgrade="${kits2upgrade}" \
+    -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
+    -s enable_buildkit="${ENABLE_BUILDKIT}" \
+    -o /tmp/upd-extra-pkgs-pipeline.yaml || return 1
+
+  if [ "${FIRE_TASK}" = "1" ] ; then
+    mottainai-cli pipeline create --yaml /tmp/upd-extra-pkgs-pipeline.yaml || return 1
+  fi
+
+#  if [ -z "${SKIP_CLEAN}" ] ; then
+#    rm /tmp/upd-extra-pkgs-pipeline.yaml
+#  fi
+
+  return 0
+}
+
+
+main $@
+exit $?
+
+# vim: filetype=sh
+
