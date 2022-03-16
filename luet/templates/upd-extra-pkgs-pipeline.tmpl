@@ -142,7 +142,13 @@ tasks:
       fi &&
       luet tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
       luet tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
-      for i in ${SEEDS2BUMP} ; do name=$(echo $i | cut -d'/' -f2) ; luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ; done ;
+      for i in ${SEEDS2BUMP} ; do
+      name=$(echo $i | cut -d'/' -f2) ;
+      luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+      if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
+      luet tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+      fi ;
+      done ;
       else
       echo "No changes. Exiting and stop pipeline." && exit 1 ;
       fi
