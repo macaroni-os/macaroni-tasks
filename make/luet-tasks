@@ -34,6 +34,12 @@ for ((i=0;i<${REPOS};i++)) ; do
   if [ "${upgrade_kit}" = "true" ] ; then
     echo "Creating upgrade kits task for repo ${name}..."
     kits2upgrade=$(yq r ${luet_values} "values.repositories[$i].kits2upgrade" -j  | jq '. | join(" ")' -r)
+    seeds2bump=$(yq r ${luet_values} "values.repositories[$i].seeds2bump" -j  | jq '. | join(" ")' -r)
+
+    if [ -z "${seed2bump}" ] ; then
+      echo "No seed to bump for repo ${repo}!"
+      exit 1
+    fi
 
     mottainai-cli task compile ${luet_dir}/templates/upgrade-kits.tmpl \
       -s namespace="${name}" \
@@ -41,6 +47,7 @@ for ((i=0;i<${REPOS};i++)) ; do
       -s repohttp="${http_repo}" \
       -s repossh="${ssh_repo}" \
       -s kits2upgrade="${kits2upgrade}" \
+      -s seeds2bump="${seeds2bump}" \
       -o ${luet_dir}/kits-upgrade/upgrade-kits-${name}.yaml
 
   fi

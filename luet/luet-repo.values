@@ -11,6 +11,14 @@ values:
       upgrade_kit: true
       kits2upgrade:
         - browser-kit
+      # The list of the seed to bump before start
+      # new packages version.
+      seeds2bump:
+        - seed/macaroni-funtoo-stage
+        - seed/macaroni-funtoo-base
+        #- seed/macaroni-funtoo-python-stage
+        #- seed/macaroni-funtoo-python
+        #- seed/macaroni-funtoo-games
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo"
@@ -44,10 +52,15 @@ values:
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
       branch: systemd
+      # This option definie if the specific repo could be considered
+      # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
       # If the repo could manage the upgrade kit task
+      seeds2bump:
+        - seed/macaroni-funtoo-stage
+        - seed/macaroni-funtoo-base
       upgrade_kit: true
       kits2upgrade:
         - core-server-kit
@@ -62,6 +75,9 @@ values:
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      seeds2bump:
+        - seed/macaroni-funtoo-stage
+        - seed/macaroni-funtoo-base
       kits2upgrade:
         - core-server-kit
         - core-gl-kit

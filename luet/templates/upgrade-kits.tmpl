@@ -83,8 +83,7 @@ script:
   fi &&
   luet tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
   luet tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
-  luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
-  luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-base/definition.yaml ${tbump_opts} ;
+  for i in ${SEEDS2BUMP} ; do name=$(echo $i | cut -d'/' -f2) ; luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ; done ;
   fi
 
 # Commit new version
@@ -104,6 +103,7 @@ environment:
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"
 - "KITS_2UPGRADE={{ .kits2upgrade }}"
+- "SEEDS2BUMP={{ .seeds2bump }}"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
