@@ -1,7 +1,7 @@
 # Author: Daniele Rondina, geaaru@funtoo.org
 # Description: Chain pipeline to tag dev repository to testing.
 #
-pipeline_name: "luet - Tag {{ .repo }} for testing - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+pipeline_name: "luet - Tag {{ .namespace }} for testing - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 chain:
 - tag-ns
 - bump-repo-revision
