@@ -22,9 +22,16 @@ main () {
     exit 1
   fi
 
+  repo4test=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .repo4test_tag" -r)
   isvalid=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | length")
+
   if [ "${isvalid}" == "0" ] ; then
     echo "Selected repository not defined on luet-repo.values file."
+    exit 1
+  fi
+
+  if [ "${repo4test}" != "true" ] ; then
+    echo "Selected repository invalid for tagging. See repo4test_tag field."
     exit 1
   fi
 
