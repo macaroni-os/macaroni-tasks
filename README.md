@@ -6,26 +6,28 @@
 $ make
 Available commands:
 
-lxd-tasks             Update Mottainai tasks and pipeline for all images
-iso-tasks             Update Mottainai tasks and pipeline for all ISOs
-isos2cdn              Create task for sync ISOs namespacse to CDN
-ns2cdn                Create task for sync Repositories namespaces to CDN
-isos_pipeline         Create ISOs Stable pipeline.
-isos_release          Create ISOs pipeline for a release.
-luet-tasks            Create/Update Luet repos tasks/pipeline.
-build-pkgs            Create task for build specific packages.
-build-pipeline        Create the pipeline for build missing packages of a repository.
-                      Require a local copy of the target repo.
-                      Use start-build-pipeline instead.
-start-build-pipeline  Create task for create build pipeline of the 
-                      missing packages.
-luet-pc               Run luet-portage-converter locally.
-start-luet-pc         Create task to execute luet-portage-converter for a
-                      specified repository.
-tag4testing           Tag for testing the selected repo (uses target repo).
-                      This target is for testing atomic operation.
-                      Uses tag4test-pipeline instead for workflow.
-tag4test-pipeline     Tag for testing the selected repo and bump revision.
+lxd-tasks               Update Mottainai tasks and pipeline for all images
+iso-tasks               Update Mottainai tasks and pipeline for all ISOs
+isos2cdn                Create task for sync ISOs namespacse to CDN
+ns2cdn                  Create task for sync Repositories namespaces to CDN
+isos_pipeline           Create ISOs Stable pipeline.
+isos_release            Create ISOs pipeline for a release.
+luet-tasks              Create/Update Luet repos tasks/pipeline.
+build-pkgs              Create task for build specific packages.
+build-pipeline          Create the pipeline for build missing packages of a repository.
+                        Require a local copy of the target repo.
+                        Use start-build-pipeline instead.
+start-build-pipeline    Create task for create build pipeline of the 
+                        missing packages.
+luet-pc                 Run luet-portage-converter locally.
+start-luet-pc           Create task to execute luet-portage-converter for a
+                        specified repository.
+tag4testing             Tag for testing the selected repo (uses target repo).
+                        This target is for testing atomic operation.
+                        Uses tag4test-pipeline instead for workflow.
+tag4test-pipeline       Tag for testing the selected repo and bump revision.
+start-upgrade-pipeline  Start a complete upgrade workflow to a specific
+                        repository and for the configured kits.
 
 ```
 
@@ -68,4 +70,20 @@ $> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo"
 ```shell
 $> FIRE_TASK=1 NAMESPACE=macaroni-commons make start-build-pipeline
 ```
+
+### Start a completed pipeline to upgrade kits and packages
+
+This is a completed pipeline that union:
+- upgrade of the kits
+- creation of the metadata packages (seed/funtoo-kits, toolchain/meta-repo)
+- bump a new revision
+- creation of the seed packages (seed/macaroni-funtoo-stage, seed/macaroni-funtoo-base)
+- start pipeline for build all new packages
+
+```shell
+$> FIRE_TASK=1  NAMESPACE=macaroni-funtoo-dev GROUP_PIPELINE=1 make start-upgrade-pipeline
+```
+
+Avoid GROUP_PIPELINE env to create the build pipeline sequentially.
+
 
