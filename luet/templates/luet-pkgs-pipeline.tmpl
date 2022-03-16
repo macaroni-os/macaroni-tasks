@@ -49,7 +49,9 @@ tasks:
     - /etc/init.d/docker start
     {{- end }}
     - git clone ${REPO} -b ${REPO_BRANCH} /build
-    - cd /build && make rebuild
+    # mkdir /build/build until this will be fixed in luet.
+    # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
+    - cd /build && mkdir build/ && make rebuild
     - >-
       rm -rf build/build &&
       cp -v build/* /artefacts/
