@@ -19,11 +19,12 @@ chain:
 chord:
 {{- end }}
   - create-repo
+  - purge-cdn-files
 
 tasks:
 {{ range $idx , $data := .packages }}
   package-{{ $idx }}:
-    name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}"
+    name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}-{{ index $data "version" }}"
     storage: docker-certs
     storage_path: /storage
     script:
@@ -116,5 +117,29 @@ tasks:
     directory: /
     publish_mode: append
     tag_namespace: "{{ $reponame }}"
+
+  purge-cdn-files:
+    name: "Purge files from CDN77 resource ({{ .namespace }})"
+    type: "lxd"
+    storage: "cdn77"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - apk add bash curl git
+    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+    - >-
+      luet i -y utils/jq utils/yq &&
+      luet cleanup --purge-repos
+    - >-
+      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAMESPACE} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+    image: "alpine/edge"
+    environment:
+    - "NAMESPACE={{ .namespace }}"
 
 # vim: filetype=yaml
