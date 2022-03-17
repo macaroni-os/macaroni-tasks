@@ -3,7 +3,11 @@ image: macaroni/funtoo-metatools
 storage: "geaaru-github,mcli"
 storage_path: /storage
 artefact_path: /artefacts
+{{- if .extrans }}
+namespace: "{{ .namespace }}-reposcan,{{ .extrans }}"
+{{- else }}
 namespace: "{{ .namespace }}-reposcan"
+{{- end }}
 type: lxd
 environment:
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp

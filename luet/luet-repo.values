@@ -70,6 +70,8 @@ values:
         - dev-kit
         - lang-kit
         - security-kit
+      lpc_extra_ns:
+        - extra-reposcan
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
@@ -99,6 +101,8 @@ values:
         - editors-kit
         - nokit
         - security-kit
+      lpc_extra_ns:
+        - extra-reposcan
 
     # Mottainai Stable Mirror
     - name: "mottainai-stable"

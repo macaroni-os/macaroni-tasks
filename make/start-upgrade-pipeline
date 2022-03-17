@@ -37,6 +37,7 @@ main () {
   local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
   local seeds2bump=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | join(\" \")" -r)
+  local lpc_extra_ns=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .lpc_extra_ns | join(\",\")" -r)
 
   if [ "${upgrade_kit}" != "true" ] ; then
     echo "The selected repository is without upgrade_kit enable."
@@ -55,11 +56,16 @@ main () {
 
   echo "
 Kits 2 upgrade: ${kits2upgrade}
+Extra Kits Namespace: ${lpc_extra_ns}
 "
 
   local opts=""
   if [ -n "${GROUP_PIPELINE}" ] ; then
     opts="-s group=true"
+  fi
+
+  if [ -n "${lpc_extra_ns}" ] ; then
+    opts="${opts} -s extrans=${lpc_extra_ns}"
   fi
 
   mottainai-cli task compile ${luet_dir}/templates/upd-extra-pkgs-pipeline.tmpl \
