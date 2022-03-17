@@ -101,4 +101,13 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
+    # Mottainai Stable Repo Mirror
+    - name: "mottainai-stable"
+      namespace: "mottainai-stable"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: 1258250330
+
 # vim: filetype=yaml

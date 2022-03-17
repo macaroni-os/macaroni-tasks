@@ -36,7 +36,7 @@ for ((i=0;i<${REPOS};i++)) ; do
     kits2upgrade=$(yq r ${luet_values} "values.repositories[$i].kits2upgrade" -j  | jq '. | join(" ")' -r)
     seeds2bump=$(yq r ${luet_values} "values.repositories[$i].seeds2bump" -j  | jq '. | join(" ")' -r)
 
-    if [ -z "${seed2bump}" ] ; then
+    if [ -z "${seeds2bump}" ] ; then
       echo "No seed to bump for repo ${repo}!"
       exit 1
     fi

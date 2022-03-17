@@ -83,8 +83,13 @@ script:
   fi &&
   luet tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
   luet tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
-  luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
-  luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-base/definition.yaml ${tbump_opts} ;
+  for i in ${SEEDS2BUMP} ; do
+  name=$(echo $i | cut -d'/' -f2) ;
+  luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+  if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
+  luet tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+  fi ;
+  done ;
   fi
 
 # Commit new version
@@ -103,7 +108,8 @@ environment:
 - "REPO=git@github.com:funtoo/macaroni-funtoo.git"
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"
-- "KITS_2UPGRADE=core-server-kit dev-kit lang-kit security-kit"
+- "KITS_2UPGRADE=core-server-kit core-gl-kit core-hw-kit core-kit dev-kit lang-kit lisp-scheme-kit media-kit text-kit gnome-kit net-kit python-modules-kit perl-kit science-kit editors-kit nokit security-kit"
+- "SEEDS2BUMP=seed/macaroni-funtoo-stage seed/macaroni-funtoo-base"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true

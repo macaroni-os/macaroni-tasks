@@ -30,6 +30,9 @@ values:
       upgrade_kit: true
       kits2upgrade:
         - browser-kit
+      seeds2bump:
+        - seed/macaroni-funtoo-stage
+        - seed/macaroni-funtoo-base
 
     # Macaroni Commons Stable
     - name: "macaroni-commons-dev"
@@ -96,5 +99,11 @@ values:
         - editors-kit
         - nokit
         - security-kit
+
+    # Mottainai Stable Mirror
+    - name: "mottainai-stable"
+      branch: master
+      http_repo: https://github.com/MottainaiCI/repo-stable.git
+      ssh_repo: git@github.com:MottainaiCI/repo-stable.git
 
 # vim: filetype=yaml
