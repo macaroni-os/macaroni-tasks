@@ -110,4 +110,13 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
+    # Macaroni Distfiles
+    - name: "macaroni-distfiles"
+      namespace: "macaroni-distfiles"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: 1258250330
+
 # vim: filetype=yaml
