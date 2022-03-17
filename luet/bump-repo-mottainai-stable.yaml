@@ -1,0 +1,48 @@
+# Author: Daniele Rondina <geaaru@gmail.com>
+# Description: This task permits to bump a new revision
+#              of a repository available to a Mottainai
+#              namespace but fetching the files directly
+#              from namespace through mottainai-cli.
+#              This could be needed for different Mottainai
+#              instances or to speedup elaboration if the
+#              agent control remote LXD instance.
+
+name: "luet - < mottainai-stable > - Bump revision"
+script:
+- apk add make bash curl git
+- >-
+  wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+  sh /tmp/get_luet_root.sh
+- luet install dev-util/mottainai-cli
+- git clone ${REPO} -b ${REPO_BRANCH} repo
+- cd repo
+- export HOME=/root && mkdir -p /root/.config/
+- /bin/bash /storage/setup-mcli.sh
+- >-
+  MOTTAINAI_CLI_PROFILE=funtoo
+  mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
+- ls -l build/
+- make create-repo
+- rm build/*.metadata.yaml -v && mv build/* ../artefacts/
+entrypoint:
+- /bin/sh
+- "-c"
+storage: "mcli"
+storage_path: /storage
+environment:
+- "REPO_BRANCH=master"
+- "REPO=https://github.com/MottainaiCI/repo-stable.git"
+- "SUDO="
+- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_YES=true
+- COMPRESSION=zstd
+- NAMESPACE=mottainai-stable
+- "BUILD_ARGS=--config conf/luet.yaml"
+image: alpine/edge
+artefact_path: artefacts
+type: lxd
+directory: /
+publish_mode: append
+tag_namespace: "mottainai-stable"
+
+# vim: filetype=yaml
