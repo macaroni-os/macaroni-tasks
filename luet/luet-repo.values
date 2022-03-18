@@ -110,4 +110,10 @@ values:
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
 
+    # Mottainai Stable Mirror
+    - name: "mottainai-testing"
+      branch: master
+      http_repo: https://github.com/MottainaiCI/repo-stable.git
+      ssh_repo: git@github.com:MottainaiCI/repo-stable.git
+
 # vim: filetype=yaml
