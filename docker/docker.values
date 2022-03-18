@@ -1,0 +1,63 @@
+values:
+  docker_images:
+    # Luet docker image
+    - name: macaronios/luet
+      arch: amd64
+      repohttp: https://github.com/geaaru/luet.git
+      repobranch: geaaru
+      dockerfile: Dockerfile
+      image_manifest: latest-amd64
+
+    # Macaroni Funtoo Stable image
+    - name: macaronios/funtoo-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: master
+      dockerfile: Dockerfile
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
+    # Macaroni Funtoo Testing image
+    - name: macaronios/funtoo-testing-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: master
+      dockerfile: Dockerfile.test
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
+    # Macaroni Funtoo Develop image
+    - name: macaronios/funtoo-dev-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: master
+      dockerfile: Dockerfile.dev
+      image_manifest: latest-amd64
+
+    # Macaroni Funtoo Stable Systemd image
+    - name: macaronios/funtoo-systemd-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: systemd
+      dockerfile: Dockerfile
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
+    # Macaroni Funtoo Testing Systemd image
+    - name: macaronios/funtoo-systemd-testing-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: systemd
+      dockerfile: Dockerfile.test
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
+    # Macaroni Funtoo Develop Systemd image
+    - name: macaronios/funtoo-systemd-dev-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: systemd
+      dockerfile: Dockerfile.dev
+      image_manifest: latest-amd64
+
+# vim: filetype=yaml

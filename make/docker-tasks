@@ -1,0 +1,46 @@
+#!/bin/bash
+# Description: Script to update/generate docker tasks.
+# Author: Daniele Rondina, geaaru@funtoo.org
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+docker_dir=$(dirname ${BASH_SOURCE[0]}})/../docker
+docker_values=${docker_dir}/docker.values
+
+REPOS=$(yq r ${docker_values} 'values.docker_images' -l)
+
+if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+  echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+  exit 1
+fi
+
+for ((i=0;i<${REPOS};i++)) ; do
+
+  name=$(yq r ${docker_values} "values.docker_images[$i].name")
+  branch=$(yq r ${docker_values} "values.docker_images[$i].repobranch")
+  http_repo=$(yq r ${docker_values} "values.docker_images[$i].repohttp")
+  arch=$(yq r ${docker_values} "values.docker_images[$i].arch")
+  manifest=$(yq r ${docker_values} "values.docker_images[$i].image_manifest")
+  dockerfile=$(yq r ${docker_values} "values.docker_images[$i].dockerfile")
+  planned=$(yq r ${docker_values} "values.docker_images[$i].planned")
+
+  image_postfix=$(echo ${name} | cut -d'/' -f 2)
+
+  opts=""
+  if [ -n "${planned}" ] ; then
+    opts="-s planned=${planned}"
+  fi
+
+  echo "Create task for docker image ${name}..."
+  mottainai-cli task compile ${docker_dir}/templates/docker-build.tmpl \
+    -s image="${name}" ${opts} \
+    -s arch="${arch}" \
+    -s dockerfile="${dockerfile}" \
+    -s repobranch="${branch}" \
+    -s repohttp="${http_repo}" \
+    -s image_manifest="${manifest}" \
+    -o ${docker_dir}/build/docker-build-${image_postfix}.yaml
+
+done
+
+# vim: filetype=sh

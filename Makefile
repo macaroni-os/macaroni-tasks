@@ -30,6 +30,7 @@ all:
 	@echo "tag4test-pipeline       Tag for testing the selected repo and bump revision."
 	@echo "start-upgrade-pipeline  Start a complete upgrade workflow to a specific"
 	@echo "                        repository and for the configured kits."
+	@echo "docker-tasks            Create/Update docker images build tasks."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -90,3 +91,7 @@ tag4test-pipeline:
 .PHONY: start-upgrade-pipeline
 start-upgrade-pipeline:
 	@make/start-upgrade-pipeline
+
+.PHONY: docker-tasks
+docker-tasks:
+	@make/docker-tasks
