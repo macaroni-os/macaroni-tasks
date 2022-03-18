@@ -23,4 +23,4 @@ environment:
 image: macaroni/funtoo-builder
 type: lxd
 directory: /
-planned: @weekly
+planned: "@weekly"
