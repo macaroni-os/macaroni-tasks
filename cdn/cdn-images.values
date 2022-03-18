@@ -101,9 +101,18 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
-    # Mottainai Stable Repo Mirror
-    - name: "mottainai-stable"
-      namespace: "mottainai-stable"
+    # Mottainai Stable Repository
+    - name: "mottainai"
+      namespace: "mottainai"
+      cdnstorage: true
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: "1556118782"
+
+    # Mottainai Testing Repository
+    - name: "mottainai-testing"
+      namespace: "mottainai"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
