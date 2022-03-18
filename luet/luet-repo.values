@@ -105,7 +105,8 @@ values:
         - extra-reposcan
 
     # Mottainai Stable Mirror
-    - name: "mottainai-stable"
+    - name: "mottainai"
+      repo4test_tag: true
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
