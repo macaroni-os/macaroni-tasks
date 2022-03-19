@@ -105,7 +105,7 @@ values:
     - name: "mottainai"
       namespace: "mottainai"
       cdnstorage: true
-      cdnprefix: "/"
+      cdnprefix: "/mottainai/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
