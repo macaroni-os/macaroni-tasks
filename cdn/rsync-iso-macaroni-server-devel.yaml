@@ -20,13 +20,24 @@ script:
 - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/main" >> /etc/apk/repositories
 - echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/community" >> /etc/apk/repositories
-- apk add lxd
+- apk add lxd bash curl git
+- curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+- >-
+  luet i -y utils/jq utils/yq &&
+  luet cleanup --purge-repos
 - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
 # Note: the cdn /www is mandatory as prefix.
 - >-
   LXD_CONF=/storage/
   lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
 
+- >-
+  git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+  /macaroni-tasks &&
+  cd /macaroni-tasks &&
+  chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+  /bin/bash -c
+  "source /storage/cdn77.env && export NAME=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
 image: "alpine/edge"
 environment:
 - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
@@ -34,3 +45,5 @@ environment:
 - "STORAGE_PREFIX=mottainai"
 - "RSYNC_OPTS=-va --delete-after"
 planned: "@weekly"
+
+# vim: filetype=yaml
