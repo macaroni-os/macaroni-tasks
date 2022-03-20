@@ -72,7 +72,8 @@ values:
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
-        - isos.json
+        paths:
+          - isos.json
       cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable
