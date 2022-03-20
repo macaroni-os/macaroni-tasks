@@ -24,6 +24,12 @@ main () {
   fi
 
   namespace_data=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAME}\") " )
+
+  if [ -z "${namespace_data}" ] ; then
+    echo "No entry found in ${CDN_IMAGESFILE} to purge. Exiting."
+    return 0
+  fi
+
   # Create the json payload
   rm -f ${tmp_yaml} || true
   touch ${tmp_yaml}
