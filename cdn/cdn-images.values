@@ -68,6 +68,7 @@ values:
 
     # Macaroni ISO site
     - name: "macaroni-iso"
+      namespace: "macaroni-iso"
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
