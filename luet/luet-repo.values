@@ -43,6 +43,7 @@ values:
     # Macaroni Commons
     - name: "macaroni-commons"
       branch: master
+      repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-commons.git
       ssh_repo: git@github.com:funtoo/macaroni-commons.git
 
