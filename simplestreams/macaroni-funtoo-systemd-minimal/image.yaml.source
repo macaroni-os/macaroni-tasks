@@ -90,6 +90,10 @@ packages:
         - sys-libs/timezone-data
         # Temporary fix related to RDEPEND issue in gnutls.
         - app-crypt/p11-kit
+        # Needed by systemd (to fix in rdeps)
+        - app-arch/zstd
+        # Needed for env-update
+        - sys-apps/portage
 
 
       action: install
