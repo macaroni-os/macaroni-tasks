@@ -143,3 +143,18 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo SystemD Dumplings
+  - name: macaroni-funtoo-systemd-dumplings:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo SystemD Dumplings"
+    directory: macaroni-funtoo-systemd-dumplings
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-systemd-dumplings"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-systemd-dumplings"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
