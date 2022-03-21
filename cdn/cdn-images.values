@@ -79,7 +79,7 @@ values:
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
-      cdnprefix: "/"
+      cdnprefix: "/mottainai/"
       cdnstorage: true
       purgefiles:
         <<: *purgerepo
