@@ -32,22 +32,22 @@ script:
   - chmod a+rwx -R images/
   - find .
   - eval 'rm images/build_*.log || true'
-image: ubuntu/21.04
+image: ubuntu/21.10
 disable_push_on_failure: "true"
 type: lxd
 
 planned: "@weekly"
 
-name: "Build LXD  image macaroni-funtoo-dumplings:current:amd64:default"
+name: "Build LXD  image macaroni-funtoo-systemd-dumplings:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=macaroni-funtoo-dumplings:current:amd64:default"
-  - "LXD_IMAGEDIR=macaroni-funtoo-dumplings"
-  - "SSBUILDER_PREFIX=../lxd-macaroni-funtoo-dumplings"
+  - "LXD_PRODUCT=macaroni-funtoo-systemd-dumplings:current:amd64:default"
+  - "LXD_IMAGEDIR=macaroni-funtoo-systemd-dumplings"
+  - "SSBUILDER_PREFIX=../lxd-macaroni-funtoo-systemd-dumplings"
   - "TMPDIR=/distrobuilder"
   - "CACHEDIR=/cache"
   - "DEBIAN_FRONTEND=noninteractive"
-namespace: lxd-macaroni-funtoo-dumplings
-tag_namespace: lxd-macaroni-funtoo-dumplings
+namespace: lxd-macaroni-funtoo-systemd-dumplings
+tag_namespace: lxd-macaroni-funtoo-systemd-dumplings
 artefact_path: images
 timeout: 0
 source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
