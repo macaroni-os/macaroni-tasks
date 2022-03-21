@@ -3,7 +3,7 @@
 # Description: Macaroni ISO macaroni-server-devel task
 
 name: "ISO: Build macaroni-server-devel"
-image: ubuntu/21.04
+image: ubuntu/21.10
 disable_push_on_failure: "true"
 type: lxd
 
