@@ -6,7 +6,7 @@ image:
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-systemd-minimal
+  url: macaronios/funtoo-systemd-minimal:latest-amd64
 
 environment:
   clear_defaults: true

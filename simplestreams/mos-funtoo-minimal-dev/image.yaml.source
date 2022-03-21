@@ -7,7 +7,7 @@ image:
 source:
   downloader: docker-http
   # For docker is mandatory for now use 
-  url: macaronios/funtoo-minimal
+  url: macaronios/funtoo-minimal:latest-amd64
 
 environment:
   clear_defaults: true
