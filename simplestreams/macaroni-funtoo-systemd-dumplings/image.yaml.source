@@ -78,30 +78,23 @@ packages:
 
   sets:
     - packages:
-        - system/entities
-        - sys-apps/shadow
-        - sys-apps/sysvinit
-        - sys-apps/sed
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - app-shells/bash
-        - sys-apps/iproute2
-        - sys-libs/readline
-        - sys-devel-9.2.0/gcc
-        - system/funtoo-triggers
+        - utils/yq
+        - utils/jq
+        - utils/yq
         - pkglist/funtoo-base
-        - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
-        - net-misc/dhcp
         - net-libs/libmnl
         - sys-process/procps
-        - sys-auth/elogind
-        - whip-profiles/macaroni
-        - app-admin/whip
-        - macaroni/whip-catalog
-        - utils/yq
+        - sys-apps/dbus
+        - sys-libs/timezone-data
+        - system/entities
+        # Temporary fix related to RDEPEND issue in gnutls.
+        - app-crypt/p11-kit
+        # Needed by systemd (to fix in rdeps)
+        - app-arch/zstd
+        # Needed for env-update
+        - sys-apps/portage
 
         # Needed for env-update
         - sys-apps/portage
@@ -121,10 +114,6 @@ actions:
         cd /usr/bin && ln -s gawk awk
       fi
 
-      # Fix docker-companion issue on handle removed data layer.
-      # https://github.com/mudler/docker-companion/issues/6
-      luet cleanup --purge-repos
-
       # TODO: fix this in distrobuilder
       luet repo update
 
@@ -138,24 +127,8 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Setup openrc runlevels. TODO: move this to package script.
-      whip hook openrc.openrc_setup
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
-      rm -rf /var/cache/luet/repos/
-
-      #! /bin/sh
-      set -eux
-      rm -rf /var/git/meta-repo
-      rm -rf /var/cache/portage
-      cd /etc/init.d
-      ln -s netif.tmpl net.eth0
-      rc-update add net.eth0 default
-      echo template=dhclient > /etc/conf.d/net.eth0
 
   - trigger: post-packages
     action: |-
@@ -175,6 +148,76 @@ actions:
       eselect locale list
       eselect locale set en_US.utf8
 
+      echo "
+      LANG=en_US.UTF-8
+      " > /etc/locale.conf
+
+      cd /etc/ && ln -s /usr/share/zoneinfo/UTC localtime
+
+  # Disable systemd-remount-fs.service because
+  # on unprivileged container systemd can't
+  # remount filesystem.
+  - trigger: post-packages
+    action: |-
+      #!/bin/sh
+      cd /etc/systemd/system
+      ln -s /dev/null systemd-remount-fs.service
+
+  # Disable mount of hugepages
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cd /etc/systemd/system
+      ln -s /dev/null dev-hugepages.mount
+
+  # Configure DHCP for interface eth0 by default.
+  # Avoid to use DHCP for any interface to avoid reset of docker
+  # interfaces or others custom interface.
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cat > /etc/systemd/network/default_dhcp.network << "EOF"
+      [Network]
+      DHCP=ipv4
+
+      [Match]
+      Name=eth0
+
+      [DHCP]
+      UseDomains=true
+      EOF
+
+  # Enable systemd-networkd service by default.
+  # Configure SystemD Resolve service for initialize
+  # resolv.conf with value from LXD dnsmasq service.
+  # NOTE: currently distrobuilder mount /etc/resolv.conf
+  # and this doesn't permit to initialize correctly
+  # resolv.conf as a link to systemd-resolved file.
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      systemctl enable systemd-networkd
+      systemctl enable systemd-resolved
+
+  # Disable systemd-journald-audit service
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      cd /etc/systemd/system
+      ln -s /dev/null systemd-journald-audit.socket
+
+  # Workaround needed until I fix resolv.conf with distrobuider hook/generator
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      mkdir -p /etc/systemd/system/systemd-resolved.service.d || true
+      cat > /etc/systemd/system/systemd-resolved.service.d/00gentoo.conf << "EOF"
+      [Service]
+      DynamicUser=false
+      ExecStartPre=+/bin/chown systemd-resolve:systemd-resolve /run/systemd/resolve
+      ExecStartPre=+-/bin/rm -f /etc/resolv.conf
+      ExecStartPre=+/bin/ln -v -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+      EOF
 
   - trigger: post-packages
     action: |-
@@ -419,6 +462,13 @@ actions:
       dirs:
         - \"/etc/\"
       " > /etc/luet/config.protect.d/01_etc.yml
+
+      # Disable this services enable by default
+      systemctl disable ip6tables-restore.service
+      systemctl disable iptables-restore.service
+
+      # Create missing users/groups
+      systemd-sysusers
 
 mappings:
   architecture_map: funtoo
