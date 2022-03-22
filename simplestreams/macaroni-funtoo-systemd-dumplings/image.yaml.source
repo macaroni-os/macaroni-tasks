@@ -228,8 +228,8 @@ actions:
       echo "
       subsets_def:
         doc:
-          description: "Documentation and man"
-          name: "doc"
+          description: \"Documentation and man\"
+          name: \"doc\"
           rules:
             - ^/usr/share/doc
             - ^/usr/share/man
@@ -288,8 +288,8 @@ actions:
       echo "
       subsets_def:
         python:
-          description: "Python stuff"
-          name: "python"
+          description: \"Python stuff\"
+          name: \"python\"
           rules:
             - ^/usr/lib64/python2.7
             - ^/usr/lib/python2.7
@@ -350,8 +350,8 @@ actions:
       echo "
       subsets_def:
         gcc-devel:
-          description: "Split gcc compiler stuff"
-          name: "gcc-devel"
+          description: \"Split gcc compiler stuff\"
+          name: \"gcc-devel\"
           rules:
           - ^/usr/x86_64-pc-linux-gnu/gcc-bin/9.2.0/
           - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/plugin/include/
@@ -367,8 +367,8 @@ actions:
       echo "
       subsets_def:
         gir:
-          description: "Gir files"
-          name: "gir"
+          description: \"Gir files\"
+          name: \"gir\"
           rules:
             - ^/usr/share/gir-1.0
           categories:
