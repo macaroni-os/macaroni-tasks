@@ -31,6 +31,9 @@ all:
 	@echo "start-upgrade-pipeline  Start a complete upgrade workflow to a specific"
 	@echo "                        repository and for the configured kits."
 	@echo "docker-tasks            Create/Update docker images build tasks."
+	@echo "start-upd-seed-pipeline Start an upgrade workflow for a selected race."
+	@echo "start-upd-kits-pipeline Start an upgrade workflow to upgrade kits and"
+	@echo "                        bump first seed."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -95,3 +98,11 @@ start-upgrade-pipeline:
 .PHONY: docker-tasks
 docker-tasks:
 	@make/docker-tasks
+
+.PHONY: start-upd-seed-pipeline
+start-upd-seed-pipeline:
+	@make/start-upgrade-seed-pipeline
+
+.PHONY: start-upd-kits-pipeline
+start-upd-kits-pipeline:
+	@make/upd-kits-pipeline

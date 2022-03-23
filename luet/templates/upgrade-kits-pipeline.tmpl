@@ -1,0 +1,342 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Chain pipeline to upgrade extra packages related to the
+#              selected kits to upgrade.
+#              The extra packages are the packages generated not
+#              directly from the funtoo/stage3 images.
+#
+#              In particular, follow these steps:
+#
+#              a) execute the new repoman elaboration and generates
+#                 the kit-cache files (that stores in the namespace
+#                 <repo-name>-repoman) and bump the new release of
+#                 the packages:
+#                    - seed/funtoo-kits
+#                    - toolchain/meta-repo
+#                    - seed/macaroni-stage3
+#                    - seed/macaroni-base
+#                 with the commits in the target repository.
+#                 NOTE: if there aren't changes in the selected
+#                 kits to upgrade it doesn't bump nothing and it dies.
+#
+#              b) execute the build of the packages:
+#                    - seed/funtoo-kits
+#                    - toolchain/meta-repo
+#                 with the --push option in the luet command
+#                 that permits to sync the generated docker image
+#                 in the internal docker registry.
+#
+#              c) bump a new revision of the selected repository and
+#                 purge the CDN repositories files.
+#                 For repositories stored in the CDN storage it
+#                 runs also the rsync for the repository.
+#
+#              d) sleep 15min to ensure the propagation of the purge
+#                 files
+#
+#              e) run a task that execute the build of the packages:
+#                    - seed/macaroni-funtoo-stage
+#                    - seed/macaroni-funtoo-base
+#                 with the --push option in the luet command
+#                 that permits to sync the generated docker image
+#                 in the internal docker registry.
+#
+
+pipeline_name: "luet - upgrade kits <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+chain:
+- upgrade-kits
+- update-kits-pkgs
+- bump-repo-revision
+- purge-cdn-files
+- build-seeds-base
+
+tasks:
+  upgrade-kits:
+    name: "Luet Upgrade Kits <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }} - Bump revision"
+    script:
+
+    - >-
+      luet repo update &&
+      luet install utils/jq utils/yq net-misc/openssh &&
+      luet reinstall virtual/base &&
+      luet cleanup &&
+      env-update &&
+      ldconfig
+
+    - /etc/init.d/mongodb start
+
+    # Setup git ssh key
+    - sh /storage/setup-ssh.sh
+    - sh /storage/setup-git.sh
+
+    - git clone https://github.com/MottainaiCI/lxd-compose-galaxy.git /galaxy
+    - git clone ${METATOOLS_REPO} -b ${METATOOLS_BRANCH} /repo
+    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+
+    # Create the lxd-compose command with the list of the kits updated
+    - >-
+      cd /luet-repo &&
+      export export LCG_KITS_FILE=/galaxy/envs/funtoo/commands/reposcan-funtoo-kits.yml &&
+      bash scripts/lxd-compose-galaxy-kits-bump-command.sh &&
+      export kits=$(yq r /tmp/reposcan.yml 'envs.envs.kits' -j)
+
+    - mkdir ${METATOOLS_WORKSPACE}/specs -p
+    # Create the repo specs for reposcan tool
+    - >-
+      for i in $(echo ${kits} | jq .[] -rc) ; do
+      name=$(echo $i | jq '.name' -r) ;
+      echo "${i}" | yq r -P - > ${METATOOLS_WORKSPACE}/specs/${name}.yml ;
+      cat ${METATOOLS_WORKSPACE}/specs/${name}.yml ;
+      done
+
+    # Run reposcan
+    - >-
+      set -x ;
+      cd /repo &&
+      export REPOSCAN_OPTS="--specs" &&
+      for i in $(echo ${kits} | jq .[] -rc) ; do
+      name=$(echo $i | jq '.name' -r) ;
+      REPOSCAN_OPTS="$REPOSCAN_OPTS /reposcan/specs/${name}.yml" ;
+      done &&
+      PYTHONPATH=. ./bin/reposcan $REPOSCAN_OPTS
+
+    # Store git version of every kits used to generate specs.
+    - >-
+      export dir="/reposcan/repo_tmp/tmp/kit_cache/kits-versions" &&
+      mkdir ${dir} -p &&
+      for i in $(echo ${kits} | jq .[] -rc) ; do
+      name=$(echo $i | jq '.name' -r) ;
+      if [ -d ${HOME}/repo_tmp/dest-trees/${name} ] ; then
+      cd ${HOME}/repo_tmp/dest-trees/${name} ;
+      kit_fixups=$(git log -1 | grep kit-fixups | awk '{ print $2 }') &&
+      gentoo_staging=$(git log -1 | grep gentoo-staging | awk '{ print $2 }') &&
+      commit=$(git log -1 | grep commit | awk '{ print $2 }') &&
+      echo "kit-fixups: \"${kit_fixups}\"" > ${dir}/${name}.yml &&
+      echo "gentoo-staging: \"${gentoo_staging}\"" >> ${dir}/${name}.yml &&
+      echo "commit: \"${commit}\"" >> ${dir}/${name}.yml ;
+      fi ;
+      done
+
+    # Copy the new kits-versions files to seeds/funtoo-kits
+    - cp -v ${dir}/* /luet-repo/packages/seeds/funtoo-kits/kits-versions/
+
+    - >-
+      cd /luet-repo &&
+      export changes=$(git status -s | grep "M " | wc -l ) &&
+      if [ "${changes}" != "0" ] ; then
+      fkv=$(yq r /luet-repo/packages/seeds/funtoo-kits/definition.yaml 'version') &&
+      nv="0.$(date '+%Y%m%d')" &&
+      tbump_opts="" &&
+      if [ "${fkv}" != "${nv}" ] ; then
+      tbump_opts="${tbump_opts} -p ${nv}" ;
+      fi &&
+      luet tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
+      luet tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      for i in ${SEEDS2BUMP} ; do
+      name=$(echo $i | cut -d'/' -f2) ;
+      luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+      if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
+      luet tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+      fi ;
+      done ;
+      else
+      echo "No changes. Exiting and stop pipeline." && exit 1 ;
+      fi
+
+    # Commit new version
+    - >-
+      if [ "${changes}" != "0" ] ; then
+      BUMPER_DIR="./packages/" sh ./scripts/bumper.sh &&
+      eval 'git push || true' ;
+      fi
+
+    # Copy the generated JSON file to artefacts dir
+    - eval 'cp -vf /reposcan/repo_tmp/tmp/kit_cache/* /artefacts/ || true'
+
+    environment:
+    - "METATOOLS_WORKSPACE=/reposcan"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repossh }}"
+    - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
+    - "METATOOLS_BRANCH=master"
+    - "KITS_2UPGRADE={{ .kits2upgrade }}"
+    - "SEED2BUMP={{ .seeds2bump }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    image: macaroni/funtoo-metatools
+    storage: geaaru-github
+    storage_path: /storage
+    artefact_path: /artefacts
+    type: lxd
+    tag_namespace: "{{ .namespace }}-reposcan"
+
+
+# Step B -------------------- Build seed/funtoo-kits and toolchain/meta-repo packages.
+
+  update-kits-pkgs:
+
+    name: "Luet Upgrade Kits Seeds <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: docker-certs
+    storage_path: /storage
+    script:
+    - source /storage/prepare-luet.sh
+    - >-
+      luet repo update &&
+      luet upgrade &&
+      luet cleanup --purge-repos
+    - >-
+      docker login -u ${registry_user} -p ${registry_pass}
+      docker-registry1.mottainai.local:5000
+
+    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull"
+    {{- if eq .enable_docker_host "true" }}
+    - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
+    {{- else }}
+    - /etc/init.d/docker start
+    {{- end }}
+    - git clone ${REPO} -b ${REPO_BRANCH} /build
+    # mkdir /build/build until this will be fixed in luet.
+    # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
+    - cd /build && mkdir build/ && make rebuild
+    - >-
+      rm -rf build/build &&
+      cp -v build/* /artefacts/
+    environment:
+    {{- if eq .enable_buildkit "true" }}
+    - "BUILDKIT_PROGRESS=plain"
+    - "DOCKER_BUILDKIT=1"
+    {{- end }}
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    {{- if eq .enable_docker_host "true" }}
+    - DOCKER_HOST=docker-overlay2.mottainai.local:2376
+    {{- end }}
+    - "PACKAGES=seed/funtoo-kits toolchain/meta-repo"
+    image: macaroni/funtoo-builder
+    artefact_path: /artefacts
+    type: lxd
+    #retry: "2"
+    publish_mode: append
+    tag_namespace: "{{ .namespace }}"
+
+# Step c -------------------- Bump a new revision of the selected repository
+
+  bump-repo-revision:
+    name: "luet - < {{ .namespace }} > - Bump revision"
+    script:
+    - apk add make bash curl git
+    - >-
+      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
+      sh /tmp/get_luet_root.sh
+    - luet install dev-util/mottainai-cli
+    - git clone ${REPO} -b ${REPO_BRANCH} repo
+    - cd repo
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      MOTTAINAI_CLI_PROFILE=funtoo
+      mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
+    - ls -l build/
+    - make create-repo
+    - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    storage: "mcli"
+    storage_path: /storage
+    environment:
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repohttp }}"
+    - "SUDO="
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    - COMPRESSION=zstd
+    - NAMESPACE={{ .namespace }}
+    - "BUILD_ARGS=--config conf/luet.yaml"
+    image: alpine/edge
+    artefact_path: artefacts
+    type: lxd
+    directory: /
+    publish_mode: append
+    tag_namespace: "{{ .namespace }}"
+
+# Step C and D -------------------- Purge CDN repo files
+
+  purge-cdn-files:
+    name: "Purge files from CDN77 resource ({{ .namespace }})"
+    type: "lxd"
+    storage: "cdn77"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - apk add bash curl git
+    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+    - >-
+      luet i -y utils/jq utils/yq &&
+      luet cleanup --purge-repos
+    - >-
+      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAMESPACE} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+    - echo "Sleeping to wait purge propagation... " && sleep 900
+    image: "alpine/edge"
+    environment:
+    - "NAMESPACE={{ .namespace }}"
+
+# Step E -------------------- Build seed/macaroni-funtoo-stage, seed/macaroni-funtoo-base packages.
+  build-seeds-base:
+    name: "luet - seed/macaroni-funtoo-stage, seed/macaroni-funtoo-base <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: docker-certs
+    storage_path: /storage
+    script:
+    - source /storage/prepare-luet.sh
+    - >-
+      luet repo update &&
+      luet upgrade &&
+      luet cleanup --purge-repos
+    - >-
+      docker login -u ${registry_user} -p ${registry_pass}
+      docker-registry1.mottainai.local:5000
+
+    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
+    {{- if eq .enable_docker_host "true" }}
+    - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
+    {{- else }}
+    - /etc/init.d/docker start
+    {{- end }}
+    - git clone ${REPO} -b ${REPO_BRANCH} /build
+    # mkdir /build/build until this will be fixed in luet.
+    # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
+    - cd /build && mkdir build/ && make rebuild
+    - >-
+      rm -rf build/build &&
+      cp -v build/* /artefacts/
+    environment:
+    {{- if eq .enable_buildkit "true" }}
+    - "BUILDKIT_PROGRESS=plain"
+    - "DOCKER_BUILDKIT=1"
+    {{- end }}
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    {{- if eq .enable_docker_host "true" }}
+    - DOCKER_HOST=docker-overlay2.mottainai.local:2376
+    {{- end }}
+    - "PACKAGES=seed/macaroni-funtoo-stage seed/macaroni-funtoo-base"
+    image: macaroni/funtoo-builder
+    artefact_path: /artefacts
+    type: lxd
+    #retry: "2"
+    publish_mode: append
+    tag_namespace: "{{ .namespace }}"
+
+
+# vim: filetype=yaml

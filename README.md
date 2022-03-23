@@ -28,6 +28,10 @@ tag4testing             Tag for testing the selected repo (uses target repo).
 tag4test-pipeline       Tag for testing the selected repo and bump revision.
 start-upgrade-pipeline  Start a complete upgrade workflow to a specific
                         repository and for the configured kits.
+docker-tasks            Create/Update docker images build tasks.
+start-upd-seed-pipeline Start an upgrade workflow for a selected race.
+start-upd-kits-pipeline Start an upgrade workflow to upgrade kits and
+                        bump first seed.
 
 ```
 
@@ -71,7 +75,7 @@ $> NAMESPACE=macaroni-funtoo-dev PACKAGES="seed/funtoo-kits toolchain/meta-repo"
 $> FIRE_TASK=1 NAMESPACE=macaroni-commons make start-build-pipeline
 ```
 
-### Start a completed pipeline to upgrade kits and packages
+### Start a completed pipeline to upgrade kits and packages (V1)
 
 This is a completed pipeline that union:
 - upgrade of the kits
@@ -86,4 +90,21 @@ $> FIRE_TASK=1  NAMESPACE=macaroni-funtoo-dev GROUP_PIPELINE=1 make start-upgrad
 
 Avoid GROUP_PIPELINE env to create the build pipeline sequentially.
 
+### Start a completed pipeline to upgrade kits and packages for race
 
+The build process for extra packages is divide in races.
+These races must be executed in sequentialy to avoid the the build process choice
+packages that uses a race that hasn't yet all packages new updated.
+
+So to ensure this it's needed split build pipeline for every race.
+
+Hereinafter, the workflow for `macaroni-funtoo-systemd-dev` repository:
+
+```shell
+$> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-systemd-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
+```
+
+
+```shell
+$> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-systemd-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
+```

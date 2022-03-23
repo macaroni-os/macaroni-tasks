@@ -1,5 +1,5 @@
 #!/bin/bash
-# Description: Script to start build of the selected packages
+# Description: Script to start upgrade of the kits and bump seed packages.
 # Author: Daniele Rondina, geaaru@funtoo.org
 
 if [ -n "$DEBUG" ] ; then set -x ; fi
@@ -68,7 +68,7 @@ Extra Kits Namespace: ${lpc_extra_ns}
     opts="${opts} -s extrans=${lpc_extra_ns}"
   fi
 
-  mottainai-cli task compile ${luet_dir}/templates/upd-extra-pkgs-pipeline.tmpl \
+  mottainai-cli task compile ${luet_dir}/templates/upgrade-kits-pipeline.tmpl \
     -s namespace="${NAMESPACE}" ${opts} \
     -s repohttp="${repo}" \
     -s repobranch="${repo_branch}" \
@@ -77,22 +77,20 @@ Extra Kits Namespace: ${lpc_extra_ns}
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
     -s seeds2bump="${seeds2bump}" \
-    -o /tmp/upd-extra-pkgs-pipeline.yaml || return 1
+    -o /tmp/upd-kits-pipeline.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then
-    mottainai-cli pipeline create --yaml /tmp/upd-extra-pkgs-pipeline.yaml || return 1
+    mottainai-cli pipeline create --yaml /tmp/upd-kits-pipeline.yaml || return 1
   fi
 
   if [ -z "${SKIP_CLEAN}" ] ; then
-    rm /tmp/upd-extra-pkgs-pipeline.yaml
+    rm /tmp/upd-kits-pipeline.yaml
   fi
 
   return 0
 }
 
-
 main $@
 exit $?
 
 # vim: filetype=sh
-
