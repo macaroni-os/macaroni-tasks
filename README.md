@@ -100,6 +100,8 @@ So to ensure this it's needed split build pipeline for every race.
 
 Hereinafter, the workflow for `macaroni-funtoo-systemd-dev` repository:
 
+1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo
+
 ```shell
 $> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-systemd-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
 ```

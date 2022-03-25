@@ -97,6 +97,7 @@ Seed: seed/${SEED}
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
     -s seed="${SEED}" \
+    -s bumpseed="${BUMP_SEED}" \
     -o /tmp/upd-extra-pkgs-seed-pipeline.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then
