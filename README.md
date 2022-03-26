@@ -100,13 +100,27 @@ So to ensure this it's needed split build pipeline for every race.
 
 Hereinafter, the workflow for `macaroni-funtoo-systemd-dev` repository:
 
-1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo
+1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo packages.
 
 ```shell
 $> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-systemd-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
 ```
 
+2. 
 
 ```shell
-$> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-systemd-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
+$> # Starting the bump and build of the seed/macaroni-funtoo-base and all packages updates of the
+$> # specs related to that seed.
+$> FIRE_TASK=1 REPO_DIR=${HOME}/dev/macaroni/macaroni-funtoo-systemd/ \
+          BUMP_SEED=true SEED=macaroni-funtoo-base GROUP_PIPELINE=1 \
+          NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-systemd/ BUMP_SEED=true SEED=macaroni-funtoo-race1 \
+             NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-systemd/ BUMP_SEED=true SEED=macaroni-funtoo-race2 \
+             NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-systemd/ BUMP_SEED=true SEED=macaroni-funtoo-race3 \
+             NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
 ```
