@@ -102,6 +102,7 @@ values:
         - editors-kit
         - nokit
         - security-kit
+        - geaaru-kit
       lpc_extra_ns:
         - extra-reposcan
 
