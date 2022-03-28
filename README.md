@@ -115,6 +115,9 @@ $> FIRE_TASK=1 REPO_DIR=${HOME}/dev/macaroni/macaroni-funtoo-systemd/ \
           BUMP_SEED=true SEED=macaroni-funtoo-base GROUP_PIPELINE=1 \
           NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-systemd/ BUMP_SEED=true SEED=macaroni-funtoo-geaaru \
+             NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
+
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-systemd/ BUMP_SEED=true SEED=macaroni-funtoo-race1 \
              NAMESPACE=macaroni-funtoo-systemd-dev make start-upd-seed-pipeline
 
