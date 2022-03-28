@@ -52,7 +52,7 @@ tasks:
       luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
 {{- end }}
       luet tree bump -f /luet-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
-      luet tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts} &&
+      luet tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
     # Commit new version
     - >-
       BUMPER_DIR="./packages/seeds" sh ./scripts/bumper.sh &&
