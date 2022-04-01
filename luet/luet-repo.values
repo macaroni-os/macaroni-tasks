@@ -10,23 +10,37 @@ values:
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
+        - core-kit
         - core-server-kit
         - core-gl-kit
         - core-hw-kit
-        - core-kit
+        - net-kit
+        - llvm-kit
+        - perl-kit
         - dev-kit
+        - python-kit
+        - python-modules-kit
+        - desktop-kit
+        - dev-kit
+        - editors-kit
+        - games-kit
+        - gnome-kit
+        - haskell-kit
+        - browser-kit
+        - java-kit
+        - kde-kit
         - lang-kit
         - lisp-scheme-kit
+        - mate-kit
         - media-kit
-        - text-kit
-        - gnome-kit
-        - net-kit
-        - python-modules-kit
-        - perl-kit
-        - science-kit
-        - editors-kit
+        - ml-lang-kit
         - nokit
+        - qt-kit
+        - ruby-kit
+        - science-kit
         - security-kit
+        - xfce-kit
+        - text-kit
         - geaaru-kit
       # The list of the seed to bump before start
       # new packages version.
