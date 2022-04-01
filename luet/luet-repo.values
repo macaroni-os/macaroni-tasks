@@ -19,6 +19,8 @@ values:
         #- seed/macaroni-funtoo-python-stage
         #- seed/macaroni-funtoo-python
         #- seed/macaroni-funtoo-games
+      lpc_extra_ns:
+        - extra-reposcan
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo"
@@ -30,6 +32,24 @@ values:
       upgrade_kit: true
       kits2upgrade:
         - browser-kit
+        - core-server-kit
+        - core-gl-kit
+        - core-hw-kit
+        - core-kit
+        - dev-kit
+        - lang-kit
+        - lisp-scheme-kit
+        - media-kit
+        - text-kit
+        - gnome-kit
+        - net-kit
+        - python-modules-kit
+        - perl-kit
+        - science-kit
+        - editors-kit
+        - nokit
+        - security-kit
+        - geaaru-kit
       seeds2bump:
         - seed/macaroni-funtoo-stage
         - seed/macaroni-funtoo-base
