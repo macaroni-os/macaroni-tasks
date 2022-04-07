@@ -42,10 +42,11 @@ values:
         - xfce-kit
         - text-kit
         - geaaru-kit
+
       # The list of the seed to bump before start
       # new packages version.
       seeds2bump:
-        - seed/funtoo-stage
+        # Seed to bump for a complete build cycle.
         - seed/funtoo-base
         #- seed/macaroni-funtoo-stage
         #- seed/macaroni-funtoo-base
