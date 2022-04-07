@@ -136,7 +136,7 @@ products:
     directory: mos-funtoo-systemd-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-systemd-testing-minimal"
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-mos-funtoo-systemd-testing-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-systemd-testing-minimal"
