@@ -12,8 +12,7 @@
 #                 the packages:
 #                    - seed/funtoo-kits
 #                    - toolchain/meta-repo
-#                    - seed/macaroni-stage3
-#                    - seed/macaroni-base
+#                    - (the seeds defined in the file luet-repo.values)
 #                 with the commits in the target repository.
 #                 NOTE: if there aren't changes in the selected
 #                 kits to upgrade it doesn't bump nothing and it dies.
@@ -34,8 +33,8 @@
 #                 files
 #
 #              e) run a task that execute the build of the packages:
-#                    - seed/macaroni-funtoo-stage
-#                    - seed/macaroni-funtoo-base
+#                 defined in the attribute seeds2bmp attribute of the
+#                 file luet-repo.values.
 #                 with the --push option in the luet command
 #                 that permits to sync the generated docker image
 #                 in the internal docker registry.
@@ -289,9 +288,9 @@ tasks:
     environment:
     - "NAMESPACE={{ .namespace }}"
 
-# Step E -------------------- Build seed/macaroni-funtoo-stage, seed/macaroni-funtoo-base packages.
+# Step E -------------------- Build {{ .seeds2bump }} packages.
   build-seeds-base:
-    name: "luet - seed/macaroni-funtoo-stage, seed/macaroni-funtoo-base <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    name: "luet - {{ .seeds2bump }} <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
     storage: docker-certs
     storage_path: /storage
     script:
@@ -330,7 +329,7 @@ tasks:
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
-    - "PACKAGES=seed/macaroni-funtoo-stage seed/macaroni-funtoo-base"
+    - "PACKAGES={{ .seeds2bump }}"
     image: macaroni/funtoo-builder
     artefact_path: /artefacts
     type: lxd
