@@ -17,13 +17,9 @@ entrypoint:
 - "-c"
 script:
 - source /storage/cdn77.env
-- echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-- echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/main" >> /etc/apk/repositories
-- echo "http://dl-cdn.alpinelinux.org/alpine/alpine/v3.14/community" >> /etc/apk/repositories
-- apk add lxd bash curl git
-- curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
 - >-
-  luet i -y utils/jq utils/yq &&
+  luet repo update &&
+  luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl &&
   luet cleanup --purge-repos
 - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
 # Note: the cdn /www is mandatory as prefix.
@@ -38,7 +34,7 @@ script:
   chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
   /bin/bash -c
   "source /storage/cdn77.env && export NAME=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
-image: "alpine/edge"
+image: "macaroni/funtoo-dumplings"
 environment:
 - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
 - "NS2SYNC=mottainai"
