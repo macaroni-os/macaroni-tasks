@@ -9,7 +9,7 @@ if [ -n "$DEBUG" ] ; then set -x ; fi
 luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
 luet_values=${luet_dir}/luet-repo.values
 
-LUET_PC_OPTS="${LUET_PC_OPTS:---ignore-missing-deps --disable-conflicts --ignore-wrong-packages --to ${LUET_REPOSITORY}}"
+LUET_PC_OPTS="${LUET_PC_OPTS:---ignore-missing-deps --disable-conflicts --ignore-wrong-packages --check-update4deps --to ${LUET_REPOSITORY}}"
 LUET_PC_STAGE4="${LUET_PC_STAGE4:-1}"
 LUET_PC_OVERRIDE="${LUET_PC_OVERRIDE:-0}"
 LUET_PC_PACKAGE="${LUET_PC_PACKAGE:-}"
