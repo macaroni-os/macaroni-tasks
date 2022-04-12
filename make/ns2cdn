@@ -5,6 +5,8 @@
 cdn_dir=$(dirname ${BASH_SOURCE[0]}})/../cdn
 
 NS=$(yq r ${cdn_dir}/cdn-images.values 'values.namespaces' -l)
+#TEMPLATE=${TEMPLATE:-${cdn_dir}/rsync-namespace.tmpl}
+TEMPLATE=${TEMPLATE:-${cdn_dir}/rsync-namespace-macaroni.tmpl}
 
 if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
   echo "Missing MOTTAINAI_CLI_PROFILE env variable"
@@ -20,7 +22,7 @@ do
   opts=""
   if [ "${cdnstorage}" = "true" ] ; then
     echo "Creating task for sync namespace $namespace ($name)..."
-    mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+    mottainai-cli task compile ${TEMPLATE} ${opts} \
       -s namespace="${namespace}" \
       -o ${cdn_dir}/rsync-${name}.yaml
 
