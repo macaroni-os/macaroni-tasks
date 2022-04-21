@@ -4,6 +4,7 @@
 
 isospec_dir=$(dirname ${BASH_SOURCE[0]})/../iso
 cdn_dir=$(dirname ${BASH_SOURCE[0]}})/../cdn
+TEMPLATE=${TEMPLATE:-${cdn_dir}/rsync-namespace-macaroni.tmpl}
 
 ISOS=$(yq r ${isospec_dir}/iso-images.values 'values.isos' -l)
 
@@ -18,7 +19,7 @@ do
 
   opts=""
   echo "Creating task for sync ISO $name..."
-  mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+  mottainai-cli task compile ${TEMPLATE} ${opts} \
     -s namespace="iso-${name}" \
     -o ${cdn_dir}/rsync-iso-${name}.yaml
 
@@ -30,7 +31,7 @@ done
 
 # Create rsync for ISO web portal
 echo "Creating task for sync namespace macaroni-iso..."
-mottainai-cli task compile ${cdn_dir}/rsync-namespace.tmpl ${opts} \
+mottainai-cli task compile ${TEMPLATE} ${opts} \
   -s namespace="macaroni-iso" \
   -o ${cdn_dir}/rsync-macaroni-iso.yaml
 
