@@ -12,9 +12,6 @@ type: "lxd"
 
 storage: "cdn77,lxdconf"
 storage_path: /storage
-entrypoint:
-- /bin/sh
-- "-c"
 script:
 - source /storage/cdn77.env
 - >-
