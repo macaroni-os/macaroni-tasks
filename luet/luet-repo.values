@@ -118,10 +118,10 @@ values:
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       seeds2bump:
-        - seed/funtoo-base
-        - seed/funtoo-stage3
-        #- seed/macaroni-funtoo-stage
-        #- seed/macaroni-funtoo-base
+        #- seed/funtoo-base
+        #- seed/funtoo-stage3
+        - seed/macaroni-funtoo-stage
+        - seed/macaroni-funtoo-base
       kits2upgrade:
         - core-server-kit
         - core-gl-kit
