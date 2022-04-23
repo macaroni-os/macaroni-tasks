@@ -519,7 +519,6 @@ actions:
     sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/client.conf
 
     curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
-    luet install repository/macaroni-commons --relax
     luet install utils/jq utils/yq --relax
     luet cleanup
 
