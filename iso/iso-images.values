@@ -34,3 +34,9 @@ values:
       specfile: "funtoo-live.yaml"
       repo: "https://github.com/funtoo/macaroni-funtoo.git"
       repo_branch: "master"
+
+    # Macaroni Funtoo Gnome Live Testing
+    - name: "macaroni-funtoo-live-testing"
+      specfile: "funtoo-live-testing.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
