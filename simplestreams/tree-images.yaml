@@ -78,6 +78,24 @@ products:
     days: 1
     aliases:
       - "ubuntu/steam"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
+  # Ubuntu Lutris
+  - name: ubuntu-lutris:current:amd64:default
+    arch: amd64
+    release: current
+    os: Ubuntu
+    release_title: "Lutris"
+    directory: ubuntu-lutris
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-ubuntu-lutris"
+    days: 1
+    aliases:
+      - "ubuntu/lutris"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
 
   # Funtoo Stage3: Image with compilation stuff and other dev tools.
   - name: funtoo-stage3:current:amd64:default

@@ -36,6 +36,8 @@ image: ubuntu/21.10
 disable_push_on_failure: "true"
 type: lxd
 
+planned: "@weekly"
+
 name: "Build LXD  image ubuntu-lutris:current:amd64:default"
 environment:
   - "LXD_PRODUCT=ubuntu-lutris:current:amd64:default"
