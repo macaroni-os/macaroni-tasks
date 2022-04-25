@@ -113,6 +113,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Funtoo Bootstrap Builder: Image with compilation stuff and other dev tools.
+  - name: funtoo-bootstrap-builder:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Funtoo"
+    release_title: "Bootstrap Builder"
+    directory: funtoo-bootstrap-builder
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-bootstrap-builder"
+    days: 2
+    aliases:
+      - "funtoo/bootstrap-builder"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Macaroni Funtoo Dumplings
   - name: macaroni-funtoo-dumplings:current:amd64:default
     arch: amd64
