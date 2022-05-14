@@ -33,6 +33,23 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Testing minimal
+  - name: macaroni-funtoo-testing-minimal:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo Testing Minimal"
+    directory: macaroni-funtoo-testing-minimal
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-testing-minimal"
+    days: 2
+    aliases:
+      - "macaroni/funtoo-testing-minimal"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
+
   # Macaroni Funtoo minimal Devel is with subsets portage, devel enabled.
   - name: macaroni-funtoo-minimal-devel:current:amd64:default
     arch: amd64
