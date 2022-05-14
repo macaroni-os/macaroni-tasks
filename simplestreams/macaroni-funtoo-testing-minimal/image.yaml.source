@@ -98,6 +98,8 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
+        # Until docker image will be synced
+        - virtual-entities/base
 
       action: install
 
