@@ -95,7 +95,7 @@ tasks:
     - source /storage/cdn77.env
     - >-
       luet repo update &&
-      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl &&
+      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
       luet cleanup --purge-repos
     - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
     # Note: the cdn /www is mandatory as prefix.
@@ -166,7 +166,7 @@ tasks:
     - source /storage/cdn77.env
     - >-
       luet repo update &&
-      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl &&
+      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
       luet cleanup --purge-repos
     - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
     # Note: the cdn /www is mandatory as prefix.
