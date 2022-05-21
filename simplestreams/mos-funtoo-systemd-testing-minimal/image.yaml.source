@@ -132,16 +132,6 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
-      touch /etc/shadow
-      touch /etc/group
-      touch /etc/gshadow
-      touch /etc/passwd
-      entities merge -s /usr/share/macaroni/layers/funtoo-base/entities/ -a
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Initialize localization
       locale-gen || true
       eselect locale list
