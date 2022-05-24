@@ -22,6 +22,7 @@ script:
 
 - git clone https://github.com/MottainaiCI/lxd-compose-galaxy.git /galaxy
 - git clone ${METATOOLS_REPO} -b ${METATOOLS_BRANCH} /repo
+- git clone ${SUBPOP_REPO} -b ${SUBPOP_BRANCH} /subpop
 - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
 
 # Create the lxd-compose command with the list of the kits updated
@@ -49,7 +50,7 @@ script:
   name=$(echo $i | jq '.name' -r) ;
   REPOSCAN_OPTS="$REPOSCAN_OPTS /reposcan/specs/${name}.yml" ;
   done &&
-  PYTHONPATH=. ./bin/reposcan $REPOSCAN_OPTS
+  PYTHONPATH=/subpop:. ./bin/reposcan $REPOSCAN_OPTS
 
 # Store git version of every kits used to generate specs.
 - >-
@@ -108,6 +109,8 @@ environment:
 - "REPO=git@github.com:funtoo/macaroni-funtoo.git"
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"
+- "SUBPOP_REPO=https://code.funtoo.org/bitbucket/scm/~drobbins/subpop.git"
+- "SUBPOP_BRANCH=legacy"
 - "KITS_2UPGRADE=core-server-kit dev-kit lang-kit security-kit"
 - "SEEDS2BUMP=seed/macaroni-funtoo-stage seed/macaroni-funtoo-base"
 
