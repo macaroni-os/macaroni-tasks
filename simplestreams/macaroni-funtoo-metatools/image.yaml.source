@@ -92,8 +92,6 @@ packages:
         - macaroni/whip-catalog
         - whip-profiles/macaroni
         - app-admin/whip
-        - pkglist/funtoo-base
-        - pkglist/funtoo-server
 
         - virtual/base
         - sys-libs/binutils-libs
@@ -154,16 +152,6 @@ actions:
       ln -s netif.tmpl net.eth0
       rc-update add net.eth0 default
       echo template=dhclient > /etc/conf.d/net.eth0
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
-      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
-      touch /etc/shadow
-      touch /etc/group
-      touch /etc/gshadow
-      touch /etc/passwd
-      entities merge -s /usr/share/macaroni/layers/funtoo-server/entities/ -a
 
   - trigger: post-packages
     action: |-
