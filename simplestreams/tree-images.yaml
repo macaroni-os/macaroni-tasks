@@ -146,6 +146,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Funtoo Telemetry Grafana: Image with compilation stuff and other dev tools.
+  - name: funtoo-telemetry-grafana:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Funtoo"
+    release_title: "Telemetry Grafana"
+    directory: funtoo-telemetry-grafana
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-telemetry-grafana"
+    days: 2
+    aliases:
+      - "funtoo/telemetry-grafana"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Funtoo Bootstrap Builder: Image with compilation stuff and other dev tools.
   - name: funtoo-bootstrap-builder:current:amd64:default
     arch: amd64
