@@ -264,7 +264,7 @@ packages:
   sets:
   - packages:
     - sudo
-    - app-metrics/prometheus
+    - app-metrics/prometheus-bin
     action: install
 
 actions:
