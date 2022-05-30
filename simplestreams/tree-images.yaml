@@ -130,6 +130,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Funtoo Telemetry Prometheus: Image with compilation stuff and other dev tools.
+  - name: funtoo-telemetry-prometheus:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Funtoo"
+    release_title: "Telemetry Prometheus"
+    directory: funtoo-telemetry-prometheus
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-telemetry-prometheus"
+    days: 2
+    aliases:
+      - "funtoo/telemetry-prometheus"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Funtoo Bootstrap Builder: Image with compilation stuff and other dev tools.
   - name: funtoo-bootstrap-builder:current:amd64:default
     arch: amd64
