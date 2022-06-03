@@ -1,0 +1,126 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Chain pipeline to tag a new release of the specified repo.
+#
+# NOTE: The sys-apps/baselayout and sys-apps/lsb-release must be
+#       already tagged with the right release version.
+#
+pipeline_name: "Macaroni {{ .namespace }} release {{ .release }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+chain:
+{{- if .reposcan }}
+- tag-reposcan-ns
+{{- end }}
+- rsync-namespace
+- purge-namespace
+- tag-repo
+
+tasks:
+  tag-reposcan-ns:
+    name: "Tag <{{ .namespace }}> reposcan - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: "mcli"
+    storage_path: /storage
+    script:
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      export MOTTAINAI_CLI_PROFILE=funtoo
+    - mottainai-cli namespace delete "${NAMESPACE}-reposcan"
+    - mottainai-cli namespace clone "${NAMESPACE}-reposcan" -f "${NAMESPACE}-dev-reposcan"-dev
+    environment:
+    - "NAMESPACE={{ .namespace }}"
+    image: macaroni/funtoo-builder
+    artefact_path: /artefacts
+    type: lxd
+
+  rsync-namespace:
+    name: "Rsync Mottainai namespace to CDN77 storage ({{ .namespace }})"
+    type: "lxd"
+
+    storage: "cdn77,lxdconf"
+    storage_path: /storage
+    script:
+    - source /storage/cdn77.env
+    - >-
+      luet repo update &&
+      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
+      luet cleanup --purge-repos
+    - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
+# Note: the cdn /www is mandatory as prefix.
+    - >-
+      LXD_CONF=/storage/
+      lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
+
+    - >-
+      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+      /bin/bash -c
+      "source /storage/cdn77.env && export NAME=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
+    image: "macaroni/funtoo-dumplings"
+    environment:
+    - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
+    - "NS2SYNC={{ .namespace }}"
+    - "STORAGE_PREFIX=mottainai"
+    - "RSYNC_OPTS=-va --delete-after"
+
+  purge-namespace:
+    name: "Purge files from CDN77 resource ({{ .namespace }})"
+    type: "lxd"
+    storage: "cdn77"
+    storage_path: /storage
+    entrypoint:
+    - /bin/sh
+    - "-c"
+    script:
+    - apk add bash curl git
+    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
+    - >-
+      luet i -y utils/jq utils/yq &&
+      luet cleanup --purge-repos
+    - >-
+      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
+      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+    image: "alpine/edge"
+    environment:
+    - "NAME={{ .namespace }}"
+
+  tag-repo:
+    name: "Macaroni <{{ .namespace }}> tag repository with release {{ .codename }}-{{ .release }}- {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    script:
+
+    - >-
+      luet repo update &&
+      luet install utils/jq utils/yq net-misc/openssh &&
+      luet reinstall virtual/base &&
+      luet cleanup &&
+      env-update &&
+      ldconfig
+
+    # Setup git ssh key
+    - sh /storage/setup-ssh.sh
+    - sh /storage/setup-git.sh
+
+    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+
+    # Create the lxd-compose command with the list of the kits updated
+    - >-
+      cd /luet-repo &&
+      git tag ${CODENAME}-${RELEASE} &&
+      git push --tags
+
+    environment:
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repossh }}"
+    - "RELEASE={{ .release }}"
+    - "CODENAME={{ .codename }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    image: macaroni/funtoo-metatools
+    storage: geaaru-github
+    storage_path: /storage
+    type: lxd
+
+# vim: filetype=yaml

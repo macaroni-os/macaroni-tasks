@@ -34,6 +34,7 @@ all:
 	@echo "start-upd-seed-pipeline Start an upgrade workflow for a selected race."
 	@echo "start-upd-kits-pipeline Start an upgrade workflow to upgrade kits and"
 	@echo "                        bump first seed."
+	@echo "bump-release            Tag and release a specified repository/namespace."
 
 .PHONY: lxd-tasks
 lxd-tasks:
@@ -106,3 +107,7 @@ start-upd-seed-pipeline:
 .PHONY: start-upd-kits-pipeline
 start-upd-kits-pipeline:
 	@make/upd-kits-pipeline
+
+.PHONY: bump-release
+bump-release:
+	@make/bump-release

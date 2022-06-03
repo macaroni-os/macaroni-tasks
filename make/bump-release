@@ -1,0 +1,65 @@
+#!/bin/bash
+# Description: Script to tag and release a new Macaroni version of the
+#              selected repository.
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+luet_dir=$(dirname ${BASH_SOURCE[0]}})/../luet
+luet_values=${luet_dir}/luet-repo.values
+
+FIRE_TASK=${FIRE_TASK:-0}
+CODENAME=${CODENAME:-phoenix}
+HAS_REPOSCAN=${HAS_REPOSCAN:-0}
+
+main () {
+
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "Missing MOTTAINAI_CLI_PROFILE env variable"
+    exit 1
+  fi
+
+  if [ -z "${NAMESPACE}" ] ; then
+    echo "Missing NAMESPACE env variable."
+    echo "Normally this variable is equal to repository name."
+    exit 1
+  fi
+
+  if [ -z "${RELEASE}" ] ; then
+    echo "Missing RELEASE env variable."
+    exit 1
+  fi
+
+  repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
+  repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+  repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+
+  echo "
+Release:    ${RELEASE}
+Codename:   ${CODENAME}
+Repository: ${NAMESPACE}
+"
+  local opts=""
+  if [ "${HAS_REPOSCAN}" = "1" ] ; then
+    opts="-s reposcan=true"
+  fi
+
+  mottainai-cli task compile ${luet_dir}/templates/tag-release.tmpl \
+    -s namespace="${NAMESPACE}" ${opts} \
+    -s repohttp="${repo}" \
+    -s repobranch="${repo_branch}" \
+    -s repossh="${repo_ssh}" \
+    -s release="${RELEASE}" \
+    -s codename="${CODENAME}" \
+    -o /tmp/tag-release-pipeline.yaml || return 1
+
+  if [ "${FIRE_TASK}" = "1" ] ; then
+    mottainai-cli pipeline create --yaml /tmp/tag-release-pipeline.yaml || return 1
+  fi
+
+  return 0
+}
+
+main $@
+exit $?
+
+# filetype=sh
