@@ -23,6 +23,9 @@ chord:
 
 tasks:
 {{ range $idx , $data := .packages }}
+  {{- $labels := index $data "labels" | default false }}
+  {{- $queue := "" }}
+  {{- if $labels }}{{- $queue = index $labels "queue" | default "" }}{{- end }}
   package-{{ $idx }}:
     name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}-{{ index $data "version" }}"
     storage: docker-certs
@@ -74,6 +77,7 @@ tasks:
     artefact_path: /artefacts
     type: lxd
     #retry: "2"
+    queue: "{{ $queue }}"
     publish_mode: append
     tag_namespace: "{{ $reponame }}"
 {{end}}
