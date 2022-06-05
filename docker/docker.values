@@ -17,6 +17,15 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
+    # Macaroni Funtoo Devel Stable image
+    - name: macaronios/funtoo-minimal-devel
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: master
+      dockerfile: Dockerfile.devel
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
     # Macaroni Funtoo Testing image
     - name: macaronios/funtoo-testing-minimal
       arch: amd64
