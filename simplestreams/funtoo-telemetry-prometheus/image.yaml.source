@@ -279,7 +279,7 @@ actions:
     rm -rf /var/cache/portage
 
     cd /etc/init.d
-    ln -s netif.tmpl net.eth0
+    ln -s netif.tmpl netif.eth0
     rc-update add net.eth0 default
     echo template=dhcpcd > /etc/conf.d/net.eth0
 
