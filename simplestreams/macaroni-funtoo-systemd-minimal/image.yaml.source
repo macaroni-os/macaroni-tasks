@@ -121,23 +121,6 @@ actions:
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
 
-  - trigger: post-unpack
-    action: |-
-      #!/bin/bash
-      # Fix docker-companion issue on handle removed data layer.
-      # https://github.com/mudler/docker-companion/issues/6
-      rm -rf /var/cache/luet/packages/*
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
-      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
-      touch /etc/shadow
-      touch /etc/group
-      touch /etc/gshadow
-      touch /etc/passwd
-      entities merge -s /usr/share/macaroni/layers/funtoo-base/entities/ -a
-
   - trigger: post-packages
     action: |-
       #!/bin/bash
@@ -234,6 +217,11 @@ actions:
 
       # Create missing users/groups
       systemd-sysusers
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      luet cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo
