@@ -61,6 +61,15 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
+    # Macaroni Funtoo Systemd Devel Stable image
+    - name: macaronios/funtoo-systemd-minimal-devel
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: systemd
+      dockerfile: Dockerfile.devel
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
     # Macaroni Funtoo Develop Systemd image
     - name: macaronios/funtoo-systemd-dev-minimal
       arch: amd64
