@@ -81,6 +81,7 @@ packages:
         - utils/yq
         - utils/jq
         - utils/yq
+        - virtual/base
         - pkglist/funtoo-base
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -93,9 +94,6 @@ packages:
         - app-crypt/p11-kit
         # Needed by systemd (to fix in rdeps)
         - app-arch/zstd
-        # Needed for env-update
-        - sys-apps/portage
-
         # Needed for env-update
         - sys-apps/portage
 
