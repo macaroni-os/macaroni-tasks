@@ -82,6 +82,7 @@ packages:
     - packages:
         - utils/jq
         - utils/yq
+        - virtual/base
         - pkglist/funtoo-base
         - dev-libs-3/libpcre
         - app-admin/eselect
