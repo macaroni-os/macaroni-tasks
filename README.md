@@ -155,6 +155,30 @@ $> FIRE_TASK=1 REPO_DIR=${HOME}/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEE
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race1 \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-office \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race2 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race3 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race4 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-python \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race5 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race6 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 ```
 
+### Tag a new release of a specific repository
+
+When a new revision is marked as stable is synced to the CDN storage,
+the repoman JSON files are tagged and is created a tag in the selected
+repository
