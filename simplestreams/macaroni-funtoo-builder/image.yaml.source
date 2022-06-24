@@ -108,6 +108,8 @@ packages:
         - sys-devel-2.36/binutils
         - sys-devel/gcc-config
 
+        - system/luet-build
+
         - app-emulation/distrobuilder
         - app-emulation/simplestreams-builder
         - app-emulation/lxd
