@@ -55,7 +55,7 @@ tasks:
 
     - >-
       luet repo update &&
-      luet install utils/jq utils/yq net-misc/openssh &&
+      luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
       luet reinstall virtual/base &&
       luet cleanup &&
       env-update &&
@@ -129,13 +129,13 @@ tasks:
       if [ "${fkv}" != "${nv}" ] ; then
       tbump_opts="${tbump_opts} -p ${nv}" ;
       fi &&
-      luet tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
-      luet tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
       for i in ${SEEDS2BUMP} ; do
       name=$(echo $i | cut -d'/' -f2) ;
-      luet tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+      luet-build tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
       if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
-      luet tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+      luet-build tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
       fi ;
       done ;
       else
@@ -232,7 +232,7 @@ tasks:
     - >-
       wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
       sh /tmp/get_luet_root.sh
-    - luet install dev-util/mottainai-cli
+    - luet install dev-util/mottainai-cli system/luet-build
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
     - export HOME=/root && mkdir -p /root/.config/

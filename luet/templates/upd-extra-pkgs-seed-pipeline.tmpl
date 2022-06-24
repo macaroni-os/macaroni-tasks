@@ -49,10 +49,10 @@ tasks:
       tbump_opts="" &&
       if [[ "${fkv}" == *${nv}* ]] ; then echo "Increment current version" ; else tbump_opts="-p ${nv}" ; fi &&
 {{- if eq .seed "macaroni-funtoo-base" }}
-      luet tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
 {{- end }}
-      luet tree bump -f /luet-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
-      luet tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
+      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
     # Commit new version
     - >-
       BUMPER_DIR="./packages/seeds" sh ./scripts/bumper.sh &&
