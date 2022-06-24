@@ -13,7 +13,7 @@ script:
 - >-
   wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
   sh /tmp/get_luet_root.sh
-- luet install dev-util/mottainai-cli
+- luet install dev-util/mottainai-cli system/luet-build
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
