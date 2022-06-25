@@ -30,7 +30,7 @@ tasks:
     script:
     - >-
       luet repo update &&
-      luet install utils/jq utils/yq net-misc/openssh &&
+      luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
       luet reinstall virtual/base &&
       luet cleanup &&
       env-update &&
@@ -138,7 +138,7 @@ tasks:
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh
       dev-util/mottainai-cli sys-devel/make
-      extension/luet-portage-converter &&
+      system/luet-build extension/luet-portage-converter &&
       luet reinstall virtual/base &&
       luet cleanup &&
       env-update &&
