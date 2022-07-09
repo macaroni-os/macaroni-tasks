@@ -170,10 +170,16 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-python \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-geaaru \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race5 \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race6 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race7 \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 ```
 
