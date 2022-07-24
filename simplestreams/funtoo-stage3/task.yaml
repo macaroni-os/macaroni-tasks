@@ -32,7 +32,7 @@ script:
   - chmod a+rwx -R images/
   - find .
   - eval 'rm images/build_*.log || true'
-image: ubuntu/21.10
+image: ubuntu/22.04
 disable_push_on_failure: "true"
 type: lxd
 
