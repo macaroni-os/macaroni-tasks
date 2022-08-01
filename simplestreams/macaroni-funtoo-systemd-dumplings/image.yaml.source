@@ -427,7 +427,6 @@ actions:
         dev-libs/gobject-introspection
         dev-libs/gobject-introspection-common
         dev-util/gdbus-codegen
-        system/funtoo-triggers
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog

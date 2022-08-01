@@ -89,7 +89,6 @@ packages:
         - sys-apps/iproute2
         - sys-libs/readline
         - sys-devel-9.2.0/gcc
-        - system/funtoo-triggers
         - pkglist/funtoo-base
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
@@ -386,7 +385,6 @@ actions:
         dev-libs/gobject-introspection
         dev-libs/gobject-introspection-common
         dev-util/gdbus-codegen
-        system/funtoo-triggers
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog
