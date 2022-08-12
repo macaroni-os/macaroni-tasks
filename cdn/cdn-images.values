@@ -18,6 +18,15 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
+    # Macaroni Funtoo Next Dev
+    - name: "macaroni-funtoo-next-dev"
+      namespace: "macaroni-funtoo-next-dev"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: 1258250330
+
     # Macaroni Funtoo Testing
     - name: "macaroni-funtoo-testing"
       namespace: "macaroni-funtoo"
