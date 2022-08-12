@@ -103,6 +103,8 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
 
+        - virtual/base
+
       action: install
 
 actions:
