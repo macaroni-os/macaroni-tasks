@@ -139,4 +139,13 @@ values:
         <<: *purgerepo
       cdnid: 1258250330
 
+    # Macaroni Repositories Index
+    - name: "geaaru-repo-index"
+      namespace: "geaaru-repo-index"
+      cdnstorage: true
+      cdnprefix: "/mottainai/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: "1556118782"
+
 # vim: filetype=yaml

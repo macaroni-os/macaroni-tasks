@@ -211,5 +211,10 @@ values:
       lpc_extra_ns:
         - extra-reposcan
 
+    # Macaroni Repository index
+    - name: "geaaru-repo-index"
+      branch: master
+      http_repo: https://github.com/geaaru/repo-index.git
+      ssh_repo: git@github.com:geaaru/repo-index.git
 
 # vim: filetype=yaml
