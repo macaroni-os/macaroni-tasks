@@ -227,6 +227,11 @@ actions:
       # Create missing users/groups
       systemd-sysusers
 
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      luet cleanup --purge-repos
+
 mappings:
   architecture_map: funtoo
 # vim: filetype=yaml

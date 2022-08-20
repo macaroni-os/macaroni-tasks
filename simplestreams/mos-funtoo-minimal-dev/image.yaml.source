@@ -215,6 +215,10 @@ actions:
         - \"/etc/\"
       " > /etc/luet/config.protect.d/01_etc.yml
 
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      luet cleanup --purge-repos
 mappings:
   architecture_map: funtoo
 
