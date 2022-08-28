@@ -37,6 +37,7 @@ script:
 - >-
   luet repo update &&
   luet install -y utils/yq utils/jq system/luet-devkit &&
+  luet replace -y system/luet --for system/luet-testing &&
   luet cleanup
 # Using always last geniso commit
 - >-
