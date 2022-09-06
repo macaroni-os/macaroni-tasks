@@ -74,7 +74,7 @@ tasks:
       echo "Cloning ${repo} for branch ${repo_branch}..." &&
       git clone ${repo} -b ${repo_branch} /repo &&
       cd /repo/${WORKSPACE} &&
-      image_prefix=$(echo $(yq r ${spec_file} 'image_prefix') | sed -e 's|-0.$|-${RELEASE}|g') &&
+      image_prefix=$(echo $(yq r ${spec_file} 'image_prefix') | sed -e "s|-0.$|-${RELEASE}|g") &&
       yq w -i ${spec_file} 'image_prefix' "${image_prefix}" &&
       yq w -i ${spec_file} 'image_date' 'false' &&
       export TMPDIR=./tmp &&
