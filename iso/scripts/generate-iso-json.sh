@@ -43,6 +43,7 @@ parse_iso_metadata() {
 }
 
 iso=0
+iso_release=0
 # Creating a YAML file with all ISOs availables
 for ((i=0;i<$ISOS;i++))
 do
@@ -88,9 +89,9 @@ do
 
     if [ -e iso/iso-meta.yaml ] ; then
 
-      parse_iso_metadata "${iso}" "${name}-${release}" "${isoreleasestmp_yaml}" "${release}"
+      parse_iso_metadata "${iso_release}" "${name}-${release}" "${isoreleasestmp_yaml}" "${release}"
 
-      iso=$((iso+1))
+      iso_release=$((iso_release+1))
 
       rm -rf iso/
 
