@@ -79,7 +79,7 @@
 
           <div style="width: 1360px;">
 
-            <h4>Downloads Weekly ISOs</h4>
+            <h4>Download Weekly ISOs</h4>
             <b-table id="table-transition-example"
                      :items="filteredItems"
                      :fields="columns"
@@ -116,7 +116,7 @@
 
           <div style="width: 1360px;">
 
-            <h4>Downloads Releases ISOs</h4>
+            <h4>Download Releases ISOs</h4>
             <b-table id="table-transition-releases"
                      :items="filteredItemsReleases"
                      :fields="columnsReleases"
@@ -207,8 +207,8 @@ $(document).ready(function(){
 
       filteredItemsReleases() {
         return this.filteredData(
-          'items', 'columns',
-          'filters',
+          'itemsReleases', 'columnsReleases',
+          'filtersReleases',
           );
         },
 
@@ -296,8 +296,8 @@ $(document).ready(function(){
       }).catch(error => console.error("Unable to load file", error));
 
       fetch(url_releases_isos).then(async(resp) => {
-         data = await resp.json();
-         self.itemsReleases = data.isos;
+         data_release = await resp.json();
+         self.itemsReleases = data_release.isos;
       }).catch(error => console.error("Unable to load file", error));
     },
     methods: {
@@ -329,6 +329,7 @@ $(document).ready(function(){
                   }, {})
                 ];
             }
+
     }
   });
 });
