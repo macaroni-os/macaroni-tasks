@@ -8,20 +8,25 @@ pipeline_name: "Macaroni ISO Release {{ $release }} - {{ .date }}"
 # group:
 chain:
 {{ $isos := .isos }}
-{{ range $index, $iso := $isos }}{{ $name := index $iso "name" }}
+{{ range $index, $iso := $isos }}{{ $name := index $iso "name" }}{{ $forrelease := index $iso "release" }}
+{{- if $forrelease }}
 - iso-{{ $name }}-{{ $release }}
+{{ end }}
 {{ end }}
 
 # chord:
 - generate-iso-json
-{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
+{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}{{ $forrelease := index $iso "release" }}
+{{- if $forrelease }}
 - cdnsync-iso-{{ $name }}-{{ $release }}
+{{- end }}
 {{ end }}
 - cdnsync-macaroni-iso
 
 tasks:
 {{ range $idx, $iso := $isos }}
-  {{ $name := index $iso "name" }}{{ $repo := index $iso "repo" }}{{ $specfile := index $iso "specfile" }}{{ $repo_branch := index $iso "repo_branch" }}
+  {{ $name := index $iso "name" }}{{ $repo := index $iso "repo" }}{{ $specfile := index $iso "specfile" }}{{ $repo_branch := index $iso "repo_branch" }}{{ $forrelease := index $iso "release" }}
+  {{- if $forrelease }}
   iso-{{ $name }}-{{ $release }}:
     name: "ISO: Build {{ $name }}-{{ $release }}"
     image: ubuntu/22.04
@@ -114,6 +119,7 @@ tasks:
     - "NS2SYNC=iso-{{ $name }}-{{ $release }}"
     - "STORAGE_PREFIX=mottainai"
     - "RSYNC_OPTS=-va --delete-after"
+{{ end }}
 {{ end }}
 
   generate-iso-json:

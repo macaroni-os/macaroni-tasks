@@ -48,6 +48,7 @@ iso_release=0
 for ((i=0;i<$ISOS;i++))
 do
   name=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].name")
+  r=$(yq r ${isospec_dir}/iso-images.values "values.isos[$i].release")
 
   echo "Processing data of ISO ${name}..."
 
@@ -70,6 +71,10 @@ do
 
     echo "Skipping ISO ${name}!"
 
+  fi
+
+  if [ "$r" == "false" ] ; then
+    continue
   fi
 
   # Parse every release namespace if available
