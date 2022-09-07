@@ -79,7 +79,7 @@
 
           <div style="width: 1360px;">
 
-            <h4>Downloads</h4>
+            <h4>Downloads Weekly ISOs</h4>
             <b-table id="table-transition-example"
                      :items="filteredItems"
                      :fields="columns"
@@ -113,6 +113,44 @@
             </b-table>
 
           </div>
+
+          <div style="width: 1360px;">
+
+            <h4>Downloads Releases ISOs</h4>
+            <b-table id="table-transition-releases"
+                     :items="filteredItemsReleases"
+                     :fields="columnsReleases"
+                     :filter="activeFilterReleases"
+                     striped
+                     hover
+                     small
+                     responsive="sm"
+                     primary-key="name"
+                     :tbody-transition-props="transProps"
+            >
+
+              <template slot="top-row" slot-scope="{ fields }">
+                  <td v-for="field in fields" :key="field.key">
+                    <input v-if="field.key != 'actions'" v-model="filters[field.key]"
+                           style="box-sizing: inherit; width: 100%"/>
+                  </td>
+              </template>
+
+              <template v-slot:cell(iso)="data">
+                <div class="text-left" >
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
+                </div>
+              </template>
+
+              <template v-slot:cell(isosha)="data">
+                <div class="text-left" >
+                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
+                </div>
+              </template>
+            </b-table>
+
+          </div>
+
 
         </b-row>
 
@@ -186,8 +224,18 @@ $(document).ready(function(){
         { key: 'size', label: 'Size', sortable: true },
         { key: 'isosha', label: 'ISO Sha256', sortable: false },
       ],
-
       items: [],
+
+      // Release table
+      filtersReleases: [],
+      activeFilterReleases: {},
+      columnsReleases: [
+        { key: 'iso', label: he.decode('ISO Image'), sortable: true },
+        { key: 'size', label: 'Size', sortable: true },
+        { key: 'release', label: 'Release', sortable: true },
+        { key: 'isosha', label: 'ISO Sha256', sortable: false },
+      ],
+      itemsReleases: [],
 
       filtersDescr: [],
       activeFilterDesc: {},
@@ -203,7 +251,7 @@ $(document).ready(function(){
         },
         {
           'Name': "Macaroni Funtoo Gnome Devel",
-          'Description': 'Macaroni Funtoo Gnome with subsets `portage` and `devel` enabled.',
+          'Description': 'Macaroni Funtoo Gnome with subsets `portage` and `devel` enabled. Users that want to use Emerge with caution must be use this.',
         },
 
         {
@@ -231,12 +279,17 @@ $(document).ready(function(){
     created: function() {
       var self = this;
       var url_isos = getPrefixPath() + '/isos.json?ver=' + Date.now();
+      var url_releases_isos = getPrefixPath() + '/isos-releases.json?ver=' + Date.now();
 
       fetch(url_isos).then(async(resp) => {
          data = await resp.json();
          self.items = data.isos;
       }).catch(error => console.error("Unable to load file", error));
 
+      fetch(url_releases_isos).then(async(resp) => {
+         data = await resp.json();
+         self.itemsReleases = data.isos;
+      }).catch(error => console.error("Unable to load file", error));
     },
     methods: {
 
