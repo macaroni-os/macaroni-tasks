@@ -138,13 +138,13 @@
 
               <template v-slot:cell(iso)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
+                  <a :href="'https://images.macaroni.funtoo.org/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
                 </div>
               </template>
 
               <template v-slot:cell(isosha)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
+                  <a :href="'https://images.macaroni.funtoo.org/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
                 </div>
               </template>
             </b-table>
@@ -205,12 +205,21 @@ $(document).ready(function(){
           );
         },
 
+      filteredItemsReleases() {
+        return this.filteredData(
+          'items', 'columns',
+          'filters',
+          );
+        },
+
+
       filteredItemsDesc() {
         return this.filteredData(
           'itemsDescr', 'columnsDescr',
           'filtersDescr',
           );
         },
+
     },
     data: {
       transProps: {
