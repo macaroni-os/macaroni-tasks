@@ -7,6 +7,7 @@ values:
     - repository.meta.yaml.tar.zst
     - tree.tar.zst
 
+
   namespaces:
 
     # Macaroni Funtoo Dev
@@ -83,6 +84,8 @@ values:
       purgefiles:
         paths:
           - isos.json
+          - isos-releases.json
+          - index.htm
       cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable
