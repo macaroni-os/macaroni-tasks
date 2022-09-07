@@ -104,14 +104,16 @@ do
   done
 done
 
-cat ${isotmp_yaml}
-
 # Generate JSON from yaml
 yq r ${isotmp_yaml} -j > ${ISO_JSONFILE}
 yq r ${isoreleasestmp_yaml} -j > ${ISO_RELEASES_JSONFILE}
 
-#rm ${isotmp_yaml}
-#rm ${isoreleasestmp_yaml}
+rm ${isotmp_yaml}
+rm ${isoreleasestmp_yaml}
 
+echo "Weekly ISOs"
 cat ${ISO_JSONFILE} | jq
+echo "================================"
+echo "Releases ISOs"
 cat ${ISO_RELEASES_JSONFILE} | jq
+echo "================================"
