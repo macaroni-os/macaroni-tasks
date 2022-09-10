@@ -16,11 +16,11 @@ chain:
 
 # chord:
 - generate-iso-json
-{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}{{ $forrelease := index $iso "release" }}
-{{- if $forrelease }}
-- cdnsync-iso-{{ $name }}-{{ $release }}
-{{- end }}
-{{ end }}
+#{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}{{ $forrelease := index $iso "release" }}
+#{{- if $forrelease }}
+#- cdnsync-iso-{{ $name }}-{{ $release }}
+#{{- end }}
+#{{ end }}
 - cdnsync-macaroni-iso
 
 tasks:
