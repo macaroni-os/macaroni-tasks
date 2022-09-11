@@ -139,7 +139,8 @@ tasks:
     - >-
       /bin/bash scripts/generate-iso-json.sh &&
       cp -rvf portal/* /www &&
-      cp /tmp/isos.json /www/
+      cp /tmp/isos.json /www/ &&
+      cp /tmp/isos-releases.json /www/
     artefact_path: /www
     image: alpine/edge
     type: lxd
