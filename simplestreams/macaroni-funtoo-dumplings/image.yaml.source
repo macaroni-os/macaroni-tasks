@@ -89,7 +89,6 @@ packages:
         - sys-apps/iproute2
         - sys-libs/readline
         - sys-devel-9.2.0/gcc
-        - pkglist/funtoo-base
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -159,21 +158,10 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Create /etc/shadow,/etc/group,/etc/gshadow,/etc/passwd files
-      touch /etc/shadow
-      touch /etc/group
-      touch /etc/gshadow
-      touch /etc/passwd
-      entities merge -s /usr/share/macaroni/layers/funtoo-base/entities/ -a
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Initialize localization
       locale-gen || true
       eselect locale list
       eselect locale set en_US.utf8
-
 
   - trigger: post-packages
     action: |-
@@ -390,7 +378,6 @@ actions:
         macaroni/whip-catalog
         app-admin/whip
         utils/yq
-        pkglist/funtoo-base
         dev-lang-2/python-exec
         dev-lang-3.7/python
         dev-python/pyelftools
