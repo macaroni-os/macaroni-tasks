@@ -4,6 +4,7 @@ values:
   releases:
     - "22.09"
     - "22.09.01"
+    - "22.10.01"
 
   isos:
     # Macaroni Funtoo Stable ISO
