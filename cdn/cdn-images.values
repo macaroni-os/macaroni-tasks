@@ -152,4 +152,13 @@ values:
         <<: *purgerepo
       cdnid: "1556118782"
 
+    # Macaroni Funtoo Terragon Dev
+    - name: "macaroni-terragon-dev"
+      namespace: "macaroni-terragon-dev"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: 1258250330
+
 # vim: filetype=yaml
