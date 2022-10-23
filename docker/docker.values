@@ -78,4 +78,29 @@ values:
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
 
+    # Macaroni Funtoo Terragon image
+    - name: macaronios/terragon-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: terragon
+      dockerfile: Dockerfile
+      image_manifest: latest-amd64
+
+    # Macaroni Funtoo Terragon Devel image
+    - name: macaronios/terragon-minimal-devel
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: terragon
+      dockerfile: Dockerfile.devel
+      image_manifest: latest-amd64
+
+
+    # Macaroni Funtoo Terragon Development image
+    - name: macaronios/terragon-dev-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: terragon
+      dockerfile: Dockerfile.dev
+      image_manifest: latest-amd64
+
 # vim: filetype=yaml
