@@ -7,6 +7,9 @@ values:
       branch: master
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      # Define the command file of lxd-compose
+      # to run for generate reposcan files.
+      command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
@@ -62,6 +65,7 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
@@ -97,6 +101,7 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
         - seed/macaroni-funtoo-stage
@@ -115,6 +120,7 @@ values:
       branch: systemd
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       seeds2bump:
@@ -123,25 +129,6 @@ values:
         - seed/macaroni-funtoo-stage
         - seed/macaroni-funtoo-base
       kits2upgrade:
-        #- core-server-kit
-        #- core-gl-kit
-        #- core-hw-kit
-        #- core-kit
-        #- dev-kit
-        #- lang-kit
-        #- lisp-scheme-kit
-        #- media-kit
-        #- text-kit
-        #- gnome-kit
-        #- net-kit
-        #- python-modules-kit
-        #- perl-kit
-        #- science-kit
-        # - editors-kit
-        #- nokit
-        # - security-kit
-        #- geaaru-kit
-
         - core-kit
         - core-server-kit
         - core-gl-kit
@@ -195,6 +182,7 @@ values:
       branch: next
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
@@ -255,6 +243,7 @@ values:
       branch: terragon
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:

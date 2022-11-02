@@ -31,6 +31,7 @@ main () {
     exit 1
   fi
 
+  command_file=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .command_file" -r)
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
@@ -54,9 +55,15 @@ main () {
     return 1
   fi
 
+  if [ -z "${command_file}" ] ; then
+    echo "No command file defined for this repository."
+    return 1
+  fi
+
   echo "
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
+Command File: ${command_file}
 "
 
   local opts=""
@@ -71,6 +78,7 @@ Extra Kits Namespace: ${lpc_extra_ns}
   mottainai-cli task compile ${luet_dir}/templates/upgrade-kits-pipeline.tmpl \
     -s namespace="${NAMESPACE}" ${opts} \
     -s repohttp="${repo}" \
+    -s commandfile="${command_file}" \
     -s repobranch="${repo_branch}" \
     -s repossh="${repo_ssh}" \
     -s kits2upgrade="${kits2upgrade}" \
