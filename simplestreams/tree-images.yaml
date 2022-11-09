@@ -257,3 +257,19 @@ products:
       - "macaroni/funtoo-systemd-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
+
+  # Macaroni Funtoo Terragon minimal dev
+  - name: macaroni-terragon-minimal-dev:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Terragon Minimal Dev"
+    directory: terragon-minimal-dev
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-minimal-dev"
+    days: 2
+    aliases:
+      - "macaroni/terragon-minimal-dev"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
