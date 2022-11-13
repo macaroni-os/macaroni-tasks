@@ -103,6 +103,9 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
 
+        # Needed for grep until FL-10719 is done
+        - dev-libs/libpcre2
+
         - virtual/base
 
       action: install
