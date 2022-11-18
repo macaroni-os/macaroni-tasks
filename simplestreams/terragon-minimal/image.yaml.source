@@ -142,7 +142,7 @@ actions:
       mkdir -p /var/lock
       rm -rf /var/cache/luet/repos/
 
-      #! /bin/sh
+      #! /bin/bash
       set -eux
       rm -rf /var/git/meta-repo
       rm -rf /var/cache/portage
