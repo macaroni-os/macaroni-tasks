@@ -274,6 +274,38 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Terragon Dumplings
+  - name: terragon-dumplings:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Terragon Dumplings"
+    directory: terragon-dumplings
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-dumplings"
+    days: 2
+    aliases:
+      - "macaroni/terragon-dumplings"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
+  # Macaroni Terragon minimal
+  - name: terragon-minimal:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Terragon Minimal"
+    directory: terragon-minimal
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-minimal"
+    days: 2
+    aliases:
+      - "macaroni/terragon-minimal"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Funtoo Next Stage3 dev
   - name: funtoo-next-stage3:current:amd64:default
     arch: amd64
