@@ -94,6 +94,13 @@ values:
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
 
+    # Macaroni Funtoo Terragon Testing image
+    - name: macaronios/terragon-testing-minimal
+      arch: amd64
+      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repobranch: terragon
+      dockerfile: Dockerfile.test
+      image_manifest: latest-amd64
 
     # Macaroni Funtoo Terragon Development image
     - name: macaronios/terragon-dev-minimal
