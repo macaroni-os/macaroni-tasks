@@ -273,3 +273,19 @@ products:
       - "macaroni/terragon-minimal-dev"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
+
+  # Funtoo Next Stage3 dev
+  - name: funtoo-next-stage3:current:amd64:default
+    arch: amd64
+    release: current
+    os: Funtoo
+    release_title: "Funtoo Next Stage3"
+    directory: funtoo-next-stage3
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-next-stage3"
+    days: 2
+    aliases:
+      - "funtoo/next-stage3"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
