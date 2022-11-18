@@ -279,7 +279,7 @@ products:
     arch: amd64
     release: current
     os: Funtoo
-    release_title: "Funtoo Next Stage3"
+    release_title: "Next Stage3"
     directory: funtoo-next-stage3
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
