@@ -99,6 +99,7 @@ packages:
         - app-admin/whip
         - macaroni/whip-catalog
         - utils/yq
+        - virtual/base
 
         # Needed for env-update
         - sys-apps/portage
@@ -132,7 +133,7 @@ actions:
       mkdir -p /var/lock
       rm -rf /var/cache/luet/repos/
 
-      #! /bin/sh
+      #! /bin/bash
       set -eux
       rm -rf /var/git/meta-repo
       rm -rf /var/cache/portage
