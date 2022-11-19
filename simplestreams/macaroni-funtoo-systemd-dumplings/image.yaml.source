@@ -97,21 +97,15 @@ packages:
         # Needed for env-update
         - sys-apps/portage
 
+        # Setup /bin/sh and /bin/awk
+        - virtual/base
+
       action: install
 
 actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
-      if [ ! -e /bin/sh ] ; then
-        cd /bin && ln -s bash sh
-      fi
-
-      if [ ! -e /usr/bin/awk ] ; then
-        cd /usr/bin && ln -s gawk awk
-      fi
-
       # TODO: fix this in distrobuilder
       luet repo update
 
@@ -355,7 +349,8 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-doc.yaml
+      " > /etc/luet/subsets.def.d/00-python.yaml
+
       echo "
       subsets_def:
         gcc-devel:
@@ -441,6 +436,7 @@ actions:
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog
+        macaroni/entities-catalog
         app-admin/whip
         utils/yq
         pkglist/funtoo-base
@@ -456,9 +452,15 @@ actions:
       yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
       luet repo update
       ls -l /etc/luet/
-      luet reinstall -d $(luet s --installed .) -y
+      luet reinstall $(luet s --installed .) -y
       luet rm ${pkgs2remove[@]} -y
       luet cleanup --purge-repos
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure LXD/LXC tty
+      sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
 
   - trigger: post-packages
     action: |-
