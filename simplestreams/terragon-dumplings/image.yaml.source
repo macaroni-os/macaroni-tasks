@@ -359,7 +359,6 @@ actions:
     action: |-
       #!/bin/bash
       pkgs2remove=(
-        dev-libs/gobject-introspection
         dev-libs/gobject-introspection-common
         dev-util/gdbus-codegen
         system/entities
@@ -383,7 +382,7 @@ actions:
       luet repo update
       ls -l /etc/luet/
       luet miner reinstall-package $(luet s --installed .) -y
-      luet rm ${pkgs2remove[@]} -y
+      luet rm ${pkgs2remove[@]} -y --force
       luet cleanup --purge-repos
 
   - trigger: post-packages
