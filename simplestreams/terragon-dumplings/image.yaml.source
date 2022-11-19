@@ -278,7 +278,8 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-doc.yaml
+      " > /etc/luet/subsets.def.d/00-python.yaml
+
       echo "
       subsets_def:
         gcc-devel:
@@ -364,6 +365,7 @@ actions:
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog
+        macaroni/entities-catalog
         app-admin/whip
         utils/yq
         dev-lang-2/python-exec
@@ -382,6 +384,12 @@ actions:
       luet reinstall $(luet s --installed .) -y
       luet rm ${pkgs2remove[@]} -y
       luet cleanup --purge-repos
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure LXD/LXC tty
+      sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
 
   - trigger: post-packages
     action: |-
