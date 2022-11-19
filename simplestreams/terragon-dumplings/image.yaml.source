@@ -104,6 +104,9 @@ packages:
         # Needed for env-update
         - sys-apps/portage
 
+        # Needed for correctly login through /dev/console
+        - sys-apps/baselayout
+
       action: install
 
 actions:
@@ -359,8 +362,6 @@ actions:
     action: |-
       #!/bin/bash
       pkgs2remove=(
-        dev-libs/gobject-introspection-common
-        dev-util/gdbus-codegen
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog
@@ -372,7 +373,6 @@ actions:
         dev-lang-3.9/python
         dev-python/pyelftools
         dev-python/setuptools
-        dev-python/setuptools-compat
         sys-apps/portage
       )
 
