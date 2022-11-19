@@ -384,6 +384,8 @@ actions:
       luet miner reinstall-package $(luet s --installed .) -y
       luet rm ${pkgs2remove[@]} -y --force
       luet cleanup --purge-repos
+      # Remove tmpdir
+      rm -rf /distrobuilder
 
   - trigger: post-packages
     action: |-
