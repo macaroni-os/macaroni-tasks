@@ -95,6 +95,11 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
 
+        # Setup tools
+        - macaroni/whip-catalog
+        - whip-profiles/macaroni
+        - app-admin/whip
+
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
@@ -172,6 +177,17 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
+      pkgs2remove=(
+        system/entities
+        whip-profiles/macaroni
+        macaroni/whip-catalog
+        macaroni/entities-catalog
+        app-admin/whip
+        utils/yq
+        utils/jq
+      )
+
+      luet rm ${pkgs2remove[@]} -y --force
       luet cleanup --purge-repos
 
 mappings:
