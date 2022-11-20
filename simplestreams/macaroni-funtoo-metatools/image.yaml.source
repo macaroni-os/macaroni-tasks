@@ -111,6 +111,9 @@ packages:
         - utils/jq
         - utils/yq
 
+        # Needed for correctly login through /dev/console
+        - sys-apps/baselayout
+
       action: install
 
 actions:
