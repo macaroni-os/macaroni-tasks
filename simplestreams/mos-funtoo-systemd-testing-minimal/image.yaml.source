@@ -96,22 +96,12 @@ packages:
         # Needed for env-update
         - sys-apps/portage
 
-
       action: install
 
 actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
-      if [ ! -e /bin/sh ] ; then
-        cd /bin && ln -s bash sh
-      fi
-
-      if [ ! -e /usr/bin/awk ] ; then
-        cd /usr/bin && ln -s gawk awk
-      fi
-
       # TODO: fix this in distrobuilder
       luet repo update
 
@@ -121,13 +111,6 @@ actions:
       ff02::2    ip6-allrouters
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
-
-  - trigger: post-unpack
-    action: |-
-      #!/bin/bash
-      # Fix docker-companion issue on handle removed data layer.
-      # https://github.com/mudler/docker-companion/issues/6
-      rm -rf /var/cache/luet/packages/*
 
   - trigger: post-packages
     action: |-
