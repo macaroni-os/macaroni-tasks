@@ -6,7 +6,7 @@ image:
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-minimal:latest-amd64
+  url: macaronios/funtoo-minimal-devel:latest-amd64
 
 environment:
   clear_defaults: true
@@ -94,6 +94,7 @@ packages:
         - net-misc/dhcp
         - net-libs/libmnl
         - sys-process/procps
+        - sys-apps/dbus
         - sys-auth/elogind
         - sys-devel/make
 
@@ -121,31 +122,17 @@ packages:
         - app-portage/gentoolkit
         - app-portage/portage-utils
 
+        # Needed for correctly login through /dev/console
+        - sys-apps/baselayout
+
       action: install
 
 actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
-      if [ ! -e /bin/sh ] ; then
-        cd /bin && ln -s bash sh
-      fi
-
-      if [ ! -e /usr/bin/awk ] ; then
-        cd /usr/bin && ln -s gawk awk
-      fi
-
       # TODO: fix this in distrobuilder
       luet repo update
-
-      luet i utils/yq utils/jq
-      # Enable subsets portage and devel
-      yq w /etc/luet/luet.yaml 'subsets.enabled[0]' 'portage' -i
-      yq w /etc/luet/luet.yaml 'subsets.enabled[1]' 'devel' -i
-
-      luet reinstall --force $(luet s --installed  -o json | jq '.packages[] | .category + "/" + .name' -r)
-      luet cleanup
 
       # NOTE: if these files is not present the generators skip the template
       # generation
@@ -159,32 +146,7 @@ actions:
       #!/bin/bash
       # Setup openrc runlevels. TODO: move this to package script.
       #
-      EROOT=/
-
-      source /lib/rc/sh/functions.sh
-
-      for r in sysinit boot shutdown default nonetwork; do
-        if [ ! -e ${EROOT}/etc/runlevels/$r ]; then
-          install -d ${EROOT}/etc/runlevels/$r
-          # install missing scripts
-        fi
-        for sc in $(cd ${EROOT}/usr/share/openrc/runlevels/$r; ls); do
-          if [ ! -L ${EROOT}/etc/runlevels/$r/$sc ]; then
-            einfo "Missing $r/$sc script, installing..."
-            cp -a ${EROOT}/usr/share/openrc/runlevels/$r/$sc ${EROOT}/etc/runlevels/$r/$sc
-          fi
-        done
-        # warn about extra scripts
-        for sc in $(cd ${EROOT}/etc/runlevels/$r; ls); do
-          if [ "$sc" == "netif.lo" ]; then
-            einfo "Removing old initscript netif.lo."
-            rm ${EROOT}/etc/runlevels/$r/$sc
-          fi
-          if [ ! -L ${EROOT}/usr/share/openrc/runlevels/$r/$sc ]; then
-            ewarn "Extra script $r/$sc found, possibly from other ebuild."
-          fi
-        done
-      done
+      EROOT=/ whip hook openrc.openrc_setup
 
   - trigger: post-packages
     action: |-
@@ -225,6 +187,12 @@ actions:
 
       env-update
       ldconfig
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure LXD/LXC tty
+      sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
 
   - trigger: post-packages
     action: |-
