@@ -79,8 +79,6 @@ packages:
 
   sets:
     - packages:
-        - utils/jq
-        - utils/yq
         - virtual/base
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -95,6 +93,8 @@ packages:
         # Needed for env-update
         - sys-apps/portage
 
+        # Needed for correctly login through /dev/console
+        - sys-apps/baselayout
 
       action: install
 
@@ -102,15 +102,6 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # Fix /bin/sh link that broke openrc. Will be managed by the finalizer.
-      if [ ! -e /bin/sh ] ; then
-        cd /bin && ln -s bash sh
-      fi
-
-      if [ ! -e /usr/bin/awk ] ; then
-        cd /usr/bin && ln -s gawk awk
-      fi
-
       # TODO: fix this in distrobuilder
       luet repo update
 
