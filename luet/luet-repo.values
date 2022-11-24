@@ -127,7 +127,7 @@ values:
         #- seed/funtoo-base
         #- seed/funtoo-stage3
         - seed/macaroni-funtoo-stage
-        - seed/macaroni-funtoo-base
+        #- seed/macaroni-funtoo-base
       kits2upgrade:
         - core-kit
         - core-server-kit
@@ -284,8 +284,8 @@ values:
       # new packages version.
       seeds2bump:
         # Seed to bump for a complete build cycle.
-        - seed/funtoo-base
-        #- seed/macaroni-funtoo-stage
+        #- seed/funtoo-base
+        - seed/macaroni-funtoo-stage
         # - seed/macaroni-funtoo-base
         #- seed/macaroni-funtoo-python-stage
         #- seed/macaroni-funtoo-python
