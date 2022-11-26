@@ -183,6 +183,52 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 ```
 
+#### macaroni-terragon-dev repository
+
+Hereinafter, the workflow for `macaroni-funtoo-dev` repository:
+
+1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo packages.
+
+```shell
+$> FIRE_TASK=1 NAMESPACE=macaroni-terragon-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
+```
+
+2. Start all these races
+
+``shell
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-base \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race1 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race2 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race3 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race4 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race5 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race6 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race7 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race8 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race9 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
+
+
+```
+
 ### Tag a new release of a specific repository
 
 When a new revision is marked as stable is synced to the CDN storage,
