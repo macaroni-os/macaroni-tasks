@@ -127,7 +127,7 @@ actions:
     action: |-
       #!/bin/bash
       # Setup openrc runlevels. TODO: move this to package script.
-      whip hook openrc.openrc_setup
+      EROOT=/ whip hook openrc.openrc_setup
 
   - trigger: post-packages
     action: |-
