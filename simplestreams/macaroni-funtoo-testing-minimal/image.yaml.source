@@ -102,6 +102,8 @@ packages:
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
+        - virtual/base
+
       action: install
 
 actions:
