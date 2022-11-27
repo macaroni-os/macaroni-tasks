@@ -95,8 +95,9 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
-        # Until docker image will be synced
-        - virtual-entities/base
+        - whip-profiles/macaroni
+        - app-admin/whip
+        - macaroni/whip-catalog
 
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
