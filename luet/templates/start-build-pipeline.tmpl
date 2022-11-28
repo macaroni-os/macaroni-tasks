@@ -8,7 +8,7 @@ script:
   export MOTTAINAI_CLI_PROFILE=funtoo
 - >-
   luet repo update &&
-  luet i -y system/luet-devkit &&
+  luet i -y system/luet-devkit utils/jq utils/yq &&
   luet cleanup --purge-repos
 - >-
   git clone ${REPO} -b ${REPO_BRANCH} /repo &&
