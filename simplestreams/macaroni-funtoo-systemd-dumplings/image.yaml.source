@@ -85,6 +85,7 @@ packages:
         - app-admin/eselect
         - net-libs/libmnl
         - sys-process/procps
+        - sys-apps/systemd
         - sys-apps/dbus
         - sys-libs/timezone-data
         - system/entities
