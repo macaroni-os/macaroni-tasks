@@ -194,12 +194,12 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Systemd minimal
+  # Macaroni Funtoo Eagle minimal
   - name: macaroni-funtoo-systemd-minimal:current:amd64:default
     arch: amd64
     release: current
     os: Macaroni
-    release_title: "Funtoo Systemd Minimal"
+    release_title: "Funtoo Eagle Minimal"
     directory: macaroni-funtoo-systemd-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
@@ -210,12 +210,12 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Systemd minimal
+  # Macaroni Funtoo Eagle minimal
   - name: macaroni-funtoo-systemd-testing-minimal:current:amd64:default
     arch: amd64
     release: current
     os: Macaroni
-    release_title: "Funtoo Systemd Testing Minimal"
+    release_title: "Funtoo Eagle Testing Minimal"
     directory: mos-funtoo-systemd-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
