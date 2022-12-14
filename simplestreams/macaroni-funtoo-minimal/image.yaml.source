@@ -99,6 +99,7 @@ packages:
         - macaroni/whip-catalog
         - whip-profiles/macaroni
         - app-admin/whip
+        - virtual/base
 
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
@@ -130,7 +131,6 @@ actions:
     action: |-
       #!/bin/bash
       # Setup openrc runlevels. TODO: move this to package script.
-      #
       EROOT=/ whip hook openrc.openrc_setup
 
   - trigger: post-packages
