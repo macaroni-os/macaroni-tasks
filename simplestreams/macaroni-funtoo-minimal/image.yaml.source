@@ -96,6 +96,7 @@ packages:
         - sys-process/procps
 
         # Setup tools
+        - app-admin/macaronictl
         - macaroni/whip-catalog
         - whip-profiles/macaroni
         - app-admin/whip
@@ -177,11 +178,14 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
+      macaronictl env-update
+
       pkgs2remove=(
         system/entities
         whip-profiles/macaroni
         macaroni/whip-catalog
         macaroni/entities-catalog
+        - app-admin/macaronictl
         app-admin/whip
         utils/yq
         utils/jq
