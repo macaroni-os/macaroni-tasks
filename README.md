@@ -226,6 +226,8 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race9 \
              NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-race10 \
+             NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
 
 ```
 
