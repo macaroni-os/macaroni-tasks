@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  decription: Funtoo Macaroni OS SystemD Dumplings
+  description: Funtoo Macaroni OS SystemD Dumplings
   expiry: 30d
   architecture: amd64
 
@@ -27,19 +27,19 @@ environment:
 
 targets:
   lxc:
-    create-message: |
+    create_message: |
       You just created a Macaroni container (arch={{ image.architecture }})
 
     config:
       - type: all
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.common.conf
 
       - type: user
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.userns.conf
 
       - type: all
         after: 4
@@ -416,6 +416,11 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
+
+      # Creting audio, kvm groups to avoid 999, 998 from systemd-sysusers
+      entities merge -e kvm --specs-dir /usr/share/macaroni/entities/
+      entities merge -e audio --specs-dir /usr/share/macaroni/entities/
+
       pkgs2remove=(
         dev-libs/gobject-introspection
         dev-libs/gobject-introspection-common
@@ -427,21 +432,26 @@ actions:
         app-admin/whip
         utils/yq
         utils/jq
-        dev-lang-2/python-exec
-        dev-lang-3.7/python
         dev-python/pyelftools
         dev-python/setuptools
         dev-python/setuptools-compat
         sys-apps/portage
       )
 
+      pkgs2removeNodeps=(
+        dev-lang-2/python-exec
+        dev-lang-2.7/python
+        dev-lang-3.7/python
+      )
+
       echo "Reinstall all packages and apply new subsets!"
       yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
       luet repo update
-      ls -l /etc/luet/
 
       luet miner ri $(luet s --installed --quiet .) --skip-finalizers
       luet rm ${pkgs2remove[@]} -y --force
+      luet rm ${pkgs2removeNodeps[@]} -y --force --nodeps
+      luet s --installed . | sort
       luet cleanup --purge-repos
       # Remove tmpdir
       rm -rf /distrobuilder
