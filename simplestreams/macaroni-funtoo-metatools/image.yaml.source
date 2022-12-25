@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  decription: Funtoo Macaroni OS Metatools
+  description: Funtoo Macaroni OS Metatools
   expiry: 30d
   architecture: amd64
 
@@ -26,7 +26,7 @@ environment:
 
 targets:
   lxc:
-    create-message: |
+    create_message: |
       You just created a Macaroni container (arch={{ image.architecture }})
 
     config:

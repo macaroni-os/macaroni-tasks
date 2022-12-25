@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  decription: Funtoo Macaroni OS Testing Minimal
+  description: Funtoo Macaroni OS Testing Minimal
   expiry: 30d
   architecture: amd64
 
@@ -27,7 +27,7 @@ environment:
 
 targets:
   lxc:
-    create-message: |
+    create_message: |
       You just created a Macaroni container (arch={{ image.architecture }})
 
     config:
