@@ -1,7 +1,7 @@
 image:
   distribution: funtoo
   description: Funtoo Bootstrap Builder
-  release: 1.4
+  release: 1.4-release-std
   architecture: amd64
   expiry: 30d
 
