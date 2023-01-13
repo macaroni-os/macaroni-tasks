@@ -121,11 +121,13 @@
                      :items="filteredItemsReleases"
                      :fields="columnsReleases"
                      :filter="activeFilterReleases"
+                     :sort-direction="sortDirection"
+                     :sort-by.sync="sortBy"
                      striped
                      hover
                      small
                      responsive="sm"
-                     primary-key="name"
+                     primary-key="iso"
                      :tbody-transition-props="transProps"
             >
 
@@ -252,6 +254,9 @@ $(document).ready(function(){
         { key: 'Name', sortable: true },
         { key: 'Description', sortable: true },
       ],
+
+      sortDirection: 'desc',
+      sortBy: 'release',
 
       itemsDescr: [
         {
