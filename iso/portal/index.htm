@@ -123,6 +123,7 @@
                      :filter="activeFilterReleases"
                      :sort-direction="sortDirection"
                      :sort-by.sync="sortBy"
+                     :sort-desc.sync="sortDesc"
                      striped
                      hover
                      small
@@ -257,6 +258,7 @@ $(document).ready(function(){
 
       sortDirection: 'desc',
       sortBy: 'release',
+      sortDesc: true,
 
       itemsDescr: [
         {
