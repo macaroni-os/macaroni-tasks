@@ -6,6 +6,7 @@ values:
     - "22.10.01"
     - "22.11"
     - "22.12"
+    - "23.01"
 
   isos:
     # Macaroni Funtoo Stable ISO
