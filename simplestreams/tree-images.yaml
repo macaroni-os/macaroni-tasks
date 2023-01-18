@@ -26,7 +26,7 @@ products:
     directory: macaroni-funtoo-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-minimal"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-minimal"
@@ -42,7 +42,7 @@ products:
     directory: macaroni-funtoo-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-testing-minimal"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-testing-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-testing-minimal"
@@ -59,7 +59,7 @@ products:
     directory: mos-funtoo-minimal-dev
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-mos-funtoo-minimal-dev"
+    prefix_path: "https://images.macaronios.org/lxd-mos-funtoo-minimal-dev"
     days: 1
     aliases:
       - "macaroni/funtoo-minimal-devel"
@@ -75,7 +75,7 @@ products:
     directory: macaroni-funtoo-builder
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-builder"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-builder"
     days: 2
     aliases:
       - "macaroni/funtoo-builder"
@@ -91,7 +91,7 @@ products:
     directory: ubuntu-steam
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-ubuntu-steam"
+    prefix_path: "https://images.macaronios.org/lxd-ubuntu-steam"
     days: 1
     aliases:
       - "ubuntu/steam"
@@ -107,7 +107,7 @@ products:
     directory: ubuntu-lutris
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-ubuntu-lutris"
+    prefix_path: "https://images.macaronios.org/lxd-ubuntu-lutris"
     days: 1
     aliases:
       - "ubuntu/lutris"
@@ -123,7 +123,7 @@ products:
     directory: funtoo-stage3
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-stage3"
+    prefix_path: "https://images.macaronios.org/lxd-funtoo-stage3"
     days: 2
     aliases:
       - "funtoo/stage3"
@@ -139,7 +139,7 @@ products:
     directory: funtoo-telemetry-prometheus
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-telemetry-prometheus"
+    prefix_path: "https://images.macaronios.org/lxd-funtoo-telemetry-prometheus"
     days: 2
     aliases:
       - "funtoo/telemetry-prometheus"
@@ -155,7 +155,7 @@ products:
     directory: funtoo-telemetry-grafana
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-telemetry-grafana"
+    prefix_path: "https://images.macaronios.org/lxd-funtoo-telemetry-grafana"
     days: 2
     aliases:
       - "funtoo/telemetry-grafana"
@@ -171,7 +171,7 @@ products:
     directory: funtoo-bootstrap-builder
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-bootstrap-builder"
+    prefix_path: "https://images.macaronios.org/lxd-funtoo-bootstrap-builder"
     days: 2
     aliases:
       - "funtoo/bootstrap-builder"
@@ -187,7 +187,7 @@ products:
     directory: macaroni-funtoo-dumplings
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-dumplings"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-dumplings"
     days: 2
     aliases:
       - "macaroni/funtoo-dumplings"
@@ -203,7 +203,7 @@ products:
     directory: macaroni-funtoo-systemd-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-systemd-minimal"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-systemd-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-systemd-minimal"
@@ -219,7 +219,7 @@ products:
     directory: mos-funtoo-systemd-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-mos-funtoo-systemd-testing-minimal"
+    prefix_path: "https://images.macaronios.org/lxd-mos-funtoo-systemd-testing-minimal"
     days: 2
     aliases:
       - "macaroni/funtoo-systemd-testing-minimal"
@@ -235,7 +235,7 @@ products:
     directory: macaroni-funtoo-metatools
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-metatools"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-metatools"
     days: 2
     aliases:
       - "macaroni/funtoo-metatools"
@@ -251,7 +251,7 @@ products:
     directory: macaroni-funtoo-systemd-dumplings
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-macaroni-funtoo-systemd-dumplings"
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-systemd-dumplings"
     days: 2
     aliases:
       - "macaroni/funtoo-systemd-dumplings"
@@ -267,7 +267,7 @@ products:
     directory: terragon-minimal-dev
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-minimal-dev"
+    prefix_path: "https://images.macaronios.org/lxd-terragon-minimal-dev"
     days: 2
     aliases:
       - "macaroni/terragon-minimal-dev"
@@ -283,7 +283,7 @@ products:
     directory: terragon-dumplings
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-dumplings"
+    prefix_path: "https://images.macaronios.org/lxd-terragon-dumplings"
     days: 2
     aliases:
       - "macaroni/terragon-dumplings"
@@ -299,7 +299,7 @@ products:
     directory: terragon-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-minimal"
+    prefix_path: "https://images.macaronios.org/lxd-terragon-minimal"
     days: 2
     aliases:
       - "macaroni/terragon-minimal"
@@ -315,7 +315,7 @@ products:
     directory: terragon-minimal-devel
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-terragon-minimal-devel"
+    prefix_path: "https://images.macaronios.org/lxd-terragon-minimal-devel"
     days: 2
     aliases:
       - "macaroni/terragon-minimal-devel"
@@ -331,7 +331,7 @@ products:
     directory: funtoo-next-stage3
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images.macaroni.funtoo.org/lxd-funtoo-next-stage3"
+    prefix_path: "https://images.macaronios.org/lxd-funtoo-next-stage3"
     days: 2
     aliases:
       - "funtoo/next-stage3"
