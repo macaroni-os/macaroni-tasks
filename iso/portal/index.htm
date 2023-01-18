@@ -37,7 +37,7 @@
 
                   <b-collapse id="nav-collapse" is-nav>
                     <b-navbar-nav>
-                      <b-nav-item href="https://www.macaroni.funtoo.org/">Macaroni Site</b-nav-item>
+                      <b-nav-item href="https://www.macaronios.org/">Macaroni Site</b-nav-item>
                       <b-nav-item href="https://www.funtoo.org/Welcome">Funtoo Wiki</b-nav-item>
                     </b-navbar-nav>
 
@@ -101,13 +101,13 @@
 
               <template v-slot:cell(iso)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
+                  <a :href="'https://cdn.macaronios.org/mottainai/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
                 </div>
               </template>
 
               <template v-slot:cell(isosha)="data">
                 <div class="text-left" >
-                  <a :href="'https://cdn.macaroni.funtoo.org/mottainai/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
+                  <a :href="'https://cdn.macaronios.org/mottainai/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
                 </div>
               </template>
             </b-table>
@@ -141,13 +141,13 @@
 
               <template v-slot:cell(iso)="data">
                 <div class="text-left" >
-                  <a :href="'https://images.macaroni.funtoo.org/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
+                  <a :href="'https://images.macaronios.org/iso-' + data.item.name + '/'+ data.item.iso">{{ data.item.iso }}</a>
                 </div>
               </template>
 
               <template v-slot:cell(isosha)="data">
                 <div class="text-left" >
-                  <a :href="'https://images.macaroni.funtoo.org/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
+                  <a :href="'https://images.macaronios.org/iso-' + data.item.name + '/' + data.item.iso + '.sha256'">{{ data.item.iso + '.sha256' }}</a>
                 </div>
               </template>
             </b-table>
