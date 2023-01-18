@@ -22,7 +22,7 @@ environment:
 - "NAMESPACE={{ .namespace }}"
 - "REPO={{ .repo }}"
 - "REPO_BRANCH={{ .branch }}"
-- "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+- "REPO_MTASKS=https://github.com/macaroni-os/macaroni-tasks.git"
 {{ if eq .group "true" }}
 - "GROUP_PIPELINE=1"
 {{ end }}
