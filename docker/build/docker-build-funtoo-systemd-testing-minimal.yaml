@@ -22,7 +22,7 @@ environment:
 - ARCH=amd64
 - IMAGE_NAME=macaronios/funtoo-systemd-testing-minimal
 - IMAGE_MANIFEST=latest-amd64
-- REPO=https://github.com/funtoo/macaroni-funtoo.git
+- REPO=https://github.com/macaroni-os/macaroni-funtoo.git
 image: macaroni/funtoo-builder
 type: lxd
 directory: /

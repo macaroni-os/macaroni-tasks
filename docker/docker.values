@@ -11,7 +11,7 @@ values:
     # Macaroni Funtoo Stable image
     - name: macaronios/funtoo-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
       dockerfile: Dockerfile
       image_manifest: latest-amd64
@@ -20,7 +20,7 @@ values:
     # Macaroni Funtoo Devel Stable image
     - name: macaronios/funtoo-minimal-devel
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
@@ -29,7 +29,7 @@ values:
     # Macaroni Funtoo Testing image
     - name: macaronios/funtoo-testing-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
       dockerfile: Dockerfile.test
       image_manifest: latest-amd64
@@ -38,7 +38,7 @@ values:
     # Macaroni Funtoo Develop image
     - name: macaronios/funtoo-dev-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
@@ -46,7 +46,7 @@ values:
     # Macaroni Funtoo Stable Systemd image
     - name: macaronios/funtoo-systemd-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
       dockerfile: Dockerfile
       image_manifest: latest-amd64
@@ -55,7 +55,7 @@ values:
     # Macaroni Funtoo Testing Systemd image
     - name: macaronios/funtoo-systemd-testing-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
       dockerfile: Dockerfile.test
       image_manifest: latest-amd64
@@ -64,7 +64,7 @@ values:
     # Macaroni Funtoo Systemd Devel Stable image
     - name: macaronios/funtoo-systemd-minimal-devel
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
@@ -73,7 +73,7 @@ values:
     # Macaroni Funtoo Develop Systemd image
     - name: macaronios/funtoo-systemd-dev-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
@@ -81,7 +81,7 @@ values:
     # Macaroni Funtoo Terragon image
     - name: macaronios/terragon-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: terragon
       dockerfile: Dockerfile
       image_manifest: latest-amd64
@@ -89,7 +89,7 @@ values:
     # Macaroni Funtoo Terragon Devel image
     - name: macaronios/terragon-minimal-devel
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: terragon
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
@@ -97,7 +97,7 @@ values:
     # Macaroni Funtoo Terragon Testing image
     - name: macaronios/terragon-testing-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: terragon
       dockerfile: Dockerfile.test
       image_manifest: latest-amd64
@@ -105,7 +105,7 @@ values:
     # Macaroni Funtoo Terragon Development image
     - name: macaronios/terragon-dev-minimal
       arch: amd64
-      repohttp: https://github.com/funtoo/macaroni-funtoo.git
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: terragon
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
