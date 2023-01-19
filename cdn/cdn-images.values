@@ -13,6 +13,7 @@ values:
     # Macaroni Funtoo Dev
     - name: "macaroni-funtoo-dev"
       namespace: "macaroni-funtoo-dev"
+      domain: "dev.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -22,6 +23,7 @@ values:
     # Macaroni Funtoo Next Dev
     - name: "macaroni-funtoo-next-dev"
       namespace: "macaroni-funtoo-next-dev"
+      domain: "dev.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -31,6 +33,7 @@ values:
     # Macaroni Funtoo Testing
     - name: "macaroni-funtoo-testing"
       namespace: "macaroni-funtoo"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -40,6 +43,7 @@ values:
     # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
       namespace: "macaroni-commons-dev"
+      domain: "dev.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -49,6 +53,7 @@ values:
     # Macaroni Commons Testing
     - name: "macaroni-commons-testing"
       namespace: "macaroni-commons-testing"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -58,6 +63,7 @@ values:
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
       namespace: "macaroni-funtoo"
+      domain: "cdn.macaronios.org"
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
@@ -67,6 +73,7 @@ values:
     # Macaroni Commons
     - name: "macaroni-commons"
       namespace: "macaroni-commons"
+      domain: "cdn.macaronios.org"
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
@@ -79,6 +86,7 @@ values:
     # Macaroni ISO site
     - name: "macaroni-iso"
       namespace: "macaroni-iso"
+      domain: "cdn.macaronios.org"
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
@@ -93,6 +101,7 @@ values:
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
       cdnprefix: "/mottainai/"
+      domain: "cdn.macaronios.org"
       cdnstorage: true
       purgefiles:
         <<: *purgerepo
@@ -101,6 +110,7 @@ values:
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
       namespace: "macaroni-funtoo-systemd-dev"
+      domain: "dev.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -110,6 +120,7 @@ values:
     # Macaroni Funtoo Systemd Testing
     - name: "macaroni-funtoo-systemd-testing"
       namespace: "macaroni-funtoo-systemd"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -120,6 +131,7 @@ values:
     - name: "mottainai"
       namespace: "mottainai"
       cdnstorage: true
+      domain: "cdn.macaronios.org"
       cdnprefix: "/mottainai/"
       purgefiles:
         <<: *purgerepo
@@ -128,6 +140,7 @@ values:
     # Mottainai Testing Repository
     - name: "mottainai-testing"
       namespace: "mottainai"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -137,6 +150,7 @@ values:
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
       namespace: "macaroni-distfiles"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -146,6 +160,7 @@ values:
     # Macaroni Repositories Index
     - name: "geaaru-repo-index"
       namespace: "geaaru-repo-index"
+      domain: "cdn.macaronios.org"
       cdnstorage: true
       cdnprefix: "/mottainai/"
       purgefiles:
@@ -155,6 +170,7 @@ values:
     # Macaroni Funtoo Terragon Dev
     - name: "macaroni-terragon-dev"
       namespace: "macaroni-terragon-dev"
+      domain: "dev.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -163,6 +179,7 @@ values:
 
     # Macaroni Funtoo Terragon Testing
     - name: "macaroni-terragon-testing"
+      domain: "images.macaronios.org"
       namespace: "macaroni-terragon"
       cdnstorage: false
       cdnprefix: "/"
@@ -173,10 +190,22 @@ values:
     # Macaroni Funtoo Terragon Stable
     - name: "macaroni-terragon"
       namespace: "macaroni-terragon"
+      domain: "cdn.macaronios.org"
       cdnprefix: "/mottainai/"
       cdnstorage: true
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      #cdnid: "1556118782"
+
+    # Macaroni LXD simplestreams data
+    - name: "lxd-images"
+      namespace: "lxd-images"
+      domain: "images.macaronios.org"
+      cdnstorage: true
+      cdnprefix: "/mottainai/"
+      purgefiles:
+        paths:
+          - streams/v1/index.json
+          - streams/v1/images.json
 
 # vim: filetype=yaml
