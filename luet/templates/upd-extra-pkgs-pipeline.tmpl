@@ -279,9 +279,9 @@ tasks:
 # Step C and D -------------------- Purge CDN repo files
 
   purge-cdn-files:
-    name: "Purge files from CDN77 resource ({{ .namespace }})"
+    name: "Purge files from CDN resource ({{ .namespace }})"
     type: "lxd"
-    storage: "cdn77"
+    storage: "cloudflare"
     storage_path: /storage
     entrypoint:
     - /bin/sh
@@ -296,8 +296,8 @@ tasks:
       git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
-      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
-      /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAMESPACE} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+      chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
+      /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-cloudflare-repo-files.sh'
     - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "alpine/edge"
     environment:
