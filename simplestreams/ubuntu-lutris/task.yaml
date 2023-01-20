@@ -50,7 +50,7 @@ namespace: lxd-ubuntu-lutris
 tag_namespace: lxd-ubuntu-lutris
 artefact_path: images
 timeout: 0
-source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+source: https://github.com/macaroni-os/macaroni-tasks.git
 directory: simplestreams/
 retry: "1"
 

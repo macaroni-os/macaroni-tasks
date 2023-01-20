@@ -48,7 +48,7 @@ artefact_path: images
 storage: mcli
 storage_path: /storage
 timeout: 0
-source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+source: https://github.com/macaroni-os/macaroni-tasks.git
 directory: simplestreams/
 #retry: "1"
 
