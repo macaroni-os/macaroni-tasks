@@ -1,10 +1,10 @@
 # Author: Daniele Rondina <geaaru@gmail.com>
 # Description: This task permits to purge repo core files.
 
-name: "Purge files from CDN77 resource (macaroni-funtoo-systemd-dev)"
+name: "Purge files from Cloudflare resource (macaroni-funtoo-systemd-dev)"
 type: "lxd"
 
-storage: "cdn77"
+storage: "cloudflare"
 storage_path: /storage
 entrypoint:
 - /bin/sh
@@ -16,11 +16,11 @@ script:
   luet i -y utils/jq utils/yq &&
   luet cleanup --purge-repos
 - >-
-  git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+  git clone https://github.com/macaroni-os/macaroni-tasks.git
   /macaroni-tasks &&
   cd /macaroni-tasks &&
-  chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
-  /bin/bash -c 'source /storage/cdn77.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-repo-files.sh'
+  chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
+  /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-cloudflare-repo-files.sh'
 image: "alpine/edge"
 environment:
 - "NAME=macaroni-funtoo-systemd-dev"
