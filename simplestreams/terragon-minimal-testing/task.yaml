@@ -38,19 +38,19 @@ type: lxd
 
 planned: "@weekly"
 
-name: "Build LXD  image macaroni-terragon-minimal-dev:current:amd64:default"
+name: "Build LXD  image terragon-minimal-testing:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=macaroni-terragon-minimal-dev:current:amd64:default"
-  - "LXD_IMAGEDIR=terragon-minimal-dev"
-  - "SSBUILDER_PREFIX=../lxd-terragon-minimal-dev"
+  - "LXD_PRODUCT=terragon-minimal-testing:current:amd64:default"
+  - "LXD_IMAGEDIR=terragon-minimal-testing"
+  - "SSBUILDER_PREFIX=../lxd-terragon-minimal-testing"
   - "TMPDIR=/distrobuilder"
   - "CACHEDIR=/cache"
   - "DEBIAN_FRONTEND=noninteractive"
-namespace: lxd-terragon-minimal-dev
-tag_namespace: lxd-terragon-minimal-dev
+namespace: lxd-terragon-minimal-testing
+tag_namespace: lxd-terragon-minimal-testing
 artefact_path: images
 timeout: 0
-source: https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+source: https://github.com/macaroni-os/macaroni-tasks.git
 directory: simplestreams/
 retry: "1"
 

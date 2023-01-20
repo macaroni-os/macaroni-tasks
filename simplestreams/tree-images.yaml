@@ -290,6 +290,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Terragon minimal Testing
+  - name: terragon-minimal-testing:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Terragon Minimal Testing"
+    directory: terragon-minimal-testing
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaronios.org/lxd-terragon-minimal-testing"
+    days: 2
+    aliases:
+      - "macaroni/terragon-minimal-testing"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Funtoo Next Stage3 dev
   - name: funtoo-next-stage3:current:amd64:default
     arch: amd64
