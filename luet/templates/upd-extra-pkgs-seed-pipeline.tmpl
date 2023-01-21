@@ -159,7 +159,7 @@ tasks:
       rm -rf /artefacts/*
 
     - >-
-      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       MOTTAINAI_CLI_PROFILE=funtoo
@@ -197,7 +197,7 @@ tasks:
     - "NAMESPACE={{ .namespace }}"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - "REPO_MTASKS=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+    - "REPO_MTASKS=https://github.com/macaroni-os/macaroni-tasks.git"
     {{- if eq .group "true" }}
     - "GROUP_PIPELINE=1"
     {{- end }}

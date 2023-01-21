@@ -50,7 +50,7 @@ tasks:
       lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
 
     - >-
-      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
@@ -78,7 +78,7 @@ tasks:
       luet i -y utils/jq utils/yq &&
       luet cleanup --purge-repos
     - >-
-      git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
+      git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
