@@ -17,7 +17,7 @@ script:
     app-emulation/simplestreams-builder
     dev-util/mottainai-cli
     utils/jq utils/yq &&
-    luet cleanup
+    luet cleanup --purge-repos
 
   - source /storage/setup-mcli.sh
   - export SSBUILDER_APIKEY=${MOTTAINAI_TOKEN}
@@ -33,19 +33,27 @@ script:
   - find .
   - eval 'rm images/build_*.log || true'
 
+  # Purge CDN files
+  - >-
+    cd .. &&
+    chmod a+x cdn/api/purge-cloudflare-repo-files.sh &&
+    /bin/bash -c
+    'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
+
 image: ubuntu/22.04
 disable_push_on_failure: "true"
 type: lxd
 planned: "@daily"
 name: "Build LXD Simplestreams index files"
 environment:
-  - "DEBIAN_FRONTEND=noninteractive"
-  - "SSBUILDER_INSECURE_SKIPVERIFY=1"
+- "DEBIAN_FRONTEND=noninteractive"
+- "SSBUILDER_INSECURE_SKIPVERIFY=1"
+- "NAME=lxd-images"
 
 namespace: lxd-images
 tag_namespace: lxd-images
 artefact_path: images
-storage: mcli
+storage: "mcli,cloudflare"
 storage_path: /storage
 timeout: 0
 source: https://github.com/macaroni-os/macaroni-tasks.git
