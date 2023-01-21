@@ -202,7 +202,7 @@ values:
       namespace: "lxd-images"
       domain: "images.macaronios.org"
       cdnstorage: true
-      cdnprefix: "/mottainai/"
+      cdnprefix: "/"
       purgefiles:
         paths:
           - streams/v1/index.json
