@@ -20,7 +20,7 @@ script:
   /macaroni-tasks &&
   cd /macaroni-tasks &&
   chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
-  /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN && cdn/api/purge-cloudflare-repo-files.sh'
+  /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
 image: "alpine/edge"
 environment:
 - "NAME=mottainai"
