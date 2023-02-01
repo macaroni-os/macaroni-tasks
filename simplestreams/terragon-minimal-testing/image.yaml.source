@@ -7,7 +7,7 @@ image:
 source:
   downloader: docker-http
   # For docker is mandatory for now use
-  url: macaronios/terragon-dev-minimal:latest-amd64
+  url: macaronios/terragon-testing-minimal:latest-amd64
 
 environment:
   clear_defaults: true
