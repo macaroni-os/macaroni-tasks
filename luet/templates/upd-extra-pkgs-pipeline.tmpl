@@ -68,7 +68,7 @@ tasks:
     - >-
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh &&
-      luet reinstall virtual/base &&
+      luet miner reinstall-package virtual/base &&
       luet cleanup &&
       env-update &&
       ldconfig
@@ -328,13 +328,12 @@ tasks:
     - >-
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh
-      dev-util/mottainai-cli sys-devel/make
+      dev-util/mottainai-cli sys-devel/make app-admin/macaronictl
       extension/luet-portage-converter
       &&
-      luet reinstall virtual/base &&
+      luet miner reinstall-package virtual/base &&
       luet cleanup &&
-      env-update &&
-      ldconfig
+      macaronictl env-update
 
     # Setup Mottainai stuff
     - export HOME=/root && mkdir -p /root/.config/

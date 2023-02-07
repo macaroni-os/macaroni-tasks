@@ -94,7 +94,7 @@ tasks:
     - >-
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
-      luet reinstall virtual/base &&
+      luet miner reinstall-package virtual/base &&
       luet cleanup &&
       env-update &&
       ldconfig

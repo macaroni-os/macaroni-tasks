@@ -25,7 +25,7 @@ script:
   dev-util/mottainai-cli sys-devel/make
   extension/luet-portage-converter system/luet-build
   &&
-  luet reinstall virtual/base &&
+  luet miner reinstall-package virtual/base &&
   luet cleanup &&
   env-update &&
   ldconfig

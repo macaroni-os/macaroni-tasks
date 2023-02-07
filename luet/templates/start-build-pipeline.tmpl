@@ -2,6 +2,7 @@ name: "Start Build pipeline <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04
 storage: "mcli"
 storage_path: /storage
 script:
+- sleep 2
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
 - >-
