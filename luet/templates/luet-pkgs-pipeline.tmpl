@@ -31,6 +31,8 @@ tasks:
     storage: docker-certs
     storage_path: /storage
     script:
+    # VM/Disk slow take time on get ip
+    - sleep 2
     - source /storage/prepare-luet.sh
     - >-
       luet repo update &&
