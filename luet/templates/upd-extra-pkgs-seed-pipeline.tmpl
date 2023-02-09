@@ -33,7 +33,7 @@ tasks:
       luet install utils/jq utils/yq net-misc/openssh system/luet-build app-admin/macaronictl &&
       luet miner reinstall-package virtual/base &&
       luet cleanup &&
-      macaronictl-env-update
+      macaronictl env-update
 
     # Setup git ssh key
     - sh /storage/setup-ssh.sh
