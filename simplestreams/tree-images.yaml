@@ -184,7 +184,7 @@ products:
     release: current
     os: Macaroni
     release_title: "Funtoo Eagle Minimal Dev"
-    directory: eagle-minimal-dev
+    directory: macaroni-eagle-dev
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-eagle-dev"
