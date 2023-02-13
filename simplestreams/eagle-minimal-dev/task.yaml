@@ -38,16 +38,16 @@ type: lxd
 
 planned: "@weekly"
 
-name: "Build LXD  image macaroni-funtoo-systemd-testing-minimal:current:amd64:default"
+name: "Build LXD  image macaroni-eagle-dev:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=macaroni-funtoo-systemd-testing-minimal:current:amd64:default"
-  - "LXD_IMAGEDIR=mos-funtoo-systemd-testing-minimal"
-  - "SSBUILDER_PREFIX=../lxd-mos-funtoo-systemd-testing-minimal"
+  - "LXD_PRODUCT=macaroni-eagle-dev:current:amd64:default"
+  - "LXD_IMAGEDIR=eagle-minimal-dev"
+  - "SSBUILDER_PREFIX=../lxd-eagle-minimal-dev"
   - "TMPDIR=/distrobuilder"
   - "CACHEDIR=/cache"
   - "DEBIAN_FRONTEND=noninteractive"
-namespace: lxd-mos-funtoo-systemd-testing-minimal
-tag_namespace: lxd-mos-funtoo-systemd-testing-minimal
+namespace: lxd-eagle-minimal-dev
+tag_namespace: lxd-eagle-minimal-dev
 artefact_path: images
 timeout: 0
 source: https://github.com/macaroni-os/macaroni-tasks.git
