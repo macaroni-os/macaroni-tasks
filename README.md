@@ -195,7 +195,7 @@ $> FIRE_TASK=1 NAMESPACE=macaroni-terragon-dev PUSH_IMAGES=1 make start-upd-kits
 
 2. Start all these races
 
-``shell
+```shell
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true SEED=macaroni-funtoo-base \
              NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
 
