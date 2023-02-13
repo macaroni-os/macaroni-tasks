@@ -1,13 +1,13 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Systemd Minimal Testing
+  description: Funtoo Macaroni OS Eagle Minimal Dev
   expiry: 30d
   variant: testing
   architecture: amd64
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-systemd-testing-minimal:latest-amd64
+  url: macaronios/funtoo-systemd-dev-minimal:latest-amd64
 
 environment:
   clear_defaults: true
