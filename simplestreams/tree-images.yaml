@@ -178,6 +178,22 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni Funtoo Eagle minimal Dev
+  - name: macaroni-eagle-dev:current:amd64:default
+    arch: amd64
+    release: current
+    os: Macaroni
+    release_title: "Funtoo Eagle Minimal Dev"
+    directory: eagle-dev
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-eagle-dev"
+    days: 2
+    aliases:
+      - "macaroni/eagle-dev"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
   # Macaroni Funtoo Eagle minimal
   - name: macaroni-funtoo-systemd-testing-minimal:current:amd64:default
     arch: amd64
