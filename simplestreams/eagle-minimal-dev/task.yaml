@@ -38,9 +38,9 @@ type: lxd
 
 planned: "@weekly"
 
-name: "Build LXD  image macaroni-eagle-dev:current:amd64:default"
+name: "Build LXD  image macaroni-eagle-minimal-dev:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=macaroni-eagle-dev:current:amd64:default"
+  - "LXD_PRODUCT=macaroni-eagle-minimal-dev:current:amd64:default"
   - "LXD_IMAGEDIR=eagle-minimal-dev"
   - "SSBUILDER_PREFIX=../lxd-eagle-minimal-dev"
   - "TMPDIR=/distrobuilder"
