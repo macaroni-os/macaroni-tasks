@@ -5,8 +5,8 @@ values:
     # Macaroni Funtoo
     - name: "macaroni-funtoo-dev"
       branch: master
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
       command_file: reposcan-funtoo-kits.yml
@@ -63,8 +63,8 @@ values:
     - name: "macaroni-funtoo"
       branch: master
       repo4test_tag: true
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
@@ -77,21 +77,21 @@ values:
     # Macaroni Commons Stable
     - name: "macaroni-commons-dev"
       branch: master
-      http_repo: https://github.com/funtoo/macaroni-commons.git
-      ssh_repo: git@github.com:funtoo/macaroni-commons.git
+      http_repo: https://github.com/macaroni-os/macaroni-commons.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
 
     # Macaroni Commons
     - name: "macaroni-commons"
       branch: master
       repo4test_tag: true
-      http_repo: https://github.com/funtoo/macaroni-commons.git
-      ssh_repo: git@github.com:funtoo/macaroni-commons.git
+      http_repo: https://github.com/macaroni-os/macaroni-commons.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
 
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
       branch: master
-      http_repo: https://github.com/funtoo/macaroni-distfiles.git
-      ssh_repo: git@github.com:funtoo/macaroni-distfiles.git
+      http_repo: https://github.com/macaroni-os/macaroni-distfiles.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-distfiles.git
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
@@ -99,8 +99,8 @@ values:
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
@@ -118,8 +118,8 @@ values:
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
       branch: systemd
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
@@ -180,8 +180,8 @@ values:
     # Macaroni Funtoo
     - name: "macaroni-funtoo-next-dev"
       branch: next
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
@@ -241,8 +241,8 @@ values:
     # Macaroni Funtoo Terragon Development
     - name: "macaroni-terragon-dev"
       branch: terragon
-      http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
@@ -300,7 +300,7 @@ values:
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
-      ssh_repo: git@github.com:funtoo/macaroni-funtoo.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
