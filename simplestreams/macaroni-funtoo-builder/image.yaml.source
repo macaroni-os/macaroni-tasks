@@ -99,8 +99,12 @@ packages:
         - sys-devel/make
 
         - macaroni/whip-catalog
+        - macaroni/ctl
         - whip-profiles/macaroni
         - app-admin/whip
+
+        - system/luet-devkit
+        - utils/yq4
 
         - virtual/base
         - sys-libs/binutils-libs
@@ -188,8 +192,7 @@ actions:
       eselect binutils set 1
       mkdir -p /var/lib/portage
 
-      env-update
-      ldconfig
+      macaronictl env-update
 
   - trigger: post-packages
     action: |-
