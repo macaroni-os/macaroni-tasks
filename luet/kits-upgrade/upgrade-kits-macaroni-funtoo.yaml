@@ -9,10 +9,9 @@ script:
 - >-
   luet repo update &&
   luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
-  luet reinstall virtual/base &&
+  luet miner reinstall-package virtual/base &&
   luet cleanup &&
-  env-update &&
-  ldconfig
+  macaronictl env-update
 
 - /etc/init.d/mongodb start
 
@@ -106,7 +105,7 @@ script:
 environment:
 - "METATOOLS_WORKSPACE=/reposcan"
 - "REPO_BRANCH=master"
-- "REPO=git@github.com:funtoo/macaroni-funtoo.git"
+- "REPO=git@github.com:macaroni-os/macaroni-funtoo.git"
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"
 - "SUBPOP_REPO=https://code.funtoo.org/bitbucket/scm/~drobbins/subpop.git"

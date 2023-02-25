@@ -19,6 +19,7 @@ tasks:
     storage: "mcli"
     storage_path: /storage
     script:
+    - sleep 2
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
     - >-

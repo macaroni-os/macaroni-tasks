@@ -14,6 +14,7 @@ tasks:
     storage: "mcli"
     storage_path: /storage
     script:
+    - sleep 2
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
     - >-
@@ -22,6 +23,7 @@ tasks:
     - mottainai-cli namespace clone "${NAMESPACE}" -f "${NAMESPACE}"-dev
     environment:
     - "NAMESPACE={{ .namespace }}"
+    - "MOTTAINAI_CLI_GENERAL__CLIENT_TIMEOUT=3600"
     image: macaroni/funtoo-builder
     artefact_path: /artefacts
     type: lxd
@@ -29,6 +31,7 @@ tasks:
   bump-repo-revision:
     name: "luet - < {{ .namespace }} > - Bump revision"
     script:
+    - sleep 2
     - apk add make bash curl git
     - >-
       wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
@@ -74,6 +77,7 @@ tasks:
     - /bin/sh
     - "-c"
     script:
+    - sleep 2
     - apk add bash curl git
     - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
     - >-
