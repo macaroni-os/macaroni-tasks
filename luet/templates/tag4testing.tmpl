@@ -15,6 +15,7 @@ script:
 - mottainai-cli namespace clone "${NAMESPACE}" -f "${NAMESPACE}"-dev
 environment:
 - "NAMESPACE={{ .namespace }}"
+- "MOTTAINAI_CLI_GENERAL__CLIENT_TIMEOUT=0"
 image: macaroni/funtoo-builder
 artefact_path: /artefacts
 type: lxd
