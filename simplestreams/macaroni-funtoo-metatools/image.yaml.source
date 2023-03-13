@@ -127,7 +127,7 @@ actions:
       luet repo update --force
 
       # TODO: fix this on docker image
-      luet miner ri virtual/base --skip-config-protect
+      luet i virtual/base --skip-config-protect
 
   - trigger: post-packages
     action: |-
