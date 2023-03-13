@@ -126,6 +126,9 @@ actions:
       # TODO: fix this in distrobuilder
       luet repo update --force
 
+      # TODO: fix this on docker image
+      luet miner ri virtual/base --skip-config-protect
+
   - trigger: post-packages
     action: |-
       #!/bin/bash
