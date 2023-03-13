@@ -108,6 +108,8 @@ packages:
         - sys-apps/metatools
         - dev-db/mongodb
 
+        - openssh
+
         - utils/jq
         - utils/yq
 
@@ -122,7 +124,7 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
-      luet repo update
+      luet repo update --force
 
   - trigger: post-packages
     action: |-
