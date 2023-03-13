@@ -140,7 +140,7 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
-      luet repo update
+      luet repo update --force
 
       # NOTE: if these files is not present the generators skip the template
       # generation
