@@ -127,6 +127,9 @@ packages:
         - app-portage/gentoolkit
         - app-portage/portage-utils
 
+        # Needed for ssh-keygen
+        - openssh
+
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
