@@ -81,6 +81,7 @@ packages:
         - utils/jq
         - utils/yq
         - sys-apps/corenetwork
+        - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
