@@ -77,22 +77,9 @@ packages:
 
   sets:
     - packages:
-        - system/entities
-        - sys-apps/shadow
-        - sys-apps/sysvinit
-        - sys-apps/sed
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - app-shells/bash
-        - sys-apps/iproute2
-        - sys-libs/readline
-        - sys-devel-9.2.0/gcc
         - sys-apps/corenetwork
-        - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
-        - net-libs/libmnl
         - sys-process/procps
 
         # Setup tools
@@ -112,7 +99,7 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
-      luet repo update
+      luet repo update --force
 
       # NOTE: if these files is not present the generators skip the template
       # generation
@@ -185,7 +172,7 @@ actions:
         whip-profiles/macaroni
         macaroni/whip-catalog
         macaroni/entities-catalog
-        - app-admin/macaronictl
+        app-admin/macaronictl
         app-admin/whip
         utils/yq
         utils/jq
