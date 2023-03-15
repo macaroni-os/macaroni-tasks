@@ -80,7 +80,6 @@ packages:
         - sys-apps/corenetwork
         - app-admin/eselect
         - net-misc/dhcp
-        - net-libs/libmnl
         - sys-process/procps
         - sys-apps/dbus
         - sys-auth/elogind
@@ -183,6 +182,9 @@ actions:
       rm /etc/localtime || true
       ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
+      # Force TMP because the value from task used by
+      # distrobuilder breaks the gcc setup.
+      export TMP=/tmp
       /usr/bin/gcc-config 1
       source /etc/profile
       eselect gcc set 1
