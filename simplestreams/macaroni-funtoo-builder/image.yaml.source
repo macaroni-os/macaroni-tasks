@@ -182,9 +182,9 @@ actions:
       rm /etc/localtime || true
       ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
-      # Force TMP because the value from task used by
+      # Force TMPDIR because the value from task used by
       # distrobuilder breaks the gcc setup.
-      export TMP=/tmp
+      export TMPDIR=/tmp
       /usr/bin/gcc-config 1
       source /etc/profile
       eselect gcc set 1
