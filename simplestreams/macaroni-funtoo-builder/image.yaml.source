@@ -85,6 +85,8 @@ packages:
         - sys-apps/dbus
         - sys-auth/elogind
         - sys-devel/make
+        # Until new dev release is stable
+        - dev-libs/libpcre2
 
         - macaroni/whip-catalog
         - macaroni/ctl
