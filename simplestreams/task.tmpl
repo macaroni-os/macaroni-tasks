@@ -8,7 +8,7 @@ script:
   - sleep 4
   - mkdir $TMPDIR
   - >-
-    luet repo update && luet repo upgrade &&
+    luet repo update && luet upgrade && luet repo update --force &&
     luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
     make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
     luet cleanup --purge-repos
