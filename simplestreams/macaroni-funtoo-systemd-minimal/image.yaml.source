@@ -223,6 +223,7 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
+      macaronictl env-update
       luet cleanup --purge-repos
 
 mappings:

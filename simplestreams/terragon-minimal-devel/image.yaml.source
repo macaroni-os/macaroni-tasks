@@ -78,19 +78,8 @@ packages:
 
   sets:
     - packages:
-        - system/entities
         - utils/jq
         - utils/yq
-        - sys-apps/shadow
-        - sys-apps/sysvinit
-        - sys-apps/sed
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - app-shells/bash
-        - sys-apps/iproute2
-        - sys-libs/readline
-        - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
@@ -101,17 +90,14 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
 
-        - virtual/base
-
       action: install
 
 actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-
       # TODO: fix this in distrobuilder
-      luet repo update
+      luet repo update --force
 
       luet i utils/yq utils/jq
       # Enable subsets portage and devel
@@ -142,7 +128,7 @@ actions:
       #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
-      rm -rf /var/cache/luet/repos/
+      macaronictl env-update
 
       set -eux
       rm -rf /var/git/meta-repo

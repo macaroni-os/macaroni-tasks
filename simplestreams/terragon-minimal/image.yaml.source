@@ -78,19 +78,8 @@ packages:
 
   sets:
     - packages:
-        - system/entities
         - utils/jq
         - utils/yq
-        - sys-apps/shadow
-        - sys-apps/sysvinit
-        - sys-apps/sed
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - app-shells/bash
-        - sys-apps/iproute2
-        - sys-libs/readline
-        - sys-devel-11.3.0/gcc
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -105,8 +94,6 @@ packages:
 
         # Needed for grep until FL-10719 is done
         - dev-libs/libpcre2
-
-        - virtual/base
 
       action: install
 
@@ -135,6 +122,7 @@ actions:
       #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /tmp/
+      macaronictl env-update
 
       #! /bin/bash
       set -eux

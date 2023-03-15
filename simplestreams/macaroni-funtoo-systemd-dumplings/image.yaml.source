@@ -421,6 +421,8 @@ actions:
       entities merge -e kvm --specs-dir /usr/share/macaroni/entities/
       entities merge -e audio --specs-dir /usr/share/macaroni/entities/
 
+      macaronictl env-update
+
       pkgs2remove=(
         dev-libs/gobject-introspection
         dev-libs/gobject-introspection-common

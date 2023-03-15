@@ -130,9 +130,6 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      cat /etc/ld.so.conf.d/05gcc-x86_64-pc-linux-gnu.conf
-
-      luet --version
 
       # TODO: fix this in distrobuilder
       luet repo update --force
@@ -214,9 +211,6 @@ actions:
     action: |-
       #!/bin/bash
       luet cleanup --purge-repos
-
-      echo "CHECK GCC LD.SO.CONF.D"
-      cat /etc/ld.so.conf.d/05gcc-x86_64-pc-linux-gnu.conf
 
 mappings:
   architecture_map: funtoo

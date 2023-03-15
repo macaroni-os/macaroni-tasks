@@ -68,18 +68,7 @@ packages:
 
   sets:
     - packages:
-        - system/entities
-        - sys-apps/shadow
-        - sys-apps/sysvinit
         - sys-apps/diffutils
-        - sys-apps/sed
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - app-shells/bash
-        - sys-apps/iproute2
-        - sys-libs/readline
-        - sys-devel-9.2.0/gcc
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -126,7 +115,6 @@ actions:
       # TODO: fix this in distrobuilder
       luet repo update --force
 
-
   - trigger: post-packages
     action: |-
       #!/bin/bash
@@ -165,6 +153,7 @@ actions:
       rm /etc/localtime || true
       ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
+      export TMPDIR=/tmp
       /usr/bin/gcc-config 1
       source /etc/profile
       eselect gcc set 1
@@ -172,10 +161,7 @@ actions:
       mkdir -p /var/lib/portage
       mkdir /root
 
-      # To verify in the desktop image (/etc/ld.so.conf.d/05gcc-x86_64-pc-linux-gnu.conf is empty)
-      luet miner i virtual/base --skip-config-protect -d
-      env-update
-      ldconfig
+      macaronictl env-update
 
       luet cleanup --purge-repos
 
