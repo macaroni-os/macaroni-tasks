@@ -6,24 +6,15 @@ script:
   - source /etc/profile
   # temporary: Sleep for LXD
   - sleep 4
-  - apt-get update
   - mkdir $TMPDIR
-  - apt-get upgrade -y
   - >-
-    apt-get install -y wget make curl squashfs-tools rsync gpg
-    bridge-utils debootstrap docker.io
-  - >-
-    set -x &&
-    eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh' &&
-    luet repo update &&
-    luet install -y repository/mottainai-testing &&
-    luet repo update &&
-    luet install -y app-emulation/distrobuilder-testing
-    app-emulation/simplestreams-builder
-    utils/jq utils/yq &&
-    luet cleanup
+    luet repo update && luet upgrade -y && luet repo update --force &&
+    luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
+    make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
+    luet cleanup --purge-repos
+# TODO: add debootstrap to macaroni repo
 
-  - systemctl start docker
+  - /etc/init.d/docker start
 
   # Temporary fix for replicant issue
   - mv $LXD_IMAGEDIR/image.yaml.source $LXD_IMAGEDIR/image.yaml
@@ -35,7 +26,7 @@ script:
   - chmod a+rwx -R images/
   - find .
   - eval 'rm images/build_*.log || true'
-image: ubuntu/22.04
+image: macaroni/funtoo-builder
 disable_push_on_failure: "true"
 type: lxd
 
