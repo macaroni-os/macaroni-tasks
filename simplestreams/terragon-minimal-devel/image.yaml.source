@@ -79,7 +79,9 @@ packages:
     - packages:
         - utils/jq
         - utils/yq
+        - sys-apps/corenetwork
         - sys-apps/gentoo-functions
+        - sys-apps/openrc
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
@@ -91,6 +93,7 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
 
+        - dev-libs/libpcre2
         - virtual/base
 
       action: install
