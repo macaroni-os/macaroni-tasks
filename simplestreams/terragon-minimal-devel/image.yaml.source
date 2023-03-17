@@ -101,7 +101,8 @@ actions:
       #!/bin/bash
       # TODO: fix this in distrobuilder
       luet subsets enable portage devel
-      luet miner ri --force $(luet s --quiet --installed -o json)
+      luet subsets list
+      luet miner ri --force $(luet s --quiet --installed)
       luet cleanup
 
       # NOTE: if these files is not present the generators skip the template
