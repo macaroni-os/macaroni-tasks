@@ -29,11 +29,12 @@ tasks:
     image: macaroni/funtoo-metatools
     script:
     - >-
-      luet repo update &&
-      luet install utils/jq utils/yq net-misc/openssh system/luet-build app-admin/macaronictl &&
-      luet miner reinstall-package virtual/base &&
+      luet repo update --force &&
+      luet install utils/jq utils/yq net-misc/openssh system/luet-build macaroni/ctl &&
       luet cleanup &&
       macaronictl env-update
+
+# luet miner reinstall-package virtual/base
 
     # Setup git ssh key
     - sh /storage/setup-ssh.sh
@@ -136,7 +137,7 @@ tasks:
     - >-
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh
-      dev-util/mottainai-cli sys-devel/make app-admin/macaronictl
+      dev-util/mottainai-cli sys-devel/make macaroni/ctl
       system/luet-build extension/luet-portage-converter &&
       luet miner reinstall-package virtual/base &&
       luet cleanup &&
