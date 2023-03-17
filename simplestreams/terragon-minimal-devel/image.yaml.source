@@ -100,6 +100,7 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
+      luet repo update --force
       luet subsets enable portage devel
       luet subsets list
       luet miner ri --force $(luet s --quiet --installed)
