@@ -6,7 +6,6 @@ image:
 
 source:
   downloader: docker-http
-  # For docker is mandatory for now use 
   url: macaronios/terragon-minimal-devel:latest-amd64
 
 environment:
@@ -80,6 +79,7 @@ packages:
     - packages:
         - utils/jq
         - utils/yq
+        - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
@@ -87,8 +87,11 @@ packages:
         - sys-process/procps
         - sys-auth/elogind
         - macaroni/whip-catalog
+        - macaroni/ctl
         - whip-profiles/macaroni
         - app-admin/whip
+
+        - virtual/base
 
       action: install
 
@@ -97,14 +100,8 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
-      luet repo update --force
-
-      luet i utils/yq utils/jq
-      # Enable subsets portage and devel
-      yq w /etc/luet/luet.yaml 'subsets.enabled[0]' 'portage' -i
-      yq w /etc/luet/luet.yaml 'subsets.enabled[1]' 'devel' -i
-
-      luet reinstall --force $(luet s --installed  -o json | jq '.packages[] | .category + "/" + .name' -r)
+      luet subsets enable portage devel
+      luet miner ri --force $(luet s --quiet --installed -o json)
       luet cleanup
 
       # NOTE: if these files is not present the generators skip the template
@@ -119,9 +116,7 @@ actions:
       #!/bin/bash
       # Setup openrc runlevels. TODO: move this to package script.
       #
-      EROOT=/
-
-      whip hook openrc.openrc_setup
+      EROOT=/ whip hook openrc.openrc_setup
 
   - trigger: post-packages
     action: |-
@@ -167,6 +162,7 @@ actions:
     action: |-
       #!/bin/bash
       luet cleanup --purge-repos
+
 mappings:
   architecture_map: funtoo
 
