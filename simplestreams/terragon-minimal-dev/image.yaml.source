@@ -6,7 +6,6 @@ image:
 
 source:
   downloader: docker-http
-  # For docker is mandatory for now use
   url: macaronios/terragon-dev-minimal:latest-amd64
 
 environment:
@@ -81,6 +80,7 @@ packages:
         - utils/jq
         - utils/yq
         - sys-apps/corenetwork
+        - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
@@ -88,11 +88,13 @@ packages:
         - sys-process/procps
         - sys-auth/elogind
         - macaroni/whip-catalog
+        - macaroni/ctl
         - whip-profiles/macaroni
         - app-admin/whip
 
         # Needed for grep until FL-10719 is done
         - dev-libs/libpcre2
+        - virtual/base
 
       action: install
 
@@ -100,9 +102,6 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-
-      # TODO: fix this in distrobuilder
-      luet repo update
 
       # NOTE: if these files is not present the generators skip the template
       # generation
@@ -116,10 +115,7 @@ actions:
       #!/bin/bash
       # Setup openrc runlevels. TODO: move this to package script.
       #
-      EROOT=/
-
-      whip hook openrc.openrc_setup
-
+      EROOT=/ whip hook openrc.openrc_setup
 
   - trigger: post-packages
     action: |-
