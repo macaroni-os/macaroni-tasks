@@ -5,6 +5,7 @@
 name: "ISO: Build macaroni-funtoo"
 image: ubuntu/22.04
 disable_push_on_failure: "true"
+queue: "iso"
 type: lxd
 
 artefact_path: /iso
