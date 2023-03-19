@@ -41,9 +41,16 @@ values:
       repo_branch: "master"
       release: true
 
-    # Macaroni Funtoo XFCE Testing
+    # Macaroni Funtoo XFCE
     - name: "macaroni-funtoo-xfce"
       specfile: "funtoo-xfce.yaml"
+      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo_branch: "master"
+      release: true
+
+    # Macaroni Funtoo XFCE Devel
+    - name: "macaroni-funtoo-xfce-devel"
+      specfile: "funtoo-xfce-devel.yaml"
       repo: "https://github.com/funtoo/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
