@@ -21,7 +21,7 @@ chain:
 #- cdnsync-iso-{{ $name }}-{{ $release }}
 #{{- end }}
 #{{ end }}
-- cdnsync-macaroni-iso
+#- cdnsync-macaroni-iso
 
 tasks:
 {{ range $idx, $iso := $isos }}
@@ -32,6 +32,7 @@ tasks:
     image: ubuntu/22.04
     disable_push_on_failure: "true"
     type: lxd
+    queue: iso
     artefact_path: /iso
     environment:
     - "repo={{ $repo }}"
@@ -43,7 +44,7 @@ tasks:
     - "LUET_GENERAL__CONCURRENCY=8"
     - "LUET_BOX_INSTALLER=0"
     - "LUET_FORCE=true"
-    - "LUET_OPTS=--sync-repos --solver-type solverv2"
+    - "LUET_OPTS=--sync-repos"
     - "LUET_NOLOCK=true"
     - "LUET_YES=TRUE"
     - "BUILD_ISO=1"
