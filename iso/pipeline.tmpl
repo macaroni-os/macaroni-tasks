@@ -13,10 +13,10 @@ chain:
 
 # chord:
 - generate-iso-json
-{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
-- cdnsync-iso-{{ $name }}
-{{ end }}
-- cdnsync-macaroni-iso
+#{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}
+#- cdnsync-iso-{{ $name }}
+#{{ end }}
+#- cdnsync-macaroni-iso
 
 tasks:
 {{ range $idx, $iso := $isos }}
@@ -44,6 +44,7 @@ tasks:
     - "HTTP_TIMEOUT=0"
     tag_namespace: "iso-{{ $name }}"
     retry: "1"
+    queue: "iso"
     script:
     - sleep 5
     - apt-get update
