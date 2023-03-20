@@ -24,7 +24,7 @@ artefact_path: /www
 image: alpine/edge
 type: lxd
 environment:
-- "REPO=https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git"
+- "REPO=https://github.com/macaroni-os/macaroni-tasks.git"
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
 entrypoint:
