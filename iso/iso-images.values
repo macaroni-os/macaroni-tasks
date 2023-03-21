@@ -3,7 +3,7 @@ values:
   # Define here the list of the release available and to analyze
   releases:
     - "23.01"
-    - "23.03.01"
+    - "23.03.02"
 
   isos:
     # Macaroni Funtoo Stable ISO
