@@ -9,68 +9,68 @@ values:
     # Macaroni Funtoo Stable ISO
     - name: "macaroni-funtoo"
       specfile: "funtoo.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo Server ISO
     - name: "macaroni-server"
       specfile: "funtoo-server.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo Stable Devel ISO
     - name: "macaroni-funtoo-devel"
       specfile: "funtoo-gnome-devel.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo Server Devel ISO
     - name: "macaroni-server-devel"
       specfile: "funtoo-server-devel.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo Gnome Live
     - name: "macaroni-funtoo-live"
       specfile: "funtoo-live.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo XFCE
     - name: "macaroni-funtoo-xfce"
       specfile: "funtoo-xfce.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo XFCE Devel
     - name: "macaroni-funtoo-xfce-devel"
       specfile: "funtoo-xfce-devel.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: true
 
     # Macaroni Funtoo XFCE Testing
     - name: "macaroni-funtoo-xfce-testing"
       specfile: "funtoo-xfce-testing.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: false
 
     # Macaroni Funtoo Gnome Live Testing
     - name: "macaroni-funtoo-live-testing"
       specfile: "funtoo-live-testing.yaml"
-      repo: "https://github.com/funtoo/macaroni-funtoo.git"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "master"
       release: false
 
     # Macaroni Funtoo Gnome Live Extreme
     #- name: "macaroni-funtoo-live-extreme"
     #  specfile: "funtoo-extreme.yaml"
-    #  repo: "https://github.com/funtoo/macaroni-funtoo.git"
+    #  repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
     #  repo_branch: "master"
