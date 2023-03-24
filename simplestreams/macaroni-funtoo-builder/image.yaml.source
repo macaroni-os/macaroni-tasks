@@ -153,7 +153,6 @@ actions:
       #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
-      rm -rf /var/cache/luet/repos/
 
       #! /bin/sh
       set -eux
