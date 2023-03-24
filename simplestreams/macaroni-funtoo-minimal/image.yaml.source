@@ -34,12 +34,12 @@ targets:
       - type: all
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.common.conf
 
       - type: user
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.userns.conf
 
       - type: all
         after: 4
@@ -83,7 +83,7 @@ packages:
         - sys-process/procps
 
         # Setup tools
-        - app-admin/macaronictl
+        - macaroni/ctl
         - macaroni/whip-catalog
         - whip-profiles/macaroni
         - app-admin/whip
@@ -108,13 +108,6 @@ actions:
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
 
-  - trigger: post-unpack
-    action: |-
-      #!/bin/bash
-      # Fix docker-companion issue on handle removed data layer.
-      # https://github.com/mudler/docker-companion/issues/6
-      rm -rf /var/cache/luet/packages/*
-
   - trigger: post-packages
     action: |-
       #!/bin/bash
@@ -126,7 +119,6 @@ actions:
       #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
-      rm -rf /var/cache/luet/repos/
 
       #! /bin/sh
       set -eux
@@ -172,7 +164,7 @@ actions:
         whip-profiles/macaroni
         macaroni/whip-catalog
         macaroni/entities-catalog
-        app-admin/macaronictl
+        app-admin/macaronictl-thin
         app-admin/whip
         utils/yq
         utils/jq
