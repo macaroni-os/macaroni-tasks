@@ -164,6 +164,7 @@ values:
       lpc_extra_ns:
         - extra-reposcan
 
+
     # Mottainai Stable Mirror
     - name: "mottainai"
       repo4test_tag: true
@@ -171,8 +172,14 @@ values:
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
 
-    # Mottainai Stable Mirror
+    # Mottainai Testing
     - name: "mottainai-testing"
+      branch: master
+      http_repo: https://github.com/MottainaiCI/repo-stable.git
+      ssh_repo: git@github.com:MottainaiCI/repo-stable.git
+
+    # Mottainai Develop
+    - name: "mottainai-dev"
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
