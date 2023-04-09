@@ -17,67 +17,71 @@ format: "products:1.0"
 # Define list of products
 products:
 
-  # Macaroni Funtoo minimal
-  - name: macaroni-funtoo-minimal:current:amd64:default
+  # Macaroni Phoenix minimal
+  - name: macaroni-phoenix-minimal:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Minimal"
+    os: "Macaroni OS"
+    release_title: "Phoenix Minimal"
     directory: macaroni-funtoo-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-minimal"
     days: 2
     aliases:
+      - "macaroni/phoenix-minimal"
       - "macaroni/funtoo-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Testing minimal
-  - name: macaroni-funtoo-testing-minimal:current:amd64:default
+  # Macaroni Phoenix Testing minimal
+  - name: macaroni-phoenix-testing-minimal:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Testing Minimal"
+    os: "Macaroni OS"
+    release_title: "Phoenix Testing Minimal"
     directory: macaroni-funtoo-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-testing-minimal"
     days: 2
     aliases:
+      - "macaroni/phoenix-testing-minimal"
       - "macaroni/funtoo-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
 
-  # Macaroni Funtoo minimal Devel is with subsets portage, devel enabled.
-  - name: macaroni-funtoo-minimal-devel:current:amd64:default
+  # Macaroni Phoenix minimal Devel is with subsets portage, devel enabled.
+  - name: macaroni-phoenix-minimal-devel:current:amd64:default
     arch: amd64
     release: current
     os: "Macaroni OS"
-    release_title: "Funtoo Minimal Devel"
+    release_title: "Phoenix Minimal Devel"
     directory: mos-funtoo-minimal-dev
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-mos-funtoo-minimal-dev"
     days: 1
     aliases:
+      - "macaroni/phoenix-minimal-devel"
       - "macaroni/funtoo-minimal-devel"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Builder: Image with compilation stuff and other dev tools.
-  - name: macaroni-funtoo-builder:current:amd64:default
+  # Macaroni Phoenix Builder: Image with compilation stuff and other dev tools.
+  - name: macaroni-phoenix-builder:current:amd64:default
     arch: amd64
     release: current
     os: "Macaroni OS"
-    release_title: "Funtoo Builder"
+    release_title: "Phoenix Builder"
     directory: macaroni-funtoo-builder
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-builder"
     days: 2
     aliases:
+      - "macaroni/phoenix-builder"
       - "macaroni/funtoo-builder"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
@@ -146,44 +150,46 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Dumplings
-  - name: macaroni-funtoo-dumplings:current:amd64:default
+  # Macaroni Phoenix Dumplings
+  - name: macaroni-phoenix-dumplings:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Dumplings"
+    os: "Macaroni OS"
+    release_title: "Phoenix Dumplings"
     directory: macaroni-funtoo-dumplings
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-dumplings"
     days: 2
     aliases:
+      - "macaroni/phoenix-dumplings"
       - "macaroni/funtoo-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Eagle minimal
-  - name: macaroni-funtoo-systemd-minimal:current:amd64:default
+  # Macaroni Eagle minimal
+  - name: macaroni-eagle-minimal:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Eagle Minimal"
+    os: "Macaroni OS"
+    release_title: "Eagle Minimal"
     directory: macaroni-funtoo-systemd-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-systemd-minimal"
     days: 2
     aliases:
+      - "macaroni/eagle-minimal"
       - "macaroni/funtoo-systemd-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Eagle minimal Dev
+  # Macaroni Eagle minimal Dev
   - name: macaroni-eagle-minimal-dev:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Eagle Minimal Dev"
+    os: "Macaroni OS"
+    release_title: "Eagle Minimal Dev"
     directory: macaroni-eagle-dev
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
@@ -194,50 +200,53 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Eagle minimal
-  - name: macaroni-funtoo-systemd-testing-minimal:current:amd64:default
+  # Macaroni Eagle minimal Testing
+  - name: macaroni-eagle-testing-minimal:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Eagle Testing Minimal"
+    os: "Macaroni OS"
+    release_title: "Eagle Testing Minimal"
     directory: mos-funtoo-systemd-testing-minimal
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-mos-funtoo-systemd-testing-minimal"
     days: 2
     aliases:
+      - "macaroni/eagle-testing-minimal"
       - "macaroni/funtoo-systemd-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo Metatools
-  - name: macaroni-funtoo-metatools:current:amd64:default
+  # Macaroni Phoenix Metatools
+  - name: macaroni-phoenix-metatools:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo Metatools"
+    os: "Macaroni OS"
+    release_title: "Phoenix Metatools"
     directory: macaroni-funtoo-metatools
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-metatools"
     days: 2
     aliases:
+      - "macaroni/phoenix-metatools"
       - "macaroni/funtoo-metatools"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
-  # Macaroni Funtoo SystemD Dumplings
-  - name: macaroni-funtoo-systemd-dumplings:current:amd64:default
+  # Macaroni Eagle Dumplings
+  - name: macaroni-eagle-dumplings:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
-    release_title: "Funtoo SystemD Dumplings"
+    os: "Macaroni OS"
+    release_title: "Eagle Dumplings"
     directory: macaroni-funtoo-systemd-dumplings
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
     prefix_path: "https://images.macaronios.org/lxd-macaroni-funtoo-systemd-dumplings"
     days: 2
     aliases:
+      - "macaroni/eagle-dumplings"
       - "macaroni/funtoo-systemd-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
@@ -246,7 +255,7 @@ products:
   - name: macaroni-terragon-minimal-dev:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
+    os: "Macaroni OS"
     release_title: "Terragon Minimal Dev"
     directory: terragon-minimal-dev
     # Path where retrieve images informations and files.
@@ -262,7 +271,7 @@ products:
   - name: terragon-dumplings:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
+    os: "Macaroni OS"
     release_title: "Terragon Dumplings"
     directory: terragon-dumplings
     # Path where retrieve images informations and files.
@@ -278,7 +287,7 @@ products:
   - name: terragon-minimal:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
+    os: "Macaroni OS"
     release_title: "Terragon Minimal"
     directory: terragon-minimal
     # Path where retrieve images informations and files.
@@ -294,7 +303,7 @@ products:
   - name: terragon-minimal-devel:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
+    os: "Macaroni OS"
     release_title: "Terragon Minimal Devel"
     directory: terragon-minimal-devel
     # Path where retrieve images informations and files.
@@ -310,7 +319,7 @@ products:
   - name: terragon-minimal-testing:current:amd64:default
     arch: amd64
     release: current
-    os: Macaroni
+    os: "Macaroni OS"
     release_title: "Terragon Minimal Testing"
     directory: terragon-minimal-testing
     # Path where retrieve images informations and files.

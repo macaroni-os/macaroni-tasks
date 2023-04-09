@@ -32,9 +32,9 @@ type: lxd
 
 planned: "@weekly"
 
-name: "Build LXD  image macaroni-funtoo-minimal:current:amd64:default"
+name: "Build LXD  image macaroni-phoenix-minimal:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=macaroni-funtoo-minimal:current:amd64:default"
+  - "LXD_PRODUCT=macaroni-phoenix-minimal:current:amd64:default"
   - "LXD_IMAGEDIR=macaroni-funtoo-minimal"
   - "SSBUILDER_PREFIX=../lxd-macaroni-funtoo-minimal"
   - "TMPDIR=/distrobuilder"
