@@ -8,8 +8,15 @@ values:
       dockerfile: Dockerfile
       image_manifest: latest-amd64
 
-    # Macaroni Funtoo Stable image
-    - name: macaronios/funtoo-minimal
+    - name: macaronios/luet-build
+      arch: amd64
+      repohttp: https://github.com/geaaru/luet.git
+      repobranch: geaaru
+      dockerfile: Dockerfile.build
+      image_manifest: latest-amd64
+
+    # Macaroni Phoenix Stable image
+    - name: macaronios/phoenix-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
@@ -17,8 +24,8 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Devel Stable image
-    - name: macaronios/funtoo-minimal-devel
+    # Macaroni Phoenix Devel Stable image
+    - name: macaronios/phoenix-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
@@ -26,8 +33,8 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Testing image
-    - name: macaronios/funtoo-testing-minimal
+    # Macaroni Phoenix Testing image
+    - name: macaronios/phoenix-testing-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
@@ -35,16 +42,16 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Develop image
-    - name: macaronios/funtoo-dev-minimal
+    # Macaroni Phoenix Develop Minimal image
+    - name: macaronios/phoenix-dev-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: master
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
 
-    # Macaroni Funtoo Stable Systemd image
-    - name: macaronios/funtoo-systemd-minimal
+    # Macaroni Eagle Stable Minimal image
+    - name: macaronios/eagle-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
@@ -52,8 +59,8 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Testing Systemd image
-    - name: macaronios/funtoo-systemd-testing-minimal
+    # Macaroni Eagle Testing Minimal image
+    - name: macaronios/eagle-testing-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
@@ -61,8 +68,8 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Systemd Devel Stable image
-    - name: macaronios/funtoo-systemd-minimal-devel
+    # Macaroni Eagle Devel Stable image
+    - name: macaronios/eagle-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd
@@ -70,8 +77,8 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
-    # Macaroni Funtoo Develop Systemd image
-    - name: macaronios/funtoo-systemd-dev-minimal
+    # Macaroni Eagle Develop image
+    - name: macaronios/eagle-dev-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: systemd

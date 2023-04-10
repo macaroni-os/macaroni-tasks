@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/funtoo-systemd-minimal"
+name: "amd64 - Build docker image macaronios/phoenix-testing-minimal"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
@@ -17,11 +17,11 @@ script:
 - docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
 - docker system prune --force --all --volumes
 environment:
-- BRANCH=systemd
-- DOCKER_FILE=Dockerfile
+- BRANCH=master
+- DOCKER_FILE=Dockerfile.test
 - SHELL=/bin/bash
 - ARCH=amd64
-- IMAGE_NAME=macaronios/funtoo-systemd-minimal
+- IMAGE_NAME=macaronios/phoenix-testing-minimal
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/macaroni-os/macaroni-funtoo.git
 image: macaroni/funtoo-builder

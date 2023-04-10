@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/funtoo-minimal-devel"
+name: "amd64 - Build docker image macaronios/phoenix-minimal-devel"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
@@ -21,7 +21,7 @@ environment:
 - DOCKER_FILE=Dockerfile.devel
 - SHELL=/bin/bash
 - ARCH=amd64
-- IMAGE_NAME=macaronios/funtoo-minimal-devel
+- IMAGE_NAME=macaronios/phoenix-minimal-devel
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/macaroni-os/macaroni-funtoo.git
 image: macaroni/funtoo-builder

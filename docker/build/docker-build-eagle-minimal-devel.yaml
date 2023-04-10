@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/funtoo-dev-minimal"
+name: "amd64 - Build docker image macaronios/eagle-minimal-devel"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
@@ -17,13 +17,14 @@ script:
 - docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
 - docker system prune --force --all --volumes
 environment:
-- BRANCH=master
-- DOCKER_FILE=Dockerfile.dev
+- BRANCH=systemd
+- DOCKER_FILE=Dockerfile.devel
 - SHELL=/bin/bash
 - ARCH=amd64
-- IMAGE_NAME=macaronios/funtoo-dev-minimal
+- IMAGE_NAME=macaronios/eagle-minimal-devel
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/macaroni-os/macaroni-funtoo.git
 image: macaroni/funtoo-builder
 type: lxd
 directory: /
+planned: "@weekly"
