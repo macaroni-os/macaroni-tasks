@@ -7,7 +7,7 @@ image:
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-systemd-dev-minimal:latest-amd64
+  url: macaronios/eagle-dev-minimal:latest-amd64
 
 environment:
   clear_defaults: true
@@ -93,8 +93,6 @@ packages:
         - app-crypt/p11-kit
         # Needed by systemd (to fix in rdeps)
         - app-arch/zstd
-        # Needed for env-update
-        - sys-apps/portage
 
       action: install
 
@@ -119,6 +117,8 @@ actions:
       locale-gen || true
       eselect locale list
       eselect locale set en_US.utf8
+
+      macaronictl env-update
 
       echo "
       LANG=en_US.UTF-8
