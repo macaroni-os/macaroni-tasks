@@ -1,13 +1,13 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS SystemD Dumplings
+  description: Macaroni OS Eagle Dumplings
   expiry: 30d
   architecture: amd64
 
 source:
   downloader: docker-http
   # For docker is mandatory for now use 
-  url: macaronios/funtoo-systemd-minimal:latest-amd64
+  url: macaronios/eagle-minimal:latest-amd64
 
 environment:
   clear_defaults: true
