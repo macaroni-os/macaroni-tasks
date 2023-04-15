@@ -1,12 +1,12 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Metatools
+  description: Macaroni OS Phoenix Metatools
   expiry: 30d
   architecture: amd64
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-minimal-devel:latest-amd64
+  url: macaronios/phoenix-minimal-devel:latest-amd64
 
 environment:
   clear_defaults: true
