@@ -1,12 +1,12 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Systemd Minimal
+  description: Macaroni OS Eagle Minimal
   expiry: 30d
   architecture: amd64
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-systemd-minimal:latest-amd64
+  url: macaronios/eagle-minimal:latest-amd64
 
 environment:
   clear_defaults: true
