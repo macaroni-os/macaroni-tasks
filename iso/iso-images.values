@@ -76,6 +76,13 @@ values:
       repo_branch: "master"
       release: false
 
+    # Macaroni Funtoo I3 Testing
+    - name: "macaroni-funtoo-i3-testing"
+      specfile: "funtoo-i3-testing.yaml"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
+      repo_branch: "master"
+      release: false
+
     # Macaroni Funtoo Gnome Live Extreme
     #- name: "macaroni-funtoo-live-extreme"
     #  specfile: "funtoo-extreme.yaml"
