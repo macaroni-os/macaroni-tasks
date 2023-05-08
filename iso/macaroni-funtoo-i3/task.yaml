@@ -1,0 +1,66 @@
+# Authors: Macaroni team
+#
+# Description: Macaroni ISO macaroni-funtoo-i3 task
+
+name: "ISO: Build macaroni-funtoo-i3"
+image: ubuntu/22.04
+disable_push_on_failure: "true"
+queue: "iso"
+type: lxd
+
+artefact_path: /iso
+environment:
+- "repo=https://github.com/macaroni-os/macaroni-funtoo.git"
+- "repo_branch=master"
+- "spec_file=funtoo-i3.yaml"
+- "WORKSPACE=iso/"
+- "LUET_CONFIG_PROTECT_SKIP=true"
+- "LUET_GENISO_OUTPUT=/dev/stdout"
+- "LUET_GENERAL__CONCURRENCY=8"
+- "LUET_BOX_INSTALLER=0"
+- "LUET_FORCE=true"
+- "LUET_OPTS=--sync-repos"
+- "LUET_NOLOCK=true"
+- "LUET_YES=TRUE"
+- "BUILD_ISO=1"
+- "HTTP_TIMEOUT=0"
+tag_namespace: "iso-macaroni-funtoo-i3"
+script:
+- sleep 5
+- apt-get update
+- apt-get upgrade -y
+- >-
+  apt-get install -y xorriso squashfs-tools dosfstools file curl git make wget
+
+- eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
+- >-
+  luet repo update &&
+  luet install -y utils/yq utils/jq system/luet-devkit &&
+  luet cleanup
+# Using always last geniso commit
+- >-
+  git clone https://github.com/geaaru/extensions.git /extensions &&
+  cd /extensions/extensions/geniso && make install
+
+# Temporary: this must be handled in a different way.
+- >-
+  eval 'mkdir /var/lib/macaroni -p || true' &&
+  wget https://raw.githubusercontent.com/funtoo/macaroni-funtoo/master/packages/macaroni/live-setup/build-iso-hook.sh
+  -O /var/lib/macaroni/build-iso-hook.sh
+
+# Clone the repository with luet-geniso specs
+- >-
+  echo "Cloning ${repo} for branch ${repo_branch}..." &&
+  git clone ${repo} -b ${repo_branch} /repo &&
+  cd /repo/${WORKSPACE} &&
+  export TMPDIR=./tmp &&
+  mkdir $TMPDIR -p &&
+  bash -x luet-geniso-isospec ${spec_file} &&
+  ls -ltr
+
+- mv *.iso *.sha256 iso-meta.* /iso/
+
+# Write loopback status
+- losetup -l
+
+# vim: filetype=yaml
