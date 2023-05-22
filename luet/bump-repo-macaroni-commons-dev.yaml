@@ -9,7 +9,6 @@
 
 name: "luet - < macaroni-commons-dev > - Bump revision"
 script:
-- luet install dev-util/mottainai-cli system/luet-build
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
