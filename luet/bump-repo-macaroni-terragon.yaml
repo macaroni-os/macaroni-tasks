@@ -7,7 +7,7 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < macaroni-funtoo-systemd > - Bump revision"
+name: "luet - < macaroni-terragon > - Bump revision"
 script:
 - luet install dev-util/mottainai-cli system/luet-build
 - git clone ${REPO} -b ${REPO_BRANCH} repo
@@ -26,19 +26,19 @@ entrypoint:
 storage: "mcli"
 storage_path: /storage
 environment:
-- "REPO_BRANCH=systemd"
-- "REPO=https://github.com/macaroni-os/macaroni-funtoo.git"
+- "REPO_BRANCH=terragon"
+- "REPO=https://github.com/funtoo/macaroni-funtoo.git"
 - "SUDO="
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
 - COMPRESSION=zstd
-- NAMESPACE=macaroni-funtoo-systemd
+- NAMESPACE=macaroni-terragon
 - "BUILD_ARGS=--config conf/luet.yaml"
 image: macaroni/phoenix-builder
 artefact_path: artefacts
 type: lxd
 directory: /
 publish_mode: append
-tag_namespace: "macaroni-funtoo-systemd"
+tag_namespace: "macaroni-terragon"
 
 # vim: filetype=yaml
