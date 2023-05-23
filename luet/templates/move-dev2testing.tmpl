@@ -31,12 +31,6 @@ tasks:
   bump-repo-revision:
     name: "luet - < {{ .namespace }} > - Bump revision"
     script:
-    - sleep 2
-    - apk add make bash curl git
-    - >-
-      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
-      sh /tmp/get_luet_root.sh
-    - luet install dev-util/mottainai-cli system/luet-build
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
     - export HOME=/root && mkdir -p /root/.config/
@@ -61,7 +55,7 @@ tasks:
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
     - "BUILD_ARGS=--config conf/luet.yaml"
-    image: alpine/edge
+    image: macaroni/funtoo-builder
     artefact_path: artefacts
     type: lxd
     directory: /
@@ -77,19 +71,13 @@ tasks:
     - /bin/sh
     - "-c"
     script:
-    - sleep 2
-    - apk add bash curl git
-    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
-    - >-
-      luet i -y utils/jq utils/yq &&
-      luet cleanup --purge-repos
     - >-
       git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
       /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
-    image: "alpine/edge"
+    image: macaroni/funtoo-builder
     environment:
     - "NAMESPACE={{ .namespace }}"
     - "NAME={{ .namespace }}-testing"
