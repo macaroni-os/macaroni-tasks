@@ -90,6 +90,9 @@ packages:
         - macaroni/whip-catalog
         - utils/yq
 
+        # Needed for openrc setup scripts
+        - sys-apps/gentoo-functions
+
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
@@ -360,6 +363,7 @@ actions:
         dev-python/pyelftools
         dev-python/setuptools
         sys-apps/portage
+        sys-apps/gentoo-functions
       )
 
       set -x
