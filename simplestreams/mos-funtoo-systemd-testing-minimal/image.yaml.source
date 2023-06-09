@@ -1,13 +1,13 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Systemd Minimal Testing
+  description: Macaroni Eagle Minimal Testing
   expiry: 30d
   variant: testing
   architecture: amd64
 
 source:
   downloader: docker-http
-  url: macaronios/funtoo-systemd-testing-minimal:latest-amd64
+  url: macaronios/eagle-testing-minimal:latest-amd64
 
 environment:
   clear_defaults: true
@@ -34,12 +34,12 @@ targets:
       - type: all
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.common.conf
 
       - type: user
         before: 5
         content: |-
-          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+          lxc.include = LXC_TEMPLATE_CONFIG/funtoo.userns.conf
 
       - type: all
         after: 4
@@ -95,6 +95,13 @@ packages:
         - app-arch/zstd
         # Needed for env-update
         - sys-apps/portage
+
+        - macaroni/ctl
+        - macaroni/whip-catalog
+        - whip-profiles/macaroni
+        - app-admin/whip
+
+        - sys-apps/baselayout
 
       action: install
 
@@ -223,7 +230,19 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      macaronictl env-update
+      pkgs2remove=(
+        system/entities
+        whip-profiles/macaroni
+        macaroni/whip-catalog
+        macaroni/entities-catalog
+        app-admin/macaronictl-thin
+        app-admin/whip
+        utils/yq
+        utils/jq
+        sys-apps/gentoo-functions
+      )
+
+      luet rm ${pkgs2remove[@]} -y --force
       luet cleanup --purge-repos
 
 mappings:
