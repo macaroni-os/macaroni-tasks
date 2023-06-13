@@ -74,7 +74,25 @@ values:
         - seed/macaroni-funtoo-stage
         - seed/macaroni-funtoo-base
 
-    # Macaroni Commons Stable
+    # Macaroni Security Develop
+    - name: "macaroni-security-dev"
+      branch: phoenix
+      http_repo: https://github.com/macaroni-os/macaroni-security.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+
+    # Macaroni Security Testing
+    - name: "macaroni-security-testing"
+      branch: phoenix
+      http_repo: https://github.com/macaroni-os/macaroni-security.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+
+    # Macaroni Security Stable
+    - name: "macaroni-security"
+      branch: phoenix
+      http_repo: https://github.com/macaroni-os/macaroni-security.git
+      ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+
+    # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
