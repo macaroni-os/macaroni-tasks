@@ -78,7 +78,7 @@ values:
 
     # Macaroni Security Develop
     - name: "macaroni-security-dev"
-      tree_version: v1
+      tree_version: v2
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
@@ -86,14 +86,14 @@ values:
     # Macaroni Security Testing
     - name: "macaroni-security-testing"
       branch: phoenix
-      tree_version: v1
+      tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
 
     # Macaroni Security Stable
     - name: "macaroni-security"
       branch: phoenix
-      tree_version: v1
+      tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
 
