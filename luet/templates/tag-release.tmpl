@@ -28,7 +28,7 @@ tasks:
     - mottainai-cli namespace clone "${NAMESPACE}-reposcan" -f "${NAMESPACE}-dev-reposcan"-dev
     environment:
     - "NAMESPACE={{ .namespace }}"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
 

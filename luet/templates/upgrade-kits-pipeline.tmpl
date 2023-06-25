@@ -218,7 +218,7 @@ tasks:
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
     - "PACKAGES=seed/funtoo-kits toolchain/meta-repo"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
     #retry: "2"
@@ -335,7 +335,7 @@ tasks:
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
     - "PACKAGES={{ .seeds2bump }}"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
     #retry: "2"

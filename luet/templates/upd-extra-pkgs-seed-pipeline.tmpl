@@ -25,7 +25,7 @@ tasks:
     storage: geaaru-github
     storage_path: /storage
     type: lxd
-    # Using macaroni/funtoo-builder doesn't work here. Probably because ca-certificates package is not available.
+    # Using macaroni/phoenix-builder doesn't work here. Probably because ca-certificates package is not available.
     image: macaroni/funtoo-metatools
     script:
     - >-
@@ -107,7 +107,7 @@ tasks:
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
     - "PACKAGES=seed/{{ .seed }}"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
     #retry: "2"
@@ -200,7 +200,7 @@ tasks:
     {{- if eq .group "true" }}
     - "GROUP_PIPELINE=1"
     {{- end }}
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
 #retry: "2"

@@ -75,7 +75,7 @@ tasks:
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
     - "PACKAGES={{ index $data "category" }}/{{ index $data "name" }}"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
     #retry: "2"

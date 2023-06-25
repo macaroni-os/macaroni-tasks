@@ -24,7 +24,7 @@ tasks:
     environment:
     - "NAMESPACE={{ .namespace }}"
     - "MOTTAINAI_CLI_GENERAL__CLIENT_TIMEOUT=3600"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
 
@@ -55,7 +55,7 @@ tasks:
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
     - "BUILD_ARGS=--config conf/luet.yaml"
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     artefact_path: artefacts
     type: lxd
     directory: /
@@ -77,7 +77,7 @@ tasks:
       cd /macaroni-tasks &&
       chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
       /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
-    image: macaroni/funtoo-builder
+    image: macaroni/phoenix-builder
     environment:
     - "NAMESPACE={{ .namespace }}"
     - "NAME={{ .namespace }}-testing"
