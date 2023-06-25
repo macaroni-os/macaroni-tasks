@@ -4,6 +4,7 @@ values:
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo-dev"
+      tree_version: v1
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
@@ -61,6 +62,7 @@ values:
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo"
+      tree_version: v1
       branch: master
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
@@ -76,6 +78,7 @@ values:
 
     # Macaroni Security Develop
     - name: "macaroni-security-dev"
+      tree_version: v1
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
@@ -83,23 +86,27 @@ values:
     # Macaroni Security Testing
     - name: "macaroni-security-testing"
       branch: phoenix
+      tree_version: v1
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
 
     # Macaroni Security Stable
     - name: "macaroni-security"
       branch: phoenix
+      tree_version: v1
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
 
     # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
+      tree_version: v1
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
       ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
 
     # Macaroni Commons
     - name: "macaroni-commons"
+      tree_version: v1
       branch: master
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
@@ -107,12 +114,14 @@ values:
 
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
+      tree_version: v1
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-distfiles.git
       ssh_repo: git@github.com:macaroni-os/macaroni-distfiles.git
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
+      tree_version: v1
       branch: systemd
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
@@ -135,6 +144,7 @@ values:
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
+      tree_version: v1
       branch: systemd
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
@@ -185,6 +195,7 @@ values:
 
     # Mottainai Stable Mirror
     - name: "mottainai"
+      tree_version: v1
       repo4test_tag: true
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
@@ -192,18 +203,21 @@ values:
 
     # Mottainai Testing
     - name: "mottainai-testing"
+      tree_version: v1
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
 
     # Mottainai Develop
     - name: "mottainai-dev"
+      tree_version: v1
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo-next-dev"
+      tree_version: v1
       branch: next
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
@@ -260,12 +274,14 @@ values:
     # Macaroni Repository index
     - name: "geaaru-repo-index"
       branch: master
+      tree_version: v1
       http_repo: https://github.com/geaaru/repo-index.git
       ssh_repo: git@github.com:geaaru/repo-index.git
 
     # Macaroni Funtoo Terragon Development
     - name: "macaroni-terragon-dev"
       branch: terragon
+      tree_version: v1
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-next-kits.yml
@@ -321,6 +337,7 @@ values:
     # Macaroni Funtoo Terragon Stable
     - name: "macaroni-terragon"
       branch: terragon
+      tree_version: v1
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
