@@ -30,6 +30,7 @@ main () {
 
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+  tree_version=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .tree_version" -r)
  
   local opts=""
   if [ -n "${GROUP_PIPELINE}" ] ; then
@@ -40,6 +41,7 @@ main () {
     -s namespace="${NAMESPACE}" ${opts} \
     -s repo="${repo}" \
     -s branch="${repo_branch}" \
+    -s treeversion="${tree_version}" \
     -o /tmp/start-build-pipeline.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then
