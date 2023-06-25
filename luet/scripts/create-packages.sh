@@ -15,6 +15,7 @@ ENABLE_DOCKER_HOST=${ENABLE_DOCKER_HOST:-true}
 ENABLE_BUILDKIT=${ENABLE_BUILDKIT:-false}
 PUSH_IMAGES=${PUSH_IMAGES:-false}
 FIRE_TASK=${FIRE_TASK:-0}
+TREE_VERSION=${TREE_VERSION:-v1}
 
 TEMPLATES_DIR=${luet_dir}/templates
 
@@ -86,19 +87,36 @@ main () {
     mkdir /tmp/macaroni -p || true
 
     # Create pipeline
-    mottainai-cli task compile \
-      ${TEMPLATES_DIR}/luet-pkgs-pipeline.tmpl -l ${tmp_packages_files} \
-      -s "namespace=${NAMESPACE}" $opts \
-      -s "repo=${LUET_REPOSITORY}" \
-      -s repo="${repo}" \
-      -s branch="${repo_branch}" \
-      -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
-      -s enable_buildkit="${ENABLE_BUILDKIT}" \
-      -s push_images="${PUSH_IMAGES}" \
-      -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
-      echo "Error on compile pipeline."
-      return 1
-    }
+    if [ "${TREE_VERSION}" = "v2" ] ; then
+
+      mottainai-cli task compile \
+        ${TEMPLATES_DIR}/luet-pkgs-pipelinev2.tmpl -l ${tmp_packages_files} \
+        -s "namespace=${NAMESPACE}" $opts \
+        -s "repo=${LUET_REPOSITORY}" \
+        -s repo="${repo}" \
+        -s branch="${repo_branch}" \
+        -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
+        -s enable_buildkit="${ENABLE_BUILDKIT}" \
+        -s push_images="${PUSH_IMAGES}" \
+        -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
+        echo "Error on compile pipeline."
+        return 1
+      }
+    else
+      mottainai-cli task compile \
+        ${TEMPLATES_DIR}/luet-pkgs-pipeline.tmpl -l ${tmp_packages_files} \
+        -s "namespace=${NAMESPACE}" $opts \
+        -s "repo=${LUET_REPOSITORY}" \
+        -s repo="${repo}" \
+        -s branch="${repo_branch}" \
+        -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
+        -s enable_buildkit="${ENABLE_BUILDKIT}" \
+        -s push_images="${PUSH_IMAGES}" \
+        -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
+        echo "Error on compile pipeline."
+        return 1
+      }
+    fi
 
     echo "Building packages:"
     cat /tmp/macaroni/luet-pkgs-pipeline.yaml | \
