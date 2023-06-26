@@ -82,6 +82,17 @@ values:
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+      # Define the command file of lxd-compose
+      # to run for generate reposcan files.
+      command_file: reposcan-funtoo-kits.yml
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+      kits2upgrade:
+        - browser-kit
+        - security-kit
+      seeds2bump:
+      lpc_extra_ns:
+        - extra-reposcan
 
     # Macaroni Security Testing
     - name: "macaroni-security-testing"
