@@ -37,8 +37,17 @@ main () {
   repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
   local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
-  local seeds2bump=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | join(\" \")" -r)
   local lpc_extra_ns=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .lpc_extra_ns | join(\",\")" -r)
+  local seednum=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | length" -r)
+  local seeds2bump=""
+  local tmplfile=""
+
+  if [ "${seednum}" != "0" ] ; then
+    seeds2bump=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | join(\" \")" -r)
+    tmplfile=${luet_dir}/templates/upgrade-kits-pipeline-noseeds.tmpl
+  else
+    tmplfile=${luet_dir}/templates/upgrade-kits-pipeline.tmpl
+  fi
 
   if [ "${upgrade_kit}" != "true" ] ; then
     echo "The selected repository is without upgrade_kit enable."
@@ -75,7 +84,7 @@ Command File: ${command_file}
     opts="${opts} -s extrans=${lpc_extra_ns}"
   fi
 
-  mottainai-cli task compile ${luet_dir}/templates/upgrade-kits-pipeline.tmpl \
+  mottainai-cli task compile ${tmplfile} \
     -s namespace="${NAMESPACE}" ${opts} \
     -s repohttp="${repo}" \
     -s commandfile="${command_file}" \
