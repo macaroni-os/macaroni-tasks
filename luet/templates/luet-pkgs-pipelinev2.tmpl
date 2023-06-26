@@ -101,7 +101,7 @@ tasks:
       luet repo update &&
       luet upgrade &&
       luet miner replace-package system/luet-build --for system/luet-build-testing &&
-      luet cleanup --purge-repos &&
+      luet cleanup --purge-repos
     - make create-repo
     - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
     entrypoint:
