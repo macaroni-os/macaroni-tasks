@@ -59,11 +59,6 @@ main () {
     return 1
   fi
 
-  if [ -z "${seeds2bump}" ] ; then
-    echo "No seed to bump for repo ${repo}!"
-    return 1
-  fi
-
   if [ -z "${command_file}" ] ; then
     echo "No command file defined for this repository."
     return 1
@@ -73,6 +68,7 @@ main () {
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
 Command File: ${command_file}
+Seed to bump: ${seeds2bump}
 "
 
   local opts=""
