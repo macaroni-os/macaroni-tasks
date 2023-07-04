@@ -87,6 +87,7 @@ packages:
         - whip-profiles/macaroni
         - app-admin/whip
         - macaroni/whip-catalog
+        - macaroni/ctl
 
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
