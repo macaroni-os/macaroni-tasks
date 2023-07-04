@@ -103,6 +103,7 @@ packages:
         - system/luet-build
         - system/luet-devkit
 
+        - dev-util/debootstrap
         - app-emulation/distrobuilder
         - app-emulation/simplestreams-builder
         - app-emulation/lxd
