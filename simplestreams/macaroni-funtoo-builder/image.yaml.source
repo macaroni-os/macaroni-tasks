@@ -125,6 +125,14 @@ packages:
         - utils/jq
         - utils/yq
 
+        - curl
+        - wget
+        - rsync
+        - gnupg
+        - squashfs-tools
+        - bridge-utils
+
+
       action: install
 
 actions:
