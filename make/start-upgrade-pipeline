@@ -34,6 +34,7 @@ main () {
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+  tree_version=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .tree_version" -r)
   local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
   local seeds2bump=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | join(\" \")" -r)
@@ -54,9 +55,15 @@ main () {
     return 1
   fi
 
+  if [ -z "${tree_version}" ] ; then
+    echo "Missing tree version for repo ${repo}!"
+    return 1
+  fi
+
   echo "
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
+Tree Version: ${tree_version}
 "
 
   local opts=""
@@ -77,6 +84,7 @@ Extra Kits Namespace: ${lpc_extra_ns}
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
     -s seeds2bump="${seeds2bump}" \
+    -s treeversion="${tree_version}" \
     -o /tmp/upd-extra-pkgs-pipeline.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then

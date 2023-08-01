@@ -240,15 +240,17 @@ tasks:
   bump-repo-revision:
     name: "luet - < {{ .namespace }} > - Bump revision"
     script:
-    - apk add make bash curl git
-    - >-
-      wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
-      sh /tmp/get_luet_root.sh
-    - luet install dev-util/mottainai-cli
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
+    {{- if eq .treeversion "v2" }}
+    - >-
+      luet repo update &&
+      luet upgrade &&
+      luet miner replace-package system/luet-build --for system/luet-build-testing &&
+      luet cleanup --purge-repos
+    {{- endif }}
     - >-
       MOTTAINAI_CLI_PROFILE=funtoo
       mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
@@ -269,7 +271,7 @@ tasks:
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
     - "BUILD_ARGS=--config conf/luet.yaml"
-    image: alpine/edge
+    image: macaroni/phoenix-builder
     artefact_path: artefacts
     type: lxd
     directory: /
