@@ -91,6 +91,7 @@ values:
         - browser-kit
         - security-kit
       seeds2bump:
+        - seed/macaroni-security-base
       lpc_extra_ns:
         - extra-reposcan
 
