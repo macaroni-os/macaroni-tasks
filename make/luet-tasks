@@ -21,6 +21,7 @@ for ((i=0;i<${REPOS};i++)) ; do
   http_repo=$(yq r ${luet_values} "values.repositories[$i].http_repo")
   ssh_repo=$(yq r ${luet_values} "values.repositories[$i].ssh_repo")
   upgrade_kit=$(yq r ${luet_values} "values.repositories[$i].upgrade_kit")
+  tree_version=$(yq r ${luet_values} "values.repositories[$i].tree_version")
 
   echo "Create task for bump repo ${name}..."
   mottainai-cli task compile ${luet_dir}/templates/bump-repo.tmpl \
@@ -28,6 +29,7 @@ for ((i=0;i<${REPOS};i++)) ; do
     -s repobranch="${branch}" \
     -s repohttp="${http_repo}" \
     -s repossh="${ssh_repo}" \
+    -s treeversion="${tree_version}" \
     -o ${luet_dir}/bump-repo-${name}.yaml
 
 
