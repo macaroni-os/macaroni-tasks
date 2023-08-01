@@ -185,7 +185,7 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
 
 #### macaroni-terragon-dev repository
 
-Hereinafter, the workflow for `macaroni-funtoo-dev` repository:
+Hereinafter, the workflow for `macaroni-terragon-dev` repository:
 
 1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo packages.
 
@@ -230,6 +230,18 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo-terragon/ BUMP_SEED=true 
              NAMESPACE=macaroni-terragon-dev make start-upd-seed-pipeline
 
 ```
+
+
+#### macaroni-security-dev repository
+
+Hereinafter, the workflow for `macaroni-security-dev` repository:
+
+1. Starting the update of the kits and bump the seed/funtoo-kits and toolchain/meta-repo packages.
+
+```shell
+$> FIRE_TASK=1 NAMESPACE=macaroni-security-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
+```
+
 
 ### Tag a new release of a specific repository
 
