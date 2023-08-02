@@ -31,6 +31,7 @@ main () {
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   repo4test=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .repo4test_tag" -r)
+  tree_version=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .tree_version" -r)
 
 
   if [ "${repo4test}" != "true" ] ; then
@@ -46,6 +47,7 @@ Creating pipeline for tagging ${NAMESPACE}-dev to ${NAMESPACE}...
     -s namespace="${NAMESPACE}" \
     -s repohttp="${repo}" \
     -s repobranch="${repo_branch}" \
+    -s treeversion="${tree_version}" \
     -o /tmp/dev2test-pipeline.yaml || return 1
 
   if [ "${FIRE_TASK}" = "1" ] ; then
