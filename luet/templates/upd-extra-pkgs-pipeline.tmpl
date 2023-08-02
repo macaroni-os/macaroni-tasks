@@ -250,7 +250,7 @@ tasks:
       luet upgrade &&
       luet miner replace-package system/luet-build --for system/luet-build-testing &&
       luet cleanup --purge-repos
-    {{- endif }}
+    {{- end }}
     - >-
       MOTTAINAI_CLI_PROFILE=funtoo
       mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
