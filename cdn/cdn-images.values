@@ -3,6 +3,7 @@ values:
   purgefiles: &purgerepo
     paths:
     - compilertree.tar.gz
+    - compilertree.tar.zst
     - repository.yaml
     - repository.meta.yaml.tar.zst
     - tree.tar.zst
@@ -63,9 +64,9 @@ values:
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
       namespace: "macaroni-funtoo"
-      domain: "cdn.macaronios.org"
-      cdnstorage: true
-      cdnprefix: "/mottainai/"
+      domain: "dl.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -73,9 +74,9 @@ values:
     # Macaroni Commons
     - name: "macaroni-commons"
       namespace: "macaroni-commons"
-      domain: "cdn.macaronios.org"
-      cdnstorage: true
-      cdnprefix: "/mottainai/"
+      domain: "dl.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -100,9 +101,12 @@ values:
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
-      cdnprefix: "/mottainai/"
-      domain: "cdn.macaronios.org"
-      cdnstorage: true
+      #cdnprefix: "/mottainai/"
+      #domain: "cdn.macaronios.org"
+      domain: "dl.macaronios.org"
+        #domain: "images.macaronios.org"
+      cdnprefix: "/repos/"
+      cdnstorage: false
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -111,6 +115,7 @@ values:
     - name: "macaroni-funtoo-systemd-dev"
       namespace: "macaroni-funtoo-systemd-dev"
       domain: "dev.macaronios.org"
+        #domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
@@ -129,10 +134,23 @@ values:
 
     # Mottainai Stable Repository
     - name: "mottainai"
+      #namespace: "mottainai-stable"
       namespace: "mottainai"
       cdnstorage: true
-      domain: "cdn.macaronios.org"
-      cdnprefix: "/mottainai/"
+      # domain: "cdn.macaronios.org"
+      domain: "dl.macaronios.org"
+        #domain: "images.macaronios.org"
+      cdnprefix: "/repos/"
+      purgefiles:
+        <<: *purgerepo
+      cdnid: "1556118782"
+
+    # Mottainai Develop Repository
+    - name: "mottainai-dev"
+      namespace: "mottainai-dev"
+      domain: "dev.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: "1556118782"
@@ -170,12 +188,14 @@ values:
     # Macaroni Funtoo Terragon Dev
     - name: "macaroni-terragon-dev"
       namespace: "macaroni-terragon-dev"
-      domain: "dev.macaronios.org"
+      #domain: "dev.macaronios.org"
+      domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
       cdnid: 1258250330
+
 
     # Macaroni Funtoo Terragon Testing
     - name: "macaroni-terragon-testing"
@@ -197,6 +217,33 @@ values:
         <<: *purgerepo
       #cdnid: "1556118782"
 
+    # Macaroni Funtoo Security Dev
+    - name: "macaroni-security-dev"
+      namespace: "macaroni-security-dev"
+      domain: "dev.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+
+    # Macaroni Funtoo Security Testing
+    - name: "macaroni-security-testing"
+      namespace: "macaroni-security-testing"
+      domain: "images.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+
+    # Macaroni Funtoo Security Stable
+    - name: "macaroni-security"
+      namespace: "macaroni-security"
+      domain: "dl.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/repos/"
+      purgefiles:
+        <<: *purgerepo
+
     # Macaroni LXD simplestreams data
     - name: "lxd-images"
       namespace: "lxd-images"
@@ -207,5 +254,20 @@ values:
         paths:
           - streams/v1/index.json
           - streams/v1/images.json
+          - lxd-macaroni-eagle-dev/eagle-minimal-dev/ssb.json
+
+    # Macaroni website
+    - name: "www"
+      #      namespace: "macaroni-iso"
+      namespace: ""
+      domain: "www.macaronios.org"
+      cdnstorage: false
+      cdnprefix: ""
+      purgefiles:
+        paths:
+          - index.html
+          - meta/isos-releases.json
+          - meta/isos.json
+          - docs/
 
 # vim: filetype=yaml
