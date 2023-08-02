@@ -104,6 +104,7 @@ values:
 
     # Macaroni Security Stable
     - name: "macaroni-security"
+      repo4test_tag: true
       branch: phoenix
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-security.git
