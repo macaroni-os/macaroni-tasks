@@ -324,7 +324,7 @@ values:
     # Macaroni Funtoo Terragon Development
     - name: "macaroni-terragon-dev"
       branch: terragon
-      tree_version: v1
+      tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       command_file: reposcan-funtoo-next-kits.yml
@@ -380,7 +380,7 @@ values:
     # Macaroni Funtoo Terragon Stable
     - name: "macaroni-terragon"
       branch: terragon
-      tree_version: v1
+      tree_version: v2
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
