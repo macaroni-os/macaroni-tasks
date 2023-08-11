@@ -5,7 +5,8 @@ values:
     # Macaroni Funtoo
     - name: "macaroni-funtoo-dev"
       tree_version: v1
-      branch: master
+        #      branch: master
+      branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       # Define the command file of lxd-compose
