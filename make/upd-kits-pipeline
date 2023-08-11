@@ -35,6 +35,7 @@ main () {
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+  tree_version=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .tree_version" -r)
   local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
   local lpc_extra_ns=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .lpc_extra_ns | join(\",\")" -r)
@@ -89,6 +90,7 @@ Seed to bump: ${seeds2bump}
     -s kits2upgrade="${kits2upgrade}" \
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
+    -s treeversion="${tree_version}" \
     -s seeds2bump="${seeds2bump}" \
     -o /tmp/upd-kits-pipeline.yaml || return 1
 
