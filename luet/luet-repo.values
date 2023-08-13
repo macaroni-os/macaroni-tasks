@@ -4,7 +4,7 @@ values:
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo-dev"
-      tree_version: v1
+      tree_version: v2
         #      branch: master
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
