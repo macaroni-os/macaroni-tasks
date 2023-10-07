@@ -1,0 +1,209 @@
+# Author: Daniele Rondina, geaaru@funtoo.org
+# Description: Chain pipeline to upgrade extra packages related to the
+#              selected the specified race/seed.
+#              PRE: the kits are been already upgraded and pushed.
+#
+# This pipeline follow these steps:
+# - bump and build the selected seed (if .bumpseed is enable)
+# - run luet-portage-converter for the kits2upgrade
+# - bump the packages of the selected seed.
+# - start-build-task
+
+pipeline_name: "luet - extra pkgs - seed {{ .seed }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+chain:
+{{- if eq .bumpseed "true" }}
+- bump-seed
+- build-seed
+{{- end }}
+- luet-portage-convert
+- start-build-task
+
+tasks:
+
+  bump-seed:
+    name: "luet - < {{ .namespace }} > - Bump seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}-{{ .treeversion }}"
+    storage: geaaru-github
+    storage_path: /storage
+    type: lxd
+    # Using macaroni/phoenix-builder doesn't work here. Probably because ca-certificates package is not available.
+    image: macaroni/funtoo-metatools
+    script:
+    - >-
+      luet repo update --force &&
+      luet install utils/jq utils/yq net-misc/openssh system/luet-build-testing macaroni/ctl &&
+      luet cleanup &&
+      macaronictl env-update
+
+# luet miner reinstall-package virtual/base
+
+    # Setup git ssh key
+    - sh /storage/setup-ssh.sh
+    - sh /storage/setup-git.sh
+
+    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+
+    - >-
+      cd /luet-repo &&
+      fkv=$(yq r /luet-repo/packages/seeds/${SEED}/definition.yaml 'version') &&
+      nv="0.$(date '+%Y%m%d')" &&
+      tbump_opts="" &&
+      if [[ "${fkv}" == *${nv}* ]] ; then echo "Increment current version" ; else tbump_opts="-p ${nv}" ; fi &&
+{{- if eq .seed "macaroni-funtoo-base" }}
+      luet-build tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
+{{- end }}
+      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
+    # Commit new version
+    - >-
+      BUMPER_DIR="./packages/seeds" sh ./scripts/bumper.sh &&
+      eval 'git push || true'
+
+
+    environment:
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repossh }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    - "SEED={{ .seed }}"
+
+  build-seed:
+    name: "luet - < {{ .namespace }} > - Package seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: docker-certs
+    storage_path: /storage
+    script:
+    - source /storage/prepare-luet.sh
+    - >-
+      luet repo update &&
+      luet upgrade &&
+      luet miner replace-package system/luet-build --for system/luet-build-testing &&
+      luet cleanup --purge-repos
+    - >-
+      docker login -u ${registry_user} -p ${registry_pass}
+      docker-registry1.mottainai.local:5000
+
+    - export BUILD_ARGS="--no-spinner --emoji=true --color=false  --live-output --only-target-package  --pull --push"
+    {{- if eq .enable_docker_host "true" }}
+    - echo "Using DOCKER_HOST ${DOCKER_HOST}..."
+    {{- else }}
+    - /etc/init.d/docker start
+    {{- end }}
+    - git clone ${REPO} -b ${REPO_BRANCH} /build
+    # mkdir /build/build until this will be fixed in luet.
+    # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
+    - cd /build && mkdir build/ && make rebuild
+    - >-
+      rm -rf build/build &&
+      cp -v build/* /artefacts/
+    environment:
+    {{- if eq .enable_buildkit "true" }}
+    - "BUILDKIT_PROGRESS=plain"
+    - "DOCKER_BUILDKIT=1"
+    {{- end }}
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    {{- if eq .enable_docker_host "true" }}
+    - DOCKER_HOST=docker-overlay2.mottainai.local:2376
+    {{- end }}
+    - "PACKAGES=seed/{{ .seed }}"
+    image: macaroni/phoenix-builder
+    artefact_path: /artefacts
+    type: lxd
+    #retry: "2"
+    publish_mode: append
+    tag_namespace: "{{ .namespace }}"
+
+  luet-portage-convert:
+    name: "Luet Portage Converter Seed {{ .seed }} - <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
+    image: macaroni/funtoo-metatools
+    storage: "geaaru-github,mcli"
+    storage_path: /storage
+    artefact_path: /artefacts
+{{- if .extrans }}
+    namespace: "{{ .namespace }}-reposcan,{{ .extrans }}"
+{{- else }}
+    namespace: "{{ .namespace }}-reposcan"
+{{- end }}
+    type: lxd
+    environment:
+    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_YES=true
+    - "KITS_2UPGRADE={{ .kits2upgrade }}"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO={{ .repossh }}"
+    - "NAMESPACE={{ .namespace }}"
+    script:
+    - >-
+      luet repo update &&
+      luet install utils/jq utils/yq net-misc/openssh
+      dev-util/mottainai-cli sys-devel/make macaroni/ctl
+      system/luet-build extension/luet-portage-converter &&
+      luet miner reinstall-package virtual/base &&
+      luet cleanup &&
+      macaronictl env-update
+
+    # Setup Mottainai stuff
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+
+    # Setup git ssh key
+    - sh /storage/setup-ssh.sh
+    - sh /storage/setup-git.sh
+
+    - >-
+      git clone ${REPO} -b ${REPO_BRANCH} /luet-repo &&
+      mkdir /luet-repo/kit_cache -p &&
+      cp -vf /artefacts/* /luet-repo/kit_cache/ &&
+      rm -rf /artefacts/*
+
+    - >-
+      git clone https://github.com/macaroni-os/macaroni-tasks.git
+      /macaroni-tasks &&
+      cd /macaroni-tasks &&
+      MOTTAINAI_CLI_PROFILE=funtoo
+      LUET_REPOSITORY=/luet-repo
+      make luet-pc
+    - >-
+      cd /luet-repo &&
+      git status &&
+      SEED={{ .seed }} sh scripts/bumper-race.sh &&
+      eval 'git push || true' ;
+
+  start-build-task:
+    name: "Start Build pipeline <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    storage: "mcli"
+    storage_path: /storage
+    script:
+    - export HOME=/root && mkdir -p /root/.config/
+    - /bin/bash /storage/setup-mcli.sh
+    - >-
+      export MOTTAINAI_CLI_PROFILE=funtoo
+    - >-
+      luet repo update &&
+      luet i -y system/luet-devkit &&
+      luet cleanup --purge-repos
+    - >-
+      git clone ${REPO} -b ${REPO_BRANCH} /repo &&
+      git clone ${REPO_MTASKS} /macaroni-tasks
+    - >-
+      cd /macaroni-tasks &&
+      ls -l /repo &&
+      export FIRE_TASK=1 &&
+      export LUET_REPOSITORY=/repo &&
+      make build-pipeline
+    environment:
+    - "NAMESPACE={{ .namespace }}"
+    - "REPO={{ .repohttp }}"
+    - "REPO_BRANCH={{ .repobranch }}"
+    - "REPO_MTASKS=https://github.com/macaroni-os/macaroni-tasks.git"
+    {{- if eq .group "true" }}
+    - "GROUP_PIPELINE=1"
+    {{- end }}
+    image: macaroni/phoenix-builder
+    artefact_path: /artefacts
+    type: lxd
+#retry: "2"
+
+# vim: filetype=yaml
