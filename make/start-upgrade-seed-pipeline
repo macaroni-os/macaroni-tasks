@@ -113,7 +113,7 @@ Tree Version: ${tree_version}
 
   else
 
-    mottainai-cli task compile ${luet_dir}/templates/upd-extra-pkgs-seed-pipeline.tmpl \
+    mottainai-cli task compile ${luet_dir}/templates/upd-extra-pkgs-seed-pipelinev2.tmpl \
       -s namespace="${NAMESPACE}" ${opts} \
       -s repohttp="${repo}" \
       -s repobranch="${repo_branch}" \
@@ -124,7 +124,7 @@ Tree Version: ${tree_version}
       -s seed="${SEED}" \
       -s bumpseed="${BUMP_SEED}" \
       -s treeversion="${tree_version}" \
-      -o /tmp/upd-extra-pkgs-seed-pipelinev2.yaml || return 1
+      -o /tmp/upd-extra-pkgs-seed-pipeline.yaml || return 1
   fi
 
   if [ "${FIRE_TASK}" = "1" ] ; then
