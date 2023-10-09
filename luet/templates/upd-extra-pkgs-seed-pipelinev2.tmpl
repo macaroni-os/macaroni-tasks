@@ -198,6 +198,7 @@ tasks:
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO_MTASKS=https://github.com/macaroni-os/macaroni-tasks.git"
+    - "TREE_VERSION={{ .treeversion }}"
     {{- if eq .group "true" }}
     - "GROUP_PIPELINE=1"
     {{- end }}
