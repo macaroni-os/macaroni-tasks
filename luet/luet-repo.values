@@ -11,7 +11,7 @@ values:
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
-      command_file: reposcan-funtoo-kits.yml
+      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
