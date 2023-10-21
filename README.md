@@ -145,13 +145,10 @@ $> FIRE_TASK=1 NAMESPACE=macaroni-funtoo-dev PUSH_IMAGES=1 make start-upd-kits-p
 2. Starting the bump and build of the seed/macaroni-funtoo-base and all packages updates of the specs related to that seed.
 
 ```shell
-$> FIRE_TASK=1 REPO_DIR=${HOME}/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-base GROUP_PIPELINE=1 \
+$> FIRE_TASK=1 REPO_DIR=${HOME}/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-base \
           NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race1 \
-             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
-
-$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-office \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race2 \
@@ -161,12 +158,6 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race4 \
-             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
-
-$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-python \
-             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
-
-$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-geaaru \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race5 \
@@ -181,6 +172,35 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race8 \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race9 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race10 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race11 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race12 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race13 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race14 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race15 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race16 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race17 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race18 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 ```
 
 #### macaroni-terragon-dev repository
