@@ -52,7 +52,7 @@ values:
       planned: "@weekly"
 
     # Macaroni Phoenix Develop Devel image
-    - name: macaronios/phoenix-dev-minimal
+    - name: macaronios/phoenix-dev-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
       repobranch: phoenix
