@@ -17,8 +17,8 @@ script:
 - docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
 - docker system prune --force --all --volumes
 environment:
-- BRANCH=master
-- DOCKER_FILE=Dockerfile.dev
+- BRANCH=phoenix
+- DOCKER_FILE=Dockerfile.dev-devel
 - SHELL=/bin/bash
 - ARCH=amd64
 - IMAGE_NAME=macaronios/phoenix-dev-minimal

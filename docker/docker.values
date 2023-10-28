@@ -19,7 +19,7 @@ values:
     - name: macaronios/phoenix-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: master
+      repobranch: phoenix
       dockerfile: Dockerfile
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -28,7 +28,7 @@ values:
     - name: macaronios/phoenix-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: master
+      repobranch: phoenix
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -37,7 +37,7 @@ values:
     - name: macaronios/phoenix-testing-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: master
+      repobranch: phoenix
       dockerfile: Dockerfile.test
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -46,8 +46,17 @@ values:
     - name: macaronios/phoenix-dev-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: master
+      repobranch: phoenix
       dockerfile: Dockerfile.dev
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
+    # Macaroni Phoenix Develop Devel image
+    - name: macaronios/phoenix-dev-minimal
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.dev-devel
       image_manifest: latest-amd64
       planned: "@weekly"
 
