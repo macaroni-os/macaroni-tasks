@@ -88,6 +88,9 @@ packages:
         - macaroni/whip-catalog
         - macaroni/ctl
 
+        # Used by openrc setup scripts
+        - sys-apps/gentoo-functions
+
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
