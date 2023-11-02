@@ -108,6 +108,7 @@ environment:
 - "SUBPOP_REPO=https://code.funtoo.org/bitbucket/scm/~drobbins/subpop.git"
 - "SUBPOP_BRANCH=legacy"
 - "KITS_2UPGRADE=browser-kit"
+- "PORTAGE_BIN_PATH=/usr/lib/portage/python3.7"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
