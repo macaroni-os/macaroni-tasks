@@ -165,14 +165,14 @@ values:
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
-      tree_version: v1
+      tree_version: v2
       branch: eagle
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-kits.yml
+      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
         - seed/macaroni-funtoo-stage
@@ -192,7 +192,7 @@ values:
       branch: eagle
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-kits.yml
+      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       seeds2bump:
