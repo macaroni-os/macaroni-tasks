@@ -104,7 +104,7 @@ script:
 
 environment:
 - "METATOOLS_WORKSPACE=/reposcan"
-- "REPO_BRANCH=systemd"
+- "REPO_BRANCH=eagle"
 - "REPO=git@github.com:macaroni-os/macaroni-funtoo.git"
 - "METATOOLS_REPO=https://code.funtoo.org/bitbucket/scm/~geaaru/funtoo-metatools.git"
 - "METATOOLS_BRANCH=master"

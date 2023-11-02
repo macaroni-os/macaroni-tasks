@@ -25,7 +25,7 @@ entrypoint:
 storage: "mcli"
 storage_path: /storage
 environment:
-- "REPO_BRANCH=systemd"
+- "REPO_BRANCH=eagle"
 - "REPO=https://github.com/macaroni-os/macaroni-funtoo.git"
 - "SUDO="
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
