@@ -143,14 +143,14 @@ values:
 
     # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
-      tree_version: v1
+      tree_version: v2
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
       ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
 
     # Macaroni Commons
     - name: "macaroni-commons"
-      tree_version: v1
+      tree_version: v2
       branch: master
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
