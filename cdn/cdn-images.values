@@ -96,6 +96,7 @@ values:
           - isos-releases.json
           - index.htm
           - ""
+          - assets/css/style.css
       cdnid: "1556118782"
 
     # Macaroni Funtoo System Stable
