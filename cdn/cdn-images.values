@@ -246,6 +246,33 @@ values:
       purgefiles:
         <<: *purgerepo
 
+    # Macaroni Funtoo Games Dev
+    - name: "macaroni-games-dev"
+      namespace: "macaroni-games-dev"
+      domain: "dev.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+
+    # Macaroni Funtoo Games Testing
+    - name: "macaroni-games-testing"
+      namespace: "macaroni-games-testing"
+      domain: "images.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/"
+      purgefiles:
+        <<: *purgerepo
+
+    # Macaroni Funtoo Games Stable
+    - name: "macaroni-games"
+      namespace: "macaroni-games"
+      domain: "dl.macaronios.org"
+      cdnstorage: false
+      cdnprefix: "/repos/"
+      purgefiles:
+        <<: *purgerepo
+
     # Macaroni LXD simplestreams data
     - name: "lxd-images"
       namespace: "lxd-images"
