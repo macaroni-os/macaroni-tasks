@@ -96,8 +96,7 @@ packages:
         - utils/yq4
 
         - sys-libs/binutils-libs
-        - sys-devel/binutils-config
-        - sys-devel-2.36/binutils
+        - binutils
         - sys-devel/gcc-config
 
         - system/luet-build
@@ -193,7 +192,6 @@ actions:
       /usr/bin/gcc-config 1
       source /etc/profile
       eselect gcc set 1
-      eselect binutils set 1
       mkdir -p /var/lib/portage
 
       macaronictl env-update
