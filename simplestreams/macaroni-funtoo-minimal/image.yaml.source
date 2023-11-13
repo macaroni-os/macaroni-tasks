@@ -120,10 +120,6 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Create lock directory used by Luet
-      mkdir -p /var/lock
-
-      #! /bin/sh
       set -eux
       rm -rf /var/git/meta-repo
       rm -rf /var/cache/portage
