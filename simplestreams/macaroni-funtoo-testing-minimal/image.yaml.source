@@ -120,8 +120,6 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Create lock directory used by Luet
-      mkdir -p /var/lock
       macaronictl env-update
 
       set -eux
