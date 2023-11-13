@@ -3,29 +3,29 @@
 # Description: Template of the Mottainai Task for build LXD images.
 
 script:
-  - source /etc/profile
-  # temporary: Sleep for LXD
-  - sleep 4
-  - mkdir $TMPDIR
-  - >-
-    luet repo update && luet upgrade -y && luet repo update --force &&
-    luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
-    make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
-    luet cleanup --purge-repos
+- source /etc/profile
+# temporary: Sleep for LXD
+- sleep 4
+- mkdir $TMPDIR
+- >-
+  luet repo update && luet upgrade -y --force && luet repo update --force &&
+  luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
+  make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
+  luet cleanup --purge-repos
 # TODO: add debootstrap to macaroni repo
 
-  - /etc/init.d/docker start
+- /etc/init.d/docker start
 
-  # Temporary fix for replicant issue
-  - mv $LXD_IMAGEDIR/image.yaml.source $LXD_IMAGEDIR/image.yaml
-  - simplestreams-builder build-product -c tree-images.yaml -s . -t ./images $LXD_PRODUCT --skip-lxc
-  - simplestreams-builder build-versions-manifest -c tree-images.yaml -s ./images -t images -p $LXD_PRODUCT -i $LXD_IMAGEDIR/image.yaml
-  - ls -ltr images/$LXD_IMAGEDIR/
-  # Force creation of files with rw-rw-rw to permit that volumes in bind are readable
-  # by agent.
-  - chmod a+rwx -R images/
-  - find .
-  - eval 'rm images/build_*.log || true'
+# Temporary fix for replicant issue
+- mv $LXD_IMAGEDIR/image.yaml.source $LXD_IMAGEDIR/image.yaml
+- simplestreams-builder build-product -c tree-images.yaml -s . -t ./images $LXD_PRODUCT --skip-lxc
+- simplestreams-builder build-versions-manifest -c tree-images.yaml -s ./images -t images -p $LXD_PRODUCT -i $LXD_IMAGEDIR/image.yaml
+- ls -ltr images/$LXD_IMAGEDIR/
+# Force creation of files with rw-rw-rw to permit that volumes in bind are readable
+# by agent.
+- chmod a+rwx -R images/
+- find .
+- eval 'rm images/build_*.log || true'
 image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
