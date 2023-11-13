@@ -88,7 +88,7 @@ packages:
         - app-shells/bash
         - sys-apps/iproute2
         - sys-libs/readline
-        - sys-devel-9.2.0/gcc
+        - gcc
         - sys-apps/corenetwork
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -187,7 +187,7 @@ actions:
             - dev-libs-2
             - dev-libs-3
             - dev-lang-2
-            - dev-lang-3.7
+            - dev-lang-3.9
             - dev-python
             - dev-ruby
             - dev-util
@@ -225,10 +225,8 @@ actions:
           description: \"Python stuff\"
           name: \"python\"
           rules:
-            - ^/usr/lib64/python2.7
-            - ^/usr/lib/python2.7
-            - ^/usr/lib64/python3.7
-            - ^/usr/lib/python3.7
+            - ^/usr/lib64/python3.9
+            - ^/usr/lib/python3.9
             - ^/usr/share/man
             - ^/usr/share/gtk-doc
           categories:
@@ -250,7 +248,7 @@ actions:
             - dev-libs-2
             - dev-libs-3
             - dev-lang-2
-            - dev-lang-3.7
+            - dev-lang-3.9
             - dev-python
             - dev-ruby
             - dev-util
@@ -288,15 +286,15 @@ actions:
           description: \"Split gcc compiler stuff\"
           name: \"gcc-devel\"
           rules:
-          - ^/usr/x86_64-pc-linux-gnu/gcc-bin/9.2.0/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/plugin/include/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/finclude/omp*
-          - ^/usr/share/gcc-data/x86_64-pc-linux-gnu/9.2.0/
-          - ^/usr/libexec/gcc/x86_64-pc-linux-gnu/9.2.0
+          - ^/usr/x86_64-pc-linux-gnu/gcc-bin/11.3.0/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/plugin/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/finclude/omp*
+          - ^/usr/share/gcc-data/x86_64-pc-linux-gnu/11.3.0/
+          - ^/usr/libexec/gcc/x86_64-pc-linux-gnu/11.3.0
           - ^/usr/bin/
           packages:
-          - sys-devel-9.2.0/gcc
+          - sys-devel-11.3.0/gcc
       " > /etc/luet/subsets.def.d/00-gcc.yaml
 
       echo "
@@ -325,7 +323,7 @@ actions:
             - dev-libs-2
             - dev-libs-3
             - dev-lang-2
-            - dev-lang-3.7
+            - dev-lang-3.9
             - dev-python
             - dev-ruby
             - dev-util
@@ -370,7 +368,7 @@ actions:
         app-admin/whip
         utils/yq
         dev-lang-2/python-exec
-        dev-lang-3.7/python
+        dev-lang-3.9/python
         dev-python/pyelftools
         dev-python/setuptools
         dev-python/setuptools-compat
