@@ -84,7 +84,7 @@ packages:
         - virtual/base
         - sys-libs/binutils-libs
         - sys-devel/binutils-config
-        - sys-devel-2.36/binutils
+        - binutils
         - sys-devel/gcc-config
         - dev-vcs/git
         - dev-util/mottainai-cli
