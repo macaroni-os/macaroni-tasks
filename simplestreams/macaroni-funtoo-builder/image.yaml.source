@@ -107,6 +107,7 @@ packages:
         - app-emulation/simplestreams-builder
         - app-emulation/lxd
         - app-emulation/docker
+        - app-emulation/docker-buildx
         - dev-util/mottainai-cli
         - dev-util/replicant
         - app-admin/ego
