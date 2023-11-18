@@ -4,6 +4,7 @@
 
 simplestreams_dir=$(dirname ${BASH_SOURCE[0]})/../simplestreams
 
+TEMPLATE="${TEMPLATE:-${simplestreams_dir}/task.tmpl}"
 IMAGES=$(yq r ${simplestreams_dir}/tree-images.yaml 'products' -l)
 
 # LXD tasks
@@ -27,7 +28,7 @@ do
   fi
 
   echo "Creating task for image $rt..."
-  mottainai-cli task compile ${simplestreams_dir}/task.tmpl ${opts} \
+  mottainai-cli task compile ${TEMPLATE} ${opts} \
     -s product=${product} \
     -s image_dir=${image_dir} \
     -o ${simplestreams_dir}/${image_dir}/task.yaml
