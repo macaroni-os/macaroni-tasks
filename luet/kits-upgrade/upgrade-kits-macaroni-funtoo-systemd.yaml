@@ -112,7 +112,7 @@ environment:
 - "SUBPOP_BRANCH=legacy"
 - "KITS_2UPGRADE=core-server-kit dev-kit lang-kit security-kit"
 - "SEEDS2BUMP=seed/macaroni-funtoo-stage seed/macaroni-funtoo-base"
-- "PORTAGE_BIN_PATH=/usr/lib/portage/python3.7"
+- "PORTAGE_BIN_PATH=/usr/lib/portage/python3.9"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
