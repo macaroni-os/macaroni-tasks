@@ -9,7 +9,6 @@ script:
 - >-
   luet repo update &&
   luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
-  luet miner reinstall-package virtual/base &&
   luet cleanup &&
   macaronictl env-update
 
