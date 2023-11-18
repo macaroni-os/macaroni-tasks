@@ -108,6 +108,7 @@ packages:
         - app-emulation/lxd
         - app-emulation/docker
         - app-emulation/docker-buildx
+        - net-misc/cni-plugins
         - dev-util/mottainai-cli
         - dev-util/replicant
         - app-admin/ego
