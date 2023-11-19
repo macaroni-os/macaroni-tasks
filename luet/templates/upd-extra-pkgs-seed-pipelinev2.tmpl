@@ -30,7 +30,8 @@ tasks:
     script:
     - >-
       luet repo update --force &&
-      luet install utils/jq utils/yq net-misc/openssh system/luet-build-testing macaroni/ctl &&
+      luet miner replace-package system/luet-build --for system/luet-build-testing &&
+      luet install utils/jq utils/yq net-misc/openssh macaroni/ctl &&
       luet cleanup &&
       macaronictl env-update
 
