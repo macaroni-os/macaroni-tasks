@@ -35,7 +35,7 @@
 #
 #              e) run a task that use the generated kits json
 #                 files to update the repositories packages
-#                 with the tool luet-portage-converter and
+#                 with the tool anise-portage-converter and
 #                 commits the upgraded package.
 #
 #              f) run a task that execute the build of the packages:
@@ -306,7 +306,7 @@ tasks:
     environment:
     - "NAMESPACE={{ .namespace }}"
 
-# Step F -------------------- Run luet-portage-converter to bump new packages.
+# Step F -------------------- Run anise-portage-converter to bump new packages.
   luet-portage-convert:
     name: "Luet Portage Converter <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
     image: macaroni/funtoo-metatools
@@ -332,7 +332,7 @@ tasks:
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh
       dev-util/mottainai-cli sys-devel/make macaroni/ctl
-      extension/luet-portage-converter
+      anise-portage-converter
       &&
       luet miner reinstall-package virtual/base &&
       luet cleanup &&

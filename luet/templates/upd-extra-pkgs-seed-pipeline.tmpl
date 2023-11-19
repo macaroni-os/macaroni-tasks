@@ -5,7 +5,7 @@
 #
 # This pipeline follow these steps:
 # - bump and build the selected seed (if .bumpseed is enable)
-# - run luet-portage-converter for the kits2upgrade
+# - run anise-portage-converter for the kits2upgrade
 # - bump the packages of the selected seed.
 # - start-build-task
 
@@ -138,7 +138,7 @@ tasks:
       luet repo update &&
       luet install utils/jq utils/yq net-misc/openssh
       dev-util/mottainai-cli sys-devel/make macaroni/ctl
-      system/luet-build extension/luet-portage-converter &&
+      system/luet-build anise-portage-converter &&
       luet miner reinstall-package virtual/base &&
       luet cleanup &&
       macaronictl env-update
