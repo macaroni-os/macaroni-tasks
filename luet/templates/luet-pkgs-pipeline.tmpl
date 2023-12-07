@@ -8,6 +8,7 @@ pipeline_name: "Build Luet Packages <{{ .namespace }}> - {{ dateInZone "2006-01-
 {{- $push_images := .push_images }}
 {{- $branch := .branch }}
 {{- $repo := .repo }}
+{{- $repoqueue := .repo_queue }}
 {{- if .group }}
 group:
 {{- else }}
@@ -25,7 +26,7 @@ tasks:
 {{ range $idx , $data := .packages }}
   {{- $labels := index $data "labels" | default false }}
   {{- $queue := "" }}
-  {{- if $labels }}{{- $queue = index $labels "queue" | default "" }}{{- end }}
+  {{- if $labels }}{{- $queue = index $labels "queue" | default $repoqueue }}{{- end }}
   package-{{ $idx }}:
     name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}-{{ index $data "version" }}"
     storage: docker-certs

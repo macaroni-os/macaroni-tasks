@@ -14,6 +14,7 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mottainai_queue: ""
       kits2upgrade:
         - core-kit
         - core-server-kit
@@ -71,6 +72,7 @@ values:
       command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mottainai_queue: ""
       kits2upgrade:
         - browser-kit
       seeds2bump:
@@ -88,6 +90,7 @@ values:
       command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mottainai_queue: ""
       kits2upgrade:
         - browser-kit
         - security-kit
@@ -132,6 +135,7 @@ values:
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+      mottainai_queue: ""
 
     # Macaroni Security Stable
     - name: "macaroni-security"
@@ -140,6 +144,7 @@ values:
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-security.git
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
+      mottainai_queue: ""
 
     # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
@@ -147,6 +152,7 @@ values:
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
       ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
+      mottainai_queue: ""
 
     # Macaroni Commons
     - name: "macaroni-commons"
@@ -155,6 +161,7 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
       ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
+      mottainai_queue: ""
 
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
@@ -162,6 +169,7 @@ values:
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-distfiles.git
       ssh_repo: git@github.com:macaroni-os/macaroni-distfiles.git
+      mottainai_queue: ""
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
@@ -185,6 +193,7 @@ values:
         - security-kit
       lpc_extra_ns:
         - extra-reposcan
+      mottainai_queue: eagle
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
@@ -195,6 +204,7 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mottainai_queue: eagle
       seeds2bump:
         #- seed/funtoo-base
         #- seed/funtoo-stage3
@@ -241,6 +251,7 @@ values:
     - name: "mottainai"
       tree_version: v1
       repo4test_tag: true
+      mottainai_queue: ""
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
@@ -248,6 +259,7 @@ values:
     # Mottainai Testing
     - name: "mottainai-testing"
       tree_version: v1
+      mottainai_queue: ""
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
@@ -255,6 +267,7 @@ values:
     # Mottainai Develop
     - name: "mottainai-dev"
       tree_version: v1
+      mottainai_queue: ""
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
       ssh_repo: git@github.com:MottainaiCI/repo-stable.git
@@ -262,6 +275,7 @@ values:
     # Macaroni Repository index
     - name: "geaaru-repo-index"
       branch: master
+      mottainai_queue: ""
       tree_version: v1
       http_repo: https://github.com/geaaru/repo-index.git
       ssh_repo: git@github.com:geaaru/repo-index.git
@@ -269,6 +283,7 @@ values:
     # Macaroni Funtoo Terragon Development
     - name: "macaroni-terragon-dev"
       branch: terragon
+      mottainai_queue: ""
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
@@ -324,6 +339,7 @@ values:
     - name: "macaroni-terragon"
       branch: terragon
       tree_version: v2
+      mottainai_queue: ""
       # This option definie if the specific repo could be considered
       # valid for the dev to testing tag (true) or not (false).
       repo4test_tag: true
@@ -377,6 +393,7 @@ values:
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git
+      mottainai_queue: ""
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
       command_file: reposcan-funtoo-next-kits.yml
@@ -423,6 +440,7 @@ values:
     # Macaroni Games Testing
     - name: "macaroni-games-testing"
       branch: phoenix
+      mottainai_queue: ""
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git
@@ -431,6 +449,7 @@ values:
     - name: "macaroni-games"
       repo4test_tag: true
       branch: phoenix
+      mottainai_queue: ""
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git

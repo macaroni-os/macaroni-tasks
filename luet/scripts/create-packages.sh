@@ -64,6 +64,7 @@ main () {
 
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
+  repo_queue=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .mottainai_queue" -r)
 
   luet-repo-devkit pkgs ${luet_trees_opts} \
     --backend mottainai  \
@@ -98,6 +99,7 @@ main () {
         -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
         -s enable_buildkit="${ENABLE_BUILDKIT}" \
         -s push_images="${PUSH_IMAGES}" \
+        -s repo_queue="${repo_queue}" \
         -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
         echo "Error on compile pipeline."
         return 1
@@ -112,6 +114,7 @@ main () {
         -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
         -s enable_buildkit="${ENABLE_BUILDKIT}" \
         -s push_images="${PUSH_IMAGES}" \
+        -s repo_queue="${repo_queue}" \
         -o /tmp/macaroni/luet-pkgs-pipeline.yaml || {
         echo "Error on compile pipeline."
         return 1
