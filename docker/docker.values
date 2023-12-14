@@ -64,7 +64,7 @@ values:
     - name: macaronios/eagle-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: systemd
+      repobranch: eagle
       dockerfile: Dockerfile
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -73,7 +73,7 @@ values:
     - name: macaronios/eagle-testing-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: systemd
+      repobranch: eagle
       dockerfile: Dockerfile.test
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -82,7 +82,7 @@ values:
     - name: macaronios/eagle-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: systemd
+      repobranch: eagle
       dockerfile: Dockerfile.devel
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -91,7 +91,7 @@ values:
     - name: macaronios/eagle-dev-minimal
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: systemd
+      repobranch: eagle
       dockerfile: Dockerfile.dev
       image_manifest: latest-amd64
       planned: "@weekly"
@@ -100,7 +100,7 @@ values:
     - name: macaronios/eagle-dev-minimal-devel
       arch: amd64
       repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
-      repobranch: systemd
+      repobranch: eagle
       dockerfile: Dockerfile.dev-devel
       image_manifest: latest-amd64
       planned: "@weekly"
