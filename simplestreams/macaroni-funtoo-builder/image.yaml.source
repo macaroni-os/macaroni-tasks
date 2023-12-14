@@ -151,6 +151,10 @@ actions:
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
 
+      # Ensure that the /tmp directory is present
+      mkdir /tmp || true
+      chmod a+rwx /tmp
+
   - trigger: post-packages
     action: |-
       #!/bin/bash
