@@ -17,7 +17,7 @@ script:
 - docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
 - docker system prune --force --all --volumes
 environment:
-- BRANCH=systemd
+- BRANCH=eagle
 - DOCKER_FILE=Dockerfile
 - SHELL=/bin/bash
 - ARCH=amd64
