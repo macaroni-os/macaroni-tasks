@@ -204,7 +204,8 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
-      mottainai_queue: eagle
+      #mottainai_queue: eagle
+      mottainai_queue: lxd
       seeds2bump:
         #- seed/funtoo-base
         #- seed/funtoo-stage3
