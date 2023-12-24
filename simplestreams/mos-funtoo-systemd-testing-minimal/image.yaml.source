@@ -93,8 +93,6 @@ packages:
         - app-crypt/p11-kit
         # Needed by systemd (to fix in rdeps)
         - app-arch/zstd
-        # Needed for env-update
-        - sys-apps/portage
 
         - macaroni/ctl
         - macaroni/whip-catalog
