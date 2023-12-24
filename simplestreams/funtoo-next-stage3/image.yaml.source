@@ -258,7 +258,7 @@ files:
 
 packages:
   manager: egoportage
-  update: false
+  update: true
   cleanup: true
   sets:
   - packages:
