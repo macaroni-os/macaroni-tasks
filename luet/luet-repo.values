@@ -14,7 +14,7 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
-      mottainai_queue: ""
+      mottainai_queue: "phoenix"
       kits2upgrade:
         - core-kit
         - core-server-kit
