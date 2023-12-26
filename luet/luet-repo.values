@@ -152,7 +152,7 @@ values:
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-commons.git
       ssh_repo: git@github.com:macaroni-os/macaroni-commons.git
-      mottainai_queue: ""
+      mottainai_queue: "topix"
 
     # Macaroni Commons
     - name: "macaroni-commons"
