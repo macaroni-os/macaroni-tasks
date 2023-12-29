@@ -12,7 +12,7 @@ luet_values=${luet_dir}/luet-repo.values
 luet_trees_opts=""
 
 ENABLE_DOCKER_HOST=${ENABLE_DOCKER_HOST:-true}
-ENABLE_BUILDKIT=${ENABLE_BUILDKIT:-true}
+ENABLE_BUILDKIT=${ENABLE_BUILDKIT:-false}
 PUSH_IMAGES=${PUSH_IMAGES:-false}
 FIRE_TASK=${FIRE_TASK:-0}
 TREE_VERSION=${TREE_VERSION:-v1}
