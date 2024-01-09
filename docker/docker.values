@@ -105,6 +105,14 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
+    # Macaroni Eagle Legacy image
+    - name: macaronios/eagle-legacy-minimal
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
+      repobranch: eagle
+      dockerfile: Dockerfile.legacy
+      image_manifest: latest-amd64
+
     # Macaroni Funtoo Terragon image
     - name: macaronios/terragon-minimal
       arch: amd64
