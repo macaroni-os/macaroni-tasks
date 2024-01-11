@@ -107,6 +107,7 @@ packages:
         - whip
         - whip-catalog
         - whip-profiles/macaroni
+        - gentoo-functions
 
       action: install
 
