@@ -237,6 +237,7 @@ actions:
   # due issues on compilation with GCC 11/12 (I hope to fix this soon)
   - trigger: post-packages
     action: |-
+      #!/bin/bash
       anise i repository/macaroni-eagle-legacy
       anise repo update
       anise i arangodb
