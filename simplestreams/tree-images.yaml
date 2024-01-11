@@ -346,3 +346,19 @@ products:
       - "funtoo/next-stage3"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
+
+  # Macaroni Eagle Arango DB
+  - name: macaroni-eagle-arangodb:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "Eagle ArangoDB"
+    directory: macaroni-eagle-arangodb
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images.macaronios.org/lxd-macaroni-eagle-arangodb"
+    days: 2
+    aliases:
+      - "macaroni/eagle-arangodb"
+    # extra attributes not used by simplestreams-builder for Mottainai
+
