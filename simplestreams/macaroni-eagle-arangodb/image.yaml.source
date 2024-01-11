@@ -101,6 +101,13 @@ packages:
         - vim
         - vim-core
 
+        # Macaroni stuff
+        - macaroni/entities-catalog
+        - entities
+        - whip
+        - whip-catalog
+        - whip-profiles/macaroni
+
       action: install
 
 actions:
