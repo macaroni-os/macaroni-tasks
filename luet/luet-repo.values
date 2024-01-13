@@ -236,7 +236,6 @@ values:
         - mate-kit
         - media-kit
         - ml-lang-kit
-        - nokit
         - qt-kit
         - ruby-kit
         - science-kit
@@ -246,7 +245,6 @@ values:
         - geaaru-kit
       lpc_extra_ns:
         - extra-reposcan
-
 
     # Mottainai Stable Mirror
     - name: "mottainai"
