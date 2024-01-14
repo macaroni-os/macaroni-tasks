@@ -375,7 +375,6 @@ values:
         - mate-kit
         - media-kit
         - ml-lang-kit
-        - nokit
         - qt-kit
         - ruby-kit
         - science-kit
