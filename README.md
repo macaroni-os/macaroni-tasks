@@ -222,6 +222,12 @@ $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=maca
 
 $> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race18 \
              NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race19 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
+
+$> FIRE_TASK=1 REPO_DIR=~/dev/macaroni/macaroni-funtoo/ BUMP_SEED=true SEED=macaroni-funtoo-race20 \
+             NAMESPACE=macaroni-funtoo-dev make start-upd-seed-pipeline
 ```
 
 #### macaroni-terragon-dev repository
