@@ -48,6 +48,7 @@ values:
         - text-kit
         - geaaru-kit
         - games-kit
+        - i18n-kit
 
       # The list of the seed to bump before start
       # new packages version.
@@ -248,7 +249,7 @@ values:
 
     # Mottainai Stable Mirror
     - name: "mottainai"
-      tree_version: v1
+      tree_version: v2
       repo4test_tag: true
       mottainai_queue: ""
       branch: master
@@ -257,7 +258,7 @@ values:
 
     # Mottainai Testing
     - name: "mottainai-testing"
-      tree_version: v1
+      tree_version: v2
       mottainai_queue: ""
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
@@ -265,7 +266,7 @@ values:
 
     # Mottainai Develop
     - name: "mottainai-dev"
-      tree_version: v1
+      tree_version: v2
       mottainai_queue: ""
       branch: master
       http_repo: https://github.com/MottainaiCI/repo-stable.git
