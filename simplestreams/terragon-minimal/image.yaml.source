@@ -80,6 +80,7 @@ packages:
         - utils/jq
         - utils/yq
         - sys-apps/corenetwork
+        - sys-apps/openrc
         - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
         - app-admin/eselect
@@ -117,6 +118,11 @@ actions:
       EROOT=/
       whip hook openrc.openrc_setup
 
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure LXD/LXC tty
+      sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
 
   - trigger: post-packages
     action: |-
