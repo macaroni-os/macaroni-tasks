@@ -79,6 +79,7 @@ packages:
   sets:
     - packages:
         - sys-apps/corenetwork
+        - sys-apps/openrc
         - dev-libs-3/libpcre
         - app-admin/eselect
         - net-misc/dhcp
