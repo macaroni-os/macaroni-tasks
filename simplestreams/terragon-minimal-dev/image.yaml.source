@@ -91,7 +91,7 @@ packages:
         - macaroni/ctl
         - whip-profiles/macaroni
         - app-admin/whip
-        - openrc
+        - sys-apps/openrc
 
         # Needed for grep until FL-10719 is done
         - dev-libs/libpcre2
