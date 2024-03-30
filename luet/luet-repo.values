@@ -65,7 +65,7 @@ values:
 
     # Macaroni Funtoo Stable
     - name: "macaroni-funtoo"
-      tree_version: v1
+      tree_version: v2
       branch: master
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
