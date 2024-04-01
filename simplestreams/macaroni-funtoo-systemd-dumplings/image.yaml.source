@@ -72,7 +72,7 @@ files:
 
 
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -108,7 +108,7 @@ actions:
     action: |-
       #!/bin/bash
       # TODO: fix this in distrobuilder
-      luet repo update
+      anise repo update
 
       # NOTE: if these files is not present the generators skip the template
       # generation

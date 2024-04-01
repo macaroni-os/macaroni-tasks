@@ -19,6 +19,12 @@ script:
     utils/jq utils/yq &&
     luet cleanup --purge-repos
 
+  - >-
+    luet i -y repository/mottainai-dev --sync-repos &&
+    luet repo update --force &&
+    luet upgrade -y &&
+    luet cleanup
+
   - source /storage/setup-mcli.sh
   - export SSBUILDER_APIKEY=${MOTTAINAI_TOKEN}
   # Build index.json

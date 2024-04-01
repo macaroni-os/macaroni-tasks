@@ -93,6 +93,7 @@ packages:
         - app-crypt/p11-kit
         # Needed by systemd (to fix in rdeps)
         - app-arch/zstd
+        - gentoo-functions
 
         - macaroni/ctl
         - macaroni/whip-catalog
