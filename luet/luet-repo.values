@@ -276,7 +276,7 @@ values:
     - name: "geaaru-repo-index"
       branch: master
       mottainai_queue: ""
-      tree_version: v1
+      tree_version: v2
       http_repo: https://github.com/geaaru/repo-index.git
       ssh_repo: git@github.com:geaaru/repo-index.git
 
