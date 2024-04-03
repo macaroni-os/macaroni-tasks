@@ -290,11 +290,9 @@ tasks:
     - /bin/sh
     - "-c"
     script:
-    - apk add bash curl git
-    - curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh
     - >-
-      luet i -y utils/jq utils/yq &&
-      luet cleanup --purge-repos
+      anise i -y --sync-repos git utils/jq utils/yq &&
+      anise cleanup --purge-repos
     - >-
       git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
@@ -302,7 +300,7 @@ tasks:
       chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
       /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAMESPACE} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
     - echo "Sleeping to wait purge propagation... " && sleep 900
-    image: "alpine/edge"
+    image: "macaroni/phoenix-builder"
     environment:
     - "NAMESPACE={{ .namespace }}"
 

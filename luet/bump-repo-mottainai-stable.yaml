@@ -7,13 +7,9 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < mottainai-stable > - Bump revision"
+name: "Anise - < mottainai-stable > - Bump revision"
 script:
-- apk add make bash curl git
-- >-
-  wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
-  sh /tmp/get_luet_root.sh
-- luet install dev-util/mottainai-cli
+- anise i --sync-repos dev-util/mottainai-cli git
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
@@ -38,7 +34,7 @@ environment:
 - COMPRESSION=zstd
 - NAMESPACE=mottainai-stable
 - "BUILD_ARGS=--config conf/luet.yaml"
-image: alpine/edge
+image: macaroni/phoenix-builder
 artefact_path: artefacts
 type: lxd
 directory: /
