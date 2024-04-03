@@ -299,5 +299,6 @@ values:
           - meta/isos.json
           - docs/
           - blog/
+          - ""
 
 # vim: filetype=yaml

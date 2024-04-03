@@ -77,7 +77,7 @@ main () {
     echo "CDN files of the repo ${NAME} ($NAMESPACE) purged."
   fi
 
-  rm ${tmp_json} ${tmp_yaml}
+  #rm ${tmp_json} ${tmp_yaml}
 
   return 0
 }
