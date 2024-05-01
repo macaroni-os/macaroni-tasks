@@ -72,7 +72,7 @@ files:
 
 
 packages:
-  manager: anise
+  manager: luet
   update: true
   cleanup: true
 
