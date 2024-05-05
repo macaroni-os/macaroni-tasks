@@ -3,7 +3,7 @@
 # Description: Macaroni ISO macaroni-funtoo-live-testing task
 
 name: "ISO: Build macaroni-funtoo-live-testing"
-image: ubuntu/22.04
+image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 queue: "iso"
 type: lxd
@@ -26,17 +26,13 @@ environment:
 - "HTTP_TIMEOUT=0"
 tag_namespace: "iso-macaroni-funtoo-live-testing"
 script:
-- sleep 5
-- apt-get update
-- apt-get upgrade -y
 - >-
-  apt-get install -y xorriso squashfs-tools dosfstools file curl git make wget
+  anise repo update &&
+  anise upgrade -y &&
+  anise i -y file git make wget curl squashfs-tools dosfstools libisoburn ca-certificates
+  utils/yq utils/jq system/luet-devkit util-linux &&
+  anise cleanup
 
-- eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
-- >-
-  luet repo update &&
-  luet install -y utils/yq utils/jq system/luet-devkit &&
-  luet cleanup
 # Using always last geniso commit
 - >-
   git clone https://github.com/geaaru/extensions.git /extensions &&
