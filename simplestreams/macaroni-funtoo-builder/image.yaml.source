@@ -132,7 +132,7 @@ packages:
         - gnupg
         - squashfs-tools
         - bridge-utils
-
+        - ca-certificates
 
       action: install
 
