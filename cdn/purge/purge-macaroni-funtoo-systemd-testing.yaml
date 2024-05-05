@@ -10,9 +10,7 @@ entrypoint:
 - /bin/sh
 - "-c"
 script:
-- >-
-  anise i -y utils/jq utils/yq git &&
-  anise cleanup --purge-repos
+- anise i --sync-repos --purge-repos -y utils/jq utils/yq git
 - >-
   git clone https://github.com/macaroni-os/macaroni-tasks.git
   /macaroni-tasks &&
