@@ -5,25 +5,21 @@
 script:
   - source /etc/profile
   # temporary: Sleep for LXD
-  - sleep 4
-  - apt-get update
-  - apt-get upgrade -y
+  - sleep 3
   - >-
-    apt-get install -y wget make curl squashfs-tools rsync gpg
-  - eval 'curl https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh | sh'
-  - >-
-    luet repo update &&
-    luet install -y app-emulation/distrobuilder
+    anise repo update &&
+    anise install -y app-emulation/distrobuilder
     app-emulation/simplestreams-builder
     dev-util/mottainai-cli
-    utils/jq utils/yq &&
-    luet cleanup --purge-repos
+    utils/jq utils/yq
+    &&
+    anise cleanup --purge-repos
 
-  - >-
-    luet i -y repository/mottainai-dev --sync-repos &&
-    luet repo update --force &&
-    luet upgrade -y &&
-    luet cleanup
+  #- >-
+  #  anise i -y repository/mottainai-dev --sync-repos &&
+  #  anise repo update --force &&
+  #  anise upgrade -y &&
+  #  anise cleanup
 
   - source /storage/setup-mcli.sh
   - export SSBUILDER_APIKEY=${MOTTAINAI_TOKEN}
@@ -46,7 +42,7 @@ script:
     /bin/bash -c
     'source /storage/cloudflare.env && export NAME=${NAME} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
 
-image: ubuntu/22.04
+image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
 planned: "@daily"
