@@ -190,8 +190,8 @@ values:
     # Macaroni Funtoo Terragon Dev
     - name: "macaroni-terragon-dev"
       namespace: "macaroni-terragon-dev"
-      #domain: "dev.macaronios.org"
-      domain: "images.macaronios.org"
+      domain: "dev.macaronios.org"
+      #domain: "images.macaronios.org"
       cdnstorage: false
       cdnprefix: "/"
       purgefiles:
