@@ -301,4 +301,17 @@ values:
           - blog/
           - ""
 
+    # Macaroni distfiles
+    - name: "distfiles"
+      #      namespace: "macaroni-iso"
+      namespace: ""
+      domain: "distfiles.macaronios.org"
+      cdnstorage: false
+      cdnprefix: ""
+      purgefiles:
+        paths:
+          - layout.conf
+          - distfiles/layout.conf
+          - ""
+
 # vim: filetype=yaml
