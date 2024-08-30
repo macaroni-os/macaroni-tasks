@@ -78,6 +78,15 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
+    # Macaroni Eagle Testing Devel image
+    - name: macaronios/eagle-testing-minimal-devel
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/macaroni-funtoo.git
+      repobranch: eagle
+      dockerfile: Dockerfile.test-devel
+      image_manifest: latest-amd64
+      planned: "@weekly"
+
     # Macaroni Eagle Devel Stable image
     - name: macaronios/eagle-minimal-devel
       arch: amd64
