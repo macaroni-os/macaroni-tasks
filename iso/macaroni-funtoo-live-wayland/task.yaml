@@ -12,7 +12,7 @@ artefact_path: /iso
 environment:
 - "repo=https://github.com/macaroni-os/macaroni-funtoo.git"
 - "repo_branch=phoenix"
-- "spec_file=funtoo-live-wayland.yaml"
+- "spec_file=mark-clive-wayland.yaml"
 - "WORKSPACE=iso/"
 - "LUET_CONFIG_PROTECT_SKIP=true"
 - "LUET_GENISO_OUTPUT=/dev/stdout"
