@@ -45,105 +45,105 @@ values:
 
     # Macaroni Funtoo Gnome Live
     - name: "macaroni-funtoo-live"
-      specfile: "mark-clive.yaml"
+      specfile: "mark-live.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo XFCE
     - name: "macaroni-funtoo-xfce"
-      specfile: "mark-cxfce.yaml"
+      specfile: "mark-xfce.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo XFCE Devel
     - name: "macaroni-funtoo-xfce-devel"
-      specfile: "mark-cxfce-devel.yaml"
+      specfile: "mark-xfce-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo LXQT
     - name: "macaroni-funtoo-lxqt"
-      specfile: "mark-clxqt.yaml"
+      specfile: "mark-lxqt.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo I3
     - name: "macaroni-funtoo-i3"
-      specfile: "mark-ci3.yaml"
+      specfile: "mark-i3.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo KDE
     - name: "macaroni-funtoo-kde"
-      specfile: "mark-ckde.yaml"
+      specfile: "mark-kde.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo KDE Devel
     - name: "macaroni-funtoo-kde-devel"
-      specfile: "mark-ckde-devel.yaml"
+      specfile: "mark-kde-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo Gnome Live Wayland
     - name: "macaroni-funtoo-live-wayland"
-      specfile: "mark-clive-wayland.yaml"
+      specfile: "mark-live-wayland.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
     # Macaroni Funtoo XFCE Testing
     - name: "macaroni-funtoo-xfce-testing"
-      specfile: "mark-cxfce-testing.yaml"
+      specfile: "mark-xfce-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo Gnome Live Testing
     - name: "macaroni-funtoo-live-testing"
-      specfile: "mark-clive-testing.yaml"
+      specfile: "mark-live-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo Gnome Live Wayland Testing
     - name: "macaroni-funtoo-live-wayland-testing"
-      specfile: "mark-clive-wayland-testing.yaml"
+      specfile: "mark-live-wayland-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo LXQT Testing
     - name: "macaroni-funtoo-lxqt-testing"
-      specfile: "mark-clxqt-testing.yaml"
+      specfile: "mark-lxqt-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo I3 Testing
     - name: "macaroni-funtoo-i3-testing"
-      specfile: "mark-ci3-testing.yaml"
+      specfile: "mark-i3-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo KDE Testing
     - name: "macaroni-funtoo-kde-testing"
-      specfile: "mark-ckde-testing.yaml"
+      specfile: "mark-kde-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
     # Macaroni Funtoo Gnome Live Extreme
     #- name: "macaroni-funtoo-live-extreme"
-    #  specfile: "mark-cextreme.yaml"
+    #  specfile: "mark-extreme.yaml"
     #  repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
     #  repo_branch: "phoenix"
 
