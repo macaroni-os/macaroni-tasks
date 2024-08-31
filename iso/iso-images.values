@@ -36,6 +36,13 @@ values:
       repo_branch: "phoenix"
       release: true
 
+    # Macaroni Funtoo Server Testing ISO
+    - name: "macaroni-server-testing"
+      specfile: "mark-server-testing.yaml"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
+      repo_branch: "phoenix"
+      release: false
+
     # Macaroni Funtoo Gnome Live
     - name: "macaroni-funtoo-live"
       specfile: "mark-clive.yaml"
