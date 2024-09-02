@@ -302,7 +302,7 @@ tasks:
     - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "macaroni/phoenix-builder"
     environment:
-    - "NAMESPACE={{ .namespace }}"
+    - "NAME={{ .namespace }}"
 
 # Step F -------------------- Run anise-portage-converter to bump new packages.
   luet-portage-convert:

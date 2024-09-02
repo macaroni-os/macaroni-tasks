@@ -146,6 +146,6 @@ tasks:
       cdn/api/purge-repo-files.sh
     image: macaroni/phoenix-builder
     environment:
-    - "NAMESPACE={{ .namespace }}"
+    - "NAME={{ .namespace }}"
 
 # vim: filetype=yaml

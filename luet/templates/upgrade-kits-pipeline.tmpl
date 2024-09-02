@@ -292,7 +292,7 @@ tasks:
     - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "macaroni/phoenix-builder"
     environment:
-    - "NAMESPACE={{ .namespace }}"
+    - "NAME={{ .namespace }}"
 
 # Step E -------------------- Build {{ .seeds2bump }} packages.
   build-seeds-base:
