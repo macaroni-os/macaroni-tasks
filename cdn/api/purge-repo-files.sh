@@ -54,7 +54,7 @@ return 0
     cdnprefix=$(echo ${services} | jq -r ".[${i}].cdnprefix")
     domain=$(echo ${services} | jq -r ".[${i}].domain")
 
-    echo "Purging service ${type} for domain ${domain}..."
+    echo "Purging service ${cdntype} for domain ${domain}..."
     if [ "$cdntype" = "cdn77" ] ; then
       cdnid=$(echo ${services} | jq -r ".[${i}].cdnid")
       script=$(dirname ${BASH_SOURCE[0]})/purge-cdn77-repo-files.sh
