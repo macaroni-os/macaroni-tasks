@@ -19,7 +19,7 @@ script:
   source /storage/cdn77.env &&
   export NAME=${NAME} &&
   export CDN77_TOKEN CLOUDFLARE_TOKEN CLOUDFLARE_ZONEID &&
-  cdn/api/purge-repo-files.sh'
+  cdn/api/purge-repo-files.sh
 image: "macaroni/phoenix-builder"
 environment:
 - "NAME={{ .name }}"
