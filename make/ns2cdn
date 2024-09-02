@@ -1,6 +1,6 @@
 #!/bin/bash
 # Description: Script to generate the tasks to build Macaroni ISOs.
-# Author: Daniele Rondina, geaaru@funtoo.org
+# Author: Daniele Rondina, geaaru@macaronios.org
 
 cdn_dir=$(dirname ${BASH_SOURCE[0]}})/../cdn
 
@@ -17,19 +17,6 @@ for ((i=0;i<$NS;i++))
 do
   name=$(yq r ${cdn_dir}/cdn-images.values "values.namespaces[$i].name")
   namespace=$(yq r ${cdn_dir}/cdn-images.values "values.namespaces[$i].namespace")
-  cdnstorage=$(yq r ${cdn_dir}/cdn-images.values "values.namespaces[$i].cdnstorage")
-
-  opts=""
-  if [ "${cdnstorage}" = "true" ] ; then
-    echo "Creating task for sync namespace $namespace ($name)..."
-    mottainai-cli task compile ${TEMPLATE} ${opts} \
-      -s namespace="${namespace}" \
-      -o ${cdn_dir}/rsync-${name}.yaml
-
-    if [ -n "${FIRE_TASK}" ] ; then
-      mottainai-cli task create --yaml ${cdn_dir}/rsync-${name}.yaml
-    fi
-  fi
 
   echo "Creating task for purge namespace $name..."
   mottainai-cli task compile ${cdn_dir}/purge-namespace.tmpl ${opts} \
