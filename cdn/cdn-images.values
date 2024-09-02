@@ -14,72 +14,95 @@ values:
     # Macaroni Funtoo Dev
     - name: "macaroni-funtoo-dev"
       namespace: "macaroni-funtoo-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
-
-    # Macaroni Funtoo Next Dev
-    - name: "macaroni-funtoo-next-dev"
-      namespace: "macaroni-funtoo-next-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
-      purgefiles:
-        <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Funtoo Testing
     - name: "macaroni-funtoo-testing"
       namespace: "macaroni-funtoo"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
+
 
     # Macaroni Commons Dev
     - name: "macaroni-commons-dev"
       namespace: "macaroni-commons-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Commons Testing
     - name: "macaroni-commons-testing"
       namespace: "macaroni-commons-testing"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo
     - name: "macaroni-funtoo"
       namespace: "macaroni-funtoo"
-      domain: "dl.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Commons
     - name: "macaroni-commons"
       namespace: "macaroni-commons"
-      domain: "dl.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Distfiles
     # - name: "macaroni-distfiles"
@@ -87,9 +110,6 @@ values:
     # Macaroni ISO site
     - name: "macaroni-iso"
       namespace: "macaroni-iso"
-      domain: "cdn.macaronios.org"
-      cdnstorage: true
-      cdnprefix: "/mottainai/"
       purgefiles:
         paths:
           - isos.json
@@ -98,200 +118,294 @@ values:
           - ""
           - css/style.css
           - css/style.min.css
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cloudflare
+          domain: "cdn.macaronios.org"
+          cdnprefix: "/mottainai/"
 
     # Macaroni Funtoo System Stable
     - name: "macaroni-funtoo-systemd"
       namespace: "macaroni-funtoo-systemd"
-      #cdnprefix: "/mottainai/"
-      #domain: "cdn.macaronios.org"
-      domain: "dl.macaronios.org"
-        #domain: "images.macaronios.org"
-      cdnprefix: "/repos/"
-      cdnstorage: false
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo System Stable Dev
     - name: "macaroni-funtoo-systemd-dev"
       namespace: "macaroni-funtoo-systemd-dev"
-      domain: "dev.macaronios.org"
-        #domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Funtoo Systemd Testing
     - name: "macaroni-funtoo-systemd-testing"
       namespace: "macaroni-funtoo-systemd"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Mottainai Stable Repository
     - name: "mottainai"
-      #namespace: "mottainai-stable"
       namespace: "mottainai"
-      cdnstorage: true
-      # domain: "cdn.macaronios.org"
-      domain: "dl.macaronios.org"
-        #domain: "images.macaronios.org"
-      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Mottainai Develop Repository
     - name: "mottainai-dev"
       namespace: "mottainai-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Mottainai Testing Repository
     - name: "mottainai-testing"
       namespace: "mottainai"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        #- type: cdn77
+        #  domain: "cdn77.macaronios.org"
+        #  cdnid: "1855829670"
+        #  cdnprefix: "/"
+        # - type: cdn77
+        #  domain: "cdn77-os.macaronios.org"
+        #  cdnid: "1060674757"
+        #  cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
       namespace: "macaroni-distfiles"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Repositories Index
     - name: "geaaru-repo-index"
       namespace: "geaaru-repo-index"
-      domain: "cdn.macaronios.org"
-      cdnstorage: true
-      cdnprefix: "/mottainai/"
       purgefiles:
         <<: *purgerepo
-      cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Terragon Dev
     - name: "macaroni-terragon-dev"
       namespace: "macaroni-terragon-dev"
-      domain: "dev.macaronios.org"
-      #domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
-
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Funtoo Terragon Testing
     - name: "macaroni-terragon-testing"
-      domain: "images.macaronios.org"
       namespace: "macaroni-terragon"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
-      cdnid: 1258250330
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Terragon Stable
     - name: "macaroni-terragon"
       namespace: "macaroni-terragon"
-      domain: "cdn.macaronios.org"
-      cdnprefix: "/mottainai/"
-      cdnstorage: true
       purgefiles:
         <<: *purgerepo
-      #cdnid: "1556118782"
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Security Dev
     - name: "macaroni-security-dev"
       namespace: "macaroni-security-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Funtoo Security Testing
     - name: "macaroni-security-testing"
       namespace: "macaroni-security-testing"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Security Stable
     - name: "macaroni-security"
       namespace: "macaroni-security"
-      domain: "dl.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Games Dev
     - name: "macaroni-games-dev"
       namespace: "macaroni-games-dev"
-      domain: "dev.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
 
     # Macaroni Funtoo Games Testing
     - name: "macaroni-games-testing"
       namespace: "macaroni-games-testing"
-      domain: "images.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni Funtoo Games Stable
     - name: "macaroni-games"
       namespace: "macaroni-games"
-      domain: "dl.macaronios.org"
-      cdnstorage: false
-      cdnprefix: "/repos/"
       purgefiles:
         <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
 
     # Macaroni LXD simplestreams data
     - name: "lxd-images"
       namespace: "lxd-images"
-      domain: "images.macaronios.org"
-      cdnstorage: true
-      cdnprefix: "/"
       purgefiles:
         paths:
           - streams/v1/index.json
           - streams/v1/images.json
-          - lxd-macaroni-eagle-dev/eagle-minimal-dev/ssb.json
+      cdn_services:
+        - type: cdn77
+          domain: images.macaronios.org
+          cdnid: "1824890356"
+          cdnprefix: "/"
 
     # Macaroni website
     - name: "www"
-      #      namespace: "macaroni-iso"
       namespace: ""
       domain: "www.macaronios.org"
-      cdnstorage: false
-      cdnprefix: ""
       purgefiles:
         paths:
           - index.html
@@ -300,18 +414,25 @@ values:
           - docs/
           - blog/
           - ""
+      cdn_services:
+        - type: cloudflare
+          domain: "www.macaronios.org"
+          cdnprefix: ""
+        - type: cloudflare
+          domain: "macaronios.org"
+          cdnprefix: ""
 
     # Macaroni distfiles
     - name: "distfiles"
-      #      namespace: "macaroni-iso"
       namespace: ""
-      domain: "distfiles.macaronios.org"
-      cdnstorage: false
-      cdnprefix: ""
       purgefiles:
         paths:
           - layout.conf
           - distfiles/layout.conf
           - ""
+      cdn_services:
+        - type: cloudflare
+          domain: "distfiles.macaronios.org"
+          cdnprefix: ""
 
 # vim: filetype=yaml

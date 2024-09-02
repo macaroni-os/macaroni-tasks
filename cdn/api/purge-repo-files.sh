@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: Daniele Rondina, geaaru@funtoo.org
+# Author: Daniele Rondina, geaaru@macaronios.org
 # Description: Execute purge of the repositories metadata to
 #              force updates.
 
@@ -8,18 +8,16 @@ tmp_yaml=/tmp/cdn-purge.yaml
 tmp_json=/tmp/cdn-purge.json
 
 CDN_IMAGESFILE="${CDN_IMAGESFILE:-${cdn_dir}/cdn-images.values}"
-CDN_APIURL="https://api.cdn77.com/v3"
 NAME="${NAME:-}"
+
+if [ -n "${DEBUG}" ] ; then
+  set -x
+fi
 
 main () {
 
   if [ -z "${NAME}" ] ; then
     echo "Missing NAME!"
-    return 1
-  fi
-
-  if [ -z "${CDN_TOKEN}" ] ; then
-    echo "Missing CDN_TOKEN!"
     return 1
   fi
 
@@ -30,52 +28,53 @@ main () {
     return 0
   fi
 
-  # Create the json payload
-  rm -f ${tmp_yaml} || true
-  touch ${tmp_yaml}
-  files=$(echo ${namespace_data} | jq '.purgefiles.paths | length')
-
-  if [ "${files}" == "0" ] ; then
+  nfiles=$(echo ${namespace_data} | jq '.purgefiles.paths | length')
+  if [ "${nfiles}" == "0" ] ; then
     echo "No files to purge. Exiting."
+return 0
+  fi
+  files=$(echo ${namespace_data} | jq '.purgefiles.paths[]' -r)
+
+  nservices=$(echo ${namespace_data} | jq '.cdn_services | length')
+  services=$(echo ${namespace_data} | jq '.cdn_services')
+  namespace=$(echo ${namespace_data} | jq ".namespace" -r)
+
+  if [ "${nservices}" == 0 ] ; then
+    echo "No CDN Services available. Exiting."
     return 0
   fi
 
-  NAMESPACE="$(echo ${namespace_data} | jq '.namespace' -r)"
-  CDN_PREFIX="$(echo ${namespace_data} | jq '.cdnprefix' -r)"
+  local cdntype=""
+  local domain=""
+  local cdnid=""
+  local cdnprefix=""
+  local script=""
+  for ((i=0; i<${nservices};i++)) ; do
+    cdntype=$(echo ${services} | jq -r ".[${i}].type")
+    cdnprefix=$(echo ${services} | jq -r ".[${i}].cdnprefix")
+    domain=$(echo ${services} | jq -r ".[${i}].domain")
 
-  for ((i=0; i<${files}; i++)) ; do
-    file=$(echo "${namespace_data}" | jq ".purgefiles.paths[${i}]" -r)
-    yq w -i ${tmp_yaml} "paths[${i}]" "${CDN_PREFIX}${NAMESPACE}/${file}"
+    echo "Purging service ${type} for domain ${domain}..."
+    if [ "$cdntype" = "cdn77" ] ; then
+      cdnid=$(echo ${services} | jq -r ".[${i}].cdnid")
+      script=$(dirname ${BASH_SOURCE[0]})/purge-cdn77-repo-files.sh
+
+    else
+      # POST: Cloudflare CDN
+      script=$(dirname ${BASH_SOURCE[0]})/purge-cloudflare-repo-files.sh
+      cdnid=""
+    fi
+
+    NAME=${NAME} CDN_FILES="${files}" \
+      NAMESPACE="${namespace}" \
+      CDN_DOMAIN="${domain}" \
+      CDN_PREFIX="${cdnprefix}" \
+      CDN_ID="${cdnid}" \
+      $script || {
+        echo "Error on purge domain ${domain} of type ${cdntype}"
+        exit 1
+      }
   done
-
-  yq r ${tmp_yaml} -j > ${tmp_json}
-
-  #cat ${tmp_json}
-
-  # Retrieve cdn resource id
-  cdnid=$(yq r ${CDN_IMAGESFILE} -j | jq ".values.namespaces[] | select(.name == \"${NAME}\") | .cdnid " -r)
-
-  status_code=$(
-    curl \
-      -X POST \
-      -H "Content-Type: application/json" \
-      --header "Authorization: Bearer ${CDN_TOKEN}" \
-      -w "%{http_code}" \
-      -s \
-      -k \
-      -d @${tmp_json} \
-      -o /dev/null \
-      ${CDN_APIURL}/cdn/${cdnid}/job/purge
-  )
-
-  if [[ "$status_code" -ne 200 ]] && [[ $status_code -ne 201 ]] && [[ $status_code -ne 202 ]]; then
-    echo "Error on purge files from CDN ($status_code)."
-    return 1
-  else
-    echo "CDN files of the repo ${NAME} ($NAMESPACE) purged."
-  fi
-
-  rm ${tmp_json} ${tmp_yaml}
 
   return 0
 }
