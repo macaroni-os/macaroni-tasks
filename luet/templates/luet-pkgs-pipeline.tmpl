@@ -123,7 +123,7 @@ tasks:
   purge-cdn-files:
     name: "Purge files from CDN resource ({{ .namespace }})"
     type: "lxd"
-    storage: "cloudflare"
+    storage: "cloudflare,cdn77"
     storage_path: /storage
     entrypoint:
     - /bin/sh
@@ -133,8 +133,11 @@ tasks:
       git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
-      chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
-      /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAMESPACE} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
+      source /storage/cloudflare.env &&
+      source /storage/cdn77.env &&
+      export NAME=${NAME} &&
+      export CDN77_TOKEN CLOUDFLARE_TOKEN CLOUDFLARE_ZONEID &&
+      cdn/api/purge-repo-files.sh
     image: macaroni/phoenix-builder
     environment:
     - "NAMESPACE={{ .namespace }}"

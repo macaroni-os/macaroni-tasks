@@ -284,21 +284,21 @@ tasks:
   purge-cdn-files:
     name: "Purge files from CDN resource ({{ .namespace }})"
     type: "lxd"
-    storage: "cloudflare"
+    storage: "cloudflare,cdn77"
     storage_path: /storage
     entrypoint:
     - /bin/sh
     - "-c"
     script:
     - >-
-      anise i -y --sync-repos git utils/jq utils/yq &&
-      anise cleanup --purge-repos
-    - >-
       git clone https://github.com/macaroni-os/macaroni-tasks.git
       /macaroni-tasks &&
       cd /macaroni-tasks &&
-      chmod a+x /macaroni-tasks/cdn/api/purge-cloudflare-repo-files.sh &&
-      /bin/bash -c 'source /storage/cloudflare.env && export NAME=${NAMESPACE} && export CDN_TOKEN CLOUDFLARE_ZONEID && cdn/api/purge-cloudflare-repo-files.sh'
+      source /storage/cloudflare.env &&
+      source /storage/cdn77.env &&
+      export NAME=${NAME} &&
+      export CDN77_TOKEN CLOUDFLARE_TOKEN CLOUDFLARE_ZONEID &&
+      cdn/api/purge-repo-files.sh
     - echo "Sleeping to wait purge propagation... " && sleep 900
     image: "macaroni/phoenix-builder"
     environment:
