@@ -207,7 +207,7 @@ values:
           domain: "cdn77.macaronios.org"
           cdnid: "1855829670"
           cdnprefix: "/"
-         - type: cdn77
+        - type: cdn77
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
