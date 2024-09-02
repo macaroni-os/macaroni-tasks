@@ -23,7 +23,7 @@ values:
 
     # Macaroni Funtoo Testing
     - name: "macaroni-funtoo-testing"
-      namespace: "macaroni-funtoo"
+      namespace: "macaroni-funtoo-testing"
       purgefiles:
         <<: *purgerepo
       cdn_services:
