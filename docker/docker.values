@@ -4,14 +4,16 @@ values:
     - name: macaronios/luet
       arch: amd64
       repohttp: https://github.com/geaaru/luet.git
-      repobranch: geaaru
+      repobranch: macaroni
+      #repobranch: geaaru
       dockerfile: Dockerfile
       image_manifest: latest-amd64
 
     - name: macaronios/luet-build
       arch: amd64
       repohttp: https://github.com/geaaru/luet.git
-      repobranch: geaaru
+      #      repobranch: geaaru
+      repobranch: macaroni
       dockerfile: Dockerfile.build
       image_manifest: latest-amd64
 
