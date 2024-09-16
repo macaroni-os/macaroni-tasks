@@ -19,7 +19,7 @@ script:
 - >-
   cd .. &&
   source /storage/cdn77-mc.setup &&
-  mc mirror --overwrite -a --md5 output macaroni/${CDN77_MARK_BUCKET}/mark-stages-terragon
+  mc cp --overwrite -a --md5 output macaroni/${CDN77_MARK_BUCKET}/mark-stages-terragon
 storage: "cdn77"
 storage_path: /storage
 environment:
