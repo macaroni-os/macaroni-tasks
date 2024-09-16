@@ -1,0 +1,44 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+
+name: "M.A.R.K. - Build Stage - < {{ .name }} > ( {{ .arch }} )"
+script:
+- >-
+  anise repo update &&
+  anise i -y fchroot yq ego mark-devkit minio-client
+
+- git clone ${REPO} -b ${REPO_BRANCH} repo
+- cd repo
+
+- >-
+  mark-devkit metro run
+  --specfile jobs/{{ .arch }}/{{ .jobfile }} --config {{ .config }}
+  --job {{ .name }} --cleanup=false
+
+- mv output ..
+- ls -l
+{{- if .cdnstorage }}
+- >-
+  cd .. &&
+  source /storage/cdn77-mc.setup &&
+  mc mirror --overwrite -a --md5 output macaroni/${CDN77_MARK_BUCKET}/{{ .namespace }}
+storage: "cdn77"
+storage_path: /storage
+{{- else }}
+directory: /
+publish_mode: append
+tag_namespace: "{{ .namespace }}"
+{{- end }}
+environment:
+- "REPO_BRANCH={{ .stages_repobranch }}"
+- "REPO={{ .stages_repo }}"
+image: macaroni/phoenix-builder
+artefact_path: output
+type: lxd
+{{- if .queue }}
+queue: "{{ .queue }}"
+{{- end }}
+{{- if .planned }}
+planned: "{{ .planned }}"
+{{- end }}
+
+# vim: filetype=yaml

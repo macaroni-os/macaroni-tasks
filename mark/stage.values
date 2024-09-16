@@ -1,0 +1,33 @@
+values:
+  stages_repo: https://github.com/macaroni-os/mark-stages
+  stages_branch: phoenix
+  stages_jobs:
+    - name: stage3-terragon-next-minimal
+      jobfile: stage3_terragon.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-terragon"
+      cdnstorage: true
+
+    - name: stage3-terragon-mark-testing
+      jobfile: stage3_terragon.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-terragon"
+      cdnstorage: true
+
+    - name: stage3-phoenix-next-minimal
+      jobfile: stage3_phoenix.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-phoenix"
+      cdnstorage: false
+
+
+# vim: filetype=yaml
