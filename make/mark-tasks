@@ -1,0 +1,61 @@
+#!/bin/bash
+# Description: Script to update/generate mark tasks and pipeline.
+# Author: Daniele Rondina, geaaru@macaronios.org
+
+if [ -n "$DEBUG" ] ; then set -x ; fi
+
+specs_dir=$(dirname ${BASH_SOURCE[0]}})/../mark
+specs_values=${specs_dir}/stage.values
+
+STAGES_TASKS=$(yq r ${specs_values} 'values.stages_jobs' -l)
+
+if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+  echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+  exit 1
+fi
+
+stages_repo=$(yq r ${specs_values} "values.stages_repo")
+stages_repobranch=$(yq r ${specs_values} "values.stages_branch")
+
+for ((i=0;i<${STAGES_TASKS};i++)) ; do
+
+  name=$(yq r ${specs_values} "values.stages_jobs[$i].name")
+  jobfile=$(yq r ${specs_values} "values.stages_jobs[$i].jobfile")
+  conf=$(yq r ${specs_values} "values.stages_jobs[$i].config")
+  planned=$(yq r ${specs_values} "values.stages_jobs[$i].planned")
+  queue=$(yq r ${specs_values} "values.stages_jobs[$i].queue")
+  namespace=$(yq r ${specs_values} "values.stages_jobs[$i].namespace")
+  cdnstorage=$(yq r ${specs_values} "values.stages_jobs[$i].cdnstorage")
+  opts=""
+  if [ -n "${planned}" ] ; then
+    opts="-s planned=${planned}"
+  fi
+
+  if [ -n "${queue}" ] ; then
+    opts="${opts} -s queue=${queue}"
+  fi
+
+  arches=$(yq r ${specs_values} "values.stages_jobs[$i].arches" -l)
+
+  for ((y=0;y<${arches};y++)) ; do
+    arch=$(yq r ${specs_values} "values.stages_jobs[$i].arches[$y]")
+
+    mkdir -p ${specs_dir}/stages/${arch}/ 2>/dev/null >/dev/null || true
+
+    echo "Creating task for job ${name} and arch ${arch}..."
+    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-run.tmpl \
+      -s stages_repo="${stages_repo}" \
+      -s stages_repobranch="${stages_repobranch}" \
+      -s name="${name}" ${opts} \
+      -s arch="${arch}" \
+      -s namespace="${namespace}" \
+      -s cdnstorage="${cdnstorage}" \
+      -s jobfile="${jobfile}" \
+      -s config="${conf}" \
+      -o ${specs_dir}/stages/${arch}/mark-${name}.yaml
+
+  done
+
+done
+
+# vim: filetype=sh
