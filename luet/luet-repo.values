@@ -287,7 +287,7 @@ values:
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-next-kits.yml
+      command_file: reposcan-mark-testing-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
@@ -326,8 +326,8 @@ values:
       # new packages version.
       seeds2bump:
         # Seed to bump for a complete build cycle.
-        #- seed/funtoo-base
-        - seed/macaroni-funtoo-stage
+        - seed/funtoo-base
+        #- seed/macaroni-funtoo-stage
         # - seed/macaroni-funtoo-base
         #- seed/macaroni-funtoo-python-stage
         #- seed/macaroni-funtoo-python
