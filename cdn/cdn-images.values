@@ -161,13 +161,16 @@ values:
           domain: "cdn77.macaronios.org"
           cdnid: "1855829670"
           cdnprefix: "/"
+          repopath: "macaroni-funtoo-systemd-testing"
         - type: cdn77
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
+          repopath: "macaroni-funtoo-systemd-testing"
         - type: cloudflare
           domain: "dl.macaronios.org"
           cdnprefix: "/repos/"
+          repopath: "macaroni-funtoo-systemd-testing"
 
     # Mottainai Stable Repository
     - name: "mottainai"

@@ -48,11 +48,18 @@ return 0
   local domain=""
   local cdnid=""
   local cdnprefix=""
+  local repopath=""
   local script=""
+  local
   for ((i=0; i<${nservices};i++)) ; do
     cdntype=$(echo ${services} | jq -r ".[${i}].type")
     cdnprefix=$(echo ${services} | jq -r ".[${i}].cdnprefix")
     domain=$(echo ${services} | jq -r ".[${i}].domain")
+    repopath=$(echo ${services} | jq -r ".[${i}].repopath")
+
+    if [ "${repopath}" == "null" ] ; then
+      repopath="${namespace}"
+    fi
 
     echo "Purging service ${cdntype} for domain ${domain}..."
     if [ "$cdntype" = "cdn77" ] ; then
@@ -66,7 +73,7 @@ return 0
     fi
 
     NAME=${NAME} CDN_FILES="${files}" \
-      NAMESPACE="${namespace}" \
+      NAMESPACE="${repopath}" \
       CDN_DOMAIN="${domain}" \
       CDN_PREFIX="${cdnprefix}" \
       CDN_ID="${cdnid}" \
