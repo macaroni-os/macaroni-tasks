@@ -14,12 +14,14 @@ script:
   --specfile jobs/x86_64/stage3_phoenix.yaml --config etc/config.yml
   --job stage3-phoenix-next-minimal --cleanup=false
 
-- mv output ..
+- cp -rvf output/* ../output/
 - ls -l
 - >-
   cd .. &&
   source /storage/cdn77-mc.setup &&
-  mc cp --overwrite -a --md5 output macaroni/${CDN77_MARK_BUCKET}/mark-stages-phoenix
+  echo "Copy files on CDN77 bucket ${CDN77_MARK_BUCKET}..." &&
+  ls -l . &&
+  mc cp --recursive --limit-upload 10M -a --md5 output/ macaroni/${CDN77_MARK_BUCKET}/mark-stages-phoenix || true
 storage: "cdn77"
 storage_path: /storage
 environment:
