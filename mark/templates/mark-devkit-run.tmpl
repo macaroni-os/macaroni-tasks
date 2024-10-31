@@ -14,13 +14,15 @@ script:
   --specfile jobs/{{ .arch }}/{{ .jobfile }} --config {{ .config }}
   --job {{ .name }} --cleanup=false
 
-- mv output ..
+- cp -rvf output/* ../output/
 - ls -l
 {{- if .cdnstorage }}
 - >-
   cd .. &&
   source /storage/cdn77-mc.setup &&
-  mc cp --overwrite -a --md5 output macaroni/${CDN77_MARK_BUCKET}/{{ .namespace }}
+  echo "Copy files on CDN77 bucket ${CDN77_MARK_BUCKET}..." &&
+  ls -l . &&
+  mc cp --recursive --limit-upload 10M -a --md5 output/ macaroni/${CDN77_MARK_BUCKET}/{{ .namespace }} || true
 storage: "cdn77"
 storage_path: /storage
 {{- else }}
