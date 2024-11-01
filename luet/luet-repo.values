@@ -202,13 +202,13 @@ values:
       branch: eagle
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-next-kits.yml
+      command_file: reposcan-mark-testing-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       mottainai_queue: eagle
         #mottainai_queue: lxd
       seeds2bump:
-        #- seed/funtoo-base
+        - seed/funtoo-base
         #- seed/funtoo-stage3
         - seed/macaroni-funtoo-stage
         #- seed/macaroni-funtoo-base
