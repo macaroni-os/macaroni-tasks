@@ -62,7 +62,7 @@ files:
    generator: hosts
 
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -110,17 +110,9 @@ packages:
 
 actions:
 
-  - trigger: post-unpack
-    action: |-
-      #!/bin/bash
-      # TODO: fix this in distrobuilder
-      luet repo update --force
-
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      rm -rf /var/cache/luet/repos/
-
       whip hook openrc.openrc_setup
 
       #! /bin/sh
@@ -161,7 +153,7 @@ actions:
 
       macaronictl env-update
 
-      luet cleanup --purge-repos
+      anise cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo

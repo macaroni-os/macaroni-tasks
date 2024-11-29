@@ -70,7 +70,7 @@ files:
      #nisdomainname="localdomain.com"
 
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -140,10 +140,6 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-
-      # TODO: fix this in distrobuilder
-      luet repo update --force
-
       # NOTE: if these files is not present the generators skip the template
       # generation
       echo "
@@ -222,7 +218,7 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      luet cleanup --purge-repos
+      anise cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo

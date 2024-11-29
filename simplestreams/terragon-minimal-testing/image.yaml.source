@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Terragon Minimal Dev
+  description: Macaroni OS Terragon Minimal Dev
   expiry: 30d
   architecture: amd64
 
@@ -71,7 +71,7 @@ files:
      #aliases="mybox server1"
      #nisdomainname="localdomain.com"
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 

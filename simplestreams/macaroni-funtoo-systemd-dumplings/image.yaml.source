@@ -72,7 +72,7 @@ files:
 
 
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -107,17 +107,12 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # TODO: fix this in distrobuilder
-      anise repo update
-
       # NOTE: if these files is not present the generators skip the template
       # generation
       echo "
       ff02::2    ip6-allrouters
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
-
-      mkdir -p /var/lock
 
   - trigger: post-packages
     action: |-
@@ -445,13 +440,13 @@ actions:
 
       echo "Reinstall all packages and apply new subsets!"
       yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
-      luet repo update
+      anise repo update
 
-      luet miner ri $(luet s --installed --quiet .) --skip-finalizers
-      luet rm ${pkgs2remove[@]} -y --force
-      luet rm ${pkgs2removeNodeps[@]} -y --force --nodeps
-      luet s --installed . | sort
-      luet cleanup --purge-repos
+      anise miner ri $(luet s --installed --quiet .) --skip-finalizers
+      anise rm ${pkgs2remove[@]} -y --force
+      anise rm ${pkgs2removeNodeps[@]} -y --force --nodeps
+      anise s --installed . | sort
+      anise cleanup --purge-repos
       # Remove tmpdir
       rm -rf /distrobuilder
 

@@ -73,7 +73,7 @@ files:
    generator: dump
 
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -100,9 +100,6 @@ actions:
   - trigger: post-unpack
     action: |-
       #!/bin/bash
-      # TODO: fix this in distrobuilder
-      luet repo update
-
       # NOTE: if these files is not present the generators skip the template
       # generation
       echo "
@@ -222,7 +219,7 @@ actions:
     action: |-
       #!/bin/bash
       macaronictl env-update
-      luet cleanup --purge-repos
+      anise cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo

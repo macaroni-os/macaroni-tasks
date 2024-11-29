@@ -71,7 +71,7 @@ files:
      #aliases="mybox server1"
      #nisdomainname="localdomain.com"
 packages:
-  manager: luet
+  manager: anise
   update: true
   cleanup: true
 
@@ -168,7 +168,7 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      luet cleanup --purge-repos
+      anise cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo
