@@ -102,6 +102,8 @@ packages:
         - utils/yq
 
         - luet-build
+        - anise-portage-converter
+        - mark-devkit
 
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
