@@ -10,7 +10,7 @@ script:
 - /etc/init.d/docker start
 - mkdir -p $HOME/.docker
 - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > $HOME/.docker/config.json'
-- git clone ${REPO} -b ${BRANCH} /repo && cd /repo
+- git clone ${REPO} -b ${BRANCH} /repo && cd /repo/docker
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - docker build -f ${DOCKER_FILE} --no-cache --squash --rm -t ${IMAGE_NAME}:${IMAGE_MANIFEST} .
 - docker image inspect ${IMAGE_NAME}:${IMAGE_MANIFEST}
@@ -26,5 +26,5 @@ environment:
 - REPO=https://github.com/macaroni-os/mark-stages.git
 image: macaroni/funtoo-builder
 type: lxd
-directory: docker
+directory: /
 planned: "@weekly"

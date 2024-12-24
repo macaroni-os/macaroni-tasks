@@ -167,7 +167,7 @@ values:
       repobranch: phoenix
       dockerfile: Dockerfile.mark-testing
       image_manifest: latest-amd64
-      dir: docker
+      dir: /docker
       planned: "@weekly"
 
 # vim: filetype=yaml
