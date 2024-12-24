@@ -160,4 +160,14 @@ values:
       image_manifest: latest-amd64
       planned: "@weekly"
 
+    # Macaroni MARK Testing image
+    - name: macaronios/mark-testing
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.mark-testing
+      image_manifest: latest-amd64
+      dir: docker
+      planned: "@weekly"
+
 # vim: filetype=yaml

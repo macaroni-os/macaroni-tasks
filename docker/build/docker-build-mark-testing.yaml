@@ -1,4 +1,4 @@
-name: "{{ .arch }} - Build docker image {{ .image }}"
+name: "amd64 - Build docker image macaronios/mark-testing"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
@@ -17,16 +17,14 @@ script:
 - docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
 - docker system prune --force --all --volumes
 environment:
-- BRANCH={{ .repobranch }}
-- DOCKER_FILE={{ .dockerfile }}
+- BRANCH=phoenix
+- DOCKER_FILE=Dockerfile.mark-testing
 - SHELL=/bin/bash
-- ARCH={{ .arch }}
-- IMAGE_NAME={{ .image }}
-- IMAGE_MANIFEST={{ .image_manifest }}
-- REPO={{ .repohttp }}
+- ARCH=amd64
+- IMAGE_NAME=macaronios/mark-testing
+- IMAGE_MANIFEST=latest-amd64
+- REPO=https://github.com/macaroni-os/mark-stages.git
 image: macaroni/funtoo-builder
 type: lxd
-directory: {{ .dir }}
-{{- if .planned }}
-planned: "{{ .planned }}"
-{{- end }}
+directory: docker
+planned: "@weekly"
