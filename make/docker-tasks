@@ -23,6 +23,11 @@ for ((i=0;i<${REPOS};i++)) ; do
   manifest=$(yq r ${docker_values} "values.docker_images[$i].image_manifest")
   dockerfile=$(yq r ${docker_values} "values.docker_images[$i].dockerfile")
   planned=$(yq r ${docker_values} "values.docker_images[$i].planned")
+  dir=$(yq r ${docker_values} "values.docker_images[$i].dir")
+
+  if [ -z "${dir}" ] ; then
+    dir="/"
+  fi
 
   image_postfix=$(echo ${name} | cut -d'/' -f 2)
 
@@ -36,6 +41,7 @@ for ((i=0;i<${REPOS};i++)) ; do
     -s image="${name}" ${opts} \
     -s arch="${arch}" \
     -s dockerfile="${dockerfile}" \
+    -s dir="${dir}" \
     -s repobranch="${branch}" \
     -s repohttp="${http_repo}" \
     -s image_manifest="${manifest}" \
