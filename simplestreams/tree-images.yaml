@@ -377,3 +377,20 @@ products:
       - "macaroni/mark-xl"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
+
+  # Macaroni MARK Testing
+  - name: mark-testing:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "MARK Testing"
+    directory: mark-testing
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-testing"
+    days: 2
+    aliases:
+      - "macaroni/mark-testing"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
