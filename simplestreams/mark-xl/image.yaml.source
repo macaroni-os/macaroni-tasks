@@ -94,13 +94,6 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Setup openrc runlevels. TODO: move this to package script.
-      #
-      EROOT=/ whip hook openrc.openrc_setup
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Create lock directory used by Luet
       mkdir -p /var/lock
       macaronictl env-update
@@ -124,24 +117,8 @@ actions:
   - trigger: post-packages
     action: |-
       #!/bin/bash
-      # Configure proctect config
-      mkdir -p /etc/luet/config.protect.d/ || true
-      echo "
-      name: \"etc_conf\"
-      dirs:
-        - \"/etc/\"
-      " > /etc/luet/config.protect.d/01_etc.yml
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
       # Configure LXD/LXC tty
       sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
-
-  - trigger: post-packages
-    action: |-
-      #!/bin/bash
-      anise cleanup --purge-repos
 
 mappings:
   architecture_map: funtoo
