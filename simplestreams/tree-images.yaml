@@ -362,3 +362,18 @@ products:
       - "macaroni/eagle-arangodb"
     # extra attributes not used by simplestreams-builder for Mottainai
 
+  # Macaroni MARK XL
+  - name: mark-xl:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "MARK XL"
+    directory: mark-xl
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-xl"
+    days: 2
+    aliases:
+      - "macaroni/mark-xl"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
