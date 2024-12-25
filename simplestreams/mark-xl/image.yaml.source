@@ -104,7 +104,7 @@ actions:
       cd /etc/init.d
       ln -s netif.tmpl netif.eth0
       rc-update add netif.eth0 default
-      echo template=dhclient > /etc/conf.d/netif.eth0
+      echo template=dhcpcd > /etc/conf.d/netif.eth0
 
   - trigger: post-packages
     action: |-
