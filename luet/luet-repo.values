@@ -166,7 +166,7 @@ values:
 
     # Macaroni Distfiles
     - name: "macaroni-distfiles"
-      tree_version: v1
+      tree_version: v2
       branch: master
       http_repo: https://github.com/macaroni-os/macaroni-distfiles.git
       ssh_repo: git@github.com:macaroni-os/macaroni-distfiles.git
