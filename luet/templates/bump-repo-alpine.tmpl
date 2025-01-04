@@ -7,13 +7,13 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < {{ .namespace }} > - Bump revision"
+name: "anise - < {{ .namespace }} > - Bump revision"
 script:
 - apk add make bash curl git
 - >-
   wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
   sh /tmp/get_luet_root.sh
-- luet install dev-util/mottainai-cli system/luet-build
+- anise install dev-util/mottainai-cli system/luet-build
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
@@ -33,7 +33,7 @@ environment:
 - "REPO_BRANCH={{ .repobranch }}"
 - "REPO={{ .repohttp }}"
 - "SUDO="
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 - COMPRESSION=zstd
 - NAMESPACE={{ .namespace }}

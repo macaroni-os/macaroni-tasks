@@ -1,12 +1,12 @@
-name: "luet - build {{ .pkgs }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+name: "anise - build {{ .pkgs }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 storage: docker-certs
 storage_path: /storage
 script:
 - source /storage/prepare-luet.sh
 - >-
-  luet repo update &&
-  luet upgrade &&
-  luet cleanup --purge-repos
+  anise repo update &&
+  anise upgrade &&
+  anise cleanup --purge-repos
 - >-
   docker login -u ${registry_user} -p ${registry_pass}
   docker-registry1.mottainai.local:5000
@@ -24,7 +24,7 @@ script:
 - /etc/init.d/docker start
 {{- end }}
 - git clone ${REPO} -b ${REPO_BRANCH} /build
-# mkdir /build/build until this will be fixed in luet.
+# mkdir /build/build until this will be fixed in anise.
 # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
 - cd /build && mkdir build/ && make rebuild
 - >-
@@ -35,10 +35,10 @@ environment:
 - "BUILDKIT_PROGRESS=plain"
 - "DOCKER_BUILDKIT=1"
 {{- end }}
-- "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+- "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
 - "REPO={{ .repo }}"
 - "REPO_BRANCH={{ .branch }}"
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 {{- if eq .enable_docker_host "true" }}
 - DOCKER_HOST=docker-overlay2.mottainai.local:2376

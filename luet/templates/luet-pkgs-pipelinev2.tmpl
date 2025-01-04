@@ -28,7 +28,7 @@ tasks:
   {{- $queue := $repoqueue }}
   {{- if $labels }}{{- $queue = index $labels "queue" | default $repoqueue }}{{- end }}
   package-{{ $idx }}:
-    name: "Build luet <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}-{{ index $data "version" }}"
+    name: "Build anise <{{ $reponame }}> - Package {{ index $data "category" }}/{{ index $data "name" }}-{{ index $data "version" }}"
     storage: docker-certs
     storage_path: /storage
     script:
@@ -36,10 +36,10 @@ tasks:
     - sleep 4
     - source /storage/prepare-luet.sh
     - >-
-      luet repo update &&
-      luet upgrade &&
-      luet miner replace-package system/luet-build --for system/luet-build-testing &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise upgrade &&
+      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+      anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000
@@ -57,7 +57,7 @@ tasks:
     - /etc/init.d/docker start
     {{- end }}
     - git clone ${REPO} -b ${REPO_BRANCH} /build
-    # mkdir /build/build until this will be fixed in luet.
+    # mkdir /build/build until this will be fixed in anise.
     # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
     - cd /build && mkdir build/ && make rebuild
     - >-
@@ -68,10 +68,10 @@ tasks:
     - "BUILDKIT_PROGRESS=plain"
     - "DOCKER_BUILDKIT=1"
     {{- end }}
-    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ $reponame }}-tree"
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ $reponame }}-tree"
     - "REPO={{ $repo }}"
     - "REPO_BRANCH={{ $branch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     {{- if eq $enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
@@ -88,7 +88,7 @@ tasks:
 
   create-repo:
 
-    name: "luet - < {{ $reponame }} > - Bump revision"
+    name: "anise - < {{ $reponame }} > - Bump revision"
     script:
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
@@ -99,10 +99,10 @@ tasks:
       mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
     - ls -l build/
     - >-
-      luet repo update &&
-      luet upgrade &&
-      luet miner replace-package system/luet-build --for system/luet-build-testing &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise upgrade &&
+      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+      anise cleanup --purge-repos
     - make create-repo
     - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
     entrypoint:
@@ -114,7 +114,7 @@ tasks:
     - "REPO_BRANCH={{ $branch }}"
     - "REPO={{ $repo }}"
     - "SUDO="
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     - COMPRESSION=zstd
     - NAMESPACE={{ $reponame }}

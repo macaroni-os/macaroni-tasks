@@ -10,7 +10,7 @@ namespace: "{{ .namespace }}-reposcan"
 {{- end }}
 type: lxd
 environment:
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 - "KITS_2UPGRADE={{ .kits2upgrade }}"
 - "REPO_BRANCH={{ .repobranch }}"
@@ -20,13 +20,13 @@ environment:
 name: "Luet Portage Converter <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
 script:
 - >-
-  luet repo update &&
-  luet install utils/jq utils/yq net-misc/openssh
+  anise repo update &&
+  anise install utils/jq utils/yq net-misc/openssh
   dev-util/mottainai-cli sys-devel/make
   anise-portage-converter system/luet-build
   &&
-  luet miner reinstall-package virtual/base &&
-  luet cleanup &&
+  anise miner reinstall-package virtual/base &&
+  anise cleanup &&
   env-update &&
   ldconfig
 
@@ -39,9 +39,9 @@ script:
 - sh /storage/setup-git.sh
 
 - >-
-  git clone ${REPO} -b ${REPO_BRANCH} /luet-repo &&
-  mkdir /luet-repo/kit_cache -p &&
-  cp -vf /artefacts/* /luet-repo/kit_cache/ &&
+  git clone ${REPO} -b ${REPO_BRANCH} /anise-repo &&
+  mkdir /anise-repo/kit_cache -p &&
+  cp -vf /artefacts/* /anise-repo/kit_cache/ &&
   rm -rf /artefacts/*
 
 - >-
@@ -49,10 +49,10 @@ script:
   /macaroni-tasks &&
   cd /macaroni-tasks &&
   MOTTAINAI_CLI_PROFILE=funtoo
-  LUET_REPOSITORY=/luet-repo
+  LUET_REPOSITORY=/anise-repo
   make luet-pc
 - >-
-  cd /luet-repo &&
+  cd /anise-repo &&
   git status &&
   BUMPER_DIR=./packages/atoms-extra/ sh scripts/bumper.sh &&
   eval 'git push || true' ;

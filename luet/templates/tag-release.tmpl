@@ -41,9 +41,9 @@ tasks:
     script:
     - source /storage/cdn77.env
     - >-
-      luet repo update &&
-      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
+      anise cleanup --purge-repos
     - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
 # Note: the cdn /www is mandatory as prefix.
     - >-
@@ -91,10 +91,10 @@ tasks:
     script:
 
     - >-
-      luet repo update &&
-      luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
-      luet miner reinstall-package virtual/base &&
-      luet cleanup &&
+      anise repo update &&
+      anise install utils/jq utils/yq net-misc/openssh system/luet-build &&
+      anise miner reinstall-package virtual/base &&
+      anise cleanup &&
       env-update &&
       ldconfig
 
@@ -102,11 +102,11 @@ tasks:
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
-    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+    - git clone ${REPO} -b ${REPO_BRANCH} /anise-repo
 
     # Create the lxd-compose command with the list of the kits updated
     - >-
-      cd /luet-repo &&
+      cd /anise-repo &&
       git tag ${CODENAME}-${RELEASE} &&
       git push --tags
 
@@ -115,7 +115,7 @@ tasks:
     - "REPO={{ .repossh }}"
     - "RELEASE={{ .release }}"
     - "CODENAME={{ .codename }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     image: macaroni/funtoo-metatools
     storage: geaaru-github

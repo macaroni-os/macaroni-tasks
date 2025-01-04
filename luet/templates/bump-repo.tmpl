@@ -7,7 +7,7 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < {{ .namespace }} > - Bump revision"
+name: "anise - < {{ .namespace }} > - Bump revision"
 script:
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
@@ -15,10 +15,10 @@ script:
 - /bin/bash /storage/setup-mcli.sh
 {{- if eq .treeversion "v2" }}
 - >-
-  luet repo update &&
-  luet upgrade &&
-  luet miner replace-package system/luet-build --for system/luet-build-testing &&
-  luet cleanup --purge-repos
+  anise repo update &&
+  anise upgrade &&
+  anise miner replace-package system/luet-build --for system/luet-build-testing &&
+  anise cleanup --purge-repos
 {{- end }}
 - >-
   MOTTAINAI_CLI_PROFILE=funtoo
@@ -35,7 +35,7 @@ environment:
 - "REPO_BRANCH={{ .repobranch }}"
 - "REPO={{ .repohttp }}"
 - "SUDO="
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 - COMPRESSION=zstd
 - NAMESPACE={{ .namespace }}
