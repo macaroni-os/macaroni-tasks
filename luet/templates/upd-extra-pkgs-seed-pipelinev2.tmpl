@@ -9,19 +9,19 @@
 # - bump the packages of the selected seed.
 # - start-build-task
 
-pipeline_name: "luet - extra pkgs - seed {{ .seed }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+pipeline_name: "anise - extra pkgs - seed {{ .seed }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 chain:
 {{- if eq .bumpseed "true" }}
 - bump-seed
 - build-seed
 {{- end }}
-- luet-portage-convert
+- anise-portage-convert
 - start-build-task
 
 tasks:
 
   bump-seed:
-    name: "luet - < {{ .namespace }} > - Bump seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}-{{ .treeversion }}"
+    name: "anise - < {{ .namespace }} > - Bump seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}-{{ .treeversion }}"
     storage: geaaru-github
     storage_path: /storage
     type: lxd
@@ -29,31 +29,29 @@ tasks:
     image: macaroni/funtoo-metatools
     script:
     - >-
-      luet repo update --force &&
-      luet miner replace-package system/luet-build --for system/luet-build-testing &&
-      luet install utils/jq utils/yq net-misc/openssh macaroni/ctl &&
-      luet cleanup &&
+      anise repo update --force &&
+      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+      anise install utils/jq utils/yq net-misc/openssh macaroni/ctl &&
+      anise cleanup &&
       macaronictl env-update
-
-# luet miner reinstall-package virtual/base
 
     # Setup git ssh key
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
-    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+    - git clone ${REPO} -b ${REPO_BRANCH} /anise-repo
 
     - >-
-      cd /luet-repo &&
-      fkv=$(yq r /luet-repo/packages/seeds/${SEED}/definition.yaml 'version') &&
+      cd /anise-repo &&
+      fkv=$(yq r /anise-repo/packages/seeds/${SEED}/definition.yaml 'version') &&
       nv="0.$(date '+%Y%m%d')" &&
       tbump_opts="" &&
       if [[ "${fkv}" == *${nv}* ]] ; then echo "Increment current version" ; else tbump_opts="-p ${nv}" ; fi &&
 {{- if eq .seed "macaroni-funtoo-base" }}
-      luet-build tree bump -f /luet-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
+      anise-build tree bump -f /anise-repo/packages/seeds/macaroni-funtoo-stage/definition.yaml ${tbump_opts} &&
 {{- end }}
-      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
-      luet-build tree bump -f /luet-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
+      anise-build tree bump -f /anise-repo/packages/seeds/${SEED}/definition.yaml ${tbump_opts} &&
+      anise-build tree bump -f /anise-repo/packages/seeds/${SEED}/pkglist/definition.yaml ${tbump_opts}
     # Commit new version
     - >-
       BUMPER_DIR="./packages/seeds" sh ./scripts/bumper.sh &&
@@ -63,21 +61,21 @@ tasks:
     environment:
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO={{ .repossh }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     - "SEED={{ .seed }}"
 
   build-seed:
-    name: "luet - < {{ .namespace }} > - Package seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    name: "anise - < {{ .namespace }} > - Package seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
     storage: docker-certs
     storage_path: /storage
     script:
     - source /storage/prepare-luet.sh
     - >-
-      luet repo update &&
-      luet upgrade &&
-      luet miner replace-package system/luet-build --for system/luet-build-testing &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise upgrade &&
+      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+      anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000
@@ -89,7 +87,7 @@ tasks:
     - /etc/init.d/docker start
     {{- end }}
     - git clone ${REPO} -b ${REPO_BRANCH} /build
-    # mkdir /build/build until this will be fixed in luet.
+    # mkdir /build/build until this will be fixed in anise.
     # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
     - cd /build && mkdir build/ && make rebuild
     - >-
@@ -100,10 +98,10 @@ tasks:
     - "BUILDKIT_PROGRESS=plain"
     - "DOCKER_BUILDKIT=1"
     {{- end }}
-    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
@@ -116,7 +114,7 @@ tasks:
     publish_mode: append
     tag_namespace: "{{ .namespace }}"
 
-  luet-portage-convert:
+  anise-portage-convert:
     name: "Luet Portage Converter Seed {{ .seed }} - <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
     image: macaroni/funtoo-metatools
     storage: "geaaru-github,mcli"
@@ -129,7 +127,7 @@ tasks:
 {{- end }}
     type: lxd
     environment:
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     - "KITS_2UPGRADE={{ .kits2upgrade }}"
     - "REPO_BRANCH={{ .repobranch }}"
@@ -137,12 +135,12 @@ tasks:
     - "NAMESPACE={{ .namespace }}"
     script:
     - >-
-      luet repo update &&
-      luet install utils/jq utils/yq net-misc/openssh
+      anise repo update &&
+      anise install utils/jq utils/yq net-misc/openssh
       dev-util/mottainai-cli sys-devel/make macaroni/ctl
       system/luet-build anise-portage-converter &&
-      luet miner reinstall-package virtual/base &&
-      luet cleanup &&
+      anise miner reinstall-package virtual/base &&
+      anise cleanup &&
       macaronictl env-update
 
     # Setup Mottainai stuff
@@ -154,9 +152,9 @@ tasks:
     - sh /storage/setup-git.sh
 
     - >-
-      git clone ${REPO} -b ${REPO_BRANCH} /luet-repo &&
-      mkdir /luet-repo/kit_cache -p &&
-      cp -vf /artefacts/* /luet-repo/kit_cache/ &&
+      git clone ${REPO} -b ${REPO_BRANCH} /anise-repo &&
+      mkdir /anise-repo/kit_cache -p &&
+      cp -vf /artefacts/* /anise-repo/kit_cache/ &&
       rm -rf /artefacts/*
 
     - >-
@@ -164,10 +162,10 @@ tasks:
       /macaroni-tasks &&
       cd /macaroni-tasks &&
       MOTTAINAI_CLI_PROFILE=funtoo
-      LUET_REPOSITORY=/luet-repo
+      LUET_REPOSITORY=/anise-repo
       make luet-pc
     - >-
-      cd /luet-repo &&
+      cd /anise-repo &&
       git status &&
       SEED={{ .seed }} sh scripts/bumper-race.sh &&
       eval 'git push || true' ;
@@ -182,9 +180,9 @@ tasks:
     - >-
       export MOTTAINAI_CLI_PROFILE=funtoo
     - >-
-      luet repo update &&
-      luet i -y system/luet-devkit &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise i -y system/luet-devkit &&
+      anise cleanup --purge-repos
     - >-
       git clone ${REPO} -b ${REPO_BRANCH} /repo &&
       git clone ${REPO_MTASKS} /macaroni-tasks

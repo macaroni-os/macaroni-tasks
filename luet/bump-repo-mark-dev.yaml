@@ -7,7 +7,7 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "anise - < macaroni-funtoo-dev > - Bump revision"
+name: "anise - < mark-dev > - Bump revision"
 script:
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
@@ -31,18 +31,18 @@ storage: "mcli"
 storage_path: /storage
 environment:
 - "REPO_BRANCH=phoenix"
-- "REPO=https://github.com/macaroni-os/macaroni-funtoo.git"
+- "REPO=https://github.com/macaroni-os/mark-repo.git"
 - "SUDO="
 - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 - COMPRESSION=zstd
-- NAMESPACE=macaroni-funtoo-dev
+- NAMESPACE=mark-dev
 - "BUILD_ARGS=--config conf/luet.yaml"
 image: macaroni/phoenix-builder
 artefact_path: artefacts
 type: lxd
 directory: /
 publish_mode: append
-tag_namespace: "macaroni-funtoo-dev"
+tag_namespace: "mark-dev"
 
 # vim: filetype=yaml

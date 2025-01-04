@@ -3,7 +3,7 @@
 #              of the selected kits used by the seed/funtoo-kits
 #              and toolchain/meta-repo packages.
 
-name: "Luet Upgrade Kits <macaroni-terragon-dev> - Bump revision"
+name: "Luet Upgrade Kits <mark-dev> - Bump revision"
 script:
 
 - >-
@@ -60,14 +60,14 @@ script:
 - eval 'cp -vf /reposcan/repo_tmp/tmp/kit_cache/* /artefacts/ || true'
 
 environment:
-- "REPO_BRANCH=terragon"
-- "REPO=git@github.com:macaroni-os/macaroni-funtoo.git"
+- "REPO_BRANCH=phoenix"
+- "REPO=git@github.com:macaroni-os/mark-repo.git"
 - "KIT_FIXUPS=https://github.com/macaroni-os/kit-fixups.git"
 - "KIT_FIXUPS_BRANCH=<no value>"
 - "MARKDEVKIT_CLONEFILE=<no value>"
 - "MARKDEVKIT_CONCURRENCY=20"
-- "KITS_2UPGRADE=core-kit core-server-kit core-gl-kit core-hw-kit net-kit llvm-kit perl-kit python-kit python-modules-kit desktop-kit dev-kit dev-kit editors-kit games-kit gnome-kit haskell-kit browser-kit java-kit kde-kit lang-kit lisp-scheme-kit mate-kit media-kit ml-lang-kit qt-kit ruby-kit science-kit security-kit xfce-kit text-kit"
-- "SEEDS2BUMP=seed/funtoo-base"
+- "KITS_2UPGRADE=mark-kit security-kit core-kit core-server-kit core-gl-kit core-hw-kit net-kit llvm-kit perl-kit dev-kit python-kit python-modules-kit editors-kit lang-kit science-kit text-kit"
+- "SEEDS2BUMP=seed/mark-base"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
@@ -76,6 +76,6 @@ storage: geaaru-github
 storage_path: /storage
 artefact_path: /artefacts
 type: lxd
-tag_namespace: "macaroni-terragon-dev-reposcan"
+tag_namespace: "mark-dev-reposcan"
 
 # vim: filetype=yaml

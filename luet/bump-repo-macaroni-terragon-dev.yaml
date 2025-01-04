@@ -7,17 +7,17 @@
 #              instances or to speedup elaboration if the
 #              agent control remote LXD instance.
 
-name: "luet - < macaroni-terragon-dev > - Bump revision"
+name: "anise - < macaroni-terragon-dev > - Bump revision"
 script:
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
 - >-
-  luet repo update &&
-  luet upgrade &&
-  luet miner replace-package system/luet-build --for system/luet-build-testing &&
-  luet cleanup --purge-repos
+  anise repo update &&
+  anise upgrade &&
+  anise miner replace-package system/luet-build --for system/luet-build-testing &&
+  anise cleanup --purge-repos
 - >-
   MOTTAINAI_CLI_PROFILE=funtoo
   mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
@@ -33,7 +33,7 @@ environment:
 - "REPO_BRANCH=terragon"
 - "REPO=https://github.com/macaroni-os/macaroni-funtoo.git"
 - "SUDO="
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
+- LUET_SYSTEM__TMPDIR_BASE=/anisetmp
 - LUET_YES=true
 - COMPRESSION=zstd
 - NAMESPACE=macaroni-terragon-dev

@@ -453,4 +453,52 @@ values:
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git
 
+    # MARK Develop
+    - name: "mark-dev"
+      tree_version: v2
+      branch: phoenix
+      http_repo: https://github.com/macaroni-os/mark-repo.git
+      ssh_repo: git@github.com:macaroni-os/mark-repo.git
+      mottainai_queue: "topix"
+      # If the repo could manage the upgrade kit task
+      upgrade_kit: true
+      kits2upgrade:
+        - mark-kit
+        - security-kit
+        - core-kit
+        - core-server-kit
+        - core-gl-kit
+        - core-hw-kit
+        - net-kit
+        - llvm-kit
+        - perl-kit
+        - dev-kit
+        - python-kit
+        - python-modules-kit
+        - editors-kit
+        - lang-kit
+        - science-kit
+        - text-kit
+      seeds2bump:
+        - seed/mark-base
+      lpc_extra_ns:
+        - extra-reposcan
+
+    # MARK Testing
+    - name: "mark-testing"
+      branch: phoenix
+      mottainai_queue: "topix"
+      tree_version: v2
+      http_repo: https://github.com/macaroni-os/mark-repo.git
+      ssh_repo: git@github.com:macaroni-os/mark-repo.git
+
+    # MARK Stable
+    - name: "mark"
+      repo4test_tag: true
+      branch: phoenix
+      mottainai_queue: "topix"
+      tree_version: v2
+      http_repo: https://github.com/macaroni-os/mark-repo.git
+      ssh_repo: git@github.com:macaroni-os/mark-repo.git
+
 # vim: filetype=yaml

@@ -7,68 +7,26 @@ name: "Luet Upgrade Kits <macaroni-games-dev> - Bump revision"
 script:
 
 - >-
-  luet repo update &&
-  luet install utils/jq utils/yq net-misc/openssh system/luet-build &&
-  luet cleanup &&
+  anise repo update --force &&
+  anise install utils/jq utils/yq net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
+  anise cleanup &&
   macaronictl env-update
-
-- /etc/init.d/mongodb start
 
 # Setup git ssh key
 - sh /storage/setup-ssh.sh
 - sh /storage/setup-git.sh
 
-- git clone https://github.com/MottainaiCI/lxd-compose-galaxy.git /galaxy
-- git clone ${METATOOLS_REPO} -b ${METATOOLS_BRANCH} /repo
-- git clone ${SUBPOP_REPO} -b ${SUBPOP_BRANCH} /subpop
 - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+- git clone ${KIT_FIXUPS} -b ${KIT_FIXUPS_BRANCH} /kit-fixups
 
-# Create the lxd-compose command with the list of the kits updated
+# Create the reposcan files
 - >-
-  cd /luet-repo &&
-  export export LCG_KITS_FILE=/galaxy/envs/funtoo/commands/reposcan-funtoo-next-kits.yml &&
-  bash scripts/lxd-compose-galaxy-kits-bump-command.sh &&
-  export kits=$(yq r /tmp/reposcan.yml 'envs.envs.kits' -j)
+  mark-devkit kit clone --specfile /kit-fixups/${MARKDEVKIT_CLONEFILE} --generate-reposcan-files
+  --write-summary-file /kit-cache/kits.yaml --concurrency ${MARKDEVKIT_CONCURRENCY}
+  --kit-cache-dir /kit-cache/
 
-- mkdir ${METATOOLS_WORKSPACE}/specs -p
-# Create the repo specs for reposcan tool
-- >-
-  for i in $(echo ${kits} | jq .[] -rc) ; do
-  name=$(echo $i | jq '.name' -r) ;
-  echo "${i}" | yq r -P - > ${METATOOLS_WORKSPACE}/specs/${name}.yml ;
-  cat ${METATOOLS_WORKSPACE}/specs/${name}.yml ;
-  done
-
-# Run reposcan
-- >-
-  set -x ;
-  cd /repo &&
-  export REPOSCAN_OPTS="--specs" &&
-  for i in $(echo ${kits} | jq .[] -rc) ; do
-  name=$(echo $i | jq '.name' -r) ;
-  REPOSCAN_OPTS="$REPOSCAN_OPTS /reposcan/specs/${name}.yml" ;
-  done &&
-  PYTHONPATH=/subpop:. ./bin/reposcan $REPOSCAN_OPTS
-
-# Store git version of every kits used to generate specs.
-- >-
-  export dir="/reposcan/repo_tmp/tmp/kit_cache/kits-versions" &&
-  mkdir ${dir} -p &&
-  for i in $(echo ${kits} | jq .[] -rc) ; do
-  name=$(echo $i | jq '.name' -r) ;
-  if [ -d ${HOME}/repo_tmp/dest-trees/${name} ] ; then
-  cd ${HOME}/repo_tmp/dest-trees/${name} ;
-  kit_fixups=$(git log -1 | grep kit-fixups | awk '{ print $2 }') &&
-  gentoo_staging=$(git log -1 | grep gentoo-staging | awk '{ print $2 }') &&
-  commit=$(git log -1 | grep commit | awk '{ print $2 }') &&
-  echo "kit-fixups: \"${kit_fixups}\"" > ${dir}/${name}.yml &&
-  echo "gentoo-staging: \"${gentoo_staging}\"" >> ${dir}/${name}.yml &&
-  echo "commit: \"${commit}\"" >> ${dir}/${name}.yml ;
-  fi ;
-  done
-
-# Copy the new kits-versions files to seeds/funtoo-kits
-- cp -v ${dir}/* /luet-repo/packages/seeds/funtoo-kits/kits-versions/
+# Copy the new kits.yaml files to seeds/funtoo-kits
+- cp -v /kit-fixups/kits.yaml /luet-repo/packages/seeds/funtoo-kits/kits-versions/
 
 - >-
   cd /luet-repo &&
@@ -102,16 +60,14 @@ script:
 - eval 'cp -vf /reposcan/repo_tmp/tmp/kit_cache/* /artefacts/ || true'
 
 environment:
-- "METATOOLS_WORKSPACE=/reposcan"
 - "REPO_BRANCH=phoenix"
 - "REPO=git@github.com:macaroni-os/macaroni-games.git"
-- "METATOOLS_REPO=https://github.com/macaroni-os/funtoo-metatools.git"
-- "METATOOLS_BRANCH=geaaru"
-- "SUBPOP_REPO=https://github.com/macaroni-os/subpop.git"
-- "SUBPOP_BRANCH=legacy"
+- "KIT_FIXUPS=https://github.com/macaroni-os/kit-fixups.git"
+- "KIT_FIXUPS_BRANCH=<no value>"
+- "MARKDEVKIT_CLONEFILE=<no value>"
+- "MARKDEVKIT_CONCURRENCY=20"
 - "KITS_2UPGRADE=browser-kit security-kit core-kit core-server-kit core-gl-kit core-hw-kit net-kit llvm-kit perl-kit dev-kit python-kit python-modules-kit desktop-kit dev-kit editors-kit games-kit gnome-kit haskell-kit browser-kit java-kit kde-kit lang-kit lisp-scheme-kit mate-kit media-kit ml-lang-kit qt-kit ruby-kit science-kit security-kit xfce-kit text-kit"
 - "SEEDS2BUMP=seed/macaroni-games-base"
-- "PORTAGE_BIN_PATH=/usr/lib/portage/python3.9"
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
