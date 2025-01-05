@@ -16,12 +16,14 @@ values:
           queue: topix
           specs:
             - core.yml
+          planned: "@daily"
 
         - kit: core-hw-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@daily"
 
         - kit: core-server-kit
           with_pr: true
@@ -31,18 +33,21 @@ values:
             - fs.yml
             - net-base.yml
             - tools.yml
+          planned: "@daily"
 
         - kit: dev-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@daily"
 
         - kit: editors-kit
           with_pr: false
           queue: topix
           specs:
             - editors.yml
+          planned: "@daily"
 
         - kit: kernel-kit
           with_pr: true
@@ -51,18 +56,21 @@ values:
             - base.yml
             - debian.yml
             - modules.yml
+          planned: "@daily"
 
         - kit: lang-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@daily"
 
         - kit: llvm-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@weekly"
 
         - kit: net-kit
           with_pr: false
@@ -70,12 +78,14 @@ values:
           specs:
             - base.yml
             - www-client.yml
+          planned: "@daily"
 
         - kit: perl-kit
           with_pr: true
           queue: topix
           specs:
             - perl.yml
+          planned: "@daily"
 
         - kit: portage-kit
           with_pr: true
@@ -83,30 +93,35 @@ values:
           specs:
             - funtoo.yml
             - portage.yml
+          planned: "@weekly"
 
         - kit: python-kit
           with_pr: true
           queue: topix
           specs:
             - python.yml
+          planned: "@weekly"
 
         - kit: python-modules-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@daily"
 
         - kit: science-kit
           with_pr: true
           queue: topix
           specs:
             - base.yml
+          planned: "@weekly"
 
         - kit: security-kit
           queue: topix
           with_pr: true
           specs:
             - security.yml
+          planned: "@daily"
 
         - kit: text-kit
           queue: topix
@@ -114,16 +129,19 @@ values:
           specs:
             - common.yml
             - docbook.yml
+          planned: "@weekly"
 
         - kit: xorg-kit
           queue: topix
           with_pr: true
           specs:
             - base.yml
+          planned: "@weekly"
 
         - kit: mark-kit
           with_pr: false
           queue: topix
           specs:
             - macaroni.yml
+          planned: "@weekly"
 # vim: set filetype=yaml
