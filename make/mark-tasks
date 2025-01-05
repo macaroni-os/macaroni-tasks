@@ -71,14 +71,27 @@ prepare_markdevkit_release_tasks() {
   local kit=""
   local withpr=""
   local specs=""
+  local opts=""
 
   for ((i=0;i<${num_kits};i++)) ; do
 
     kit=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kit" ${mark_values} -M)
     withpr=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].with_pr" ${mark_values} -M)
     specs=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].specs | join(\" \")" ${mark_values} -M)
+    planned=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].planned // \"\"" ${mark_values} -M)
+    queue=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].queue // \"\"" ${mark_values} -M)
+
+    opts=""
+
+    if [ -n "${planned}" ] ; then
+      opts="-s planned=${planned}"
+    fi
+    if [ -n "${queue}" ] ; then
+      opts="-s queue=${queue}"
+    fi
 
     echo "Creating task for kit ${kit} and specs: ${specs}"
+
 
     mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
       -s kitfixups_repo="${kitfixups_url}" \

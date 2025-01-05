@@ -29,5 +29,6 @@ environment:
 - "MARK_SPECS=perl.yml"
 image: macaroni/phoenix-builder
 type: lxd
+queue: "topix"
 
 # vim: filetype=yaml
