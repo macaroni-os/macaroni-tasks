@@ -438,4 +438,50 @@ values:
           domain: "distfiles.macaronios.org"
           cdnprefix: ""
 
+    # Macaroni MARK TeDev
+    - name: "mark-dev"
+      namespace: "mark-dev"
+      purgefiles:
+        <<: *purgerepo
+      cdn_services:
+        - type: cloudflare
+          cdnprefix: "/"
+          domain: dev.macaronios.org
+
+    # Macaroni MARK Testing
+    - name: "mark-testing"
+      namespace: "mark-testing"
+      purgefiles:
+        <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
+
+    # Macaroni Funtoo Terragon Stable
+    - name: "mark"
+      namespace: "mark"
+      purgefiles:
+        <<: *purgerepo
+      cdn_services:
+        - type: cdn77
+          domain: "cdn77.macaronios.org"
+          cdnid: "1855829670"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "cdn77-os.macaronios.org"
+          cdnid: "1060674757"
+          cdnprefix: "/"
+        - type: cloudflare
+          domain: "dl.macaronios.org"
+          cdnprefix: "/repos/"
+
 # vim: filetype=yaml
