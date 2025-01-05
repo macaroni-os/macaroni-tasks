@@ -1,0 +1,107 @@
+values:
+
+  releases:
+    mark-xl:
+
+      kit_fixups: https://github.com/macaroni-os/kit-fixups
+      kit_fixups_branch: mark-xl
+
+      release_spec: mark-xl.yml
+
+      distfiles_sync: true
+
+      kits:
+        - kit: core-kit
+          with_pr: true
+          specs:
+            - core.yml
+
+        - kit: core-hw-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: core-server-kit
+          with_pr: true
+          specs:
+            - db.yml
+            - fs.yml
+            - net-base.yml
+            - tools.yml
+
+        - kit: dev-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: editors-kit
+          with_pr: false
+          specs:
+            - editors.yml
+
+        - kit: kernel-kit
+          with_pr: true
+          specs:
+            - base.yml
+            - debian.yml
+            - modules.yml
+
+        - kit: lang-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: llvm-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: net-kit
+          with_pr: false
+          specs:
+            - base.yml
+            - www-client.yml
+
+        - kit: perl-kit
+          with_pr: true
+          specs:
+            - perl.yml
+
+        - kit: portage-kit
+          with_pr: true
+          specs:
+            - funtoo.yml
+            - portage.yml
+
+        - kit: python-kit
+          with_pr: true
+          specs:
+            - python.yml
+
+        - kit: python-modules-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: science-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: security-kit
+          with_pr: true
+          specs:
+            - security.yml
+
+        - kit: text-kit
+          with_pr: true
+          specs:
+            - common.yml
+            - docbook.yml
+
+        - kit: xorg-kit
+          with_pr: true
+          specs:
+            - base.yml
+
+# vim: set filetype=yaml

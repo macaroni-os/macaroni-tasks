@@ -7,55 +7,127 @@ if [ -n "$DEBUG" ] ; then set -x ; fi
 specs_dir=$(dirname ${BASH_SOURCE[0]}})/../mark
 specs_values=${specs_dir}/stage.values
 
-STAGES_TASKS=$(yq r ${specs_values} 'values.stages_jobs' -l)
+mark_values=${specs_dir}/kits.values
 
-if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
-  echo "Missng MOTTAINAI_CLI_PROFILE env variable"
-  exit 1
-fi
+prepare_stage_tasks() {
 
-stages_repo=$(yq r ${specs_values} "values.stages_repo")
-stages_repobranch=$(yq r ${specs_values} "values.stages_branch")
+  STAGES_TASKS=$(yq r ${specs_values} 'values.stages_jobs' -l)
 
-for ((i=0;i<${STAGES_TASKS};i++)) ; do
+  stages_repo=$(yq r ${specs_values} "values.stages_repo")
+  stages_repobranch=$(yq r ${specs_values} "values.stages_branch")
 
-  name=$(yq r ${specs_values} "values.stages_jobs[$i].name")
-  jobfile=$(yq r ${specs_values} "values.stages_jobs[$i].jobfile")
-  conf=$(yq r ${specs_values} "values.stages_jobs[$i].config")
-  planned=$(yq r ${specs_values} "values.stages_jobs[$i].planned")
-  queue=$(yq r ${specs_values} "values.stages_jobs[$i].queue")
-  namespace=$(yq r ${specs_values} "values.stages_jobs[$i].namespace")
-  cdnstorage=$(yq r ${specs_values} "values.stages_jobs[$i].cdnstorage")
-  opts=""
-  if [ -n "${planned}" ] ; then
-    opts="-s planned=${planned}"
-  fi
+  for ((i=0;i<${STAGES_TASKS};i++)) ; do
 
-  if [ -n "${queue}" ] ; then
-    opts="${opts} -s queue=${queue}"
-  fi
+    name=$(yq r ${specs_values} "values.stages_jobs[$i].name")
+    jobfile=$(yq r ${specs_values} "values.stages_jobs[$i].jobfile")
+    conf=$(yq r ${specs_values} "values.stages_jobs[$i].config")
+    planned=$(yq r ${specs_values} "values.stages_jobs[$i].planned")
+    queue=$(yq r ${specs_values} "values.stages_jobs[$i].queue")
+    namespace=$(yq r ${specs_values} "values.stages_jobs[$i].namespace")
+    cdnstorage=$(yq r ${specs_values} "values.stages_jobs[$i].cdnstorage")
+    opts=""
+    if [ -n "${planned}" ] ; then
+      opts="-s planned=${planned}"
+    fi
 
-  arches=$(yq r ${specs_values} "values.stages_jobs[$i].arches" -l)
+    if [ -n "${queue}" ] ; then
+      opts="${opts} -s queue=${queue}"
+    fi
 
-  for ((y=0;y<${arches};y++)) ; do
-    arch=$(yq r ${specs_values} "values.stages_jobs[$i].arches[$y]")
+    arches=$(yq r ${specs_values} "values.stages_jobs[$i].arches" -l)
 
-    mkdir -p ${specs_dir}/stages/${arch}/ 2>/dev/null >/dev/null || true
+    for ((y=0;y<${arches};y++)) ; do
+      arch=$(yq r ${specs_values} "values.stages_jobs[$i].arches[$y]")
 
-    echo "Creating task for job ${name} and arch ${arch}..."
-    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-run.tmpl \
-      -s stages_repo="${stages_repo}" \
-      -s stages_repobranch="${stages_repobranch}" \
-      -s name="${name}" ${opts} \
-      -s arch="${arch}" \
-      -s namespace="${namespace}" \
-      -s cdnstorage="${cdnstorage}" \
-      -s jobfile="${jobfile}" \
-      -s config="${conf}" \
-      -o ${specs_dir}/stages/${arch}/mark-${name}.yaml
+      mkdir -p ${specs_dir}/stages/${arch}/ 2>/dev/null >/dev/null || true
+
+      echo "Creating task for job ${name} and arch ${arch}..."
+      mottainai-cli task compile ${specs_dir}/templates/mark-devkit-run.tmpl \
+        -s stages_repo="${stages_repo}" \
+        -s stages_repobranch="${stages_repobranch}" \
+        -s name="${name}" ${opts} \
+        -s arch="${arch}" \
+        -s namespace="${namespace}" \
+        -s cdnstorage="${cdnstorage}" \
+        -s jobfile="${jobfile}" \
+        -s config="${conf}" \
+        -o ${specs_dir}/stages/${arch}/mark-${name}.yaml
+
+    done
 
   done
 
-done
+  return 0
+}
+
+prepare_markdevkit_release_tasks() {
+  local release=$1
+
+  local kitfixups_url=$(yq4 e ".values.releases[\"${release}\"].kit_fixups" ${mark_values} -M)
+  local kitfixups_branch=$(yq4 e ".values.releases[\"${release}\"].kit_fixups_branch" ${mark_values} -M)
+  local releasespec=$(yq4 e ".values.releases[\"${release}\"].release_spec" ${mark_values} -M)
+  local num_kits=$(yq4 e ".values.releases[\"${release}\"].kits | length" ${mark_values} -M)
+
+  local kit=""
+  local withpr=""
+  local specs=""
+
+  for ((i=0;i<${num_kits};i++)) ; do
+
+    kit=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kit" ${mark_values} -M)
+    withpr=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].with_pr" ${mark_values} -M)
+    specs=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].specs | join(\" \")" ${mark_values} -M)
+
+    echo "Creating task for kit ${kit} and specs: ${specs}"
+
+    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
+      -s kitfixups_repo="${kitfixups_url}" \
+      -s kitfixups_branch="${kitfixups_branch}" \
+      -s name="${kit}" ${opts} \
+      -s release="${release}" \
+      -s specs="${specs[@]}" \
+      -s withpr="${withpr}" \
+      -s config="${conf}" \
+      -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
+
+  done
+
+  return 0
+}
+
+prepare_markdevkit_tasks() {
+
+  local releases=$(yq4 e '.values.releases | keys | .[]' ${mark_values})
+
+  for r in ${releases} ; do
+
+    echo "Preparing tasks/pipeline of the release ${r}..."
+    prepare_markdevkit_release_tasks ${r}
+
+  done
+
+  return 0
+}
+
+
+main() {
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+    exit 1
+  fi
+
+  prepare_stage_tasks || {
+    return 1
+  }
+
+  prepare_markdevkit_tasks || {
+    return 1
+  }
+
+  return 0
+}
+
+main $@
+exit $?
 
 # vim: filetype=sh
