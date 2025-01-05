@@ -101,10 +101,18 @@ prepare_markdevkit_release_tasks() {
       -s release="${release}" \
       -s specs="${specs[@]}" \
       -s withpr="${withpr}" \
-      -s config="${conf}" \
       -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
 
   done
+
+  opts=""
+  # Creating bump-release task.
+  mottainai-cli task compile ${specs_dir}/templates/mark-devkit-bump-release.tmpl \
+    -s kitfixups_repo="${kitfixups_url}" \
+    -s kitfixups_branch="${kitfixups_branch}" ${opts} \
+    -s release="${release}" \
+    -s specs="${release_spec}" \
+    -o ${specs_dir}/${release}/bump-release.yaml || return 1
 
   return 0
 }
