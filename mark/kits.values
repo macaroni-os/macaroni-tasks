@@ -7,6 +7,8 @@ values:
       kit_fixups_branch: mark-xl
 
       release_spec: mark-xl.yml
+      release_planned: "@daily"
+      release_queue: topix
 
       distfiles_sync: true
 

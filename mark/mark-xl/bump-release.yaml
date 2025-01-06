@@ -25,5 +25,7 @@ environment:
 - "MARK_SPECS="
 image: macaroni/phoenix-builder
 type: lxd
+queue: "topix"
+planned: "@daily"
 
 # vim: filetype=yaml

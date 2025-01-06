@@ -106,6 +106,16 @@ prepare_markdevkit_release_tasks() {
   done
 
   opts=""
+  local release_planned=$(yq4 e ".values.releases[\"${release}\"].release_planned // \"\"" ${mark_values} -M)
+  local release_queue=$(yq4 e ".values.releases[\"${release}\"].release_queue // \"\"" ${mark_values} -M)
+
+  if [ -n "${release_planned}" ] ; then
+    opts="-s planned=${release_planned}"
+  fi
+  if [ -n "${release_queue}" ] ; then
+    opts="${opts} -s queue=${release_queue}"
+  fi
+
   # Creating bump-release task.
   mottainai-cli task compile ${specs_dir}/templates/mark-devkit-bump-release.tmpl \
     -s kitfixups_repo="${kitfixups_url}" \
