@@ -35,6 +35,7 @@ values:
             - fs.yml
             - net-base.yml
             - tools.yml
+            - libs.yml
           planned: "@daily"
 
         - kit: dev-kit
@@ -146,4 +147,5 @@ values:
           specs:
             - macaroni.yml
           planned: "@weekly"
-# vim: set filetype=yaml
+
+# vim: filetype=yaml
