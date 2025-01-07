@@ -12,8 +12,8 @@ script:
 - source /storage/pr-envs.sh
 
 - >-
-  echo "Processing specfile ${i}..." &&
-  mark-devkit kit bump-release --specfile ./merge.release.d/$i
+  echo "Processing specfile ${MARK_SPECS}..." &&
+  mark-devkit kit bump-release --specfile ./merge.release.d/${MARK_SPECS}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push
 
@@ -22,7 +22,7 @@ storage_path: /storage
 environment:
 - "REPO_BRANCH=mark-xl"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS="
+- "MARK_SPECS=mark-xl.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"

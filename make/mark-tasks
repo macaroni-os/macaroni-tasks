@@ -65,7 +65,7 @@ prepare_markdevkit_release_tasks() {
 
   local kitfixups_url=$(yq4 e ".values.releases[\"${release}\"].kit_fixups" ${mark_values} -M)
   local kitfixups_branch=$(yq4 e ".values.releases[\"${release}\"].kit_fixups_branch" ${mark_values} -M)
-  local releasespec=$(yq4 e ".values.releases[\"${release}\"].release_spec" ${mark_values} -M)
+  local release_spec=$(yq4 e ".values.releases[\"${release}\"].release_spec" ${mark_values} -M)
   local num_kits=$(yq4 e ".values.releases[\"${release}\"].kits | length" ${mark_values} -M)
 
   local kit=""

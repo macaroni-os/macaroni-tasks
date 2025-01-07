@@ -12,8 +12,8 @@ script:
 - source /storage/pr-envs.sh
 
 - >-
-  echo "Processing specfile ${i}..." &&
-  mark-devkit kit bump-release --specfile ./merge.release.d/$i
+  echo "Processing specfile ${MARK_SPECS}..." &&
+  mark-devkit kit bump-release --specfile ./merge.release.d/${MARK_SPECS}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push
 
