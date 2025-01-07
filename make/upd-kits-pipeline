@@ -31,10 +31,10 @@ main () {
     exit 1
   fi
 
-  command_file=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .command_file" -r)
   repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .http_repo" -r)
   repo_branch=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .branch" -r)
   repo_ssh=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .ssh_repo" -r)
+  kits_package=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits_package" -r)
   tree_version=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .tree_version" -r)
   local upgrade_kit=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .upgrade_kit" -r)
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
@@ -45,9 +45,9 @@ main () {
 
   if [ "${seednum}" != "0" ] ; then
     seeds2bump=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | join(\" \")" -r)
-    tmplfile=${luet_dir}/templates/upgrade-kits-pipeline-noseeds.tmpl
-  else
     tmplfile=${luet_dir}/templates/upgrade-kits-pipeline.tmpl
+  else
+    tmplfile=${luet_dir}/templates/upgrade-kits-pipeline-noseeds.tmpl
   fi
 
   if [ "${upgrade_kit}" != "true" ] ; then
@@ -60,16 +60,11 @@ main () {
     return 1
   fi
 
-  if [ -z "${command_file}" ] ; then
-    echo "No command file defined for this repository."
-    return 1
-  fi
-
   echo "
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
-Command File: ${command_file}
 Seed to bump: ${seeds2bump}
+Kits package: ${kits_package}
 "
 
   local opts=""
@@ -84,10 +79,10 @@ Seed to bump: ${seeds2bump}
   mottainai-cli task compile ${tmplfile} \
     -s namespace="${NAMESPACE}" ${opts} \
     -s repohttp="${repo}" \
-    -s commandfile="${command_file}" \
     -s repobranch="${repo_branch}" \
     -s repossh="${repo_ssh}" \
     -s kits2upgrade="${kits2upgrade}" \
+    -s kits_package="${kits_package}" \
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
     -s treeversion="${tree_version}" \

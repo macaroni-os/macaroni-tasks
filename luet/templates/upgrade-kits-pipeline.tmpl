@@ -10,7 +10,7 @@
 #                 the kit-cache files (that stores in the namespace
 #                 <repo-name>-repoman) and bump the new release of
 #                 the packages:
-#                    - seed/funtoo-kits
+#                    - seed/mark-kits
 #                    - toolchain/meta-repo
 #                    - (the seeds defined in the file luet-repo.values)
 #                 with the commits in the target repository.
@@ -18,7 +18,7 @@
 #                 kits to upgrade it doesn't bump nothing and it dies.
 #
 #              b) execute the build of the packages:
-#                    - seed/funtoo-kits
+#                    - seed/mark-kits
 #                    - toolchain/meta-repo
 #                 with the --push option in the luet command
 #                 that permits to sync the generated docker image
@@ -55,7 +55,8 @@ tasks:
 
     - >-
       anise repo update --force &&
-      anise install utils/jq utils/yq net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
+      anise install utils/jq utils/yq utils/yq4 net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
+      anise upgrade &&
       anise cleanup &&
       macaronictl env-update
 
@@ -63,35 +64,45 @@ tasks:
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
-    - git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
-    - git clone ${KIT_FIXUPS} -b ${KIT_FIXUPS_BRANCH} /kit-fixups
+    - git clone ${REPO} -b ${REPO_BRANCH} /anise-repo
+
+    # Update kits only selected
+    - >-
+      for kit in ${KITS_2UPGRADE} ; do
+      echo "Upgrading kit ${kit}..." ;
+      yq4 -i e "del(.sources[] | select(.name == \"${kit}\") | .commit_sha1 )" /anise-repo/packages/${KITS_PACKAGE}/kits-versions/kits.yaml ;
+      done ;
+      echo "kits.yaml ready!"
 
     # Create the reposcan files
     - >-
-      mark-devkit kit clone --specfile /kit-fixups/${MARKDEVKIT_CLONEFILE} --generate-reposcan-files
+      mark-devkit --version &&
+      mkdir /kit-cache/
+      mark-devkit kit clone --specfile /anise-repo/packages/${KITS_PACKAGE}/kits-versions/kits.yaml --generate-reposcan-files
       --write-summary-file /kit-cache/kits.yaml --concurrency ${MARKDEVKIT_CONCURRENCY}
       --kit-cache-dir /kit-cache/
 
-    # Copy the new kits.yaml files to seeds/funtoo-kits
-    - cp -v /kit-fixups/kits.yaml /luet-repo/packages/seeds/funtoo-kits/kits-versions/
+    # Copy the new kits.yaml files to seeds/mark-kits
+    - cp -v /kit-cache/kits.yaml /anise-repo/packages/${KITS_PACKAGE}/kits-versions/
 
     - >-
-      cd /luet-repo &&
+      cd /anise-repo &&
       export changes=$(git status -s | grep "M " | wc -l ) &&
       if [ "${changes}" != "0" ] ; then
-      fkv=$(yq r /luet-repo/packages/seeds/funtoo-kits/definition.yaml 'version') &&
+      fkv=$(yq r /anise-repo/packages/${KITS_PACKAGE}/definition.yaml 'version') &&
       nv="0.$(date '+%Y%m%d')" &&
       tbump_opts="" &&
       if [ "${fkv}" != "${nv}" ] ; then
       tbump_opts="${tbump_opts} -p ${nv}" ;
       fi &&
-      luet-build tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
-      luet-build tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /anise-repo/packages/${KITS_PACKAGE}/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /anise-repo/packages/toolchain/meta-reposcan/definition.yaml ${tbump_opts} &&
       for i in ${SEEDS2BUMP} ; do
       name=$(echo $i | cut -d'/' -f2) ;
-      luet-build tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
-      if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
-      luet-build tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+      luet-build tree bump -f /anise-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+      if [ -d /anise-repo/packages/seed/${name}/pkglist ] ; then
+      luet-build tree bump -f /anise-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
       fi ;
       done ;
       else
@@ -106,18 +117,16 @@ tasks:
       fi
 
     # Copy the generated JSON file to artefacts dir
-    - eval 'cp -vf /kit_cache/* /artefacts/ || true'
+    - eval 'cp -vf /kit-cache/* /artefacts/ || true'
 
     environment:
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO={{ .repossh }}"
-    - "KIT_FIXUPS=https://github.com/macaroni-os/kit-fixups.git"
-    - "KIT_FIXUPS_BRANCH={{ .kitfixup_branch }}"
-    - "MARKDEVKIT_CLONEFILE={{ .markdevkit_clonefile }}"
     - "MARKDEVKIT_CONCURRENCY=20"
+    - "KITS_PACKAGE={{ .kits_package }}"
     - "KITS_2UPGRADE={{ .kits2upgrade }}"
     - "SEED2BUMP={{ .seeds2bump }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     image: macaroni/funtoo-metatools
     storage: geaaru-github
@@ -127,7 +136,7 @@ tasks:
     tag_namespace: "{{ .namespace }}-reposcan"
 
 
-# Step B -------------------- Build seed/funtoo-kits and toolchain/meta-repo packages.
+# Step B -------------------- Build seed/mark-kits and toolchain/meta-repo packages.
 
   update-kits-pkgs:
 
@@ -162,15 +171,15 @@ tasks:
     - "BUILDKIT_PROGRESS=plain"
     - "DOCKER_BUILDKIT=1"
     {{- end }}
-    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
-    - "PACKAGES=seed/funtoo-kits toolchain/meta-repo"
+    - "PACKAGES={{ .kits_package }} toolchain/meta-repo"
     image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
@@ -181,7 +190,7 @@ tasks:
 # Step c -------------------- Bump a new revision of the selected repository
 
   bump-repo-revision:
-    name: "luet - < {{ .namespace }} > - Bump revision"
+    name: "anise - < {{ .namespace }} > - Bump revision"
     script:
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
@@ -209,7 +218,7 @@ tasks:
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO={{ .repohttp }}"
     - "SUDO="
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
@@ -248,7 +257,7 @@ tasks:
 
 # Step E -------------------- Build {{ .seeds2bump }} packages.
   build-seeds-base:
-    name: "luet - {{ .seeds2bump }} <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    name: "anise - {{ .seeds2bump }} <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
     storage: docker-certs
     storage_path: /storage
     script:
@@ -279,10 +288,10 @@ tasks:
     - "BUILDKIT_PROGRESS=plain"
     - "DOCKER_BUILDKIT=1"
     {{- end }}
-    - "REPO_CACHE=docker-registry1.mottainai.local:5000/luet-{{ .namespace }}-tree"
+    - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/luettmp
+    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376

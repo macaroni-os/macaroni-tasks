@@ -462,6 +462,7 @@ values:
       mottainai_queue: "topix"
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      kits_package: seeds/mark-kits
       kits2upgrade:
         - mark-kit
         - security-kit
@@ -480,7 +481,6 @@ values:
         - science-kit
         - text-kit
       seeds2bump:
-        - seed/mark-base
       lpc_extra_ns:
         - extra-reposcan
 
