@@ -462,7 +462,8 @@ values:
       mottainai_queue: "topix"
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
-      kits_package: seeds/mark-kits
+      kits_package_path: seeds/mark-kits
+      kits_package: seed/mark-kits
       kits2upgrade:
         - mark-kit
         - security-kit
