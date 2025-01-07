@@ -69,31 +69,31 @@ tasks:
     - >-
       for kit in ${KITS_2UPGRADE} ; do
       echo "Upgrading kit ${kit}..." ;
-      yq4 -i e "del(.sources[] | select(.name == \"${kit}\") | .commit_sha1 )" /anise-repo/packages/${KITS_PACKAGE}/kits-versions/kits.yaml ;
+      yq4 -i e "del(.sources[] | select(.name == \"${kit}\") | .commit_sha1 )" /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/kits.yaml ;
       done ;
       echo "kits.yaml ready!"
 
     # Create the reposcan files
     - >-
       mark-devkit --version &&
-      mark-devkit kit clone --specfile /anise-repo/packages/${KITS_PACKAGE}/kits-versions/kits.yaml --generate-reposcan-files
+      mark-devkit kit clone --specfile /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/kits.yaml --generate-reposcan-files
       --write-summary-file /kit-cache/kits.yaml --concurrency ${MARKDEVKIT_CONCURRENCY}
       --kit-cache-dir /kit-cache/
 
     # Copy the new kits.yaml files to seeds/mark-kits
-    - cp -v /kit-cache/kits.yaml /anise-repo/packages/${KITS_PACKAGE}/kits-versions/
+    - cp -v /kit-cache/kits.yaml /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/
 
     - >-
       cd /anise-repo &&
       export changes=$(git status -s | grep "M " | wc -l ) &&
       if [ "${changes}" != "0" ] ; then
-      fkv=$(yq r /anise-repo/packages/${KITS_PACKAGE}/definition.yaml 'version') &&
+      fkv=$(yq r /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml 'version') &&
       nv="0.$(date '+%Y%m%d')" &&
       tbump_opts="" &&
       if [ "${fkv}" != "${nv}" ] ; then
       tbump_opts="${tbump_opts} -p ${nv}" ;
       fi &&
-      luet-build tree bump -f /anise-repo/packages/${KITS_PACKAGE}/definition.yaml ${tbump_opts} &&
+      luet-build tree bump -f /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml ${tbump_opts} &&
       luet-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
       luet-build tree bump -f /anise-repo/packages/toolchain/meta-reposcan/definition.yaml ${tbump_opts} &&
       for i in ${SEEDS2BUMP} ; do
@@ -122,6 +122,7 @@ tasks:
     - "REPO={{ .repossh }}"
     - "MARKDEVKIT_CONCURRENCY=20"
     - "KITS_PACKAGE={{ .kits_package }}"
+    - "KITS_PACKAGE_PATH={{ .kits_package_path }}"
     - "KITS_2UPGRADE={{ .kits2upgrade }}"
     - "SEED2BUMP={{ .seeds2bump }}"
     - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
