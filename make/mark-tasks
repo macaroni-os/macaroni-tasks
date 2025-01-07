@@ -103,6 +103,15 @@ prepare_markdevkit_release_tasks() {
       -s withpr="${withpr}" \
       -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
 
+    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-clean.tmpl \
+      -s kitfixups_repo="${kitfixups_url}" \
+      -s kitfixups_branch="${kitfixups_branch}" \
+      -s name="${kit}" ${opts} \
+      -s release="${release}" \
+      -s specs="${specs[@]}" \
+      -s withpr="${withpr}" \
+      -o ${specs_dir}/${release}/clean-${kit}.yaml || return 1
+
   done
 
   opts=""
