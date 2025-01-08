@@ -4,7 +4,8 @@ name: "M.A.R.K. - Bump Kits - < {{ .release }} >"
 script:
 - >-
   anise repo update &&
-  anise i -y mark-devkit anise-portage-converter
+  anise i -y mark-devkit anise-portage-converter &&
+  anise upgrade
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
