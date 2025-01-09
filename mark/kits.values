@@ -148,4 +148,12 @@ values:
             - macaroni.yml
           planned: "@weekly"
 
+        - kit: ruby-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@daily"
+
+
 # vim: filetype=yaml
