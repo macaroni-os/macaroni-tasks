@@ -36,6 +36,7 @@ values:
             - net-base.yml
             - tools.yml
             - libs.yml
+            - telemetry.yml
           planned: "@daily"
 
         - kit: dev-kit
