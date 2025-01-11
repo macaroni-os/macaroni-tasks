@@ -140,6 +140,7 @@ values:
           with_pr: true
           specs:
             - base.yml
+            - gnome.yml
           planned: "@weekly"
 
         - kit: mark-kit
