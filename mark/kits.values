@@ -111,6 +111,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - python.yml
           planned: "@daily"
 
         - kit: science-kit
