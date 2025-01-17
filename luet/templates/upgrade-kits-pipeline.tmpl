@@ -80,7 +80,7 @@ tasks:
       mkdir /kit-cache/
       mark-devkit kit clone --specfile /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/kits.yaml --generate-reposcan-files
       --write-summary-file /kit-cache/kits.yaml --concurrency ${MARKDEVKIT_CONCURRENCY}
-      --kit-cache-dir /kit-cache/
+      --kit-cache-dir /kit-cache/ --deep ${MARKDEVKIT_GITDEEP}
 
     # Copy the new kits.yaml files to seeds/mark-kits
     - cp -v /kit-cache/kits.yaml /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/
@@ -123,6 +123,7 @@ tasks:
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO={{ .repossh }}"
     - "MARKDEVKIT_CONCURRENCY=20"
+    - "MARKDEVKIT_GITDEEP=1000"
     - "KITS_PACKAGE={{ .kits_package }}"
     - "KITS_PACKAGE_PATH={{ .kits_package_path }}"
     - "KITS_2UPGRADE={{ .kits2upgrade }}"
