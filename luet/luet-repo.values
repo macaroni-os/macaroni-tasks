@@ -472,6 +472,7 @@ values:
         - core-gl-kit
         - core-hw-kit
         - net-kit
+        - kernel-kit
         - llvm-kit
         - perl-kit
         - dev-kit
