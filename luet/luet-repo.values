@@ -482,6 +482,7 @@ values:
         - lang-kit
         - science-kit
         - text-kit
+        - ruby-kit
       seeds2bump:
       lpc_extra_ns:
         - extra-reposcan
