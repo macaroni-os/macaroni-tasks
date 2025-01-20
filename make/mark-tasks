@@ -74,9 +74,12 @@ prepare_markdevkit_release_tasks() {
   local opts=""
   local queue=""
   local planned=""
+  local mode=""
+  local kitfile=""
 
   for ((i=0;i<${num_kits};i++)) ; do
 
+    mode=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].mode // \"\"" ${mark_values} -M)
     kit=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kit" ${mark_values} -M)
     withpr=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].with_pr" ${mark_values} -M)
     specs=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].specs | join(\" \")" ${mark_values} -M)
@@ -92,16 +95,37 @@ prepare_markdevkit_release_tasks() {
       opts="${opts} -s queue=${queue}"
     fi
 
-    echo "Creating task for kit ${kit} and specs: ${specs}"
+    echo "Creating task for kit ${kit} and specs: ${specs} - mode ${mode}"
 
-    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
-      -s kitfixups_repo="${kitfixups_url}" \
-      -s kitfixups_branch="${kitfixups_branch}" \
-      -s name="${kit}" ${opts} \
-      -s release="${release}" \
-      -s specs="${specs[@]}" \
-      -s withpr="${withpr}" \
-      -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
+    if [ -z "${mode}" ] ; then
+      mode="merge"
+    fi
+
+    rm ${specs_dir}/${release}/merge-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/autogen-${kit}.yaml >/dev/null 2>&1 || true
+
+    if [ "${mode}" == "merge" ] ; then
+      mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
+        -s kitfixups_repo="${kitfixups_url}" \
+        -s kitfixups_branch="${kitfixups_branch}" \
+        -s name="${kit}" ${opts} \
+        -s release="${release}" \
+        -s specs="${specs[@]}" \
+        -s withpr="${withpr}" \
+        -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
+    else
+      kitfile=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kitfile" ${mark_values} -M)
+      # autogen mode
+      mottainai-cli task compile ${specs_dir}/templates/mark-devkit-autogen.tmpl \
+        -s kitfixups_repo="${kitfixups_url}" \
+        -s kitfixups_branch="${kitfixups_branch}" \
+        -s name="${kit}" ${opts} \
+        -s release="${release}" \
+        -s kitfile="${kitfile}" \
+        -s specs="${specs[@]}" \
+        -s withpr="${withpr}" \
+        -o ${specs_dir}/${release}/autogen-${kit}.yaml || return 1
+    fi
 
     mottainai-cli task compile ${specs_dir}/templates/mark-devkit-clean.tmpl \
       -s kitfixups_repo="${kitfixups_url}" \

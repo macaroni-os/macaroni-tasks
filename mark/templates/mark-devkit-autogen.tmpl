@@ -1,0 +1,41 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+
+name: "M.A.R.K. - Autogen Kits - < {{ .release }} > - {{ .name }}"
+script:
+- >-
+  anise repo update &&
+  anise i -y mark-devkit anise-portage-converter
+
+- git clone ${REPO} -b ${REPO_BRANCH} repo
+- cd repo
+
+- source /storage/pr-envs.sh
+
+- >-
+  for i in ${MARK_SPECS} ; do
+  echo "Processing specfile ${i}..." ;
+  mark-devkit autogen  --specfile ./{{ .name }}/autogen.kit.d/$i
+  --kitfile ./{{ .name }}/merge.kit.d/${MARK_KITFILE}
+  --concurrency ${CONCURRENCY}
+  --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
+  --push {{- if eq .withpr "true" }} --pr {{- end }} ;
+  done
+
+storage: "geaaru-github"
+storage_path: /storage
+environment:
+- "CONCURRENCY=30"
+- "REPO_BRANCH={{ .kitfixups_branch }}"
+- "REPO={{ .kitfixups_repo }}"
+- "MARK_SPECS={{ .specs }}"
+- "MARK_KITFILE={{ .kitfile }}"
+image: macaroni/phoenix-builder
+type: lxd
+{{- if .queue }}
+queue: "{{ .queue }}"
+{{- end }}
+{{- if .planned }}
+planned: "{{ .planned }}"
+{{- end }}
+
+# vim: filetype=yaml

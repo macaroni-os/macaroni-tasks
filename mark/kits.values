@@ -171,8 +171,6 @@ values:
 
       distfiles_sync: true
 
-      # Possible values: merge|autogen
-      mode: merge
 
       kits:
         - kit: core-kit
@@ -180,6 +178,8 @@ values:
           queue: topix
           specs:
             - core.yml
+          mode: merge
+
           #planned: "@daily"
 
         - kit: core-hw-kit
@@ -187,11 +187,13 @@ values:
           queue: topix
           specs:
             - base.yml
+          mode: merge
           #planned: "@daily"
 
         - kit: core-server-kit
           with_pr: false
           queue: "topix"
+          mode: merge
           specs:
             - db.yml
             - fs.yml
@@ -204,6 +206,7 @@ values:
         - kit: dev-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
           #planned: "@daily"
@@ -211,6 +214,7 @@ values:
         - kit: editors-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - editors.yml
           #planned: "@daily"
@@ -218,6 +222,7 @@ values:
         - kit: kernel-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
             - debian.yml
@@ -227,6 +232,7 @@ values:
         - kit: lang-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
           #planned: "@daily"
@@ -234,6 +240,7 @@ values:
         - kit: llvm-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
           #planned: "@weekly"
@@ -241,6 +248,7 @@ values:
         - kit: net-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
             - www-client.yml
@@ -249,6 +257,7 @@ values:
         - kit: perl-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - perl.yml
           #planned: "@daily"
@@ -256,6 +265,7 @@ values:
         - kit: portage-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - funtoo.yml
             - portage.yml
@@ -264,6 +274,7 @@ values:
         - kit: python-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - python.yml
           #planned: "@weekly"
@@ -271,6 +282,10 @@ values:
         - kit: python-modules-kit
           with_pr: false
           queue: topix
+          mode: merge
+          # We consider a single kit file
+          # for every kit to update.
+          kitfile: ""
           specs:
             - base.yml
             - python.yml
@@ -279,6 +294,7 @@ values:
         - kit: science-kit
           with_pr: false
           queue: topix
+          mode: merge
           specs:
             - base.yml
           #planned: "@weekly"
@@ -307,7 +323,9 @@ values:
         #  planned: "@weekly"
 
         - kit: mark-kit
-          with_pr: false
+          with_pr: true
+          kitfile: macaroni.yml
+          mode: autogen
           queue: topix
           specs:
             - macaroni.yml
