@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/mark-unstable"
+name: "amd64 - Build docker image macaronios/mark-unstable image"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
