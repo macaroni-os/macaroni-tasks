@@ -180,5 +180,15 @@ values:
       dir: /docker
       planned: "@weekly"
 
+    # Macaroni MARK Unstable image
+    - name: macaronios/mark-unstable
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.mark-unstable
+      image_manifest: latest-amd64
+      dir: /docker
+      planned: "@weekly"
+
 
 # vim: filetype=yaml
