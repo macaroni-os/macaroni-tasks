@@ -11,6 +11,7 @@ values:
       release_queue: topix
 
       distfiles_sync: true
+      s3_prefix: mark-distfiles/distfiles
 
       mode: merge
 
@@ -170,7 +171,8 @@ values:
       release_queue: topix
 
       distfiles_sync: true
-
+      distfiles_spec: mark-unstable.yml
+      s3_prefix: mark-distfiles/distfiles
 
       kits:
         - kit: core-kit

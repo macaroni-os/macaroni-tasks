@@ -4,12 +4,13 @@ name: "M.A.R.K. - Autogen Kits - < mark-unstable > - mark-kit"
 script:
 - >-
   anise repo update &&
-  anise i -y mark-devkit anise-portage-converter
+  anise i -y mark-devkit anise-portage-converter minio-client
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 
 - source /storage/pr-envs.sh
+- source /storage/cdn77.env
 
 - >-
   for i in ${MARK_SPECS} ; do
@@ -18,10 +19,17 @@ script:
   --kitfile ./mark-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push --pr ;
+  --push --pr
+  --backend s3
+  --minio-bucket ${CDN77_MARK_BUCKET}
+  --minio-endpoint ${CDN77_URL}
+  --minio-keyid ${CDN77_ACCESS_KEY}
+  --minio-secret ${CDN77_SECRET_KEY}
+  --minio-prefix mark-distfiles/distfiles
+  ;
   done
 
-storage: "geaaru-github"
+storage: "geaaru-github,cdn77"
 storage_path: /storage
 environment:
 - "CONCURRENCY=30"

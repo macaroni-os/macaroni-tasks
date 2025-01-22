@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < {{ .release }} > - {{ .name }}"
+name: "M.A.R.K. - Distfiles Sync - mark-distfiles/distfiles"
 script:
 - >-
   anise repo update &&
@@ -13,19 +13,17 @@ script:
 - source /storage/cdn77.env
 
 - >-
-  for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./{{ .name }}/autogen.kit.d/$i
-  --kitfile ./{{ .name }}/merge.kit.d/${MARK_KITFILE}
+  mark-devkit autogen  --specfile ./merge.distfiles.d/${MARK_SPECS}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push {{- if eq .withpr "true" }} --pr {{- end }}
+  --push
   --backend s3
   --minio-bucket ${CDN77_MARK_BUCKET}
-  --minio-endpoint ${CDN77_URL}
+  --minio-endpoint ${CDN77_ENDPOINT}
   --minio-keyid ${CDN77_ACCESS_KEY}
   --minio-secret ${CDN77_SECRET_KEY}
-  --minio-prefix {{ .prefix }}
+  --minio-prefix mark-distfiles/distfiles
   ;
   done
 
@@ -33,17 +31,11 @@ storage: "geaaru-github,cdn77"
 storage_path: /storage
 environment:
 - "CONCURRENCY=30"
-- "REPO_BRANCH={{ .kitfixups_branch }}"
-- "REPO={{ .kitfixups_repo }}"
-- "MARK_SPECS={{ .specs }}"
-- "MARK_KITFILE={{ .kitfile }}"
+- "REPO_BRANCH=mark-xl"
+- "REPO=https://github.com/macaroni-os/kit-fixups"
+- "MARK_SPECS="
 image: macaroni/phoenix-builder
 type: lxd
-{{- if .queue }}
-queue: "{{ .queue }}"
-{{- end }}
-{{- if .planned }}
-planned: "{{ .planned }}"
-{{- end }}
+queue: "topix"
 
 # vim: filetype=yaml

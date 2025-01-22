@@ -67,6 +67,10 @@ prepare_markdevkit_release_tasks() {
   local kitfixups_branch=$(yq4 e ".values.releases[\"${release}\"].kit_fixups_branch" ${mark_values} -M)
   local release_spec=$(yq4 e ".values.releases[\"${release}\"].release_spec" ${mark_values} -M)
   local num_kits=$(yq4 e ".values.releases[\"${release}\"].kits | length" ${mark_values} -M)
+  local distfiles_sync=$(yq4 e ".values.releases[\"${release}\"].distfiles_sync // false" ${mark_values} -M)
+  local distfiles_spec=$(yq4 e ".values.releases[\"${release}\"].distfiles_spec // \"\"" ${mark_values} -M)
+  local distfiles_planned=$(yq4 e ".values.releases[\"${release}\"].distfiles_planned // \"\"" ${mark_values} -M)
+  local s3prefix=$(yq4 e ".values.releases[\"${release}\"].s3_prefix // \"\"" ${mark_values} -M)
 
   local kit=""
   local withpr=""
@@ -103,6 +107,7 @@ prepare_markdevkit_release_tasks() {
 
     rm ${specs_dir}/${release}/merge-${kit}.yaml >/dev/null 2>&1 || true
     rm ${specs_dir}/${release}/autogen-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/distfiles-sync.yaml >/dev/null 2>&1 || true
 
     if [ "${mode}" == "merge" ] ; then
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
@@ -124,6 +129,7 @@ prepare_markdevkit_release_tasks() {
         -s kitfile="${kitfile}" \
         -s specs="${specs[@]}" \
         -s withpr="${withpr}" \
+        -s prefix="${s3prefix}" \
         -o ${specs_dir}/${release}/autogen-${kit}.yaml || return 1
     fi
 
@@ -156,6 +162,26 @@ prepare_markdevkit_release_tasks() {
     -s release="${release}" \
     -s specs="${release_spec}" \
     -o ${specs_dir}/${release}/bump-release.yaml || return 1
+
+  if [ "${distfiles_sync}" = "true" ] ; then
+
+    opts=""
+    if [ -n "${distfiles_planned}" ] ; then
+      opts="-s planned=${distfiles_planned}"
+    fi
+    if [ -n "${release_queue}" ] ; then
+      opts="${opts} -s queue=${release_queue}"
+    fi
+
+    # Creating distfiles sync task.
+    mottainai-cli task compile ${specs_dir}/templates/mark-devkit-distfiles-sync.tmpl \
+      -s kitfixups_repo="${kitfixups_url}" \
+      -s kitfixups_branch="${kitfixups_branch}" ${opts} \
+      -s release="${release}" \
+      -s specs="${distfiles_spec}" \
+      -s prefix="${s3prefix}" \
+      -o ${specs_dir}/${release}/distfiles-sync.yaml || return 1
+  fi
 
   return 0
 }
