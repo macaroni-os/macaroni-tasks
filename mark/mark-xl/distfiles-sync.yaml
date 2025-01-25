@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Distfiles Sync - mark-distfiles/distfiles"
+name: "M.A.R.K. - Distfiles Sync - mark-distfiles/distfiles - < mark-xl >"
 script:
 - >-
   anise repo update &&
