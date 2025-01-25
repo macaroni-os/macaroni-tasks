@@ -10,7 +10,7 @@ script:
 - cd repo
 
 - source /storage/pr-envs.sh
-- source /storage/cdn77.env
+- source /storage/cdn77-mc.setup
 
 - >-
   for i in ${MARK_SPECS} ; do
@@ -22,7 +22,7 @@ script:
   --push {{- if eq .withpr "true" }} --pr {{- end }}
   --backend s3
   --minio-bucket ${CDN77_MARK_BUCKET}
-  --minio-endpoint ${CDN77_URL}
+  --minio-endpoint ${CDN77_ENDPOINT}
   --minio-keyid ${CDN77_ACCESS_KEY}
   --minio-secret ${CDN77_SECRET_KEY}
   --minio-prefix {{ .prefix }}
