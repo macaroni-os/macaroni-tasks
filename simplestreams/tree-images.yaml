@@ -394,3 +394,18 @@ products:
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
+  # Macaroni MARK III
+  - name: mark-iii:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "MARK III"
+    directory: mark-iii
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-iii"
+    days: 2
+    aliases:
+      - "macaroni/mark-iii"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
