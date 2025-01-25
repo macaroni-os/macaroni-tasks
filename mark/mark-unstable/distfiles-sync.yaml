@@ -10,25 +10,24 @@ script:
 - cd repo
 
 - source /storage/pr-envs.sh
-- source /storage/cdn77.env
+- source /storage/cdn77-mc.setup
 
 - >-
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./merge.distfiles.d/${MARK_SPECS}
+  mark-devkit kit distfiles-sync  --specfile ./merge.distfiles.d/${MARK_SPECS}
   --concurrency ${CONCURRENCY}
-  --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push
   --backend s3
   --minio-bucket ${CDN77_MARK_BUCKET}
   --minio-endpoint ${CDN77_ENDPOINT}
   --minio-keyid ${CDN77_ACCESS_KEY}
   --minio-secret ${CDN77_SECRET_KEY}
   --minio-prefix mark-distfiles/distfiles
-  ;
-  done
+  --write-summary-file /report/summary.yaml
+
 
 storage: "geaaru-github,cdn77"
 storage_path: /storage
+artefact_path: /report
 environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
