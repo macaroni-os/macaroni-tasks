@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/phoenix-dev-minimal-devel"
+name: "amd64 - Build docker image - < macaronios/phoenix-dev-minimal-devel >"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:

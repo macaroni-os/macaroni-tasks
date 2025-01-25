@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/terragon-dev-minimal"
+name: "amd64 - Build docker image - < macaronios/terragon-dev-minimal >"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:

@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/eagle-dev-minimal-devel"
+name: "amd64 - Build docker image - < macaronios/eagle-dev-minimal-devel >"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:

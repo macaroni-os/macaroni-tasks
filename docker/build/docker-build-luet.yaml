@@ -1,4 +1,4 @@
-name: "amd64 - Build docker image macaronios/luet"
+name: "amd64 - Build docker image - < macaronios/luet >"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
