@@ -1,0 +1,35 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+
+name: "M.A.R.K. - Build Stage - < stage3-terragon-mark-iii > ( x86_64 )"
+script:
+- >-
+  anise repo update &&
+  anise i -y fchroot yq ego mark-devkit minio-client
+
+- git clone ${REPO} -b ${REPO_BRANCH} repo
+- cd repo
+
+- >-
+  mark-devkit metro run
+  --specfile jobs/x86_64/stage3_terragon.yaml --config etc/config.yml
+  --job stage3-terragon-mark-iii --cleanup=false
+
+- cp -rvf output/* ../output/
+- ls -l
+- >-
+  cd .. &&
+  source /storage/cdn77-mc.setup &&
+  echo "Copy files on CDN77 bucket ${CDN77_MARK_BUCKET}..." &&
+  ls -l . &&
+  mc cp --recursive --limit-upload 10M -a --md5 output/ macaroni/${CDN77_MARK_BUCKET}/mark-stages-terragon || true
+storage: "cdn77"
+storage_path: /storage
+environment:
+- "REPO_BRANCH=phoenix"
+- "REPO=https://github.com/macaroni-os/mark-stages"
+image: macaroni/phoenix-builder
+artefact_path: output
+type: lxd
+queue: "topix"
+
+# vim: filetype=yaml
