@@ -467,7 +467,7 @@ values:
 
         - kit: security-kit
           queue: topix
-          with_pr: false
+          with_pr: true
           specs:
             - security.yml
           #planned: "@daily"
