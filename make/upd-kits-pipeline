@@ -41,6 +41,8 @@ main () {
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
   local lpc_extra_ns=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .lpc_extra_ns | join(\",\")" -r)
   local seednum=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | length" -r)
+  local meta_repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .meta_repo // true" -r)
+  local mark_release=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .mark_release // \"\"" -r)
   local seeds2bump=""
   local tmplfile=""
 
@@ -60,10 +62,16 @@ main () {
     echo "The selected repository doesn't define kits2upgrade list on file ${luet_values}."
     return 1
   fi
+  if [ -z "${mark_release}" ] ; then
+    echo "The field meta_release is not set or invalid."
+    return 1
+  fi
+
 
   echo "
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
+M.A.R.K. release: ${mark_release}
 Seed to bump: ${seeds2bump}
 Kits package: ${kits_package}
 "
@@ -88,6 +96,8 @@ Kits package: ${kits_package}
     -s enable_docker_host="${ENABLE_DOCKER_HOST}" \
     -s enable_buildkit="${ENABLE_BUILDKIT}" \
     -s treeversion="${tree_version}" \
+    -s meta_repo="${meta_repo}" \
+    -s mark_release="${mark_release}" \
     -s seeds2bump="${seeds2bump}" \
     -o /tmp/upd-kits-pipeline.yaml || return 1
 

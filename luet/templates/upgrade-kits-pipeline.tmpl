@@ -77,7 +77,8 @@ tasks:
     # Create the reposcan files
     - >-
       mark-devkit --version &&
-      mkdir /kit-cache/
+      set -x &&
+      mkdir /kit-cache/ &&
       mark-devkit kit clone --specfile /anise-repo/packages/${KITS_PACKAGE_PATH}/kits-versions/kits.yaml --generate-reposcan-files
       --write-summary-file /kit-cache/kits.yaml --concurrency ${MARKDEVKIT_CONCURRENCY}
       --kit-cache-dir /kit-cache/ --deep ${MARKDEVKIT_GITDEEP}
@@ -96,7 +97,9 @@ tasks:
       tbump_opts="${tbump_opts} -p ${nv}" ;
       fi &&
       luet-build tree bump -f /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml ${tbump_opts} &&
+      {{- if eq .meta_repo "true" }}
       luet-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      {{- end }}
       luet-build tree bump -f /anise-repo/packages/toolchain/meta-reposcan/definition.yaml ${tbump_opts} &&
       for i in ${SEEDS2BUMP} ; do
       name=$(echo $i | cut -d'/' -f2) ;
@@ -181,7 +184,7 @@ tasks:
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
-    - "PACKAGES={{ .kits_package }} toolchain/meta-repo"
+    - "PACKAGES={{ .kits_package }} {{- if eq .meta_repo "true" }}toolchain/meta-repo{{- end }} toolchain/meta-reposcan"
     image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd

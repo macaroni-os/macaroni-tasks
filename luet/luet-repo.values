@@ -460,6 +460,7 @@ values:
       branch: phoenix
       http_repo: https://github.com/macaroni-os/mark-repo.git
       ssh_repo: git@github.com:macaroni-os/mark-repo.git
+      meta_repo: false
       mottainai_queue: "topix"
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
