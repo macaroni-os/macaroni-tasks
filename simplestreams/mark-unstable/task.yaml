@@ -1,0 +1,54 @@
+# Authors: Daniele Rondina, geaaru@funtoo.org
+#
+# Description: Template of the Mottainai Task for build LXD images.
+
+script:
+- source /etc/profile
+# temporary: Sleep for LXD
+- sleep 4
+- mkdir $TMPDIR
+
+#- >-
+#  anise repo update && anise upgrade -y
+#- >-
+#  luet repo update && luet upgrade -y --force && luet repo update --force &&
+#  luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
+#  make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
+#  luet cleanup --purge-repos
+# TODO: add debootstrap to macaroni repo
+
+- /etc/init.d/docker start
+
+# Temporary fix for replicant issue
+- mv $LXD_IMAGEDIR/image.yaml.source $LXD_IMAGEDIR/image.yaml
+- simplestreams-builder build-product -c tree-images.yaml -s . -t ./images $LXD_PRODUCT --skip-lxc
+- simplestreams-builder build-versions-manifest -c tree-images.yaml -s ./images -t images -p $LXD_PRODUCT -i $LXD_IMAGEDIR/image.yaml
+- ls -ltr images/$LXD_IMAGEDIR/
+# Force creation of files with rw-rw-rw to permit that volumes in bind are readable
+# by agent.
+- chmod a+rwx -R images/
+- find .
+- eval 'rm images/build_*.log || true'
+image: macaroni/phoenix-builder
+disable_push_on_failure: "true"
+type: lxd
+
+planned: "@weekly"
+
+name: "Build LXD  image mark-unstable:current:amd64:default"
+environment:
+  - "LXD_PRODUCT=mark-unstable:current:amd64:default"
+  - "LXD_IMAGEDIR=mark-unstable"
+  - "SSBUILDER_PREFIX=../lxd-mark-unstable"
+  - "TMPDIR=/distrobuilder"
+  - "CACHEDIR=/cache"
+  - "DEBIAN_FRONTEND=noninteractive"
+namespace: lxd-mark-unstable
+tag_namespace: lxd-mark-unstable
+artefact_path: images
+timeout: 0
+source: https://github.com/macaroni-os/macaroni-tasks.git
+directory: simplestreams/
+retry: "1"
+
+# vim: filetype=yaml
