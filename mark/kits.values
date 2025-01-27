@@ -427,6 +427,15 @@ values:
             - www-client.yml
           #planned: "@daily"
 
+        - kit: net-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          specs:
+            - base.yml
+          kitfile: base_autogen.yml
+          #planned: "@daily"
+
         - kit: perl-kit
           with_pr: false
           queue: topix
