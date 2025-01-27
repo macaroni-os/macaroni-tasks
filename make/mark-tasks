@@ -81,6 +81,18 @@ prepare_markdevkit_release_tasks() {
   local mode=""
   local kitfile=""
 
+  # Clean files the before elaboration in order to manage correctly
+  # the same kit defined multiple time with different modes.
+  for ((i=0;i<${num_kits};i++)) ; do
+    kit=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kit" ${mark_values} -M)
+    rm ${specs_dir}/${release}/merge-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/autogen-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/distfiles-sync.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/clean-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/clean-${kit}-merge.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/clean-${kit}-autogen.yaml >/dev/null 2>&1 || true
+  done
+
   for ((i=0;i<${num_kits};i++)) ; do
 
     mode=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].mode // \"\"" ${mark_values} -M)
@@ -105,9 +117,6 @@ prepare_markdevkit_release_tasks() {
       mode="merge"
     fi
 
-    rm ${specs_dir}/${release}/merge-${kit}.yaml >/dev/null 2>&1 || true
-    rm ${specs_dir}/${release}/autogen-${kit}.yaml >/dev/null 2>&1 || true
-    rm ${specs_dir}/${release}/distfiles-sync.yaml >/dev/null 2>&1 || true
 
     if [ "${mode}" == "merge" ] ; then
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
@@ -140,7 +149,7 @@ prepare_markdevkit_release_tasks() {
       -s release="${release}" \
       -s specs="${specs[@]}" \
       -s withpr="${withpr}" \
-      -o ${specs_dir}/${release}/clean-${kit}.yaml || return 1
+      -o ${specs_dir}/${release}/clean-${kit}-${mode}.yaml || return 1
 
   done
 
