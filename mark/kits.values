@@ -502,7 +502,7 @@ values:
           queue: topix
           specs:
             - macaroni.yml
-          #planned: "@weekly"
+          planned: "@weekly"
 
         - kit: ruby-kit
           with_pr: false
