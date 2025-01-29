@@ -488,6 +488,15 @@ values:
             - security.yml
           #planned: "@daily"
 
+        - kit: security-kit
+          mode: autogen
+          queue: topix
+          with_pr: true
+          kitfile: security_autogen.yml
+          specs:
+            - security.yml
+          #planned: "@daily"
+
         - kit: text-kit
           queue: topix
           with_pr: false

@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < mark-unstable > - core-server-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - security-kit"
 script:
 - >-
   anise repo update &&
@@ -15,8 +15,8 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./core-server-kit/autogen.kit.d/$i
-  --kitfile ./core-server-kit/merge.kit.d/${MARK_KITFILE}
+  mark-devkit autogen  --specfile ./security-kit/autogen.kit.d/$i
+  --kitfile ./security-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr
@@ -35,11 +35,10 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=net-base.yml"
-- "MARK_KITFILE=net-base_autogen.yml"
+- "MARK_SPECS=security.yml"
+- "MARK_KITFILE=security_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@daily"
 
 # vim: filetype=yaml
