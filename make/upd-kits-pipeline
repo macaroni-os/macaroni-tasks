@@ -63,7 +63,7 @@ main () {
     return 1
   fi
   if [ -z "${mark_release}" ] ; then
-    echo "The field meta_release is not set or invalid."
+    echo "The field mark_release is not set or invalid."
     return 1
   fi
 
