@@ -419,7 +419,7 @@ products:
     directory: mark-unstable
     # Path where retrieve images informations and files.
     # This option is used by build-images-file
-    prefix_path: "https://images-dev.macaronios.org/lxd-mark-iii"
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-unstable"
     days: 2
     aliases:
       - "macaroni/mark-unstable"
