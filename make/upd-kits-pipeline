@@ -41,7 +41,7 @@ main () {
   local kits2upgrade=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .kits2upgrade | join(\" \")" -r)
   local lpc_extra_ns=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .lpc_extra_ns | join(\",\")" -r)
   local seednum=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .seeds2bump | length" -r)
-  local meta_repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .meta_repo // true" -r)
+  local meta_repo=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .meta_repo" -r)
   local mark_release=$(yq r ${luet_values} -j | jq ".values.repositories[] | select(.name==\"${NAMESPACE}\") | .mark_release // \"\"" -r)
   local seeds2bump=""
   local tmplfile=""
@@ -72,6 +72,7 @@ main () {
 Kits 2 upgrade: ${kits2upgrade}
 Extra Kits Namespace: ${lpc_extra_ns}
 M.A.R.K. release: ${mark_release}
+Meta Repo to Bump: ${meta_repo}
 Seed to bump: ${seeds2bump}
 Kits package: ${kits_package}
 "
