@@ -5,7 +5,7 @@ script:
 - >-
   anise repo update &&
   anise i -y mark-devkit anise-portage-converter &&
-  anise upgrade
+  anise upgrade -y
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
