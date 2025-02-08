@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Merge Kits - < mark-iii > - core-server-kit"
+name: "M.A.R.K. - Merge Kits - < mark-iii > - xorg-kit"
 script:
 - >-
   anise repo update &&
@@ -14,7 +14,7 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit kit merge --specfile ./core-server-kit/merge.kit.d/$i
+  mark-devkit kit merge --specfile ./xorg-kit/merge.kit.d/$i
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr ;
@@ -26,10 +26,10 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-iii"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=db.yml fs.yml net-base.yml tools.yml libs.yml shells.yml telemetry.yml"
+- "MARK_SPECS=base.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@daily"
+planned: "@weekly"
 
 # vim: filetype=yaml
