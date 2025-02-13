@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < mark-unstable > - mark-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - python-modules-kit"
 script:
 - >-
   anise repo update &&
@@ -15,8 +15,8 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./mark-kit/autogen.kit.d/$i
-  --kitfile ./mark-kit/merge.kit.d/${MARK_KITFILE}
+  mark-devkit autogen  --specfile ./python-modules-kit/autogen.kit.d/$i
+  --kitfile ./python-modules-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr
@@ -35,8 +35,8 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=macaroni.yml"
-- "MARK_KITFILE=macaroni.yml"
+- "MARK_SPECS=python.yml"
+- "MARK_KITFILE=python_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"

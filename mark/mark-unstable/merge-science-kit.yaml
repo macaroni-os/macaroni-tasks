@@ -17,7 +17,7 @@ script:
   mark-devkit kit merge --specfile ./science-kit/merge.kit.d/$i
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push ;
+  --push --pr ;
   done
 
 storage: "geaaru-github"
@@ -30,5 +30,6 @@ environment:
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
+planned: "@weekly"
 
 # vim: filetype=yaml
