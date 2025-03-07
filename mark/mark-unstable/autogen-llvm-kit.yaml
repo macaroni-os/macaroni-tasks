@@ -1,34 +1,45 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Merge Kits - < mark-unstable > - llvm-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - llvm-kit"
 script:
 - >-
   anise repo update &&
-  anise i -y mark-devkit anise-portage-converter
+  anise i -y mark-devkit anise-portage-converter minio-client j2cli
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 
 - source /storage/pr-envs.sh
+- source /storage/cdn77-mc.setup
 
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit kit merge --specfile ./llvm-kit/merge.kit.d/$i
+  mark-devkit autogen  --specfile ./llvm-kit/autogen.kit.d/$i
+  --kitfile ./llvm-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push --pr ;
+  --push --pr
+  --backend s3
+  --minio-bucket ${CDN77_MARK_BUCKET}
+  --minio-endpoint ${CDN77_ENDPOINT}
+  --minio-keyid ${CDN77_ACCESS_KEY}
+  --minio-secret ${CDN77_SECRET_KEY}
+  --minio-prefix mark-distfiles/distfiles
+  ;
   done
 
-storage: "geaaru-github"
+storage: "geaaru-github,cdn77"
 storage_path: /storage
 environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
 - "MARK_SPECS=base.yml"
+- "MARK_KITFILE=base_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
+planned: "@weekly"
 
 # vim: filetype=yaml

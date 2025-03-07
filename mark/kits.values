@@ -367,7 +367,7 @@ values:
           specs:
             - base.yml
           mode: merge
-          #planned: "@daily"
+          planned: "@weekly"
 
         - kit: core-server-kit
           with_pr: true
@@ -380,7 +380,7 @@ values:
             - tools.yml
             - libs.yml
             - telemetry.yml
-          #planned: "@daily"
+          planned: "@daily"
 
         - kit: core-server-kit
           with_pr: true
@@ -436,10 +436,11 @@ values:
         - kit: llvm-kit
           with_pr: true
           queue: topix
-          mode: merge
+          mode: autogen
           specs:
             - base.yml
-          #planned: "@weekly"
+          kitfile: base_autogen.yml
+          planned: "@weekly"
 
         - kit: mark-kit
           with_pr: true
