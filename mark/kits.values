@@ -162,6 +162,12 @@ values:
             - base.yml
           planned: "@daily"
 
+        - kit: java-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
 
     # Mark III - Desktop target
     mark-iii:
