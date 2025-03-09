@@ -60,6 +60,7 @@ tasks:
       macaronictl env-update
 
     # Setup git ssh key
+    - eval 'mkdir -p /root || true'
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
@@ -130,7 +131,7 @@ tasks:
     - "SEED2BUMP={{ .seeds2bump }}"
     - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
     - LUET_YES=true
-    image: macaroni/funtoo-metatools
+    image: macaroni/phoenix-builder
     storage: geaaru-github
     storage_path: /storage
     artefact_path: /artefacts
