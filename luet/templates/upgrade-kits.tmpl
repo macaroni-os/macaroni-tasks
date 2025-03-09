@@ -40,6 +40,7 @@ script:
   fi &&
   luet-build tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
   luet-build tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+  if [ -n "${SEEDS2BUMP}" ] ; then
   for i in ${SEEDS2BUMP} ; do
   name=$(echo $i | cut -d'/' -f2) ;
   luet-build tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
@@ -47,6 +48,7 @@ script:
   luet-build tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
   fi ;
   done ;
+  fi ;
   fi
 
 # Commit new version

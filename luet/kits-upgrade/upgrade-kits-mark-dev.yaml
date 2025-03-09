@@ -40,6 +40,7 @@ script:
   fi &&
   luet-build tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
   luet-build tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+  if [ -n "${SEEDS2BUMP}" ] ; then
   for i in ${SEEDS2BUMP} ; do
   name=$(echo $i | cut -d'/' -f2) ;
   luet-build tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
@@ -47,6 +48,7 @@ script:
   luet-build tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
   fi ;
   done ;
+  fi ;
   fi
 
 # Commit new version
@@ -66,8 +68,8 @@ environment:
 - "KIT_FIXUPS_BRANCH=<no value>"
 - "MARKDEVKIT_CLONEFILE=<no value>"
 - "MARKDEVKIT_CONCURRENCY=20"
-- "KITS_2UPGRADE=mark-kit security-kit core-kit core-server-kit core-gl-kit core-hw-kit net-kit llvm-kit perl-kit dev-kit python-kit python-modules-kit editors-kit lang-kit science-kit text-kit"
-- "SEEDS2BUMP=seed/mark-base"
+- "KITS_2UPGRADE=mark-kit security-kit core-kit core-server-kit core-gl-kit core-hw-kit net-kit kernel-kit llvm-kit perl-kit dev-kit python-kit python-modules-kit editors-kit lang-kit science-kit text-kit ruby-kit"
+- "SEEDS2BUMP="
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
