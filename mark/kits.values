@@ -184,6 +184,21 @@ values:
       s3_prefix: mark-distfiles/distfiles
 
       kits:
+
+        - kit: browser-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: core-gl-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: core-kit
           with_pr: true
           queue: topix
@@ -211,6 +226,13 @@ values:
             - telemetry.yml
           planned: "@daily"
 
+        - kit: desktop-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@daily"
+
         - kit: dev-kit
           with_pr: true
           queue: topix
@@ -230,6 +252,7 @@ values:
           queue: topix
           specs:
             - kde5.yml
+            - lxqt.yml
           planned: "@daily"
 
         - kit: kernel-kit
@@ -335,6 +358,49 @@ values:
           specs:
             - base.yml
           planned: "@daily"
+
+        - kit: media-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: games-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: gnome-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: java-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: qt-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: qt-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
 
     mark-unstable:
 

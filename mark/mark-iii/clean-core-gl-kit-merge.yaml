@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Clean Kits - < mark-iii > - kde-kit"
+name: "M.A.R.K. - Clean Kits - < mark-iii > - core-gl-kit"
 script:
 - >-
   anise repo update &&
@@ -15,7 +15,7 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit kit clean --specfile ./kde-kit/merge.kit.d/$i
+  mark-devkit kit clean --specfile ./core-gl-kit/merge.kit.d/$i
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr ;
@@ -27,11 +27,11 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-iii"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=kde5.yml lxqt.yml"
+- "MARK_SPECS=base.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@daily"
+planned: "@weekly"
 
 # vim: filetype=yaml
 
