@@ -294,34 +294,24 @@ values:
       kits2upgrade:
         - core-kit
         - core-server-kit
-        - core-gl-kit
         - core-hw-kit
         - net-kit
         - llvm-kit
         - perl-kit
         - python-kit
         - python-modules-kit
-        - desktop-kit
-        - dev-kit
         - dev-kit
         - editors-kit
-        - games-kit
-        - gnome-kit
-        - haskell-kit
-        - browser-kit
-        - java-kit
-        - kde-kit
         - lang-kit
-        - lisp-scheme-kit
-        - mate-kit
-        - media-kit
-        - ml-lang-kit
-        - qt-kit
         - ruby-kit
         - science-kit
         - security-kit
-        - xfce-kit
         - text-kit
+
+        - mark-kit
+        - portage-kit
+        - kernel-kit
+        - xorg-kit
 
       # The list of the seed to bump before start
       # new packages version.
