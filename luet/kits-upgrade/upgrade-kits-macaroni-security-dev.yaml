@@ -73,7 +73,7 @@ environment:
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true
-image: macaroni/funtoo-metatools
+image: macaroni/phoenix-builder
 storage: geaaru-github
 storage_path: /storage
 artefact_path: /artefacts

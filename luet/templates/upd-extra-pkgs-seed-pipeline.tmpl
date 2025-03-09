@@ -25,8 +25,7 @@ tasks:
     storage: geaaru-github
     storage_path: /storage
     type: lxd
-    # Using macaroni/phoenix-builder doesn't work here. Probably because ca-certificates package is not available.
-    image: macaroni/funtoo-metatools
+    image: macaroni/phoenix-builder
     script:
     - >-
       luet repo update --force &&
@@ -116,7 +115,7 @@ tasks:
 
   luet-portage-convert:
     name: "Luet Portage Converter Seed {{ .seed }} - <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
-    image: macaroni/funtoo-metatools
+    image: macaroni/phoenix-builder
     storage: "geaaru-github,mcli"
     storage_path: /storage
     artefact_path: /artefacts

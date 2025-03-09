@@ -476,7 +476,8 @@ values:
         - science-kit
         - text-kit
         - ruby-kit
-        #seeds2bump:
+        - java-kit
+      seeds2bump:
       lpc_extra_ns:
         - extra-reposcan
 
