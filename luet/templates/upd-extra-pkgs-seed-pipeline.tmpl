@@ -36,6 +36,7 @@ tasks:
 # luet miner reinstall-package virtual/base
 
     # Setup git ssh key
+    - eval 'mkdir -p /root || true'
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 

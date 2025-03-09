@@ -383,6 +383,7 @@ values:
       branch: phoenix
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git
+      mark_release: mark-testing
       mottainai_queue: ""
       # Define the command file of lxd-compose
       # to run for generate reposcan files.

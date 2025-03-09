@@ -35,6 +35,7 @@ script:
 - /bin/bash /storage/setup-mcli.sh
 
 # Setup git ssh key
+- eval 'mkdir /root || true'
 - sh /storage/setup-ssh.sh
 - sh /storage/setup-git.sh
 

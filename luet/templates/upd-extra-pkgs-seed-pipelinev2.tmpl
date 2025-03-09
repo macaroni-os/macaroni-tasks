@@ -36,6 +36,7 @@ tasks:
       macaronictl env-update
 
     # Setup git ssh key
+    - eval 'mkdir -p /root | true'
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
