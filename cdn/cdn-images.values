@@ -17,9 +17,17 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
+#        - type: cloudflare
+#          cdnprefix: "/"
+#          domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
           cdnprefix: "/"
-          domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
 
     # Macaroni Funtoo Testing
     - name: "macaroni-funtoo-testing"
@@ -46,9 +54,17 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
           cdnprefix: "/"
-          domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
 
     # Macaroni Commons Testing
     - name: "macaroni-commons-testing"
@@ -196,9 +212,18 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
+
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
           cdnprefix: "/"
-          domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
 
     # Mottainai Testing Repository
     - name: "mottainai-testing"
@@ -306,10 +331,18 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
-          cdnprefix: "/"
-          domain: dev.macaronios.org
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
 
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
     # Macaroni Funtoo Security Testing
     - name: "macaroni-security-testing"
       namespace: "macaroni-security-testing"
@@ -352,10 +385,18 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
-          cdnprefix: "/"
-          domain: dev.macaronios.org
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
 
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
     # Macaroni Funtoo Games Testing
     - name: "macaroni-games-testing"
       namespace: "macaroni-games-testing"
@@ -444,9 +485,17 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
           cdnprefix: "/"
-          domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
 
     # Macaroni MARK Testing
     - name: "mark-testing"
