@@ -285,10 +285,17 @@ values:
       purgefiles:
         <<: *purgerepo
       cdn_services:
-        - type: cloudflare
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
           cdnprefix: "/"
-          domain: dev.macaronios.org
-
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
     # Macaroni Funtoo Terragon Testing
     - name: "macaroni-terragon-testing"
       namespace: "macaroni-terragon-testing"
