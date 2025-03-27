@@ -87,6 +87,7 @@ prepare_markdevkit_release_tasks() {
     kit=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kit" ${mark_values} -M)
     rm ${specs_dir}/${release}/merge-${kit}.yaml >/dev/null 2>&1 || true
     rm ${specs_dir}/${release}/autogen-${kit}.yaml >/dev/null 2>&1 || true
+    rm ${specs_dir}/${release}/autogen-${kit}-*.yml >/dev/null 2>&1 || true
     rm ${specs_dir}/${release}/distfiles-sync.yaml >/dev/null 2>&1 || true
     rm ${specs_dir}/${release}/clean-${kit}.yaml >/dev/null 2>&1 || true
     rm ${specs_dir}/${release}/clean-${kit}-merge.yaml >/dev/null 2>&1 || true
@@ -139,7 +140,7 @@ prepare_markdevkit_release_tasks() {
         -s specs="${specs[@]}" \
         -s withpr="${withpr}" \
         -s prefix="${s3prefix}" \
-        -o ${specs_dir}/${release}/autogen-${kit}.yaml || return 1
+        -o ${specs_dir}/${release}/autogen-${kit}_${kitfile} || return 1
     fi
 
     mottainai-cli task compile ${specs_dir}/templates/mark-devkit-clean.tmpl \
