@@ -463,6 +463,16 @@ values:
             - net-base.yml
           planned: "@daily"
 
+        - kit: core-server-kit
+          with_pr: true
+          queue: "topix"
+          postfix: "telemtry.yml"
+          kitfile: telemetry_autogen.yml
+          mode: autogen
+          specs:
+            - telemetry.yml
+          planned: "@daily"
+
         - kit: dev-kit
           with_pr: true
           queue: topix
