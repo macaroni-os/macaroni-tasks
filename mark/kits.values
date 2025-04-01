@@ -71,6 +71,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - go.yml
           planned: "@daily"
 
         - kit: llvm-kit
