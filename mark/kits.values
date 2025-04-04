@@ -86,6 +86,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
             - www-client.yml
           planned: "@daily"
 
@@ -225,6 +226,7 @@ values:
             - libs.yml
             - shells.yml
             - telemetry.yml
+            - telemetry_from_unstable.yml
           planned: "@daily"
 
         - kit: desktop-kit
