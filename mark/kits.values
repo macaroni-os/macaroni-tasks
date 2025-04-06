@@ -140,6 +140,7 @@ values:
           specs:
             - common.yml
             - docbook.yml
+            - latex.yml
           planned: "@weekly"
 
         - kit: xorg-kit
