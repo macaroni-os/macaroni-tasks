@@ -213,7 +213,7 @@ prepare_markdevkit_tasks() {
 
 main() {
   if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
-    echo "Missng MOTTAINAI_CLI_PROFILE env variable"
+    echo "MOTTAINAI_CLI_PROFILE env variable not defined"
     exit 1
   fi
 
