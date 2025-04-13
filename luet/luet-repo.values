@@ -215,35 +215,27 @@ values:
         #- seed/macaroni-funtoo-base
       kits2upgrade:
         - core-kit
+        - mark-kit
         - core-server-kit
-        - core-gl-kit
         - core-hw-kit
-        - net-kit
-        - llvm-kit
-        - perl-kit
         - dev-kit
+        - lang-kit
+        - editors-kit
+        - perl-kit
         - python-kit
         - python-modules-kit
-        - desktop-kit
-        - dev-kit
-        - editors-kit
-        - games-kit
-        - gnome-kit
-        - haskell-kit
-        - browser-kit
-        - java-kit
-        - kde-kit
-        - lang-kit
-        - lisp-scheme-kit
-        - mate-kit
-        - media-kit
-        - ml-lang-kit
-        - qt-kit
-        - ruby-kit
-        - science-kit
+        - portage-kit
+        - net-kit
+        - kernel-kit
         - security-kit
-        - xfce-kit
+        - science-kit
+        - xorg-kit
         - text-kit
+        - llvm-kit
+        - ruby-kit
+        - java-kit
+        - php-kit
+        - lisp-scheme-kit
         - geaaru-kit
       lpc_extra_ns:
         - extra-reposcan
@@ -291,6 +283,7 @@ values:
       command_file: reposcan-mark-testing-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mark_release: mark-xl
       kits2upgrade:
         - core-kit
         - core-server-kit
@@ -312,6 +305,7 @@ values:
         - portage-kit
         - kernel-kit
         - xorg-kit
+        - php-kit
 
       # The list of the seed to bump before start
       # new packages version.
@@ -478,6 +472,7 @@ values:
         - text-kit
         - ruby-kit
         - java-kit
+        - php-kit
       seeds2bump:
       lpc_extra_ns:
         - extra-reposcan
