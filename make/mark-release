@@ -1,0 +1,48 @@
+#!/bin/bash
+# Description: Fire tag release task
+# Author: Daniele Rondina, geaaru@macaroni.org
+
+mark_dir=$(dirname ${BASH_SOURCE[0]}})/../mark
+mark_values=${mark_dir}/kits.values
+
+main() {
+  if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
+    echo "MOTTAINAI_CLI_PROFILE env variable not defined"
+    return 1
+  fi
+
+  if [ -z "${MARK_RELEASE}" ] ; then
+    echo "MARK_RELEASE env variable not defined"
+    return 1
+  fi
+
+  if [ -z "${MARK_TAG}" ] ; then
+    echo "MARK_TAG env variable not defined"
+    return 1
+  fi
+
+  # Retrieve list of the kit
+  kits=$(echo $(yq4 e ".values.releases.${MARK_RELEASE}.release_kits[]" ${mark_values}))
+  branch=$(yq4 e ".values.releases.${MARK_RELEASE}.kit_fixups_branch" ${mark_values})
+  queue=$(yq4 e ".values.releases.${MARK_RELEASE}.release_queue" ${mark_values})
+
+  echo "Prepare task for release:
+MARK_RELEASE: ${MARK_RELEASE}
+MARK_TAG: ${MARK_TAG}
+MARK_BRANCH: ${branch}
+KITS: ${kits}
+"
+  mottainai-cli task compile ${mark_dir}/templates/tag-release.tmpl \
+    -s kits="${kits}" \
+    -s mark_tag="${MARK_TAG}" \
+    -s mark_branch="${branch}" \
+    -s queue=${queue} \
+    -o /tmp/tag-release.yml
+
+  return 0
+}
+
+main $@
+exit $?
+
+# vim: filetype=sh

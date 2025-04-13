@@ -1,0 +1,30 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+
+name: "M.A.R.K. - Tag release - < {{ .mark_tag }} >"
+script:
+# Setup git ssh key
+- eval 'mkdir /root || true'
+- sh /storage/setup-ssh.sh
+- sh /storage/setup-git.sh
+
+# Get macaroni-tasks repo
+- >-
+  git clone https://github.com/macaroni-os/macaroni-tasks.git
+  /macaroni-tasks &&
+  cd /macaroni-tasks
+
+- sh mark/tag-release.sh
+
+storage: "geaaru-github"
+storage_path: /storage
+environment:
+- "MARK_TAG={{ .mark_tag }}"
+- "MARK_BRANCH={{ .mark_branch }}"
+- "KITS={{ .kits }}"
+image: macaroni/phoenix-builder
+type: lxd
+{{- if .queue }}
+queue: "{{ .queue }}"
+{{- end }}
+
+# vim: filetype=yaml

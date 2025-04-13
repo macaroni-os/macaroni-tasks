@@ -51,7 +51,7 @@ values:
           planned: "@daily"
 
         - kit: editors-kit
-          with_pr: false
+          with_pr: true
           queue: topix
           specs:
             - editors.yml
@@ -152,7 +152,7 @@ values:
           planned: "@weekly"
 
         - kit: mark-kit
-          with_pr: false
+          with_pr: true
           queue: topix
           specs:
             - macaroni.yml
@@ -171,6 +171,193 @@ values:
           specs:
             - base.yml
           planned: "@weekly"
+
+
+    mark-v:
+
+      kit_fixups: https://github.com/macaroni-os/kit-fixups
+      kit_fixups_branch: mark-v
+
+      release_spec: mark-v.yml
+      release_planned: "@daily"
+      release_queue: topix
+      release_kits:
+        - core-kit
+        #- mark-kit
+        - core-server-kit
+        - core-hw-kit
+        - dev-kit
+        - lang-kit
+        - editors-kit
+        - perl-kit
+        - python-kit
+        - python-modules-kit
+        - portage-kit
+        - net-kit
+        - kernel-kit
+        - security-kit
+        - science-kit
+        - xorg-kit
+        - text-kit
+        - llvm-kit
+        - ruby-kit
+        - java-kit
+        - php-kit
+        - lisp-scheme-kit
+        - meta-repo
+
+      distfiles_sync: true
+      distfiles_spec: mark-v.yml
+      s3_prefix: mark-distfiles/distfiles
+
+      mode: merge
+
+      kits:
+        - kit: core-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - core.yml
+
+        - kit: core-hw-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: core-server-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - db.yml
+            - fs.yml
+            - net-base.yml
+            - tools.yml
+            - libs.yml
+            - telemetry.yml
+
+        - kit: dev-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: editors-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - editors.yml
+
+        - kit: kernel-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+            - debian.yml
+            - modules.yml
+
+        - kit: lang-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+            - go.yml
+
+        - kit: llvm-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: net-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+            - www-client.yml
+
+        - kit: perl-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - perl.yml
+
+        - kit: php-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: lisp-scheme-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: portage-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - funtoo.yml
+            - portage.yml
+
+        - kit: python-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - python.yml
+
+        - kit: python-modules-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+            - python.yml
+
+        - kit: science-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: security-kit
+          queue: topix
+          with_pr: false
+          specs:
+            - security.yml
+
+        - kit: text-kit
+          queue: topix
+          with_pr: false
+          specs:
+            - common.yml
+            - docbook.yml
+            - latex.yml
+
+        - kit: xorg-kit
+          queue: topix
+          with_pr: false
+          specs:
+            - base.yml
+            - gnome.yml
+
+        - kit: mark-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - macaroni.yml
+
+        - kit: ruby-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: java-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
 
     # Mark III - Desktop target
     mark-iii:

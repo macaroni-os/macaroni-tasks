@@ -32,7 +32,8 @@ docker-tasks            Create/Update docker images build tasks.
 start-upd-seed-pipeline Start an upgrade workflow for a selected race.
 start-upd-kits-pipeline Start an upgrade workflow to upgrade kits and
                         bump first seed.
-
+bump-release            Tag and release a specified repository/namespace.
+tag-mark-release        Tag a MARK release.
 ```
 
 ### Bump Macaroni Release ISOs
@@ -44,6 +45,12 @@ start-upd-kits-pipeline Start an upgrade workflow to upgrade kits and
 
 ```shell
 $> FIRE_TASKS=1 RELEASE=0.1.0 make isos_release
+```
+
+### Tag a new MARK release
+
+```shell
+$> MARK_RELEASE=mark-v MARK_TAG=v25.04-mark-v make tag-mark-release
 ```
 
 ### Force resync of the ISOs stable namespace to CDN storage
