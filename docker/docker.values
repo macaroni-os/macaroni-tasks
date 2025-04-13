@@ -200,5 +200,14 @@ values:
       dir: /docker
       planned: "@weekly"
 
+    # Macaroni MARK V image
+    - name: macaronios/mark-v
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.mark-v
+      image_manifest: latest-amd64
+      dir: /docker
+      planned: "@weekly"
 
 # vim: filetype=yaml
