@@ -2,7 +2,7 @@
 # Author: Daniele Rondina, geaaru@macaronios.org
 # Description: Tag all kits of a stable release.
 
-KITS_REPO_PREFIX=${KITS_REPO_PREFIX:-https://github.com/macaroni-os}
+KITS_REPO_PREFIX=${KITS_REPO_PREFIX:-git@github.com:macaroni-os}
 MARK_TAG=${MARK_TAG:-""}
 MARK_BRANCH=${MARK_BRANCH:-""}
 WORKDIR=${WORKDIR:-/}
@@ -14,7 +14,7 @@ fi
 
 tag_kit() {
   local kit=$1
-  local repodir=${WORKDIR}/kits/${kit}
+  local repodir=${WORKDIR}kits/${kit}
   local gitrepo=${KITS_REPO_PREFIX}/${kit}.git
 
   git clone ${gitrepo} -b ${MARK_BRANCH} ${repodir} || {
