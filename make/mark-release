@@ -5,6 +5,10 @@
 mark_dir=$(dirname ${BASH_SOURCE[0]}})/../mark
 mark_values=${mark_dir}/kits.values
 
+if [ -n "${DEBUG}" ] ; then
+  set -x
+fi
+
 main() {
   if [ -z "${MOTTAINAI_CLI_PROFILE}" ] ; then
     echo "MOTTAINAI_CLI_PROFILE env variable not defined"
@@ -38,6 +42,14 @@ KITS: ${kits}
     -s mark_branch="${branch}" \
     -s queue=${queue} \
     -o /tmp/tag-release.yml
+
+  if [ -n "${FIRE_TASK}" ] ; then
+    mottainai-cli task create --yaml /tmp/tag-release.yml
+  fi
+
+  if [ -n "${DEBUG}" ] ; then
+    rm /tmp/tag-release.yml
+  fi
 
   return 0
 }
