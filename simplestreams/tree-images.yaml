@@ -32,7 +32,7 @@ products:
       - "macaroni/phoenix-minimal"
       - "macaroni/funtoo-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Phoenix Testing minimal
   - name: macaroni-phoenix-testing-minimal:current:amd64:default
@@ -49,7 +49,7 @@ products:
       - "macaroni/phoenix-testing-minimal"
       - "macaroni/funtoo-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
 
   # Macaroni Phoenix minimal Devel is with subsets portage, devel enabled.
@@ -67,7 +67,7 @@ products:
       - "macaroni/phoenix-minimal-devel"
       - "macaroni/funtoo-minimal-devel"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Phoenix Builder: Image with compilation stuff and other dev tools.
   - name: macaroni-phoenix-builder:current:amd64:default
@@ -99,8 +99,6 @@ products:
     days: 1
     aliases:
       - "ubuntu/steam"
-    # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
 
   # Ubuntu Lutris
   - name: ubuntu-lutris:current:amd64:default
@@ -115,8 +113,6 @@ products:
     days: 1
     aliases:
       - "ubuntu/lutris"
-    # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
 
   # Funtoo Stage3: Image with compilation stuff and other dev tools.
   - name: funtoo-stage3:current:amd64:default
@@ -131,8 +127,6 @@ products:
     days: 2
     aliases:
       - "funtoo/stage3"
-    # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
 
   # Funtoo Bootstrap Builder: Image with compilation stuff and other dev tools.
   - name: funtoo-bootstrap-builder:current:amd64:default
@@ -147,8 +141,6 @@ products:
     days: 2
     aliases:
       - "funtoo/bootstrap-builder"
-    # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
 
   # Macaroni Phoenix Dumplings
   - name: macaroni-phoenix-dumplings:current:amd64:default
@@ -165,7 +157,7 @@ products:
       - "macaroni/phoenix-dumplings"
       - "macaroni/funtoo-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Eagle minimal
   - name: macaroni-eagle-minimal:current:amd64:default
@@ -182,7 +174,7 @@ products:
       - "macaroni/eagle-minimal"
       - "macaroni/funtoo-systemd-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Eagle minimal Dev
   - name: macaroni-eagle-minimal-dev:current:amd64:default
@@ -232,7 +224,7 @@ products:
       - "macaroni/phoenix-metatools"
       - "macaroni/funtoo-metatools"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Eagle Dumplings
   - name: macaroni-eagle-dumplings:current:amd64:default
@@ -249,7 +241,7 @@ products:
       - "macaroni/eagle-dumplings"
       - "macaroni/funtoo-systemd-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Funtoo Terragon minimal dev
   - name: macaroni-terragon-minimal-dev:current:amd64:default
@@ -265,7 +257,7 @@ products:
     aliases:
       - "macaroni/terragon-minimal-dev"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Funtoo Terragon Dumplings
   - name: terragon-dumplings:current:amd64:default
@@ -281,7 +273,7 @@ products:
     aliases:
       - "macaroni/terragon-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Terragon minimal
   - name: terragon-minimal:current:amd64:default
@@ -297,7 +289,7 @@ products:
     aliases:
       - "macaroni/terragon-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Terragon minimal Devel
   - name: terragon-minimal-devel:current:amd64:default
@@ -423,5 +415,21 @@ products:
     days: 2
     aliases:
       - "macaroni/mark-unstable"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    planned: "@weekly"
+
+  # Macaroni MARK V
+  - name: mark-v:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "MARK V"
+    directory: mark-v
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-v"
+    days: 2
+    aliases:
+      - "macaroni/mark-v"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"

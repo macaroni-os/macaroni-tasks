@@ -9,6 +9,8 @@ script:
 - mkdir $TMPDIR
 
 #- >-
+#  anise repo update && anise upgrade -y
+#- >-
 #  luet repo update && luet upgrade -y --force && luet repo update --force &&
 #  luet i -y distrobuilder simplestreams-builder utils/jq utils/yq
 #  make curl wget rsync gnupg squashfs-tools docker bridge-utils &&
@@ -30,8 +32,6 @@ script:
 image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
-
-#planned: "@weekly"
 
 name: "Build LXD  image funtoo-bootstrap-builder:current:amd64:default"
 environment:
