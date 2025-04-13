@@ -1,0 +1,126 @@
+image:
+  distribution: macaroni
+  description: Macaroni OS MARK V
+  expiry: 30d
+  architecture: amd64
+
+source:
+  downloader: docker-http
+  url: macaronios/mark-v:latest-amd64
+
+environment:
+  clear_defaults: true
+  variables:
+    - key: "PATH"
+      value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
+    - key: "SHELL"
+      value: "/bin/bash"
+    - key: "LUET_NOLOCK"
+      value: "true"
+    - key: "LUET_YES"
+      value: "true"
+    - key: "USER"
+      value: "root"
+    - key: "LC_ALL"
+      value: "en_US.UTF-8"
+
+targets:
+  lxc:
+    create_message: |
+      You just created a Macaroni container (arch={{ image.architecture }})
+
+    config:
+      - type: all
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.common.conf
+
+      - type: user
+        before: 5
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/sabayon.userns.conf
+
+      - type: all
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/common.conf
+
+      - type: user
+        after: 4
+        content: |-
+          lxc.include = LXC_TEMPLATE_CONFIG/userns.conf
+
+      - type: all
+        content: |-
+          lxc.arch = {{ image.architecture_kernel }}
+
+files:
+ - name: hostname
+   path: /etc/hostname
+   generator: hostname
+
+ - name: hosts
+   path: /etc/hosts
+   generator: hosts
+
+ - name: conf-hostname
+   path: /etc/conf.d/hostname
+   generator: template
+   content: |-
+     hostname="{{ container.name }}"
+     #aliases="mybox server1"
+     #nisdomainname="localdomain.com"
+packages:
+  manager: egoportage
+  update: true
+  cleanup: true
+
+  sets:
+    - packages:
+        - sudo
+      action: install
+
+actions:
+  - trigger: post-unpack
+    action: |-
+      #!/bin/bash
+      # NOTE: if these files is not present the generators skip the template
+      # generation
+      echo "
+      ff02::2    ip6-allrouters
+      " > /etc/hosts
+      echo "macaroni" > /etc/hostname
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Create lock directory used by Luet
+      mkdir -p /var/lock
+      macaronictl env-update
+
+      set -eux
+      rm -rf /var/git/meta-repo
+      rm -rf /var/cache/portage
+      cd /etc/init.d
+      ln -s netif.tmpl netif.eth0
+      rc-update add netif.eth0 default
+      echo template=dhcpcd > /etc/conf.d/netif.eth0
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Initialize localization
+      locale-gen || true
+      eselect locale list
+      eselect locale set en_US.utf8
+
+  - trigger: post-packages
+    action: |-
+      #!/bin/bash
+      # Configure LXD/LXC tty
+      sed -e 's|^#x1|x1|g' -e '/^c[0-9].*/d' -i /etc/inittab
+
+mappings:
+  architecture_map: funtoo
+
+# vim: filetype=yaml
