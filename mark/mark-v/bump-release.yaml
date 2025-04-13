@@ -1,0 +1,32 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+
+name: "M.A.R.K. - Bump Kits - < mark-v >"
+script:
+- >-
+  anise repo update &&
+  anise i -y mark-devkit anise-portage-converter &&
+  anise upgrade -y
+
+- git clone ${REPO} -b ${REPO_BRANCH} repo
+- cd repo
+
+- source /storage/pr-envs.sh
+
+- >-
+  echo "Processing specfile ${MARK_SPECS}..." &&
+  mark-devkit kit bump-release --specfile ./merge.release.d/${MARK_SPECS}
+  --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
+  --push
+
+storage: "geaaru-github"
+storage_path: /storage
+environment:
+- "REPO_BRANCH=mark-v"
+- "REPO=https://github.com/macaroni-os/kit-fixups"
+- "MARK_SPECS=mark-v.yml"
+image: macaroni/phoenix-builder
+type: lxd
+queue: "topix"
+planned: "@daily"
+
+# vim: filetype=yaml
