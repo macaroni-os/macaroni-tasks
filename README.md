@@ -50,7 +50,7 @@ $> FIRE_TASKS=1 RELEASE=0.1.0 make isos_release
 ### Tag a new MARK release
 
 ```shell
-$> MARK_RELEASE=mark-v MARK_TAG=v25.04-mark-v make tag-mark-release
+$> FIRE_TASK=1 MARK_RELEASE=mark-v MARK_TAG=v25.04-mark-v make tag-mark-release
 ```
 
 ### Force resync of the ISOs stable namespace to CDN storage
