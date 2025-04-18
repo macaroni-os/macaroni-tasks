@@ -1,11 +1,10 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Clean Kits - < mark-unstable > - dev-kit"
+name: "M.A.R.K. - Merge Kits - < mark-unstable > - games-kit"
 script:
 - >-
   anise repo update &&
-  anise i -y mark-devkit anise-portage-converter &&
-  anise upgrade -y
+  anise i -y mark-devkit anise-portage-converter
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
@@ -15,7 +14,7 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit kit clean --specfile ./dev-kit/merge.kit.d/$i
+  mark-devkit kit merge --specfile ./games-kit/merge.kit.d/$i
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr ;
@@ -27,11 +26,10 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=base.yml ide.yml"
+- "MARK_SPECS=base.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@daily"
+planned: "@weekly"
 
 # vim: filetype=yaml
-

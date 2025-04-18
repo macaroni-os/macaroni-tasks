@@ -26,9 +26,10 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=base.yml"
+- "MARK_SPECS=base.yml ide.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
+planned: "@daily"
 
 # vim: filetype=yaml

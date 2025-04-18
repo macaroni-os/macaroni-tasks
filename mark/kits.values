@@ -592,6 +592,11 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: lisp-scheme-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
 
     mark-unstable:
 
@@ -607,6 +612,13 @@ values:
       s3_prefix: mark-distfiles/distfiles
 
       kits:
+        - kit: browser-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: core-kit
           with_pr: true
           queue: topix
@@ -622,6 +634,13 @@ values:
             - core.yml
             - virtual.yml
           mode: autogen
+          planned: "@weekly"
+
+        - kit: core-gl-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
           planned: "@weekly"
 
         - kit: core-hw-kit
@@ -670,7 +689,8 @@ values:
           mode: merge
           specs:
             - base.yml
-          #planned: "@daily"
+            - ide.yml
+          planned: "@daily"
 
         - kit: editors-kit
           with_pr: true
@@ -833,13 +853,71 @@ values:
             - docbook.yml
           planned: "@weekly"
 
-        #- kit: xorg-kit
-        #  queue: topix
-        #  with_pr: true
-        #  specs:
-        #    - base.yml
-        #    - gnome.yml
-        #  planned: "@weekly"
+        - kit: xorg-kit
+          queue: topix
+          with_pr: true
+          specs:
+            - base.yml
+            - gnome.yml
+          planned: "@weekly"
+
+        - kit: games-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: i18n-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - kde5.yml
+            - lxqt.yml
+          planned: "@weekly"
+
+        - kit: lisp-scheme-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: media-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@daily"
+
+        - kit: xfce-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: gnome-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
 
 
 # vim: filetype=yaml
