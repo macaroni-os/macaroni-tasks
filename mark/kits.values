@@ -662,6 +662,7 @@ values:
             - tools.yml
             - libs.yml
             - telemetry.yml
+            - shells.yml
           planned: "@daily"
 
         - kit: core-server-kit
