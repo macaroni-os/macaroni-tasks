@@ -474,6 +474,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
             - www-client.yml
           planned: "@daily"
 
