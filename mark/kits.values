@@ -170,6 +170,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
           planned: "@weekly"
 
 
@@ -460,6 +461,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - go.yml
           planned: "@daily"
 
         - kit: llvm-kit
@@ -577,6 +579,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
           planned: "@weekly"
 
         - kit: qt-kit
@@ -584,13 +587,7 @@ values:
           queue: topix
           specs:
             - base.yml
-          planned: "@weekly"
-
-        - kit: qt-kit
-          with_pr: true
-          queue: topix
-          specs:
-            - base.yml
+            - qt6.yml
           planned: "@weekly"
 
         - kit: lisp-scheme-kit
@@ -706,6 +703,15 @@ values:
           with_pr: true
           queue: topix
           mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: java-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
           specs:
             - base.yml
           planned: "@weekly"
@@ -919,6 +925,14 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: qt-kit
+          with_pr: true
+          queue: topix
+          kitfile: qt6.yml
+          specs:
+            - qt6.yml
+          mode: autogen
+          planned: "@weekly"
 
 
 # vim: filetype=yaml
