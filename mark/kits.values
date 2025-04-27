@@ -934,5 +934,13 @@ values:
           mode: autogen
           planned: "@weekly"
 
+        - kit: qt-kit
+          with_pr: true
+          queue: topix
+          kitfile: qt5.yml
+          specs:
+            - qt5.yml
+          mode: autogen
+          planned: "@weekly"
 
 # vim: filetype=yaml
