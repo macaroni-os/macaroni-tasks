@@ -588,6 +588,7 @@ values:
           specs:
             - base.yml
             - qt6.yml
+            - qt5.yml
           planned: "@weekly"
 
         - kit: lisp-scheme-kit

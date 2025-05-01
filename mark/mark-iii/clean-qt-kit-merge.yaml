@@ -27,7 +27,7 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-iii"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=base.yml qt6.yml"
+- "MARK_SPECS=base.yml qt6.yml qt5.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
