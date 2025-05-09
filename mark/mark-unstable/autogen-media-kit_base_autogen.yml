@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < mark-unstable > - qt-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - media-kit"
 script:
 - >-
   anise repo update &&
@@ -15,8 +15,8 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./qt-kit/autogen.kit.d/$i
-  --kitfile ./qt-kit/merge.kit.d/${MARK_KITFILE}
+  mark-devkit autogen  --specfile ./media-kit/autogen.kit.d/$i
+  --kitfile ./media-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr
@@ -35,11 +35,10 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=qt5.yml python.yml"
-- "MARK_KITFILE=qt5.yml"
+- "MARK_SPECS=base.yml"
+- "MARK_KITFILE=base_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@weekly"
 
 # vim: filetype=yaml

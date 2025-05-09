@@ -558,6 +558,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
           planned: "@weekly"
 
         - kit: games-kit
@@ -910,6 +911,15 @@ values:
             - base.yml
           planned: "@daily"
 
+        - kit: media-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          #planned: "@daily"
+
         - kit: xfce-kit
           with_pr: true
           queue: topix
@@ -941,6 +951,7 @@ values:
           kitfile: qt5.yml
           specs:
             - qt5.yml
+            - python.yml
           mode: autogen
           planned: "@weekly"
 
