@@ -118,6 +118,7 @@ values:
           specs:
             - base.yml
             - python.yml
+            - python_autogen.yml
           planned: "@daily"
 
         - kit: science-kit
@@ -430,6 +431,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
           planned: "@daily"
 
         - kit: editors-kit
@@ -508,6 +510,7 @@ values:
           specs:
             - base.yml
             - python.yml
+            - python_autogen.yml
           planned: "@daily"
 
         - kit: science-kit
@@ -573,6 +576,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_unstable.yml
           planned: "@weekly"
 
         - kit: java-kit
@@ -682,6 +686,16 @@ values:
           mode: autogen
           specs:
             - telemetry.yml
+          planned: "@daily"
+
+        - kit: core-server-kit
+          with_pr: true
+          queue: "topix"
+          postfix: "tools.yml"
+          kitfile: tools_autogen.yml
+          mode: autogen
+          specs:
+            - tools.yml
           planned: "@daily"
 
         - kit: dev-kit
