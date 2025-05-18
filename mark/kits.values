@@ -956,6 +956,7 @@ values:
           kitfile: qt6.yml
           specs:
             - qt6.yml
+            - python.yml
           mode: autogen
           planned: "@weekly"
 
