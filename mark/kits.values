@@ -403,6 +403,7 @@ values:
           queue: topix
           specs:
             - base.yml
+            - base_from_unstable.yml
           planned: "@daily"
 
         - kit: core-server-kit
@@ -543,7 +544,7 @@ values:
           planned: "@weekly"
 
         - kit: mark-kit
-          with_pr: false
+          with_pr: true
           queue: topix
           specs:
             - macaroni.yml
@@ -653,6 +654,15 @@ values:
           specs:
             - base.yml
           mode: merge
+          planned: "@weekly"
+
+        - kit: core-hw-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
           planned: "@weekly"
 
         - kit: core-server-kit
@@ -946,6 +956,15 @@ values:
           with_pr: true
           queue: topix
           mode: merge
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: gnome-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
           specs:
             - base.yml
           planned: "@weekly"
