@@ -433,6 +433,7 @@ values:
           specs:
             - base.yml
             - base_from_unstable.yml
+            - ide.yml
           planned: "@daily"
 
         - kit: editors-kit
