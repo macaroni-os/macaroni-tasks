@@ -527,11 +527,12 @@ values:
           with_pr: true
           specs:
             - security.yml
+            - security_from_unstable.yml
           planned: "@daily"
 
         - kit: text-kit
           queue: topix
-          with_pr: false
+          with_pr: true
           specs:
             - common.yml
             - docbook.yml
@@ -603,6 +604,20 @@ values:
           queue: topix
           specs:
             - base.yml
+
+        - kit: php-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: i18n-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
 
     mark-unstable:
 
@@ -717,6 +732,15 @@ values:
             - base.yml
             - ide.yml
           planned: "@daily"
+
+        - kit: dev-kit
+          with_pr: true
+          queue: "topix"
+          kitfile: base_autogen.yml
+          mode: autogen
+          specs:
+            - base.yml
+          planned: "@weekly"
 
         - kit: editors-kit
           with_pr: true
@@ -917,6 +941,15 @@ values:
           mode: merge
           specs:
             - kde5.yml
+            - lxqt.yml
+          planned: "@weekly"
+
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: lxqt_autogen.yml
+          specs:
             - lxqt.yml
           planned: "@weekly"
 
