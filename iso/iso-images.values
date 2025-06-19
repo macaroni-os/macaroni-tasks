@@ -6,140 +6,140 @@ values:
     - "24.08.01"
 
   isos:
-    # Macaroni Funtoo Stable ISO
+    # Macaroni Phoenix Stable ISO
     - name: "macaroni-funtoo"
       specfile: "mark.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo Server ISO
+    # Macaroni Phoenix Server ISO
     - name: "macaroni-server"
       specfile: "mark-server.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo Stable Devel ISO
+    # Macaroni Phoenix Stable Devel ISO
     - name: "macaroni-funtoo-devel"
       specfile: "mark-gnome-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo Server Devel ISO
+    # Macaroni Phoenix Server Devel ISO
     - name: "macaroni-server-devel"
       specfile: "mark-server-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo Server Testing ISO
+    # Macaroni Phoenix Server Testing ISO
     - name: "macaroni-server-testing"
       specfile: "mark-server-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo Gnome Live
+    # Macaroni Phoenix Gnome Live
     - name: "macaroni-funtoo-live"
       specfile: "mark-live.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo XFCE
+    # Macaroni Phoenix XFCE
     - name: "macaroni-funtoo-xfce"
       specfile: "mark-xfce.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo XFCE Devel
+    # Macaroni Phoenix XFCE Devel
     - name: "macaroni-funtoo-xfce-devel"
       specfile: "mark-xfce-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo LXQT
+    # Macaroni Phoenix LXQT
     - name: "macaroni-funtoo-lxqt"
       specfile: "mark-lxqt.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo I3
+    # Macaroni Phoenix I3
     - name: "macaroni-funtoo-i3"
       specfile: "mark-i3.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo KDE
+    # Macaroni Phoenix KDE
     - name: "macaroni-funtoo-kde"
       specfile: "mark-kde.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo KDE Devel
+    # Macaroni Phoenix KDE Devel
     - name: "macaroni-funtoo-kde-devel"
       specfile: "mark-kde-devel.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo Gnome Live Wayland
+    # Macaroni Phoenix Gnome Live Wayland
     - name: "macaroni-funtoo-live-wayland"
       specfile: "mark-live-wayland.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: true
 
-    # Macaroni Funtoo XFCE Testing
+    # Macaroni Phoenix XFCE Testing
     - name: "macaroni-funtoo-xfce-testing"
       specfile: "mark-xfce-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo Gnome Live Testing
+    # Macaroni Phoenix Gnome Live Testing
     - name: "macaroni-funtoo-live-testing"
       specfile: "mark-live-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo Gnome Live Wayland Testing
+    # Macaroni Phoenix Gnome Live Wayland Testing
     - name: "macaroni-funtoo-live-wayland-testing"
       specfile: "mark-live-wayland-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo LXQT Testing
+    # Macaroni Phoenix LXQT Testing
     - name: "macaroni-funtoo-lxqt-testing"
       specfile: "mark-lxqt-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo I3 Testing
+    # Macaroni Phoenix I3 Testing
     - name: "macaroni-funtoo-i3-testing"
       specfile: "mark-i3-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo KDE Testing
+    # Macaroni Phoenix KDE Testing
     - name: "macaroni-funtoo-kde-testing"
       specfile: "mark-kde-testing.yaml"
       repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
       repo_branch: "phoenix"
       release: false
 
-    # Macaroni Funtoo Gnome Live Extreme
+    # Macaroni Phoenix Gnome Live Extreme
     #- name: "macaroni-funtoo-live-extreme"
     #  specfile: "mark-extreme.yaml"
     #  repo: "https://github.com/macaroni-os/macaroni-funtoo.git"

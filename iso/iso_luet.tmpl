@@ -43,7 +43,7 @@ script:
 # Temporary: this must be handled in a different way.
 - >-
   eval 'mkdir /var/lib/macaroni -p || true' &&
-  wget https://raw.githubusercontent.com/funtoo/macaroni-funtoo/master/packages/macaroni/live-setup/build-iso-hook.sh
+  wget https://raw.githubusercontent.com/macaroni-os/macaroni-funtoo/phoenix/packages/macaroni/live-setup/build-iso-hook.sh
   -O /var/lib/macaroni/build-iso-hook.sh
 
 # Clone the repository with luet-geniso specs

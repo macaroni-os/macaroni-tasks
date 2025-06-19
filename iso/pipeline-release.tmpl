@@ -16,12 +16,6 @@ chain:
 
 # chord:
 - generate-iso-json
-#{{ range $idx, $iso := $isos }}{{ $name := index $iso "name" }}{{ $forrelease := index $iso "release" }}
-#{{- if $forrelease }}
-#- cdnsync-iso-{{ $name }}-{{ $release }}
-#{{- end }}
-#{{ end }}
-#- cdnsync-macaroni-iso
 
 tasks:
 {{ range $idx, $iso := $isos }}
@@ -53,6 +47,13 @@ tasks:
     tag_namespace: "iso-{{ $name }}-{{ $release }}"
     retry: "1"
     script:
+
+    # Temporary workaround
+    - >-
+      anise repo update &&
+      anise repo disable macaroni-commons macaroni-phoenix &&
+      anise upgrade -y &&
+      anise repo enable macaroni-commons macaroni-phoenix
 
     - >-
       anise repo update &&
@@ -90,33 +91,6 @@ tasks:
     # Write loopback status
     - losetup -l
 
-  cdnsync-iso-{{ $name }}-{{ $release }}:
-    name: "Rsync Mottainai namespace to CDN77 storage (iso-{{ $name }}-{{ $release }})"
-    type: "lxd"
-
-    storage: "cdn77,lxdconf"
-    storage_path: /storage
-    entrypoint:
-    - /bin/sh
-    - "-c"
-    script:
-    - source /storage/cdn77.env
-    - >-
-      luet repo update &&
-      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
-      luet cleanup --purge-repos
-    - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
-    # Note: the cdn /www is mandatory as prefix.
-    - >-
-      LXD_CONF=/storage/
-      lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
-
-    image: "macaroni/funtoo-dumplings"
-    environment:
-    - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
-    - "NS2SYNC=iso-{{ $name }}-{{ $release }}"
-    - "STORAGE_PREFIX=mottainai"
-    - "RSYNC_OPTS=-va --delete-after"
 {{ end }}
 {{ end }}
 
@@ -150,39 +124,5 @@ tasks:
     storage: "mcli"
     storage_path: /storage
     tag_namespace: "macaroni-iso"
-
-  cdnsync-macaroni-iso:
-    name: "Rsync Mottainai namespace to CDN77 storage (macaroni-iso)"
-    type: "lxd"
-    storage: "cdn77,lxdconf"
-    storage_path: /storage
-    entrypoint:
-    - /bin/sh
-    - "-c"
-    script:
-    - source /storage/cdn77.env
-    - >-
-      luet repo update &&
-      luet i -y utils/jq utils/yq app-emulation/lxd dev-vcs/git net-misc/curl system/entities &&
-      luet cleanup --purge-repos
-    - echo "Sync ${NS2SYNC} namespace for ${LXD_REMOTE}:${LXD_NODE} to cdn77 storage ${CDN77_STORAGE}..."
-    # Note: the cdn /www is mandatory as prefix.
-    - >-
-      LXD_CONF=/storage/
-      lxc exec ${LXD_REMOTE}:${LXD_NODE} -- sshpass -p "${CDN77_PASS}" rsync ${RSYNC_OPTS} ${MOTTAINAI_NAMESPACES_PATH}/${NS2SYNC}/ ${CDN77_USER}@${CDN77_STORAGE}.cdn77.com:/www/${STORAGE_PREFIX}/${NS2SYNC}/
-
-    - >-
-      git clone https://github.com/macaroni-os/macaroni-tasks.git
-      /macaroni-tasks &&
-      cd /macaroni-tasks &&
-      chmod a+x /macaroni-tasks/cdn/api/purge-repo-files.sh &&
-      /bin/bash -c
-      "source /storage/cdn77.env && export NAME=${NS2SYNC} && export CDN_TOKEN && cdn/api/purge-repo-files.sh"
-    image: "macaroni/funtoo-dumplings"
-    environment:
-    - MOTTAINAI_NAMESPACES_PATH=/srv/mottainai/web/namespaces
-    - "NS2SYNC=macaroni-iso"
-    - "STORAGE_PREFIX=mottainai"
-    - "RSYNC_OPTS=-va --delete-after"
 
 # vim: filetype=yaml
