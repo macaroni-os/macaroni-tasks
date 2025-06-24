@@ -1,6 +1,6 @@
 image:
   distribution: macaroni
-  description: Funtoo Macaroni OS Testing Minimal
+  description: Phoenix Macaroni OS Testing Minimal
   expiry: 30d
   architecture: amd64
 
@@ -83,9 +83,8 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
-        - whip-profiles/macaroni
         - app-admin/whip
-        - macaroni/whip-catalog
+        - sys-apps/whip-catalog
         - macaroni/ctl
 
         # Used by openrc setup scripts
