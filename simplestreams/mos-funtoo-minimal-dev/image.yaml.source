@@ -87,9 +87,8 @@ packages:
         - sys-auth/elogind
 
         - macaroni/ctl
-        - macaroni/whip-catalog
-        - whip-profiles/macaroni
         - app-admin/whip
+        - sys-apps/whip-catalog
 
         # Needed for openrc setup scripts
         - sys-apps/gentoo-functions
@@ -165,13 +164,12 @@ actions:
       macaronictl env-update
 
       pkgs2remove=(
-        system/entities
-        whip-profiles/macaroni
-        macaroni/whip-catalog
+        app-admin/entities
+        sys-apps/whip-catalog
         macaroni/entities-catalog
         app-admin/macaronictl-thin
         app-admin/whip
-        utils/yq
+        app-misc/yq-go
         utils/jq
         sys-apps/gentoo-functions
       )
