@@ -2,7 +2,12 @@ name: "amd64 - Build docker image - < macaronios/luet >"
 storage: "docker-mos-creds"
 storage_path: /storage
 script:
-- luet repo update --force && luet upgrade -y && macaronictl env-update
+- anise repo disable mottainai-stable
+- >-
+  anise repo update --force &&
+  anise i repository/mark -y &&
+  luet upgrade --sync-repos -y &&
+  macaronictl env-update
 - source /storage/setup-docker-mos.sh
 - >-
   echo 'DOCKER_OPTS="--experimental=true"' >> /etc/conf.d/docker &&
