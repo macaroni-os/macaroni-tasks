@@ -87,13 +87,12 @@ packages:
         # Until new dev release is stable
         - dev-libs/libpcre2
 
-        - macaroni/whip-catalog
         - macaroni/ctl
-        - whip-profiles/macaroni
         - app-admin/whip
+        - sys-apps/whip-catalog
 
         - system/luet-devkit
-        - utils/yq4
+        - app-misc/yq-go
 
         - sys-libs/binutils-libs
         - binutils
@@ -123,8 +122,8 @@ packages:
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
 
-        - utils/jq
-        - utils/yq
+        - app-misc/jq
+        - app-misc/yq
 
         - curl
         - wget
