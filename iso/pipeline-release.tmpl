@@ -51,13 +51,11 @@ tasks:
     # Temporary workaround
     - >-
       anise repo update &&
-      anise repo disable macaroni-commons macaroni-phoenix &&
-      anise upgrade -y &&
-      anise repo enable macaroni-commons macaroni-phoenix
+      anise repo disable mottainai-stable &&
+      anise i repository/mark -y
 
     - >-
-      anise repo update &&
-      anise upgrade -y &&
+      anise upgrade --sync-repos -y &&
       anise i -y file git make wget curl squashfs-tools dosfstools libisoburn ca-certificates
       utils/yq utils/jq system/luet-devkit util-linux &&
       anise cleanup
