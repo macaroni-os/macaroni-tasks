@@ -96,8 +96,8 @@ packages:
         - net-libs/libmnl
         - sys-process/procps
         - sys-auth/elogind
-        - whip-profiles/macaroni
         - app-admin/whip
+        - sys-apps/whip-catalog
         - app-misc/yq-go
 
         # Needed for env-update
