@@ -41,24 +41,23 @@ tasks:
     - "LUET_OPTS=--sync-repos"
     - "LUET_NOLOCK=true"
     - "LUET_YES=TRUE"
+    - "LUET_BIN=/usr/bin/anise"
     - "BUILD_ISO=1"
     - "HTTP_TIMEOUT=0"
     - "RELEASE={{ $release }}"
     tag_namespace: "iso-{{ $name }}-{{ $release }}"
     retry: "1"
     script:
-
-    # Temporary workaround
-    - >-
-      anise repo update &&
-      anise repo disable mottainai-stable &&
-      anise i repository/mark -y
-
     - >-
       anise upgrade --sync-repos -y &&
       anise i -y file git make wget curl squashfs-tools dosfstools libisoburn ca-certificates
       utils/yq utils/jq system/luet-devkit util-linux &&
       anise cleanup
+
+    # We need to migrate scripts to yq4. Download old binary as workaround.
+    - >-
+      wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 &&
+      chmod a+x /usr/bin/yq
 
     # Using always last geniso commit
     - >-
@@ -68,7 +67,7 @@ tasks:
     # Temporary: this must be handled in a different way.
     - >-
       eval 'mkdir /var/lib/macaroni -p || true' &&
-      wget https://raw.githubusercontent.com/funtoo/macaroni-funtoo/master/packages/macaroni/live-setup/build-iso-hook.sh
+      wget https://raw.githubusercontent.com/macaroni-os/macaroni-funtoo/phoenix/packages/macaroni/live-setup/build-iso-hook.sh
       -O /var/lib/macaroni/build-iso-hook.sh
 
     # Clone the repository with luet-geniso specs

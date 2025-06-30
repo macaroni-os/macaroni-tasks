@@ -22,13 +22,19 @@ environment:
 - "LUET_OPTS=--sync-repos"
 - "LUET_NOLOCK=true"
 - "LUET_YES=TRUE"
+- "LUET_BIN=/usr/bin/anise"
 - "BUILD_ISO=1"
 - "HTTP_TIMEOUT=0"
 tag_namespace: "iso-macaroni-funtoo-live-testing"
 script:
+
+# We need to migrate scripts to yq4. Download old binary as workaround.
 - >-
-  anise repo update &&
-  anise upgrade -y &&
+  wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 &&
+  chmod a+x /usr/bin/yq
+
+- >-
+  anise upgrade --sync-repos -y &&
   anise i -y file git make wget curl squashfs-tools dosfstools libisoburn ca-certificates
   utils/yq utils/jq system/luet-devkit util-linux &&
   anise cleanup
