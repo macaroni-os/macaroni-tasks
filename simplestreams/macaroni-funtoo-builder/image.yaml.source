@@ -180,6 +180,16 @@ actions:
       eselect locale list
       eselect locale set en_US.utf8
 
+  # Temporary workaround until mottainai-cli and replicant
+  # will be available on mark-repo
+  - trigger: post-packages
+    action: |-
+      anise repo update
+      anise i repository/mottainai-stable
+      anise i --sync-repos mottainai-cli replicant
+      anise repo disable mottainai-stable
+      anise cleanup
+
   - trigger: post-packages
     action: |-
       #!/bin/bash
