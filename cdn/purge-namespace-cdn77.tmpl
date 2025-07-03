@@ -11,8 +11,8 @@ entrypoint:
 - "-c"
 script:
 - >-
-  anise i --sync-repos repository/mottainai-stable &&
-  anise i --sync-repos utils/yq utils/jq --force &&
+  anise i --sync-repos repository/mottainai-stable -y &&
+  anise i --sync-repos utils/yq utils/jq --force -y &&
   anise repo disable mottainai-stable
 - >-
   git clone https://code.funtoo.org/bitbucket/scm/mos/macaroni-tasks.git
