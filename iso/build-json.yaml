@@ -4,8 +4,9 @@
 name: "ISO: Build JSON"
 script:
 - >-
-  anise install --sync-repos dev-util/mottainai-cli
-  utils/jq utils/yq make git bash
+  anise i --sync-repos repository/mottainai-stable &&
+  anise repo disable mark &&
+  anise install --sync-repos dev-util/mottainai-cli utils/jq utils/yq --force
 - git clone ${REPO} repo
 - cd repo/iso
 - export HOME=/root && mkdir -p /root/.config/
