@@ -11,13 +11,15 @@ name: "anise - < mottainai-testing > - Bump revision"
 script:
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
-- export HOME=/root && mkdir -p /root/.config/
-- /bin/bash /storage/setup-mcli.sh
 - >-
   anise repo update &&
+  anise i repository/mottainai-stable &&
+  anise i --sync-repos mottainai-cli &&
+  anise repo disable mottainai-stable &&
   anise upgrade &&
-  anise miner replace-package system/luet-build --for system/luet-build-testing &&
   anise cleanup --purge-repos
+- export HOME=/root && mkdir -p /root/.config/
+- /bin/bash /storage/setup-mcli.sh
 - >-
   MOTTAINAI_CLI_PROFILE=funtoo
   mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
