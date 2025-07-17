@@ -184,6 +184,7 @@ actions:
   # will be available on mark-repo
   - trigger: post-packages
     action: |-
+      #!/bin/bash
       anise repo update
       anise i repository/mottainai-stable
       anise i --sync-repos mottainai-cli replicant
