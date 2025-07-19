@@ -7,9 +7,11 @@ script:
 - /bin/bash /storage/setup-mcli.sh
 - >-
   export MOTTAINAI_CLI_PROFILE=funtoo
-#- >-
-#  anise repo update && luet repo upgrade &&
-#  anise cleanup --purge-repos
+- >-
+  anise repo update &&
+  anise i -y repository/mottainai-stable &&
+  anise i --sync-repos -y utils/yq &&
+  anise cleanup --purge-repos
 - >-
   git clone ${REPO} -b ${REPO_BRANCH} /repo &&
   git clone ${REPO_MTASKS} /macaroni-tasks
