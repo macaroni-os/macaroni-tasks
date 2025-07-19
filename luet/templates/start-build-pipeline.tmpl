@@ -9,7 +9,7 @@ script:
   export MOTTAINAI_CLI_PROFILE=funtoo
 - >-
   anise repo update &&
-  anise i -y repository/mottainai-stable &&
+  anise repo enable mottainai-stable &&
   anise i --sync-repos -y utils/yq &&
   anise cleanup --purge-repos
 - >-
