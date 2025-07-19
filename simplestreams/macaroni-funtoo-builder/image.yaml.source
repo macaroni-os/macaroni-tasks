@@ -187,7 +187,7 @@ actions:
       #!/bin/bash
       anise repo update
       anise i repository/mottainai-stable
-      anise i --sync-repos mottainai-cli replicant
+      anise i --sync-repos mottainai-cli replicant simplestreams-builder utils/yq distrobuilder
       anise repo disable mottainai-stable
       anise cleanup
 
