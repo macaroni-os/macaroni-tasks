@@ -35,11 +35,11 @@ tasks:
     # VM/Disk slow take time on get ip
     - sleep 4
     - source /storage/prepare-luet.sh
-    - >-
-      anise repo update &&
-      anise upgrade &&
-      anise miner replace-package system/luet-build --for system/luet-build-testing &&
-      anise cleanup --purge-repos
+    #- >-
+    #  anise repo update &&
+    #  anise upgrade &&
+    #  anise miner replace-package system/luet-build --for system/luet-build-testing &&
+    #  anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000

@@ -35,13 +35,13 @@ tasks:
     - cd repo
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
-    {{- if eq .treeversion "v2" }}
-    - >-
-      anise repo update &&
-      anise upgrade &&
-      anise miner replace-package system/luet-build --for system/luet-build-testing &&
-      anise cleanup --purge-repos
-    {{- end }}
+#    {{- if eq .treeversion "v2" }}
+#    - >-
+#      anise repo update &&
+#      anise upgrade &&
+#      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+#      anise cleanup --purge-repos
+#    {{- end }}
     - >-
       MOTTAINAI_CLI_PROFILE=funtoo
       mottainai-cli namespace download $NAMESPACE build -f '.*metadata.yaml|repository.yaml$|repository.meta.yaml.tar.zst$'
