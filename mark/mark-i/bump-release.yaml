@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Clean Kits - < mark-iii > - core-gl-kit"
+name: "M.A.R.K. - Bump Kits - < mark-i >"
 script:
 - >-
   anise repo update &&
@@ -13,25 +13,19 @@ script:
 - source /storage/pr-envs.sh
 
 - >-
-  for i in ${MARK_SPECS} ; do
-  echo "Processing specfile ${i}..." ;
-  mark-devkit kit clean --specfile ./core-gl-kit/merge.kit.d/$i
-  --concurrency ${CONCURRENCY}
+  echo "Processing specfile ${MARK_SPECS}..." &&
+  mark-devkit kit bump-release --specfile ./merge.release.d/${MARK_SPECS}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
-  --push --pr ;
-  done
+  --push
 
 storage: "geaaru-github"
 storage_path: /storage
 environment:
-- "CONCURRENCY=30"
-- "REPO_BRANCH=mark-iii"
+- "REPO_BRANCH=mark-i"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=base.yml base_autogen.yml"
+- "MARK_SPECS=mark-i.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@weekly"
 
 # vim: filetype=yaml
-
