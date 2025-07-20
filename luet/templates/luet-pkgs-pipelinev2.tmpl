@@ -101,7 +101,6 @@ tasks:
     - >-
       anise repo update &&
       anise upgrade &&
-      anise miner replace-package system/luet-build --for system/luet-build-testing &&
       anise cleanup --purge-repos
     - make create-repo
     - rm build/*.metadata.yaml -v && mv build/* ../artefacts/
