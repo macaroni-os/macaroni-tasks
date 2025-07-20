@@ -4,7 +4,8 @@ name: "M.A.R.K. - Build Stage - < stage3-terragon-mark-testing > ( x86_64 )"
 script:
 - >-
   anise repo update &&
-  anise i -y fchroot yq ego mark-devkit minio-client
+  anise i -y repository/mark &&
+  anise i -y --sync-repos fchroot yq-go ego mark-devkit minio-client whip sys-apps/whip-catalog
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
