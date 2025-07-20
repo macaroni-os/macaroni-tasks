@@ -11,13 +11,6 @@ name: "anise - < macaroni-funtoo > - Bump revision"
 script:
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
-- >-
-  anise repo update &&
-  anise i repository/mottainai-stable &&
-  anise i --sync-repos mottainai-cli &&
-  anise repo disable mottainai-stable &&
-  anise upgrade &&
-  anise cleanup --purge-repos
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
 - >-
