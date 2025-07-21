@@ -839,6 +839,224 @@ values:
           specs:
             - base.yml
 
+    # Mark 31
+    mark-31:
+
+      kit_fixups: https://github.com/macaroni-os/kit-fixups
+      kit_fixups_branch: mark-31
+
+      release_spec: mark-31.yml
+      release_queue: topix
+
+      distfiles_sync: true
+      distfiles_spec: mark-31.yml
+      s3_prefix: mark-distfiles/distfiles
+
+      kits:
+
+        - kit: browser-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: core-gl-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: core-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - core.yml
+
+        - kit: core-hw-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: core-server-kit
+          with_pr: true
+          queue: "topix"
+          specs:
+            - db.yml
+            - fs.yml
+            - net-base.yml
+            - tools.yml
+            - libs.yml
+            - shells.yml
+            - telemetry.yml
+
+        - kit: desktop-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: dev-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: editors-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - editors.yml
+
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - kde5.yml
+            - lxqt.yml
+
+        - kit: kernel-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+            - debian.yml
+            - modules.yml
+
+        - kit: lang-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+            - go.yml
+
+        - kit: llvm-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: net-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+            - www-client.yml
+
+        - kit: perl-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - perl.yml
+
+        - kit: portage-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - funtoo.yml
+            - portage.yml
+
+        - kit: python-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - python.yml
+
+        - kit: python-modules-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+            - python.yml
+
+        - kit: science-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: security-kit
+          queue: topix
+          with_pr: true
+          specs:
+            - security.yml
+
+        - kit: text-kit
+          queue: topix
+          with_pr: true
+          specs:
+            - common.yml
+            - docbook.yml
+            - latex.yml
+
+        - kit: xorg-kit
+          queue: topix
+          with_pr: true
+          specs:
+            - base.yml
+
+        - kit: mark-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - macaroni.yml
+
+        - kit: ruby-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: media-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: games-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: gnome-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: java-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: qt-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+            - qt6.yml
+            - qt5.yml
+
+        - kit: lisp-scheme-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: php-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: i18n-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
     mark-unstable:
 
       kit_fixups: https://github.com/macaroni-os/kit-fixups
