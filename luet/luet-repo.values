@@ -14,52 +14,47 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      mark_release: mark-iii
       mottainai_queue: "phoenix"
       kits2upgrade:
-        - core-kit
-        - core-server-kit
+        - browser-kit
         - core-gl-kit
         - core-hw-kit
-        - net-kit
-        - llvm-kit
-        - perl-kit
-        - dev-kit
-        - python-kit
-        - python-modules-kit
+        - core-kit
+        - core-server-kit
         - desktop-kit
         - dev-kit
         - editors-kit
         - games-kit
         - gnome-kit
-        - haskell-kit
-        - browser-kit
+        - i18n-kit
         - java-kit
         - kde-kit
+        - kernel-kit
         - lang-kit
         - lisp-scheme-kit
-        - mate-kit
+        - llvm-kit
+        - mark-kit
         - media-kit
-        - ml-lang-kit
+        - net-kit
+        - perl-kit
+        - php-kit
+        - portage-kit
+        - python-kit
+        - python-modules-kit
         - qt-kit
         - ruby-kit
         - science-kit
         - security-kit
-        - xfce-kit
         - text-kit
-        - geaaru-kit
-        - games-kit
-        - i18n-kit
+        - xfce-kit
+        - xorg-kit
 
       # The list of the seed to bump before start
       # new packages version.
       seeds2bump:
         # Seed to bump for a complete build cycle.
-        - seed/funtoo-base
-        #- seed/macaroni-funtoo-stage
-        #- seed/macaroni-funtoo-base
-        #- seed/macaroni-funtoo-python-stage
-        #- seed/macaroni-funtoo-python
-        #- seed/macaroni-funtoo-games
+        - seed/mark-base
       lpc_extra_ns:
         - extra-reposcan
 
