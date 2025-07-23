@@ -8,7 +8,8 @@ script:
   - sleep 3
   - >-
     anise repo update &&
-    anise install -y app-emulation/distrobuilder
+    anise repo enable mottainai-stable &&
+    anise install --force --sync-repos -y app-emulation/distrobuilder
     app-emulation/simplestreams-builder
     dev-util/mottainai-cli
     utils/jq utils/yq

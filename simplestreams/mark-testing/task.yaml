@@ -6,7 +6,7 @@ script:
 - source /etc/profile
 # temporary: Sleep for LXD
 - sleep 4
-- mkdir $TMPDIR
+#- mkdir $TMPDIR
 
 #- >-
 #  anise repo update && anise upgrade -y
