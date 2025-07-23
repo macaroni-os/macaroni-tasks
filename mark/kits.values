@@ -1109,6 +1109,7 @@ values:
           kitfile: base_autogen.yml
           specs:
             - fonts.yml
+            - nvidia.yml
 
         - kit: core-hw-kit
           with_pr: true
