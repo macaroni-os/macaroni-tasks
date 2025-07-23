@@ -14,8 +14,11 @@ values:
       command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      meta_repo: true
       mark_release: mark-iii
       mottainai_queue: "phoenix"
+      kits_package_path: seeds/mark-kits
+      kits_package: seed/mark-kits
       kits2upgrade:
         - browser-kit
         - core-gl-kit
