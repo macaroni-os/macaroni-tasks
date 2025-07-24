@@ -75,6 +75,14 @@ values:
       namespace: "mark-stages-phoenix"
       cdnstorage: true
 
+    - name: stage3-phoenix-mark-iii-kde
+      jobfile: stage3_phoenix.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-phoenix"
+      cdnstorage: true
 
 
 # vim: filetype=yaml
