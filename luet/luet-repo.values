@@ -276,7 +276,10 @@ values:
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
+      meta_repo: true
       mark_release: mark-xl
+      kits_package_path: seeds/mark-kits
+      kits_package: seed/mark-kits
       kits2upgrade:
         - core-kit
         - core-server-kit
@@ -306,11 +309,6 @@ values:
       seeds2bump:
         # Seed to bump for a complete build cycle.
         - seed/mark-base
-        #- seed/macaroni-funtoo-stage
-        # - seed/macaroni-funtoo-base
-        #- seed/macaroni-funtoo-python-stage
-        #- seed/macaroni-funtoo-python
-        #- seed/macaroni-funtoo-games
       lpc_extra_ns:
         - extra-reposcan
 
@@ -371,7 +369,7 @@ values:
       http_repo: https://github.com/macaroni-os/macaroni-games.git
       ssh_repo: git@github.com:macaroni-os/macaroni-games.git
       mark_release: mark-testing
-      mottainai_queue: ""
+      mottainai_queue: "phoenix"
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
       # If the repo could manage the upgrade kit task
