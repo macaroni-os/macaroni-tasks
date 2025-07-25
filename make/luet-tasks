@@ -42,7 +42,6 @@ for ((i=0;i<${REPOS};i++)) ; do
     else
       seeds2bump=""
     fi
-    lxdcommand=$(yq r ${luet_values} "values.repositories[$i].command_file")
 
     mottainai-cli task compile ${luet_dir}/templates/upgrade-kits.tmpl \
       -s namespace="${name}" \
@@ -51,7 +50,6 @@ for ((i=0;i<${REPOS};i++)) ; do
       -s repossh="${ssh_repo}" \
       -s kits2upgrade="${kits2upgrade}" \
       -s seeds2bump="${seeds2bump}" \
-      -s command="${lxdcommand}" \
       -o ${luet_dir}/kits-upgrade/upgrade-kits-${name}.yaml
 
   fi

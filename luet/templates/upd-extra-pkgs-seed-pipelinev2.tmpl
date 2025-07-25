@@ -136,10 +136,9 @@ tasks:
     script:
     - >-
       anise repo update &&
-      anise install utils/jq utils/yq net-misc/openssh
+      anise install net-misc/openssh
       dev-util/mottainai-cli sys-devel/make macaroni/ctl
-      system/luet-build anise-portage-converter &&
-      anise miner reinstall-package virtual/base &&
+      anise-portage-converter &&
       anise cleanup &&
       macaronictl env-update
 

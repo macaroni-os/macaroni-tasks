@@ -11,7 +11,6 @@ values:
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
-      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       meta_repo: true
@@ -68,7 +67,6 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       mottainai_queue: ""
@@ -86,7 +84,6 @@ values:
       ssh_repo: git@github.com:macaroni-os/macaroni-security.git
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
-      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       mottainai_queue: "topix"
@@ -179,7 +176,6 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
         - seed/macaroni-funtoo-stage
@@ -278,7 +274,6 @@ values:
       tree_version: v2
       http_repo: https://github.com/macaroni-os/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-mark-testing-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       mark_release: mark-xl
@@ -304,12 +299,13 @@ values:
         - kernel-kit
         - xorg-kit
         - php-kit
+        - java-kit
 
       # The list of the seed to bump before start
       # new packages version.
       seeds2bump:
         # Seed to bump for a complete build cycle.
-        - seed/funtoo-base
+        - seed/mark-base
         #- seed/macaroni-funtoo-stage
         # - seed/macaroni-funtoo-base
         #- seed/macaroni-funtoo-python-stage
@@ -328,7 +324,6 @@ values:
       repo4test_tag: true
       http_repo: https://github.com/funtoo/macaroni-funtoo.git
       ssh_repo: git@github.com:macaroni-os/macaroni-funtoo.git
-      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       seeds2bump:
         - seed/macaroni-funtoo-stage
@@ -379,7 +374,6 @@ values:
       mottainai_queue: ""
       # Define the command file of lxd-compose
       # to run for generate reposcan files.
-      command_file: reposcan-funtoo-next-kits.yml
       # If the repo could manage the upgrade kit task
       upgrade_kit: true
       kits2upgrade:
