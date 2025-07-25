@@ -182,7 +182,7 @@ tasks:
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
-    - "PACKAGES={{ .kits_package }} {{- if eq .meta_repo "true" }}toolchain/meta-repo{{- end }} reposcan/meta-{{ .mark_release }}"
+    - "PACKAGES={{ .kits_package }} {{- if eq .meta_repo "true" }} toolchain/meta-repo{{- end }} reposcan/meta-{{ .mark_release }}"
     image: macaroni/phoenix-builder
     artefact_path: /artefacts
     type: lxd
