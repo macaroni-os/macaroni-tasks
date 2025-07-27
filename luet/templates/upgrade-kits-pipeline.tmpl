@@ -57,7 +57,7 @@ tasks:
     - >-
       anise repo update --force &&
       anise i repository/mark &&
-      anise i --sync-repos net-misc/openssh mark-devkit &&
+      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter &&
       anise upgrade &&
       anise cleanup &&
       macaronictl env-update
