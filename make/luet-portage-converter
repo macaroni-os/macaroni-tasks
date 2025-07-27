@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Daniele Rondina, geaaru@funtoo.org
-# Description: Script to execute luet-portage-converter
+# Description: Script to execute anise-portage-converter
 #              locally. Normally for debug/throubleshooting.
 #              Use start-luet-pc instead for normal use.
 
@@ -31,15 +31,15 @@ pull_kit_cache () {
   return 0
 }
 
-run_lpc () {
+run_apc () {
   local opts="$1"
   local rulesfile="$2"
 
-  # Run luet-portage-converter on target repository.
-  luet-portage-converter generate -t ${TREE} \
+  # Run anise-portage-converter on target repository.
+  anise-portage-converter generate -t ${TREE} \
     ${opts} \
     --rules ${LUET_PC_SPECSDIR}/${rulesfile} || {
-    echo "Error on running luet-portage-converter for rules file ${rulesfile}."
+    echo "Error on running anise-portage-converter for rules file ${rulesfile}."
     return 1
   }
 
@@ -116,14 +116,14 @@ main () {
   kits_specs="${kits_specs[@]}"
 
   echo "
-Luet Portage Converter options: ${lpc_opts}
-Luet Portage Converter rules files : ${kits_specs}
+Anise Portage Converter options: ${lpc_opts}
+Anise Portage Converter rules files : ${kits_specs}
 "
 
   pushd ${LUET_REPOSITORY} 2>&1 >/dev/null
 
   for k in ${kits_specs} ; do
-    run_lpc "${lpc_opts}" "${k}" || {
+    run_apc "${lpc_opts}" "${k}" || {
       popd 2>&1 >/dev/null
       return 1
     }
