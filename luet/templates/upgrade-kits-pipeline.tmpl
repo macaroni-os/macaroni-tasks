@@ -53,9 +53,11 @@ tasks:
     name: "Anise Upgrade Kits <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }} - Bump revision"
     script:
 
+    # anise i --sync-repos utils/jq utils/yq utils/yq4 net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
     - >-
       anise repo update --force &&
-      anise install utils/jq utils/yq utils/yq4 net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
+      anise i repository/mark &&
+      anise i --sync-repos net-misc/openssh mark-devkit &&
       anise upgrade &&
       anise cleanup &&
       macaronictl env-update
