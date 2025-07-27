@@ -1470,4 +1470,13 @@ values:
           mode: autogen
           planned: "@weekly"
 
+        - kit: browser-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@daily"
+
 # vim: filetype=yaml
