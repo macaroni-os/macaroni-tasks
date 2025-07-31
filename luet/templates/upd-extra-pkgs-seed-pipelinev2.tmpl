@@ -28,12 +28,6 @@ tasks:
     # Using macaroni/phoenix-builder doesn't work here. Probably because ca-certificates package is not available.
     image: macaroni/phoenix-builder
     script:
-    - >-
-      anise repo update --force &&
-      anise install utils/jq utils/yq net-misc/openssh macaroni/ctl &&
-      anise cleanup &&
-      macaronictl env-update
-
     # Setup git ssh key
     - eval 'mkdir -p /root | true'
     - sh /storage/setup-ssh.sh
