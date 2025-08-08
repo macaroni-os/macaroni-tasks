@@ -1479,4 +1479,14 @@ values:
             - base.yml
           planned: "@daily"
 
+        - kit: desktop-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+
 # vim: filetype=yaml
