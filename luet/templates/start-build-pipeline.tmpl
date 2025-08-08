@@ -6,7 +6,7 @@ script:
 - >-
   anise repo update &&
   anise repo enable mottainai-stable &&
-  anise i --sync-repos -y utils/yq mottainai-cli &&
+  anise i --sync-repos -y mottainai-cli &&
   anise cleanup --purge-repos
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
