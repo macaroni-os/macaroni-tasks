@@ -3,15 +3,15 @@ storage: "mcli"
 storage_path: /storage
 script:
 - sleep 4
+- >-
+  anise repo update &&
+  anise repo enable mottainai-stable &&
+  anise i --sync-repos -y utils/yq mottainai-cli &&
+  anise cleanup --purge-repos
 - export HOME=/root && mkdir -p /root/.config/
 - /bin/bash /storage/setup-mcli.sh
 - >-
   export MOTTAINAI_CLI_PROFILE=funtoo
-- >-
-  anise repo update &&
-  anise repo enable mottainai-stable &&
-  anise i --sync-repos -y utils/yq &&
-  anise cleanup --purge-repos
 - >-
   git clone ${REPO} -b ${REPO_BRANCH} /repo &&
   git clone ${REPO_MTASKS} /macaroni-tasks
