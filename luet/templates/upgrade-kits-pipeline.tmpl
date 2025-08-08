@@ -56,8 +56,7 @@ tasks:
     # anise i --sync-repos utils/jq utils/yq utils/yq4 net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
     - >-
       anise repo update --force &&
-      anise i repository/mark &&
-      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter &&
+      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin &&
       anise upgrade &&
       anise cleanup &&
       macaronictl env-update

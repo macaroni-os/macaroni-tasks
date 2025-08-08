@@ -90,6 +90,11 @@ tasks:
 
     name: "anise - < {{ $reponame }} > - Bump revision"
     script:
+    - >-
+      anise repo update &&
+      anise repo enable mottainai-stable &&
+      anise i --sync-repos -y yq3-bin mottainai-cli &&
+      anise cleanup --purge-repos
     - git clone ${REPO} -b ${REPO_BRANCH} repo
     - cd repo
     - export HOME=/root && mkdir -p /root/.config/

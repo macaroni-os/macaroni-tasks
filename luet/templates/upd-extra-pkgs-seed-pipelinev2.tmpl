@@ -30,6 +30,12 @@ tasks:
     script:
     # Setup git ssh key
     - eval 'mkdir -p /root | true'
+    - >-
+      anise repo update &&
+      anise repo enable mottainai-stable &&
+      anise i --sync-repos -y yq3-bin mottainai-cli &&
+      anise cleanup --purge-repos
+
     - sh /storage/setup-ssh.sh
     - sh /storage/setup-git.sh
 
@@ -109,7 +115,7 @@ tasks:
     tag_namespace: "{{ .namespace }}"
 
   anise-portage-convert:
-    name: "Luet Portage Converter Seed {{ .seed }} - <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
+    name: "Anise Portage Converter Seed {{ .seed }} - <{{ .namespace }}> - ({{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }})"
     image: macaroni/phoenix-builder
     storage: "geaaru-github,mcli"
     storage_path: /storage
@@ -129,6 +135,7 @@ tasks:
     - "NAMESPACE={{ .namespace }}"
     script:
     - >-
+      anise repo enable mottainai-stable &&
       anise repo update &&
       anise install net-misc/openssh
       dev-util/mottainai-cli sys-devel/make macaroni/ctl
@@ -168,6 +175,11 @@ tasks:
     storage: "mcli"
     storage_path: /storage
     script:
+    - >-
+      anise repo update &&
+      anise repo enable mottainai-stable &&
+      anise i --sync-repos -y yq3-bin mottainai-cli &&
+      anise cleanup --purge-repos
     - export HOME=/root && mkdir -p /root/.config/
     - /bin/bash /storage/setup-mcli.sh
     - >-
