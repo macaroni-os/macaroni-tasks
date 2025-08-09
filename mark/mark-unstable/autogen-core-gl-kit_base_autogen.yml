@@ -4,7 +4,7 @@ name: "M.A.R.K. - Autogen Kits - < mark-unstable > - core-gl-kit"
 script:
 - >-
   anise repo update &&
-  anise i -y mark-devkit anise-portage-converter minio-client j2cli
+  anise i -y mark-devkit anise-portage-converter minio-client j2cli patch
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
