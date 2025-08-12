@@ -34,6 +34,8 @@ environment:
 {{- if eq .enable_buildkit "true" }}
 - "BUILDKIT_PROGRESS=plain"
 - "DOCKER_BUILDKIT=1"
+{{- else }}
+- "DOCKER_BUILDKIT=0"
 {{- end }}
 - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
 - "REPO={{ .repo }}"
