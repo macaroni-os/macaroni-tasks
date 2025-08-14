@@ -1341,6 +1341,7 @@ values:
           specs:
             - common.yml
             - docbook.yml
+            - latex.yml
 
         - kit: xorg-kit
           queue: topix
