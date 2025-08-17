@@ -56,7 +56,7 @@ values:
       # new packages version.
       seeds2bump:
         # Seed to bump for a complete build cycle.
-        - seed/mark-base
+        #- seed/mark-base
       lpc_extra_ns:
         - extra-reposcan
 
