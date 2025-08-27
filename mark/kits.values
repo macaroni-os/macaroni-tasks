@@ -1464,5 +1464,14 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: forensics-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
 
 # vim: filetype=yaml
