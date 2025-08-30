@@ -2,9 +2,11 @@
 
 name: "M.A.R.K. - Autogen Kits - < mark-unstable > - dev-kit"
 script:
+# dev-python/requests: needed for debian-sources autogen
 - >-
   anise repo update &&
   anise i -y mark-devkit anise-portage-converter minio-client j2cli patch
+  dev-python/requests
 
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo

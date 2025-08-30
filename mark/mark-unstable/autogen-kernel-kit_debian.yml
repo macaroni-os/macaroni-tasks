@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < mark-unstable > - ai-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - kernel-kit"
 script:
 # dev-python/requests: needed for debian-sources autogen
 - >-
@@ -17,8 +17,8 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./ai-kit/autogen.kit.d/$i
-  --kitfile ./ai-kit/merge.kit.d/${MARK_KITFILE}
+  mark-devkit autogen  --specfile ./kernel-kit/autogen.kit.d/$i
+  --kitfile ./kernel-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr
@@ -37,8 +37,8 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=base.yml"
-- "MARK_KITFILE=base.yml"
+- "MARK_SPECS=debian.yml"
+- "MARK_KITFILE=debian.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
