@@ -84,5 +84,13 @@ values:
       namespace: "mark-stages-phoenix"
       cdnstorage: true
 
+    - name: stage3-arm64bit
+      jobfile: stage3-mark-31_arm64.yaml
+      config: etc/config.yml
+      arches:
+        - arm64
+      queue: topix
+      namespace: "mark-stages-mark31"
+      cdnstorage: true
 
 # vim: filetype=yaml
