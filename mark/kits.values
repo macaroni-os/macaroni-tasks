@@ -620,6 +620,20 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: ai-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: forensics-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
     # Mark I
     mark-i:
 
