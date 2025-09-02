@@ -118,7 +118,7 @@ prepare_markdevkit_release_tasks() {
       mode="merge"
     fi
 
-
+    local postfix=""
     if [ "${mode}" == "merge" ] ; then
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
         -s kitfixups_repo="${kitfixups_url}" \
@@ -130,6 +130,7 @@ prepare_markdevkit_release_tasks() {
         -o ${specs_dir}/${release}/merge-${kit}.yaml || return 1
     else
       kitfile=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kitfile" ${mark_values} -M)
+      postfix="-${kitfile/.yml/}"
       # autogen mode
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-autogen.tmpl \
         -s kitfixups_repo="${kitfixups_url}" \
@@ -150,7 +151,7 @@ prepare_markdevkit_release_tasks() {
       -s release="${release}" \
       -s specs="${specs[@]}" \
       -s withpr="${withpr}" \
-      -o ${specs_dir}/${release}/clean-${kit}-${mode}.yaml || return 1
+      -o ${specs_dir}/${release}/clean-${kit}-${mode}${postfix}.yaml || return 1
 
   done
 
