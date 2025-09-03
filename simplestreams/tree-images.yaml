@@ -30,7 +30,6 @@ products:
     days: 2
     aliases:
       - "macaroni/phoenix-minimal"
-      - "macaroni/funtoo-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -47,7 +46,6 @@ products:
     days: 2
     aliases:
       - "macaroni/phoenix-testing-minimal"
-      - "macaroni/funtoo-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -65,7 +63,6 @@ products:
     days: 1
     aliases:
       - "macaroni/phoenix-minimal-devel"
-      - "macaroni/funtoo-minimal-devel"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -82,7 +79,6 @@ products:
     days: 2
     aliases:
       - "macaroni/phoenix-builder"
-      - "macaroni/funtoo-builder"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
@@ -155,7 +151,6 @@ products:
     days: 2
     aliases:
       - "macaroni/phoenix-dumplings"
-      - "macaroni/funtoo-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -172,7 +167,6 @@ products:
     days: 2
     aliases:
       - "macaroni/eagle-minimal"
-      - "macaroni/funtoo-systemd-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -205,7 +199,6 @@ products:
     days: 2
     aliases:
       - "macaroni/eagle-testing-minimal"
-      - "macaroni/funtoo-systemd-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
     planned: "@weekly"
 
@@ -222,7 +215,6 @@ products:
     days: 2
     aliases:
       - "macaroni/phoenix-metatools"
-      - "macaroni/funtoo-metatools"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
@@ -239,7 +231,6 @@ products:
     days: 2
     aliases:
       - "macaroni/eagle-dumplings"
-      - "macaroni/funtoo-systemd-dumplings"
     # extra attributes not used by simplestreams-builder for Mottainai
     #planned: "@weekly"
 
