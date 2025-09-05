@@ -1495,6 +1495,7 @@ values:
           kitfile: base_autogen.yml
           specs:
             - base.yml
+            - libreoffice.yml
           planned: "@weekly"
 
         - kit: forensics-kit
