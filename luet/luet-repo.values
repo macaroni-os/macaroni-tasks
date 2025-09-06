@@ -304,6 +304,9 @@ values:
         - php-kit
         - java-kit
 
+        - ai-kit
+        - forensics-kit
+
       # The list of the seed to bump before start
       # new packages version.
       seeds2bump:
