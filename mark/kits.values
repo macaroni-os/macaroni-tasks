@@ -853,6 +853,18 @@ values:
           specs:
             - base.yml
 
+        - kit: ai-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: forensics-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
     # Mark 31
     mark-31:
 
