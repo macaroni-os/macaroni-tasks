@@ -29,7 +29,7 @@ environment:
 - IMAGE_NAME=macaronios/mark-iii
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/macaroni-os/mark-stages.git
-image: macaroni/funtoo-builder
+image: macaroni/phoenix-builder
 type: lxd
 directory: /
 planned: "@weekly"

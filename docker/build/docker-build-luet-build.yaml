@@ -29,6 +29,6 @@ environment:
 - IMAGE_NAME=macaronios/luet-build
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/geaaru/luet.git
-image: macaroni/funtoo-builder
+image: macaroni/phoenix-builder
 type: lxd
 directory: /

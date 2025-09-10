@@ -29,6 +29,6 @@ environment:
 - IMAGE_NAME=macaronios/eagle-legacy-minimal
 - IMAGE_MANIFEST=latest-amd64
 - REPO=https://github.com/macaroni-os/macaroni-funtoo.git
-image: macaroni/funtoo-builder
+image: macaroni/phoenix-builder
 type: lxd
 directory: /
