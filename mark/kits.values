@@ -1328,6 +1328,15 @@ values:
             - funtoo.yml
             - portage.yml
 
+        - kit: portage-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          specs:
+            - base.yml
+          kitfile: portage.yml
+          planned: "@weekly"
+
         - kit: python-kit
           with_pr: true
           queue: topix
