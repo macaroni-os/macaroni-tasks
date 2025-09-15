@@ -4,6 +4,7 @@ values:
   releases:
   #  - "24.08.01"
     - "25.06"
+    - "25.09"
 
   isos:
     # Macaroni Phoenix Stable ISO
