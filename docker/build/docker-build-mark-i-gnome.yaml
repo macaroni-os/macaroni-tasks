@@ -1,0 +1,34 @@
+name: "amd64 - Build docker image - < macaronios/mark-i-gnome >"
+storage: "docker-mos-creds"
+storage_path: /storage
+script:
+- anise repo disable mottainai-stable
+- >-
+  anise repo update --force &&
+  anise i repository/mark -y &&
+  luet upgrade --sync-repos -y &&
+  macaronictl env-update
+- source /storage/setup-docker-mos.sh
+- >-
+  echo 'DOCKER_OPTS="--experimental=true"' >> /etc/conf.d/docker &&
+  cat /etc/conf.d/docker
+- /etc/init.d/docker start
+- mkdir -p $HOME/.docker
+- 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > $HOME/.docker/config.json'
+- git clone ${REPO} -b ${BRANCH} /repo && cd /repo/docker
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- docker build -f ${DOCKER_FILE} --no-cache --squash --rm -t ${IMAGE_NAME}:${IMAGE_MANIFEST} .
+- docker image inspect ${IMAGE_NAME}:${IMAGE_MANIFEST}
+- docker push ${IMAGE_NAME}:${IMAGE_MANIFEST}
+- docker system prune --force --all --volumes
+environment:
+- BRANCH=phoenix
+- DOCKER_FILE=Dockerfile.gnome-mark-i
+- SHELL=/bin/bash
+- ARCH=amd64
+- IMAGE_NAME=macaronios/mark-i-gnome
+- IMAGE_MANIFEST=latest-amd64
+- REPO=https://github.com/macaroni-os/mark-stages.git
+image: macaroni/phoenix-builder
+type: lxd
+directory: /

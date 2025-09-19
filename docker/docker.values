@@ -210,4 +210,23 @@ values:
       dir: /docker
       planned: "@weekly"
 
+    # Macaroni MARK I Gnome image
+    - name: macaronios/mark-i-gnome
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.gnome-mark-i
+      image_manifest: latest-amd64
+      dir: /docker
+      #planned: "@weekly"
+
+    # Macaroni MARK I KDE image
+    - name: macaronios/mark-i-kde
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.kde-mark-i
+      image_manifest: latest-amd64
+      dir: /docker
+
 # vim: filetype=yaml
