@@ -102,6 +102,15 @@ values:
       namespace: "mark-stages-phoenix"
       cdnstorage: true
 
+    - name: stage3-phoenix-mark-i
+      jobfile: stage3_phoenix.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-phoenix"
+      cdnstorage: true
+
     - name: stage3-arm64bit
       jobfile: stage3-mark-31_arm64.yaml
       config: etc/config.yml
