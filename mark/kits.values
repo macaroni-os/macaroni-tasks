@@ -648,6 +648,42 @@ values:
 
       release_spec: mark-i.yml
       release_queue: topix
+      release_kits:
+        - core-kit
+        - browser-kit
+        - mark-kit
+        - core-server-kit
+        - core-hw-kit
+        - core-gl-kit
+        - desktop-kit
+        - dev-kit
+        - lang-kit
+        - editors-kit
+        - gnome-kit
+        - i18n-kit
+        - java-kit
+        - kde-kit
+        - perl-kit
+        - python-kit
+        - python-modules-kit
+        - portage-kit
+        - media-kit
+        - net-kit
+        - kernel-kit
+        - security-kit
+        - science-kit
+        - text-kit
+        - llvm-kit
+        - ruby-kit
+        - qt-kit
+        - xfce-kit
+        - xorg-kit
+        - games-kit
+        - php-kit
+        - lisp-scheme-kit
+        - ai-kit
+        - forensics-kit
+        - meta-repo
 
       distfiles_sync: true
       distfiles_spec: mark-i.yml
