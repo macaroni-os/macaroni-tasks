@@ -229,4 +229,13 @@ values:
       image_manifest: latest-amd64
       dir: /docker
 
+    # Macaroni MARK I Minimal image
+    - name: macaronios/mark-i
+      arch: amd64
+      repohttp: https://github.com/macaroni-os/mark-stages.git
+      repobranch: phoenix
+      dockerfile: Dockerfile.mark-i
+      image_manifest: latest-amd64
+      dir: /docker
+
 # vim: filetype=yaml
