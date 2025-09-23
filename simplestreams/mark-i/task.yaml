@@ -33,9 +33,9 @@ image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
 
-name: "Build LXD  image mark-v:current:amd64:default"
+name: "Build LXD  image mark-i:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=mark-v:current:amd64:default"
+  - "LXD_PRODUCT=mark-i:current:amd64:default"
   - "LXD_IMAGEDIR=mark-i"
   - "SSBUILDER_PREFIX=../lxd-mark-i"
   - "TMPDIR=/distrobuilder"

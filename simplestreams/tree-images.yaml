@@ -426,7 +426,7 @@ products:
     #planned: "@weekly"
 
   # Macaroni MARK I
-  - name: mark-v:current:amd64:default
+  - name: mark-i:current:amd64:default
     arch: amd64
     release: current
     os: "Macaroni OS"
