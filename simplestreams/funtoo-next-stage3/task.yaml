@@ -33,8 +33,6 @@ image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
 
-planned: "@weekly"
-
 name: "Build LXD  image funtoo-next-stage3:current:amd64:default"
 environment:
   - "LXD_PRODUCT=funtoo-next-stage3:current:amd64:default"

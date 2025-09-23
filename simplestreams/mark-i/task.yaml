@@ -33,16 +33,16 @@ image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
 
-name: "Build LXD  image mark-testing:current:amd64:default"
+name: "Build LXD  image mark-v:current:amd64:default"
 environment:
-  - "LXD_PRODUCT=mark-testing:current:amd64:default"
-  - "LXD_IMAGEDIR=mark-testing"
-  - "SSBUILDER_PREFIX=../lxd-mark-testing"
+  - "LXD_PRODUCT=mark-v:current:amd64:default"
+  - "LXD_IMAGEDIR=mark-i"
+  - "SSBUILDER_PREFIX=../lxd-mark-i"
   - "TMPDIR=/distrobuilder"
   - "CACHEDIR=/cache"
   - "DEBIAN_FRONTEND=noninteractive"
-namespace: lxd-mark-testing
-tag_namespace: lxd-mark-testing
+namespace: lxd-mark-i
+tag_namespace: lxd-mark-i
 artefact_path: images
 timeout: 0
 source: https://github.com/macaroni-os/macaroni-tasks.git

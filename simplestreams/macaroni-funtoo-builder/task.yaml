@@ -17,9 +17,6 @@ script:
 #  luet cleanup --purge-repos
 # TODO: add debootstrap to macaroni repo
 
-- anise repo enable mottainai-stable &&
-  anise i -y --sync-repos simplestreams-builder distrobuilder
-
 - /etc/init.d/docker start
 
 # Temporary fix for replicant issue
@@ -35,8 +32,6 @@ script:
 image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
-
-planned: "@weekly"
 
 name: "Build LXD  image macaroni-phoenix-builder:current:amd64:default"
 environment:

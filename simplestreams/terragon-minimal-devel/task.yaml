@@ -33,8 +33,6 @@ image: macaroni/phoenix-builder
 disable_push_on_failure: "true"
 type: lxd
 
-planned: "@weekly"
-
 name: "Build LXD  image terragon-minimal-devel:current:amd64:default"
 environment:
   - "LXD_PRODUCT=terragon-minimal-devel:current:amd64:default"

@@ -80,7 +80,7 @@ products:
     aliases:
       - "macaroni/phoenix-builder"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Ubuntu Steam
   - name: ubuntu-steam:current:amd64:default
@@ -184,7 +184,7 @@ products:
     aliases:
       - "macaroni/eagle-minimal-dev"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Eagle minimal Testing
   - name: macaroni-eagle-testing-minimal:current:amd64:default
@@ -200,7 +200,7 @@ products:
     aliases:
       - "macaroni/eagle-testing-minimal"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Phoenix Metatools
   - name: macaroni-phoenix-metatools:current:amd64:default
@@ -296,7 +296,7 @@ products:
     aliases:
       - "macaroni/terragon-minimal-devel"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Terragon minimal Testing
   - name: terragon-minimal-testing:current:amd64:default
@@ -312,7 +312,7 @@ products:
     aliases:
       - "macaroni/terragon-minimal-testing"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Funtoo Next Stage3 dev
   - name: funtoo-next-stage3:current:amd64:default
@@ -328,7 +328,7 @@ products:
     aliases:
       - "funtoo/next-stage3"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni Eagle Arango DB
   - name: macaroni-eagle-arangodb:current:amd64:default
@@ -359,7 +359,7 @@ products:
     aliases:
       - "macaroni/mark-xl"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni MARK Testing
   - name: mark-testing:current:amd64:default
@@ -375,7 +375,7 @@ products:
     aliases:
       - "macaroni/mark-testing"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni MARK III
   - name: mark-iii:current:amd64:default
@@ -391,7 +391,7 @@ products:
     aliases:
       - "macaroni/mark-iii"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni MARK Unstable
   - name: mark-unstable:current:amd64:default
@@ -407,7 +407,7 @@ products:
     aliases:
       - "macaroni/mark-unstable"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
 
   # Macaroni MARK V
   - name: mark-v:current:amd64:default
@@ -423,4 +423,20 @@ products:
     aliases:
       - "macaroni/mark-v"
     # extra attributes not used by simplestreams-builder for Mottainai
-    planned: "@weekly"
+    #planned: "@weekly"
+
+  # Macaroni MARK I
+  - name: mark-v:current:amd64:default
+    arch: amd64
+    release: current
+    os: "Macaroni OS"
+    release_title: "MARK I"
+    directory: mark-i
+    # Path where retrieve images informations and files.
+    # This option is used by build-images-file
+    prefix_path: "https://images-dev.macaronios.org/lxd-mark-i"
+    days: 2
+    aliases:
+      - "macaroni/mark-i"
+    # extra attributes not used by simplestreams-builder for Mottainai
+    #planned: "@weekly"
