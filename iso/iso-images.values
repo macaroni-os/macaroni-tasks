@@ -140,6 +140,13 @@ values:
       repo_branch: "phoenix"
       release: false
 
+    # Macaroni Phoenix KDE Live Testing
+    - name: "macaroni-phoenix-kde-live"
+      specfile: "mark-kde-live.yaml"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
+      repo_branch: "phoenix"
+      release: true
+
     # Macaroni Phoenix Gnome Live Extreme
     #- name: "macaroni-funtoo-live-extreme"
     #  specfile: "mark-extreme.yaml"
