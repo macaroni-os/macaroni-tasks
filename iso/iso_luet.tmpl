@@ -37,10 +37,9 @@ script:
   anise cleanup
 
 # We need to migrate scripts to yq4. Download old binary as workaround.
-- >-
-  wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 &&
-  chmod a+x /usr/bin/yq
-
+#- >-
+#  wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 &&
+#  chmod a+x /usr/bin/yq
 
 # Using always last geniso commit
 - >-
