@@ -191,7 +191,7 @@ values:
       release_queue: topix
       release_kits:
         - core-kit
-        #- mark-kit
+        - mark-kit
         - core-server-kit
         - core-hw-kit
         - dev-kit
@@ -1571,6 +1571,15 @@ values:
           planned: "@weekly"
 
         - kit: ai-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
+        - kit: python-build-tools-kit
           with_pr: true
           queue: topix
           mode: autogen
