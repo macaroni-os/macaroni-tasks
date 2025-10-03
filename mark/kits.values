@@ -1125,6 +1125,12 @@ values:
           specs:
             - base.yml
 
+        - kit: python-build-tools-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+
     mark-unstable:
 
       kit_fixups: https://github.com/macaroni-os/kit-fixups
