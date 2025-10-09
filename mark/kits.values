@@ -1332,6 +1332,14 @@ values:
           specs:
             - base.yml
           kitfile: base_autogen.yml
+
+        - kit: llvm-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          specs:
+            - llvm20.yml
+          kitfile: base_autogen.yml
           planned: "@weekly"
 
         - kit: mark-kit
