@@ -1187,6 +1187,7 @@ values:
           mode: autogen
           kitfile: base_autogen.yml
           specs:
+            - base.yml
             - fonts.yml
             - nvidia.yml
 
