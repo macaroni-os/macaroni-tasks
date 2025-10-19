@@ -1467,6 +1467,15 @@ values:
           specs:
             - base.yml
 
+        - kit: xorg-kit
+          queue: topix
+          with_pr: true
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: games-kit
           with_pr: true
           queue: topix
