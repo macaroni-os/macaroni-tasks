@@ -9,7 +9,7 @@
 # - bump the packages of the selected seed.
 # - start-build-task
 
-pipeline_name: "luet - extra pkgs - seed {{ .seed }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+pipeline_name: "anise - extra pkgs - seed {{ .seed }} - <{{ .namespace }}> - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 chain:
 {{- if eq .bumpseed "true" }}
 - bump-seed
@@ -21,16 +21,17 @@ chain:
 tasks:
 
   bump-seed:
-    name: "luet - < {{ .namespace }} > - Bump seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    name: "anise - < {{ .namespace }} > - Bump seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
     storage: geaaru-github
     storage_path: /storage
     type: lxd
     image: macaroni/phoenix-builder
     script:
     - >-
-      luet repo update --force &&
-      luet install utils/jq utils/yq net-misc/openssh system/luet-build macaroni/ctl &&
-      luet cleanup &&
+      anise repo update --force &&
+      anise i net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin &&
+      anise upgrade &&
+      anise cleanup &&
       macaronictl env-update
 
 # luet miner reinstall-package virtual/base
@@ -67,15 +68,15 @@ tasks:
     - "SEED={{ .seed }}"
 
   build-seed:
-    name: "luet - < {{ .namespace }} > - Package seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+    name: "anise - < {{ .namespace }} > - Package seed/{{ .seed }} - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
     storage: docker-certs
     storage_path: /storage
     script:
     - source /storage/prepare-luet.sh
     - >-
-      luet repo update &&
-      luet upgrade &&
-      luet cleanup --purge-repos
+      anise repo update &&
+      anise upgrade &&
+      anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
       docker-registry1.mottainai.local:5000
