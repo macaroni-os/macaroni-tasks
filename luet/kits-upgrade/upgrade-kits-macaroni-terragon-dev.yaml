@@ -68,8 +68,8 @@ environment:
 - "KIT_FIXUPS_BRANCH=<no value>"
 - "MARKDEVKIT_CLONEFILE=<no value>"
 - "MARKDEVKIT_CONCURRENCY=20"
-- "KITS_2UPGRADE=core-kit core-server-kit core-hw-kit net-kit llvm-kit perl-kit python-kit python-modules-kit dev-kit editors-kit lang-kit ruby-kit science-kit security-kit text-kit mark-kit portage-kit kernel-kit xorg-kit php-kit java-kit"
-- "SEEDS2BUMP=seed/mark-base"
+- "KITS_2UPGRADE=core-kit core-server-kit core-hw-kit net-kit llvm-kit perl-kit python-kit python-modules-kit dev-kit editors-kit lang-kit ruby-kit science-kit security-kit text-kit lisp-scheme-kit mark-kit portage-kit kernel-kit xorg-kit php-kit java-kit ai-kit forensics-kit python-build-tools-kit"
+- "SEEDS2BUMP="
 
 - LUET_SYSTEM__TMPDIR_BASE=/luettmp
 - LUET_YES=true

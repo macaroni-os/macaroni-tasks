@@ -227,6 +227,7 @@ values:
         - science-kit
         - security-kit
         - text-kit
+        - lisp-scheme-kit
 
         - mark-kit
         - portage-kit
@@ -304,6 +305,7 @@ values:
         - science-kit
         - security-kit
         - text-kit
+        - lisp-scheme-kit
 
         - mark-kit
         - portage-kit
