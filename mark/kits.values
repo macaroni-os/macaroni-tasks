@@ -219,6 +219,8 @@ values:
         - java-kit
         - php-kit
         - lisp-scheme-kit
+        - ai-kit
+        - python-build-tools-kit
         - meta-repo
 
       distfiles_sync: true
@@ -369,6 +371,18 @@ values:
             - base.yml
 
         - kit: java-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: ai-kit
+          with_pr: false
+          queue: topix
+          specs:
+            - base.yml
+
+        - kit: python-build-tools-kit
           with_pr: false
           queue: topix
           specs:
