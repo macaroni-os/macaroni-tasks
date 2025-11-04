@@ -41,6 +41,7 @@ values:
             - tools.yml
             - libs.yml
             - telemetry.yml
+            - telemetry_from_unstable.yml
           planned: "@daily"
 
         - kit: dev-kit
