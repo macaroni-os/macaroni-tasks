@@ -312,4 +312,12 @@ $> FIRE_TASK=1 NAMESPACE=mark-dev PUSH_IMAGES=1 make start-upd-kits-pipeline
 
 When a new revision is marked as stable is synced to the CDN storage,
 the repoman JSON files are tagged and is created a tag in the selected
-repository
+repository.
+
+
+## Tag a new MARK release
+
+```shell
+$> FIRE_TASK=1  MARK_RELEASE=mark-v MARK_TAG=v25.10-mark-v make tag-mark-release
+```
+
