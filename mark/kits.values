@@ -1279,6 +1279,7 @@ values:
           mode: autogen
           specs:
             - base.yml
+            - ide.yml
           planned: "@weekly"
 
         - kit: editors-kit
