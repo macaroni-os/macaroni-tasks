@@ -1454,6 +1454,15 @@ values:
           specs:
             - base.yml
 
+        - kit: science-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          specs:
+            - base.yml
+          kitfile: base_autogen.yml
+          planned: "@weekly"
+
         - kit: security-kit
           queue: topix
           with_pr: true
