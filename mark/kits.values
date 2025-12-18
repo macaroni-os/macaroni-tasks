@@ -1496,6 +1496,15 @@ values:
             - docbook.yml
             - latex.yml
 
+        - kit: text-kit
+          queue: topix
+          with_pr: true
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: xorg-kit
           queue: topix
           with_pr: true
@@ -1653,5 +1662,15 @@ values:
           specs:
             - base.yml
           planned: "@weekly"
+
+        - kit: i18n-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
 
 # vim: filetype=yaml
