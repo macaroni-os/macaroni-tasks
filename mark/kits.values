@@ -661,6 +661,13 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: python-build-tools-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
     # Mark I
     mark-i:
 
