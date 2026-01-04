@@ -1557,6 +1557,15 @@ values:
             - lxqt.yml
           planned: "@weekly"
 
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: lisp-scheme-kit
           with_pr: true
           queue: topix
