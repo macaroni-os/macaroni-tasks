@@ -1405,6 +1405,7 @@ values:
           mode: autogen
           specs:
             - base.yml
+            - net-misc.yml
           kitfile: base_autogen.yml
           planned: "@daily"
 
