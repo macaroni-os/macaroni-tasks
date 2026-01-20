@@ -1567,6 +1567,33 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: kde-apps.yaml
+          specs:
+            - kde-apps.yaml
+          planned: "@weekly"
+
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: kde-frameworks.yaml
+          specs:
+            - kde-frameworks.yaml
+          planned: "@weekly"
+
+        - kit: kde-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: kde-plasma.yaml
+          specs:
+            - kde-plasma.yaml
+          planned: "@weekly"
+
         - kit: lisp-scheme-kit
           with_pr: true
           queue: topix
