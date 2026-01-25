@@ -1286,7 +1286,6 @@ values:
           mode: merge
           specs:
             - base.yml
-            - ide.yml
 
         - kit: dev-kit
           with_pr: true
