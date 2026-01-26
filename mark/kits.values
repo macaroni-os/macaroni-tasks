@@ -1008,7 +1008,10 @@ values:
           with_pr: true
           queue: topix
           specs:
-            - kde5.yml
+            - kde-apps.yaml
+            - kde-frameworks.yaml
+            - kde-plasma.yaml
+            #- kde5.yml
             - lxqt.yml
 
         - kit: kernel-kit

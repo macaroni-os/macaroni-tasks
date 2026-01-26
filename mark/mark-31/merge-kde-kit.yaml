@@ -26,7 +26,7 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-31"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=kde5.yml lxqt.yml"
+- "MARK_SPECS=kde-apps.yaml kde-frameworks.yaml kde-plasma.yaml lxqt.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
