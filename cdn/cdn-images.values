@@ -244,8 +244,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Distfiles
@@ -262,8 +263,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Repositories Index
@@ -280,8 +282,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Terragon Dev
@@ -316,8 +319,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Terragon Stable
@@ -334,8 +338,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Security Dev
@@ -370,8 +375,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Security Stable
@@ -388,8 +394,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Games Dev
@@ -424,8 +431,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Games Stable
@@ -442,8 +450,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni LXD simplestreams data
@@ -524,8 +533,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
     # Macaroni Funtoo Terragon Stable
@@ -542,8 +552,9 @@ values:
           domain: "cdn77-os.macaronios.org"
           cdnid: "1060674757"
           cdnprefix: "/"
-        - type: cloudflare
+        - type: cdn77
           domain: "dl.macaronios.org"
+          cdnid: "1494843915"
           cdnprefix: "/repos/"
 
 # vim: filetype=yaml
