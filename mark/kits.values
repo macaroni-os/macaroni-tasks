@@ -475,6 +475,10 @@ values:
           with_pr: true
           queue: topix
           specs:
+            - base_autogen.yml
+            - kde-apps.yaml
+            - kde-frameworks.yaml
+            - kde-plasma.yaml
             - kde5.yml
             - lxqt.yml
           planned: "@daily"
