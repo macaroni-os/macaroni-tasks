@@ -1600,6 +1600,16 @@ values:
             - kde-plasma.yaml
           planned: "@weekly"
 
+        - kit: lxqt-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: lxqt_autogen.yaml
+          specs:
+            - lxqt.yaml
+          planned: "@weekly"
+
+
         - kit: lisp-scheme-kit
           with_pr: true
           queue: topix
@@ -1621,7 +1631,7 @@ values:
           kitfile: base_autogen.yml
           specs:
             - base.yml
-          #planned: "@daily"
+          planned: "@weekly"
 
         - kit: xfce-kit
           with_pr: true
