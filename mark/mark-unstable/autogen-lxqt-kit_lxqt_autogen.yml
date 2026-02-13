@@ -37,8 +37,8 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=lxqt.yaml"
-- "MARK_KITFILE=lxqt_autogen.yaml"
+- "MARK_SPECS=lxqt.yml"
+- "MARK_KITFILE=lxqt_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
