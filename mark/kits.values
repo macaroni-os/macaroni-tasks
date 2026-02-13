@@ -1604,9 +1604,9 @@ values:
           with_pr: true
           queue: topix
           mode: autogen
-          kitfile: lxqt_autogen.yaml
+          kitfile: lxqt_autogen.yml
           specs:
-            - lxqt.yaml
+            - lxqt.yml
           planned: "@weekly"
 
 
