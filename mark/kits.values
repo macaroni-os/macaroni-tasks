@@ -1600,7 +1600,7 @@ values:
             - kde-plasma.yaml
           planned: "@weekly"
 
-        - kit: lxqt-kit
+        - kit: kde-kit
           with_pr: true
           queue: topix
           mode: autogen
