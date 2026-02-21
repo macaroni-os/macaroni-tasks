@@ -1471,9 +1471,11 @@ values:
         - kit: python-kit
           with_pr: true
           queue: topix
-          mode: merge
+          mode: autogen
           specs:
-            - python.yml
+            - base.yml
+          kitfile: base_autogen.yml
+          planned: "@weekly"
 
         - kit: python-modules-kit
           with_pr: true
