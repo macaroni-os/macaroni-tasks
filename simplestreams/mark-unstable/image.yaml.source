@@ -91,6 +91,10 @@ actions:
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
 
+      anise repo update
+      anise i portage -y
+      anise cleanup --purge-repos
+
   - trigger: post-packages
     action: |-
       #!/bin/bash
