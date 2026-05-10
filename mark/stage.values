@@ -120,4 +120,13 @@ values:
       namespace: "mark-stages-mark31"
       cdnstorage: true
 
+    - name: stage3-terragon-mark-experiment
+      jobfile: stage3_terragon.yaml
+      config: etc/config.yml
+      arches:
+        - x86_64
+      queue: topix
+      namespace: "mark-stages-terragon"
+      cdnstorage: true
+
 # vim: filetype=yaml
