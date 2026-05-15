@@ -17,7 +17,8 @@ script:
 - >-
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
-  mark-devkit autogen  --specfile ./java-kit/autogen.kit.d/$i
+  mark-devkit -c /storage/markdevkit_conf.yml
+  autogen  --specfile ./java-kit/autogen.kit.d/$i
   --kitfile ./java-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
