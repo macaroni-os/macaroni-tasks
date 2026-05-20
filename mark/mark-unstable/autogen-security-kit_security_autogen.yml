@@ -40,6 +40,7 @@ environment:
 - "REPO=https://github.com/macaroni-os/kit-fixups"
 - "MARK_SPECS=security.yml"
 - "MARK_KITFILE=security_autogen.yml"
+- "MARKDEVKIT_REST__USER_AGENT=wget"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
