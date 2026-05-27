@@ -947,6 +947,7 @@ values:
 
       release_spec: mark-31.yml
       release_queue: topix
+      release_planned: "@daily"
 
       distfiles_sync: true
       distfiles_spec: mark-31.yml
