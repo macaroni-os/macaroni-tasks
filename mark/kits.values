@@ -481,6 +481,7 @@ values:
             - kde-plasma.yaml
             - kde5.yml
             - lxqt.yml
+            - lxqt_autogen.yml
           planned: "@daily"
 
         - kit: kernel-kit
