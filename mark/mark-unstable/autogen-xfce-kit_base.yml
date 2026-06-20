@@ -1,6 +1,6 @@
 # Author: Daniele Rondina <geaaru@macaronios.org>
 
-name: "M.A.R.K. - Autogen Kits - < mark-unstable > - security-kit"
+name: "M.A.R.K. - Autogen Kits - < mark-unstable > - xfce-kit"
 script:
 # dev-python/requests: needed for debian-sources autogen
 - >-
@@ -18,8 +18,8 @@ script:
   for i in ${MARK_SPECS} ; do
   echo "Processing specfile ${i}..." ;
   mark-devkit -c /storage/markdevkit_conf.yml
-  autogen  --specfile ./security-kit/autogen.kit.d/$i
-  --kitfile ./security-kit/merge.kit.d/${MARK_KITFILE}
+  autogen  --specfile ./xfce-kit/autogen.kit.d/$i
+  --kitfile ./xfce-kit/merge.kit.d/${MARK_KITFILE}
   --concurrency ${CONCURRENCY}
   --signature-email "${GITHUB_EMAIL}" --signature-name "${GITHUB_USER}"
   --push --pr
@@ -38,8 +38,8 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=security.yml"
-- "MARK_KITFILE=security_autogen.yml"
+- "MARK_SPECS=xfce.yml"
+- "MARK_KITFILE=base.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"

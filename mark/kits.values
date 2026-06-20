@@ -1668,9 +1668,11 @@ values:
         - kit: xfce-kit
           with_pr: true
           queue: topix
-          mode: merge
+          mode: autogen
+          kitfile: base.yml
           specs:
-            - base.yml
+            - xfce.yml
+          planned: "@weekly"
 
         - kit: gnome-kit
           with_pr: true
