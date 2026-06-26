@@ -188,6 +188,13 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: forensics-kit
+          with_pr: true
+          queue: topix
+          specs:
+            - base.yml
+          planned: "@weekly"
+
     mark-v:
 
       kit_fixups: https://github.com/macaroni-os/kit-fixups
