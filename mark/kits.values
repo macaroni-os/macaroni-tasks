@@ -195,6 +195,13 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: lisp-scheme-kit
+          with_pr: true
+          queue: topix
+          mode: merge
+          specs:
+            - base.yml
+
     mark-v:
 
       kit_fixups: https://github.com/macaroni-os/kit-fixups
@@ -1217,19 +1224,6 @@ values:
       s3_prefix: mark-distfiles/distfiles
 
       kits:
-        - kit: browser-kit
-          with_pr: true
-          queue: topix
-          specs:
-            - base.yml
-
-        - kit: core-kit
-          with_pr: true
-          queue: topix
-          specs:
-            - core.yml
-          mode: merge
-
         - kit: core-kit
           with_pr: true
           queue: topix
