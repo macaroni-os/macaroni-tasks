@@ -99,8 +99,6 @@ actions:
       macaronictl env-update
 
       set -eux
-      rm -rf /var/git/meta-repo
-      rm -rf /var/cache/portage
       cd /etc/init.d
       ln -s netif.tmpl netif.eth0
       rc-update add netif.eth0 default
@@ -113,6 +111,8 @@ actions:
       locale-gen || true
       eselect locale list
       eselect locale set en_US.utf8
+      rm -rf /var/git/meta-repo
+      rm -rf /var/cache/portage
 
   - trigger: post-packages
     action: |-
