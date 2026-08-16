@@ -1231,6 +1231,7 @@ values:
           specs:
             - core.yml
             - virtual.yml
+            - toolchain.yml
           mode: autogen
           planned: "@weekly"
 
