@@ -1767,5 +1767,14 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: games-kit
+          queue: topix
+          with_pr: true
+          mode: autogen
+          kitfile: base_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
 
 # vim: filetype=yaml
