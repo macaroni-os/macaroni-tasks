@@ -1366,7 +1366,6 @@ values:
           specs:
             - base.yml
             - debian.yml
-            - modules.yml
 
         - kit: kernel-kit
           with_pr: true
@@ -1386,6 +1385,14 @@ values:
             - base.yml
           planned: "@weekly"
 
+        - kit: kernel-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: modules.yml
+          specs:
+            - modules.yml
+          planned: "@weekly"
 
         - kit: lang-kit
           with_pr: true
