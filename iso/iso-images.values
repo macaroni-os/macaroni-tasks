@@ -7,6 +7,21 @@ values:
     - "25.09"
 
   isos:
+
+    # Macaroni Phoenix Gnome X11 Mark
+    - name: "phoenix-gnome-x11-mark"
+      specfile: "phoenix-gnome-x11-mark.yaml"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
+      repo_branch: "phoenix"
+      release: true
+
+    - name: "phoenix-gnome-wayland-mark"
+      specfile: "phoenix-gnome-wayland-mark.yaml"
+      repo: "https://github.com/macaroni-os/macaroni-funtoo.git"
+      repo_branch: "phoenix"
+      release: true
+
+
     # Macaroni Phoenix Stable ISO
     - name: "macaroni-funtoo"
       specfile: "mark.yaml"
