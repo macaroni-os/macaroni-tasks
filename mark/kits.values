@@ -585,6 +585,13 @@ values:
             - docbook.yml
           planned: "@weekly"
 
+        - kit: xfce-kit
+          queue: topix
+          with_pr: true
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: xorg-kit
           queue: topix
           with_pr: true
