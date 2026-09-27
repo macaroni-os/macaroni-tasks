@@ -1,19 +1,19 @@
 values:
   docker_images:
     # Luet docker image
-    - name: macaronios/luet
+    - name: macaronios/anise
       arch: amd64
-      repohttp: https://github.com/geaaru/luet.git
-      repobranch: macaroni
+      repohttp: https://github.com/macaroni-os/anise.git
+      repobranch: geaaru
       #repobranch: geaaru
       dockerfile: Dockerfile
       image_manifest: latest-amd64
 
-    - name: macaronios/luet-build
+    - name: macaronios/anise-build
       arch: amd64
-      repohttp: https://github.com/geaaru/luet.git
+      repohttp: https://github.com/macaroni-os/anise.git
       #      repobranch: geaaru
-      repobranch: macaroni
+      repobranch: geaaru
       dockerfile: Dockerfile.build
       image_manifest: latest-amd64
 
