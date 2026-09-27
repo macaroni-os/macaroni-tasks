@@ -54,7 +54,7 @@ tasks:
 
     - >-
       anise repo update --force &&
-      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin &&
+      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin pkgs-checker &&
       anise upgrade &&
       anise cleanup &&
       macaronictl env-update
@@ -89,6 +89,7 @@ tasks:
       export changes=$(git status -s | grep "M " | wc -l ) &&
       if [ "${changes}" != "0" ] ; then
       fkv=$(yq r /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml 'version') &&
+      fkv=$(pkgs-checker pkg info app/foo-${fkv} -j | jq .version -r) &&
       nv="0.$(date '+%Y%m%d')" &&
       tbump_opts="" &&
       if [ "${fkv}" != "${nv}" ] ; then
