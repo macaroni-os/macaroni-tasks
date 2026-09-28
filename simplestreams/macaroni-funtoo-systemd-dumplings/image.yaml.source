@@ -16,9 +16,9 @@ environment:
       value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
     - key: "SHELL"
       value: "/bin/bash"
-    - key: "LUET_NOLOCK"
+    - key: "ANISE_NOLOCK"
       value: "true"
-    - key: "LUET_YES"
+    - key: "ANISE_YES"
       value: "true"
     - key: "USER"
       value: "root"
@@ -208,7 +208,7 @@ actions:
     action: |-
       #!/bin/bash
 
-      mkdir -p /etc/luet/subsets.def.d/
+      mkdir -p /etc/anise/subsets.def.d/
 
       echo "
       subsets_def:
@@ -268,7 +268,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-doc.yaml
+      " > /etc/anise/subsets.def.d/00-doc.yaml
 
       echo "
       subsets_def:
@@ -329,7 +329,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-python.yaml
+      " > /etc/anise/subsets.def.d/00-python.yaml
 
       echo "
       subsets_def:
@@ -337,16 +337,16 @@ actions:
           description: \"Split gcc compiler stuff\"
           name: \"gcc-devel\"
           rules:
-          - ^/usr/x86_64-pc-linux-gnu/gcc-bin/11.3.0/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/plugin/include/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/include/
-          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/11.3.0/finclude/omp*
-          - ^/usr/share/gcc-data/x86_64-pc-linux-gnu/11.3.0/
-          - ^/usr/libexec/gcc/x86_64-pc-linux-gnu/11.3.0
+          - ^/usr/x86_64-pc-linux-gnu/gcc-bin/12.3.0/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/12.3.0/plugin/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/12.3.0/include/
+          - ^/usr/lib/gcc/x86_64-pc-linux-gnu/12.3.0/finclude/omp*
+          - ^/usr/share/gcc-data/x86_64-pc-linux-gnu/12.3.0/
+          - ^/usr/libexec/gcc/x86_64-pc-linux-gnu/12.3.0
           - ^/usr/bin/
           packages:
-          - sys-devel-11.3.0/gcc
-      " > /etc/luet/subsets.def.d/00-gcc.yaml
+          - sys-devel-12.3.0/gcc
+      " > /etc/anise/subsets.def.d/00-gcc.yaml
 
       echo "
       subsets_def:
@@ -404,7 +404,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-gir.yaml
+      " > /etc/anise/subsets.def.d/00-gir.yaml
 
   - trigger: post-packages
     action: |-
@@ -439,10 +439,10 @@ actions:
       )
 
       echo "Reinstall all packages and apply new subsets!"
-      yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
+      yq w /etc/anise/anise.yaml 'subsets_defdir[0]' '/etc/anise/subsets.def.d/'  -i
       anise repo update
 
-      anise miner ri $(luet s --installed --quiet .) --skip-finalizers
+      anise miner ri $(anise s --installed --quiet .) --skip-finalizers
       anise rm ${pkgs2remove[@]} -y --force
       anise rm ${pkgs2removeNodeps[@]} -y --force --nodeps
       anise s --installed . | sort
@@ -454,12 +454,12 @@ actions:
     action: |-
       #!/bin/bash
       # Configure proctect config
-      mkdir -p /etc/luet/config.protect.d/ || true
+      mkdir -p /etc/anise/config.protect.d/ || true
       echo "
       name: \"etc_conf\"
       dirs:
         - \"/etc/\"
-      " > /etc/luet/config.protect.d/01_etc.yml
+      " > /etc/anise/config.protect.d/01_etc.yml
 
       # Disable this services enable by default
       systemctl disable ip6tables-restore.service

@@ -16,9 +16,9 @@ environment:
       value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
     - key: "SHELL"
       value: "/bin/bash"
-    - key: "LUET_NOLOCK"
+    - key: "ANISE_NOLOCK"
       value: "true"
-    - key: "LUET_YES"
+    - key: "ANISE_YES"
       value: "true"
     - key: "USER"
       value: "root"
@@ -137,12 +137,12 @@ actions:
     action: |-
       #!/bin/bash
       # Configure proctect config
-      mkdir -p /etc/luet/config.protect.d/ || true
+      mkdir -p /etc/anise/config.protect.d/ || true
       echo "
       name: \"etc_conf\"
       dirs:
         - \"/etc/\"
-      " > /etc/luet/config.protect.d/01_etc.yml
+      " > /etc/anise/config.protect.d/01_etc.yml
 
   - trigger: post-packages
     action: |-

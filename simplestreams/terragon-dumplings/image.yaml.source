@@ -16,9 +16,9 @@ environment:
       value: "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
     - key: "SHELL"
       value: "/bin/bash"
-    - key: "LUET_NOLOCK"
+    - key: "ANISE_NOLOCK"
       value: "true"
-    - key: "LUET_YES"
+    - key: "ANISE_YES"
       value: "true"
     - key: "USER"
       value: "root"
@@ -144,7 +144,7 @@ actions:
     action: |-
       #!/bin/bash
 
-      mkdir -p /etc/luet/subsets.def.d/
+      mkdir -p /etc/anise/subsets.def.d/
 
       echo "
       subsets_def:
@@ -204,7 +204,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-doc.yaml
+      " > /etc/anise/subsets.def.d/00-doc.yaml
 
       echo "
       subsets_def:
@@ -266,7 +266,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-python.yaml
+      " > /etc/anise/subsets.def.d/00-python.yaml
 
       echo "
       subsets_def:
@@ -283,7 +283,7 @@ actions:
           - ^/usr/bin/
           packages:
           - sys-devel-12.3.0/gcc
-      " > /etc/luet/subsets.def.d/00-gcc.yaml
+      " > /etc/anise/subsets.def.d/00-gcc.yaml
 
       echo "
       subsets_def:
@@ -342,7 +342,7 @@ actions:
             - sys-libs-18.1
             - sys-power
             - sys-process
-      " > /etc/luet/subsets.def.d/00-gir.yaml
+      " > /etc/anise/subsets.def.d/00-gir.yaml
 
   - trigger: post-packages
     action: |-
@@ -364,10 +364,10 @@ actions:
 
       set -x
       echo "Reinstall all packages and apply new subsets!"
-      yq w /etc/luet/luet.yaml 'subsets_defdir[0]' '/etc/luet/subsets.def.d/'  -i
+      yq w /etc/anise/anise.yaml 'subsets_defdir[0]' '/etc/anise/subsets.def.d/'  -i
       anise repo update
-      ls -l /etc/luet/
-      anise miner ri $(luet s --installed --quiet .) --skip-finalizers
+      ls -l /etc/anise/
+      anise miner ri $(anise s --installed --quiet .) --skip-finalizers
       anise rm ${pkgs2remove[@]} -y --force
       anise cleanup --purge-repos
       # Remove tmpdir
@@ -383,12 +383,12 @@ actions:
     action: |-
       #!/bin/bash
       # Configure proctect config
-      mkdir -p /etc/luet/config.protect.d/ || true
+      mkdir -p /etc/anise/config.protect.d/ || true
       echo "
       name: \"etc_conf\"
       dirs:
         - \"/etc/\"
-      " > /etc/luet/config.protect.d/01_etc.yml
+      " > /etc/anise/config.protect.d/01_etc.yml
 
 mappings:
   architecture_map: funtoo
