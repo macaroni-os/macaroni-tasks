@@ -11,9 +11,9 @@ name: "anise - < {{ .namespace }} > - Bump revision"
 script:
 - apk add make bash curl git
 - >-
-  wget https://raw.githubusercontent.com/geaaru/luet/geaaru/contrib/config/get_luet_root.sh -O /tmp/get_luet_root.sh &&
-  sh /tmp/get_luet_root.sh
-- anise install dev-util/mottainai-cli system/luet-build
+  wget https://raw.githubusercontent.com/macaroni-os/anise/refs/heads/geaaru/contrib/config/get_anise_root.sh &&
+  sh /tmp/get_anise_root.sh
+- anise install dev-util/mottainai-cli app-admin/anise-build
 - git clone ${REPO} -b ${REPO_BRANCH} repo
 - cd repo
 - export HOME=/root && mkdir -p /root/.config/
@@ -37,7 +37,7 @@ environment:
 - LUET_YES=true
 - COMPRESSION=zstd
 - NAMESPACE={{ .namespace }}
-- "BUILD_ARGS=--config conf/luet.yaml"
+- "BUILD_ARGS=--config conf/anise.yaml"
 image: alpine/edge
 artefact_path: artefacts
 type: lxd

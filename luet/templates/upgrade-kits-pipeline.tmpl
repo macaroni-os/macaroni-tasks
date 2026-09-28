@@ -99,16 +99,16 @@ tasks:
       if [ "${fkv}" != "${nv}" ] ; then
       tbump_opts="${tbump_opts} -p ${nv}" ;
       fi &&
-      luet-build tree bump -f /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml ${tbump_opts} &&
+      anise-build tree bump -f /anise-repo/packages/${KITS_PACKAGE_PATH}/definition.yaml ${tbump_opts} &&
       {{- if eq .meta_repo "true" }}
-      luet-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+      anise-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
       {{- end }}
-      luet-build tree bump -f /anise-repo/packages/toolchain/meta-reposcan/definition.yaml ${tbump_opts} &&
+      anise-build tree bump -f /anise-repo/packages/toolchain/meta-reposcan/definition.yaml ${tbump_opts} &&
       for i in ${SEEDS2BUMP} ; do
       name=$(echo $i | cut -d'/' -f2) ;
-      luet-build tree bump -f /anise-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+      anise-build tree bump -f /anise-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
       if [ -d /anise-repo/packages/seed/${name}/pkglist ] ; then
-      luet-build tree bump -f /anise-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+      anise-build tree bump -f /anise-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
       fi ;
       done ;
       else
@@ -134,8 +134,8 @@ tasks:
     - "KITS_PACKAGE_PATH={{ .kits_package_path }}"
     - "KITS_2UPGRADE={{ .kits2upgrade }}"
     - "SEED2BUMP={{ .seeds2bump }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     image: macaroni/phoenix-builder
     storage: geaaru-github
     storage_path: /storage
@@ -168,7 +168,7 @@ tasks:
     - /etc/init.d/docker start
     {{- end }}
     - git clone ${REPO} -b ${REPO_BRANCH} /build
-    # mkdir /build/build until this will be fixed in luet.
+    # mkdir /build/build until this will be fixed in anise.
     # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
     - cd /build && mkdir build/ && make rebuild
     - >-
@@ -182,8 +182,8 @@ tasks:
     - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
@@ -208,7 +208,7 @@ tasks:
 #    - >-
 #      anise repo update &&
 #      anise upgrade &&
-#      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+#      anise miner replace-package system/anise-build --for system/anise-build-testing &&
 #      anise cleanup --purge-repos
 #    {{- end }}
     - >-
@@ -226,11 +226,11 @@ tasks:
     - "REPO_BRANCH={{ .repobranch }}"
     - "REPO={{ .repohttp }}"
     - "SUDO="
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
-    - "BUILD_ARGS=--config conf/luet.yaml"
+    - "BUILD_ARGS=--config conf/anise.yaml"
     image: macaroni/phoenix-builder
     artefact_path: artefacts
     type: lxd
@@ -299,8 +299,8 @@ tasks:
     - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ .namespace }}-tree"
     - "REPO={{ .repohttp }}"
     - "REPO_BRANCH={{ .repobranch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     {{- if eq .enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}

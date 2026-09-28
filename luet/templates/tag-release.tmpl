@@ -92,7 +92,7 @@ tasks:
 
     - >-
       anise repo update &&
-      anise install utils/jq utils/yq net-misc/openssh system/luet-build &&
+      anise install utils/jq utils/yq net-misc/openssh system/anise-build &&
       anise miner reinstall-package virtual/base &&
       anise cleanup &&
       env-update &&
@@ -115,8 +115,8 @@ tasks:
     - "REPO={{ .repossh }}"
     - "RELEASE={{ .release }}"
     - "CODENAME={{ .codename }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     image: macaroni/phoenix-builder
     storage: geaaru-github
     storage_path: /storage

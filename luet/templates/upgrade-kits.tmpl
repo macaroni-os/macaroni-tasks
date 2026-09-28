@@ -1,14 +1,14 @@
-# Author: Daniele Rondina <geaaru@gmail.com>
+# Author: Daniele Rondina <geaaru@macaronios.org>
 # Description: This task permits to bump a new revisions
 #              of the selected kits used by the seed/funtoo-kits
 #              and toolchain/meta-repo packages.
 
-name: "Luet Upgrade Kits <{{ .namespace }}> - Bump revision"
+name: "Anise Upgrade Kits <{{ .namespace }}> - Bump revision"
 script:
 
 - >-
   anise repo update --force &&
-  anise install utils/jq utils/yq net-misc/openssh system/luet-build macaroni/ctl mark-devkit anise-portage-converter &&
+  anise install utils/jq utils/yq net-misc/openssh app-admin/anise-build macaroni/ctl mark-devkit anise-portage-converter &&
   anise cleanup &&
   macaronictl env-update
 
@@ -16,7 +16,7 @@ script:
 - sh /storage/setup-ssh.sh
 - sh /storage/setup-git.sh
 
-- git clone ${REPO} -b ${REPO_BRANCH} /luet-repo
+- git clone ${REPO} -b ${REPO_BRANCH} /anise-repo
 - git clone ${KIT_FIXUPS} -b ${KIT_FIXUPS_BRANCH} /kit-fixups
 
 # Create the reposcan files
@@ -26,26 +26,26 @@ script:
   --kit-cache-dir /kit-cache/
 
 # Copy the new kits.yaml files to seeds/funtoo-kits
-- cp -v /kit-fixups/kits.yaml /luet-repo/packages/seeds/funtoo-kits/kits-versions/
+- cp -v /kit-fixups/kits.yaml /anise-repo/packages/seeds/funtoo-kits/kits-versions/
 
 - >-
-  cd /luet-repo &&
+  cd /anise-repo &&
   export changes=$(git status -s | grep "M " | wc -l ) &&
   if [ "${changes}" != "0" ] ; then
-  fkv=$(yq r /luet-repo/packages/seeds/funtoo-kits/definition.yaml 'version') &&
+  fkv=$(yq r /anise-repo/packages/seeds/funtoo-kits/definition.yaml 'version') &&
   nv="0.$(date '+%Y%m%d')" &&
   tbump_opts="" &&
   if [ "${fkv}" != "${nv}" ] ; then
   tbump_opts="${tbump_opts} -p ${nv}" ;
   fi &&
-  luet-build tree bump -f /luet-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
-  luet-build tree bump -f /luet-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
+  anise-build tree bump -f /anise-repo/packages/seeds/funtoo-kits/definition.yaml ${tbump_opts} &&
+  anise-build tree bump -f /anise-repo/packages/toolchain/meta-repo/definition.yaml ${tbump_opts} &&
   if [ -n "${SEEDS2BUMP}" ] ; then
   for i in ${SEEDS2BUMP} ; do
   name=$(echo $i | cut -d'/' -f2) ;
-  luet-build tree bump -f /luet-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
-  if [ -d /luet-repo/packages/seed/${name}/pkglist ] ; then
-  luet-build tree bump -f /luet-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
+  anise-build tree bump -f /anise-repo/packages/seeds/${name}/definition.yaml ${tbump_opts} ;
+  if [ -d /anise-repo/packages/seed/${name}/pkglist ] ; then
+  anise-build tree bump -f /anise-repo/packages/seeds/${name}/pkglist/definition.yaml ${tbump_opts} ;
   fi ;
   done ;
   fi ;
@@ -71,8 +71,8 @@ environment:
 - "KITS_2UPGRADE={{ .kits2upgrade }}"
 - "SEEDS2BUMP={{ .seeds2bump }}"
 
-- LUET_SYSTEM__TMPDIR_BASE=/luettmp
-- LUET_YES=true
+- ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+- ANISE_YES=true
 image: macaroni/phoenix-builder
 storage: geaaru-github
 storage_path: /storage

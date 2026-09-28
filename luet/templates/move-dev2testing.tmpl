@@ -39,7 +39,7 @@ tasks:
 #    - >-
 #      anise repo update &&
 #      anise upgrade &&
-#      anise miner replace-package system/luet-build --for system/luet-build-testing &&
+#      anise miner replace-package system/anise-build --for system/anise-build-testing &&
 #      anise cleanup --purge-repos
 #    {{- end }}
     - >-
@@ -61,7 +61,7 @@ tasks:
     - LUET_YES=true
     - COMPRESSION=zstd
     - NAMESPACE={{ .namespace }}
-    - "BUILD_ARGS=--config conf/luet.yaml"
+    - "BUILD_ARGS=--config conf/anise.yaml"
     image: macaroni/phoenix-builder
     artefact_path: artefacts
     type: lxd

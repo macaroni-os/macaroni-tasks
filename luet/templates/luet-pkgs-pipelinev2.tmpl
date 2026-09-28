@@ -1,6 +1,6 @@
 # Description: Pipeline for build Macaroni Packages
 
-pipeline_name: "Build Luet Packages <{{ .namespace }}> (v2) - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
+pipeline_name: "Build Anise Packages <{{ .namespace }}> (v2) - {{ dateInZone "2006-01-02T15:04:05.000Z" (now) "UTC" }}"
 
 {{- $reponame := .namespace }}
 {{- $enable_docker_host := .enable_docker_host }}
@@ -38,7 +38,7 @@ tasks:
     #- >-
     #  anise repo update &&
     #  anise upgrade &&
-    #  anise miner replace-package system/luet-build --for system/luet-build-testing &&
+    #  anise miner replace-package system/anise-build --for system/anise-build-testing &&
     #  anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
@@ -73,8 +73,8 @@ tasks:
     - "REPO_CACHE=docker-registry1.mottainai.local:5000/anise-{{ $reponame }}-tree"
     - "REPO={{ $repo }}"
     - "REPO_BRANCH={{ $branch }}"
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     {{- if eq $enable_docker_host "true" }}
     - DOCKER_HOST=docker-overlay2.mottainai.local:2376
     {{- end }}
@@ -120,11 +120,11 @@ tasks:
     - "REPO_BRANCH={{ $branch }}"
     - "REPO={{ $repo }}"
     - "SUDO="
-    - LUET_SYSTEM__TMPDIR_BASE=/anisetmp
-    - LUET_YES=true
+    - ANISE_SYSTEM__TMPDIR_BASE=/anisetmp
+    - ANISE_YES=true
     - COMPRESSION=zstd
     - NAMESPACE={{ $reponame }}
-    - "BUILD_ARGS=--config conf/luet.yaml"
+    - "BUILD_ARGS=--config conf/anise.yaml"
     image: macaroni/phoenix-builder
     artefact_path: artefacts
     type: lxd
