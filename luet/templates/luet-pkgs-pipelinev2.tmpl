@@ -107,7 +107,7 @@ tasks:
     - ls -l build/
     - >-
       anise repo update &&
-      anise upgrade &&
+      anise upgrade -y &&
       anise cleanup --purge-repos
     - make create-repo
     - rm build/*.metadata.yaml -v && mv build/* ../artefacts/

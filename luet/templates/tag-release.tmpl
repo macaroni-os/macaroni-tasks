@@ -92,7 +92,7 @@ tasks:
 
     - >-
       anise repo update &&
-      anise install utils/jq utils/yq net-misc/openssh system/anise-build &&
+      anise install -y utils/jq utils/yq net-misc/openssh system/anise-build &&
       anise miner reinstall-package virtual/base &&
       anise cleanup &&
       env-update &&

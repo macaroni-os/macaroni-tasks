@@ -54,8 +54,8 @@ tasks:
 
     - >-
       anise repo update --force &&
-      anise i --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin pkgs-checker &&
-      anise upgrade &&
+      anise i -y --sync-repos net-misc/openssh mark-devkit app-admin/anise-portage-converter yq3-bin pkgs-checker &&
+      anise upgrade -y &&
       anise cleanup &&
       macaronictl env-update
 
@@ -151,7 +151,7 @@ tasks:
     - source /storage/prepare-luet.sh
     - >-
       anise repo update &&
-      anise upgrade &&
+      anise upgrade -y &&
       anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}

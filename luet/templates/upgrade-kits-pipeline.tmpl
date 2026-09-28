@@ -155,7 +155,7 @@ tasks:
     - source /storage/prepare-luet.sh
     - >-
       anise repo update &&
-      anise upgrade &&
+      anise upgrade -y &&
       anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
@@ -272,7 +272,7 @@ tasks:
     - source /storage/prepare-luet.sh
     - >-
       anise repo update &&
-      anise upgrade &&
+      anise upgrade -y &&
       anise cleanup --purge-repos
     - >-
       docker login -u ${registry_user} -p ${registry_pass}
