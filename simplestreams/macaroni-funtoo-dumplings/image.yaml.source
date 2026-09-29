@@ -369,7 +369,7 @@ actions:
       yq w /etc/anise/anise.yaml 'subsets_defdir[0]' '/etc/anise/subsets.def.d/'  -i
       anise repo update
       ls -l /etc/anise/
-      anise reinstall -d $(anise s --installed .) -y
+      anise miner reinstall-package -d $(anise s --installed .) -y
       anise rm ${pkgs2remove[@]} -y
       anise cleanup --purge-repos
 
