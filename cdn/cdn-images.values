@@ -473,6 +473,11 @@ values:
           domain: images.macaronios.org
           cdnid: "1824890356"
           cdnprefix: "/"
+        - type: cdn77
+          domain: images-dev.macaronios.org
+          cdnid: "1294295185"
+          cdnprefix: "/"
+
 
     # Macaroni website
     - name: "www"
