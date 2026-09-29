@@ -472,11 +472,11 @@ values:
         - type: cdn77
           domain: images.macaronios.org
           cdnid: "1824890356"
-          cdnprefix: "/lxd-images/"
+          cdnprefix: "/"
         - type: cdn77
           domain: images-dev.macaronios.org
           cdnid: "1294295185"
-          cdnprefix: "/lxd-images/"
+          cdnprefix: "/"
 
 
     # Macaroni website
