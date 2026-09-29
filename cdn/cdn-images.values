@@ -473,9 +473,8 @@ values:
           domain: images.macaronios.org
           cdnid: "1824890356"
           cdnprefix: "/"
-        - type: cdn77
+        - type: cloudflare
           domain: images-dev.macaronios.org
-          cdnid: "1294295185"
           cdnprefix: "/"
 
 
