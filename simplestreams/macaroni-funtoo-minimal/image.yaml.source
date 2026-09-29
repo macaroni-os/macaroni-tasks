@@ -79,13 +79,13 @@ packages:
     - packages:
         - sys-apps/corenetwork
         - app-admin/eselect
+        - app-arch/zstd
         - net-misc/dhcp
         - sys-process/procps
 
         # Setup tools
-        - macaroni/ctl
-        - macaroni/whip-catalog
-        - whip-profiles/macaroni
+        - macaronictl
+        - sys-apps/whip-catalog
         - app-admin/whip
         - virtual/base
 
@@ -157,10 +157,9 @@ actions:
 
       pkgs2remove=(
         system/entities
-        whip-profiles/macaroni
-        macaroni/whip-catalog
+        sys-apps/whip-catalog
         macaroni/entities-catalog
-        app-admin/macaronictl-thin
+        app-admin/macaronictl
         app-admin/whip
         utils/yq
         utils/jq
