@@ -172,8 +172,7 @@ tasks:
     # Error: Error met while extracting image: Could not create tempdir: stat /build/build: no such file or directory
     - cd /build && mkdir build/ && make rebuild
     - >-
-      rm -rf build/build &&
-      cp -v build/* /artefacts/
+      cp -v build/*.yaml build/*.package.* build/*.extra-metadata.* /artefacts/
     environment:
     {{- if eq .enable_buildkit "true" }}
     - "BUILDKIT_PROGRESS=plain"
