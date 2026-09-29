@@ -97,10 +97,13 @@ packages:
         - binutils
         - sys-devel/gcc-config
 
-        - system/anise-build
+        - app-admin/anise-build
         - system/luet-devkit
 
+        - dev-util/anise-repo-devkit
+        - dev-util/mark-devkit
         - dev-util/debootstrap
+
         - app-emulation/distrobuilder
         - app-emulation/simplestreams-builder
         - app-emulation/lxd
