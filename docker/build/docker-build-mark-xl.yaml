@@ -5,7 +5,7 @@ script:
 - anise repo disable mottainai-stable
 # temporary
 - >-
-  rm /etc/anise/repos.conf.d/geaaru-repo-index.yaml
+  eval 'rm /etc/anise/repos.conf.d/geaaru-repo-index.yml || true'
 - >-
   anise repo update --force &&
   anise i repository/mark -y &&
