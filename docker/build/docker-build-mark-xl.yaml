@@ -3,10 +3,13 @@ storage: "docker-mos-creds"
 storage_path: /storage
 script:
 - anise repo disable mottainai-stable
+# temporary
+- >-
+  rm /etc/anise/repos.conf.d/geaaru-repo-index.yaml
 - >-
   anise repo update --force &&
   anise i repository/mark -y &&
-  luet upgrade --sync-repos -y &&
+  anise upgrade --sync-repos -y &&
   macaronictl env-update
 - source /storage/setup-docker-mos.sh
 - >-
