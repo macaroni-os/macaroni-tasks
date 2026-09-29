@@ -232,6 +232,9 @@ actions:
     action: |-
       #!/bin/bash
       anise cleanup --purge-repos
+      # Temporary fix
+      rm /etc/anise/repos.conf.d/geaaru-repo-index.yml || true
+      anise repo list
 
 mappings:
   architecture_map: funtoo
