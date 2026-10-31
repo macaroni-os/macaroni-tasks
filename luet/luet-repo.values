@@ -206,6 +206,9 @@ values:
       mark_release: mark-xl
       kits_package_path: seeds/mark-kits
       kits_package: seed/mark-kits
+      meta_pkgs:
+        - toolchain/meta-repo
+        - reposcan/meta-eagle
       seeds2bump:
         - seed/mark-base
         #- seed/mark-stage3
