@@ -81,6 +81,7 @@ packages:
         - utils/yq
         - sys-apps/corenetwork
         - sys-apps/openrc
+        - sys-apps/grep
         - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
         - app-admin/eselect
