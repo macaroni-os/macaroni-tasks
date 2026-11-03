@@ -94,6 +94,7 @@ packages:
         # NOTE: without gzip locale-gen doesn't work.
         - sys-apps/gzip
         - sys-apps/gawk
+        - sys-apps/which
 
         - app-admin/whip
         - app-admin/eselect
