@@ -91,6 +91,9 @@ packages:
         - sys-apps/whip-catalog
         - sys-apps/openrc
         - sys-apps/findutils
+        # NOTE: without gzip locale-gen doesn't work.
+        - sys-apps/gzip
+        - sys-apps/gawk
 
         - app-admin/whip
         - app-admin/eselect
