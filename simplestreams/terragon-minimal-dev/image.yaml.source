@@ -79,19 +79,21 @@ packages:
     - packages:
         - utils/jq
         - utils/yq
-        - sys-apps/corenetwork
-        - sys-apps/gentoo-functions
         - dev-libs-3/libpcre
-        - app-admin/eselect
         - net-misc/dhcp
         - net-libs/libmnl
+
         - sys-process/procps
+        - sys-apps/corenetwork
         - sys-auth/elogind
-        - macaroni/whip-catalog
-        - macaroni/ctl
-        - whip-profiles/macaroni
-        - app-admin/whip
+        - sys-apps/gentoo-functions
+        - sys-apps/grep
+        - sys-apps/whip-catalog
         - sys-apps/openrc
+        - sys-apps/findutils
+
+        - app-admin/whip
+        - app-admin/eselect
 
         # Needed for grep until FL-10719 is done
         - dev-libs/libpcre2
