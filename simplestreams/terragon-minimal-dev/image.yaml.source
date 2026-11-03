@@ -77,6 +77,8 @@ packages:
 
   sets:
     - packages:
+        - app-arch/gzip
+
         - utils/jq
         - utils/yq
         - dev-libs-3/libpcre
@@ -92,7 +94,6 @@ packages:
         - sys-apps/openrc
         - sys-apps/findutils
         # NOTE: without gzip locale-gen doesn't work.
-        - sys-apps/gzip
         - sys-apps/gawk
         - sys-apps/which
 
@@ -116,6 +117,9 @@ actions:
       ff02::2    ip6-allrouters
       " > /etc/hosts
       echo "macaroni" > /etc/hostname
+
+      eval 'mkdir /tmp || true'
+      chmod a+rwx /tmp
 
   - trigger: post-packages
     action: |-
