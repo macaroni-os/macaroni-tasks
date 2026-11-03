@@ -77,20 +77,27 @@ packages:
 
   sets:
     - packages:
+        - app-arch/gzip
+
         - utils/jq
         - utils/yq
-        - sys-apps/corenetwork
-        - sys-apps/gentoo-functions
-        - sys-apps/openrc
         - dev-libs-3/libpcre
-        - app-admin/eselect
         - net-misc/dhcp
         - net-libs/libmnl
+
         - sys-process/procps
+
+        - sys-apps/corenetwork
+        - sys-apps/openrc
+        - sys-apps/grep
+        - sys-apps/gawk
+        - sys-apps/gentoo-functions
+        - sys-apps/whip-catalog
+        - sys-apps/which
+
         - sys-auth/elogind
-        - macaroni/whip-catalog
-        - macaroni/ctl
-        - whip-profiles/macaroni
+
+        - app-admin/eselect
         - app-admin/whip
 
         - dev-libs/libpcre2

@@ -77,21 +77,29 @@ packages:
 
   sets:
     - packages:
+        - app-arch/gzip
+
         - utils/jq
         - utils/yq
-        - sys-apps/openrc
-        - sys-apps/coreutils
-        - sys-apps/gentoo-functions
-        - sys-apps/corenetwork
+
         - dev-libs-3/libpcre
-        - app-admin/eselect
         - net-misc/dhcp
         - net-libs/libmnl
+
         - sys-process/procps
+
+        - sys-apps/corenetwork
+        - sys-apps/coreutils
+        - sys-apps/openrc
+        - sys-apps/grep
+        - sys-apps/gawk
+        - sys-apps/gentoo-functions
+        - sys-apps/whip-catalog
+        - sys-apps/which
+
         - sys-auth/elogind
-        - macaroni/whip-catalog
-        - macaroni/ctl
-        - whip-profiles/macaroni
+
+        - app-admin/eselect
         - app-admin/whip
 
         # Needed for grep until FL-10719 is done

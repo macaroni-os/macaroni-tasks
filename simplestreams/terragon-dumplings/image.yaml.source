@@ -78,18 +78,28 @@ packages:
 
   sets:
     - packages:
-        - sys-apps/corenetwork
-        - sys-apps/openrc
+        - app-arch/gzip
+
         - dev-libs-3/libpcre
-        - app-admin/eselect
         - net-misc/dhcp
         - net-libs/libmnl
-        - sys-process/procps
+
+        - sys-apps/corenetwork
+        - sys-apps/grep
+        - sys-apps/gawk
+        - sys-apps/gentoo-functions
+        - sys-apps/openrc
+        - sys-apps/whip-catalog
+        - sys-apps/which
+
         - sys-auth/elogind
-        - whip-profiles/macaroni
-        - app-admin/whip
-        - macaroni/whip-catalog
+
+        - sys-process/procps
+
         - utils/yq
+
+        - app-admin/eselect
+        - app-admin/whip
 
         # Needed for openrc setup scripts
         - sys-apps/gentoo-functions

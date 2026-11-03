@@ -86,8 +86,8 @@ packages:
         - net-libs/libmnl
 
         - sys-process/procps
+
         - sys-apps/corenetwork
-        - sys-auth/elogind
         - sys-apps/gentoo-functions
         - sys-apps/grep
         - sys-apps/whip-catalog
@@ -96,6 +96,8 @@ packages:
         # NOTE: without gzip locale-gen doesn't work.
         - sys-apps/gawk
         - sys-apps/which
+
+        - sys-auth/elogind
 
         - app-admin/whip
         - app-admin/eselect
