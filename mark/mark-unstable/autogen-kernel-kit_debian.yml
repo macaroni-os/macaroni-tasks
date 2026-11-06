@@ -38,7 +38,7 @@ environment:
 - "CONCURRENCY=30"
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
-- "MARK_SPECS=debian.yml"
+- "MARK_SPECS=kernel-sources.yml"
 - "MARK_KITFILE=debian.yml"
 image: macaroni/phoenix-builder
 type: lxd
