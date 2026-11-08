@@ -102,6 +102,7 @@ prepare_markdevkit_release_tasks() {
     specs=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].specs | join(\" \")" ${mark_values} -M)
     planned=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].planned // \"\"" ${mark_values} -M)
     queue=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].queue // \"\"" ${mark_values} -M)
+    postfix=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].postfix // \"\"" ${mark_values} -M)
 
     opts=""
 
@@ -118,8 +119,10 @@ prepare_markdevkit_release_tasks() {
       mode="merge"
     fi
 
-    local postfix=""
     if [ "${mode}" == "merge" ] ; then
+      postfix="${postfix/.yml/}"
+      postfix="${postfix/.yaml/}.yaml"
+
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-merge.tmpl \
         -s kitfixups_repo="${kitfixups_url}" \
         -s kitfixups_branch="${kitfixups_branch}" \
@@ -136,10 +139,17 @@ prepare_markdevkit_release_tasks() {
         -s release="${release}" \
         -s specs="${specs[@]}" \
         -s withpr="${withpr}" \
-        -o ${specs_dir}/${release}/clean-${kit}-${mode}${postfix}.yaml || return 1
+        -o ${specs_dir}/${release}/clean-${kit}-${mode}${postfix} || return 1
     else
       kitfile=$(yq4 e ".values.releases[\"${release}\"].kits[\"${i}\"].kitfile" ${mark_values} -M)
-      postfix="-${kitfile/.yml/}"
+      if [ -z "${postfix}" ] ; then
+        postfix="${kitfile/.yml/}"
+        postfix="${postfix/.yaml/}.yaml"
+      else
+        postfix="${postfix/.yml/}"
+        postfix="${postfix/.yaml/}.yaml"
+      fi
+
       # autogen mode
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-autogen.tmpl \
         -s kitfixups_repo="${kitfixups_url}" \
@@ -150,7 +160,7 @@ prepare_markdevkit_release_tasks() {
         -s specs="${specs[@]}" \
         -s withpr="${withpr}" \
         -s prefix="${s3prefix}" \
-        -o ${specs_dir}/${release}/autogen-${kit}_${kitfile} || return 1
+        -o ${specs_dir}/${release}/autogen-${kit}_${postfix} || return 1
 
       mottainai-cli task compile ${specs_dir}/templates/mark-devkit-clean.tmpl \
         -s kitfixups_repo="${kitfixups_url}" \
@@ -159,7 +169,7 @@ prepare_markdevkit_release_tasks() {
         -s release="${release}" \
         -s specs="${kitfile}" \
         -s withpr="${withpr}" \
-        -o ${specs_dir}/${release}/clean-${kit}-${mode}${postfix}.yaml || return 1
+        -o ${specs_dir}/${release}/clean-${kit}-${mode}-${postfix} || return 1
 
     fi
 
