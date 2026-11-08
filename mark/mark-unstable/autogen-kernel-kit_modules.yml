@@ -5,6 +5,7 @@ script:
 # dev-python/requests: needed for debian-sources autogen
 - >-
   anise repo update &&
+  anise upgrade -y &&
   anise i -y mark-devkit anise-portage-converter minio-client j2cli patch
   dev-python/requests
 
