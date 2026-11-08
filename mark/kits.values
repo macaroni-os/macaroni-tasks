@@ -1486,6 +1486,15 @@ values:
           kitfile: portage.yml
           planned: "@weekly"
 
+        - kit: portage-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          specs:
+            - base.yml
+          kitfile: base_autogen.yml
+          planned: "@weekly"
+
         - kit: python-kit
           with_pr: true
           queue: topix

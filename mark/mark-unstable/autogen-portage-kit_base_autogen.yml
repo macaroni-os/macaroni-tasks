@@ -40,7 +40,7 @@ environment:
 - "REPO_BRANCH=mark-unstable"
 - "REPO=https://github.com/macaroni-os/kit-fixups"
 - "MARK_SPECS=base.yml"
-- "MARK_KITFILE=portage.yml"
+- "MARK_KITFILE=base_autogen.yml"
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
