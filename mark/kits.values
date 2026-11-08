@@ -1299,6 +1299,7 @@ values:
         - kit: core-server-kit
           with_pr: true
           queue: "topix"
+          postfix: "cilium.yml"
           kitfile: net-base_autogen.yml
           mode: autogen
           specs:

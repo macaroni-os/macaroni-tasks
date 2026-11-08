@@ -31,7 +31,7 @@ environment:
 image: macaroni/phoenix-builder
 type: lxd
 queue: "topix"
-planned: "@weekly"
+planned: "@daily"
 
 # vim: filetype=yaml
 
