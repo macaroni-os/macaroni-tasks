@@ -1360,6 +1360,15 @@ values:
           specs:
             - editors.yml
 
+        - kit: editors-kit
+          with_pr: true
+          queue: topix
+          mode: autogen
+          kitfile: editors_autogen.yml
+          specs:
+            - base.yml
+          planned: "@weekly"
+
         - kit: java-kit
           with_pr: true
           queue: topix
