@@ -1,0 +1,31 @@
+# Author: Daniele Rondina <geaaru@macaronios.org>
+# Description: This task permits to purge repo core files.
+
+name: "Purge files from CDN resource (mfs-dev)"
+type: "lxd"
+
+storage: "cloudflare,cdn77"
+storage_path: /storage
+entrypoint:
+- /bin/sh
+- "-c"
+script:
+  #- anise i --sync-repos --purge-repos -y utils/jq utils/yq git
+- >-
+  anise i --sync-repos repository/mottainai-stable -y &&
+  anise i --sync-repos utils/yq utils/jq --force -y &&
+  anise repo disable mottainai-stable
+- >-
+  git clone https://github.com/macaroni-os/macaroni-tasks.git
+  /macaroni-tasks &&
+  cd /macaroni-tasks &&
+  source /storage/cloudflare.env &&
+  source /storage/cdn77.env &&
+  export NAME=${NAME} &&
+  export CDN77_TOKEN CLOUDFLARE_TOKEN CLOUDFLARE_ZONEID &&
+  cdn/api/purge-repo-files.sh
+image: "macaroni/phoenix-builder"
+environment:
+- "NAME=mfs-dev"
+
+# vim: filetype=yaml

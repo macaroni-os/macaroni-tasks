@@ -567,4 +567,23 @@ values:
           cdnid: "1494843915"
           cdnprefix: "/repos/"
 
+    # Macaroni MF Development
+    - name: "mfs-dev"
+      namespace: "mfs-dev"
+      purgefiles:
+        <<: *purgerepo
+      cdn_services:
+        #- type: cloudflare
+        #  cdnprefix: "/"
+        #  domain: dev.macaronios.org
+        - type: cdn77
+          domain: "dev77.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
+        - type: cdn77
+          domain: "dev.macaronios.org"
+          cdnid: "1294295185"
+          cdnprefix: "/"
+
+
 # vim: filetype=yaml
