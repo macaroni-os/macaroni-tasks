@@ -210,7 +210,7 @@ values:
         - toolchain/meta-repo
         - reposcan/meta-eagle
       seeds2bump:
-        - seed/mark-base
+        #- seed/mark-base
         #- seed/mark-stage3
         #- seed/macaroni-funtoo-stage
         #- seed/macaroni-funtoo-base
