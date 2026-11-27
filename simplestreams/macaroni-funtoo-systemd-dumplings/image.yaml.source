@@ -93,8 +93,7 @@ packages:
         - app-crypt/p11-kit
         # Needed by systemd (to fix in rdeps)
         - app-arch/zstd
-        # Needed for env-update
-        - sys-apps/portage
+        - sys-apps/locale-gen
 
         # Setup /bin/sh and /bin/awk
         - virtual/base
@@ -421,7 +420,6 @@ actions:
         dev-libs/gobject-introspection-common
         dev-util/gdbus-codegen
         system/entities
-        whip-profiles/macaroni
         macaroni/whip-catalog
         macaroni/entities-catalog
         app-admin/whip

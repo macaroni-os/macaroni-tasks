@@ -97,9 +97,9 @@ packages:
 
         - macaroni/ctl
         - macaroni/whip-catalog
-        - whip-profiles/macaroni
         - app-admin/whip
 
+        - locale-gen
         - sys-apps/baselayout
 
       action: install

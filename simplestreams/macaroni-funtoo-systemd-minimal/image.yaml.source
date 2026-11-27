@@ -93,6 +93,7 @@ packages:
 
         # Needed for correctly login through /dev/console
         - sys-apps/baselayout
+        - locale-gen
 
       action: install
 
